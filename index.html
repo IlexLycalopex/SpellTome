@@ -756,6 +756,213 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .print-page .spell-card .card-source { font-size: 0.46rem !important; padding: 2px 6px 4px !important; }
 }
 
+/* ============================================================
+   MOBILE & TABLET RESPONSIVE
+   ============================================================ */
+
+/* Tablet (768px – 1024px) */
+@media (max-width: 1024px) {
+  #card-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 14px;
+    padding: 16px;
+  }
+  .filter-bar {
+    gap: 10px;
+    padding: 10px 16px;
+  }
+  .filter-group { gap: 4px; }
+  .pill { padding: 3px 8px; font-size: 0.72rem; }
+}
+
+/* Mobile (up to 768px) */
+@media (max-width: 768px) {
+  /* Header */
+  #app-header { position: sticky; top: 0; }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px 6px;
+  }
+
+  .app-title { font-size: 1.1rem; }
+  .app-title span { font-size: 0.72rem; }
+
+  .header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .header-actions .selection-badge {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+
+  .header-actions .btn {
+    font-size: 0.72rem;
+    padding: 5px 10px;
+  }
+
+  .header-actions #btn-print {
+    flex: 1 1 auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Filter bar: scrollable horizontal strip on mobile */
+  .filter-bar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 14px;
+    overflow-x: visible;
+  }
+
+  .filter-group {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .filter-label {
+    min-width: 72px;
+    font-size: 0.68rem;
+  }
+
+  .pill-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .pill {
+    padding: 3px 8px;
+    font-size: 0.68rem;
+    border-radius: 12px;
+  }
+
+  select, .search-input {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+    width: 100%;
+  }
+
+  .filter-divider { display: none; }
+
+  /* Card grid: 2 columns on mobile */
+  #card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  /* Compact card sizing on mobile */
+  .spell-card {
+    min-width: 0;
+    font-size: 0.8rem;
+  }
+
+  .card-header {
+    padding: 6px 8px;
+    min-height: 40px;
+    gap: 5px;
+  }
+
+  .card-school-icon {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+  }
+
+  .card-spell-name {
+    font-size: 0.75rem;
+  }
+
+  .card-level-badge {
+    font-size: 0.62rem;
+  }
+
+  .card-stats {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    gap: 2px;
+  }
+
+  .card-flavor {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .card-description {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .card-source {
+    padding: 2px 8px 5px;
+    font-size: 0.62rem;
+  }
+
+  .component-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .component-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Results bar */
+  #results-bar {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+
+  /* Empty state */
+  #empty-state { padding: 40px 20px; }
+  #empty-state h2 { font-size: 1.2rem; }
+  #empty-state p { font-size: 0.85rem; }
+  .rune { font-size: 2.5rem; }
+
+  /* Print preview modal: full screen on mobile */
+  #print-preview-overlay .preview-inner {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    border-radius: 0;
+    padding: 12px;
+  }
+
+  .preview-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .preview-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .preview-actions .btn { flex: 1; text-align: center; }
+}
+
+/* Very small phones (under 420px): single column */
+@media (max-width: 420px) {
+  #card-grid {
+    grid-template-columns: 1fr !important;
+    padding: 10px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -764,7 +971,8 @@ input[type="text"]::placeholder { color: #6a6a80; }
     <div class="app-title">Spell Tome <span>D&amp;D 5e &middot; 2014</span></div>
     <div class="header-actions">
       <span class="selection-badge" id="selection-count">0 selected</span>
-      <button class="btn btn-ghost" id="btn-clear" onclick="clearSelection()">Clear</button>
+      <button class="btn btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
+      <button class="btn btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
       <button class="btn btn-print" id="btn-print" disabled onclick="openPrintPreview()">&#128424; Print to PDF</button>
     </div>
   </div>
@@ -1196,7 +1404,78 @@ const SPELLS = [
   { id:"true-polymorph", name:"True Polymorph", level:9, school:"Transmutation", range:"30 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Bard","Warlock","Wizard"], description:"Choose one creature or nonmagical object that you can see within range. You transform the creature into a different creature, the creature into a nonmagical object, or the object into a creature (the object must be neither worn nor carried by another creature). The transformation lasts for the duration, or until the target drops to 0 hit points or dies.", source:"PHB 283" },
   { id:"true-resurrection", name:"True Resurrection", level:9, school:"Necromancy", range:"Touch", duration:"Instantaneous", casting_time:"1 hour", components:["V","S","M"], ritual:false, concentration:false, classes:["Cleric","Druid"], description:"You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age. If the creature's soul is free and willing, the creature is restored to life with all its hit points.", source:"PHB 284" },
   { id:"weird", name:"Weird", level:9, school:"Illusion", range:"120 ft", duration:"1 minute", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Wizard"], description:"Drawing on the deepest fears of a group of creatures, you create illusory creatures in their minds, visible only to them. Each creature in a 30-foot-radius sphere centered on a point of your choice within range must make a Wisdom saving throw. On a failed save, the creature becomes frightened for the duration.", source:"PHB 288" },
-  { id:"wish", name:"Wish", level:9, school:"Conjuration", range:"Self", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"Wish is the mightiest spell a mortal creature can cast. By simply speaking aloud, you can alter the very foundations of reality in accord with your desires. The basic use of this spell is to duplicate any other spell of 8th level or lower. You don't need to meet any requirements in that spell, including costly components. The spell simply takes effect.", source:"PHB 288" }
+  { id:"wish", name:"Wish", level:9, school:"Conjuration", range:"Self", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"Wish is the mightiest spell a mortal creature can cast. By simply speaking aloud, you can alter the very foundations of reality in accord with your desires. The basic use of this spell is to duplicate any other spell of 8th level or lower. You don't need to meet any requirements in that spell, including costly components. The spell simply takes effect.",   { id:"wish", name:"Wish", level:9, school:"Conjuration", range:"Self", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"Wish is the mightiest spell a mortal creature can cast. By simply speaking aloud, you can alter the very foundations of reality in accord with your desires. The basic use of this spell is to duplicate any other spell of 8th level or lower. You don't need to meet any requirements in that spell, including costly components. The spell simply takes effect.", source:"PHB 288" },
+
+  // ========== XANATHAR'S GUIDE (additional spells) ==========
+  { id:"create-bonfire", name:"Create Bonfire", level:0, school:"Conjuration", range:"60 ft", duration:"1 minute", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there.", source:"XGE 152" },
+  { id:"frostbite", name:"Frostbite", level:0, school:"Evocation", range:"60 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S"], ritual:false, concentration:false, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.", source:"XGE 156" },
+  { id:"green-flame-blade", name:"Green-Flame Blade", level:0, school:"Evocation", range:"Self (5-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects, and you can cause green fire to leap from the target to a different creature of your choice within 5 feet of it.", source:"XGE 163" },
+  { id:"lightning-lure", name:"Lightning Lure", level:0, school:"Evocation", range:"Self (15-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"You create a lash of lightning energy that strikes at one creature of your choice that you can see within 15 feet of you. The target must succeed on a Strength saving throw or be pulled up to 10 feet in a straight line toward you and then take 1d8 lightning damage if it is within 5 feet of you.", source:"XGE 164" },
+  { id:"sword-burst", name:"Sword Burst", level:0, school:"Conjuration", range:"Self (5-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"You create a momentary circle of spectral blades that sweep around you. All other creatures within 5 feet of you must succeed on a Dexterity saving throw or take 1d6 force damage.", source:"XGE 170" },
+  { id:"zephyr-strike", name:"Zephyr Strike", level:1, school:"Transmutation", range:"Self", duration:"1 minute", casting_time:"1 bonus action", components:["V"], ritual:false, concentration:true, classes:["Ranger"], description:"You move like the wind. Until the spell ends, your movement doesn't provoke opportunity attacks. Once before the spell ends, you can give yourself advantage on one weapon attack roll on your turn. That attack deals an extra 1d8 force damage on a hit.", source:"XGE 171" },
+  { id:"aganazzars-scorcher", name:"Aganazzar's Scorcher", level:2, school:"Evocation", range:"30 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"A line of roaring flame 30 feet long and 5 feet wide emanates from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 3d8 fire damage on a failed save, or half as much damage on a successful one.", source:"XGE 150", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd." },
+  { id:"healing-spirit", name:"Healing Spirit", level:2, school:"Conjuration", range:"60 ft", duration:"1 minute", casting_time:"1 bonus action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Ranger"], description:"You call forth a nature spirit to soothe the wounded. The intangible spirit appears in a space that is a 5-foot cube you can see within range. Until the spell ends, whenever you or a creature you can see moves into the spirit's space for the first time on a turn or starts its turn there, you can cause the spirit to restore 1d6 hit points to that creature.", source:"XGE 157", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, the healing increases by 1d6 for each slot level above 2nd." },
+  { id:"maximillians-earthen-grasp", name:"Maximilian's Earthen Grasp", level:2, school:"Transmutation", range:"30 ft", duration:"1 minute", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Sorcerer","Wizard"], description:"You choose a 5-foot-square unoccupied space on the ground that you can see within range. A Medium hand made from compacted soil rises there and reaches for one creature you can see within 5 feet of it. The target must make a Strength saving throw. On a failed save, the target takes 2d6 bludgeoning damage and is restrained for the spell's duration.", source:"XGE 161", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d6 for each slot level above 2nd." },
+  { id:"pyrotechnics", name:"Pyrotechnics", level:2, school:"Transmutation", range:"60 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S"], ritual:false, concentration:false, classes:["Bard","Sorcerer","Wizard"], description:"Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke.", source:"XGE 163" },
+  { id:"shadow-blade", name:"Shadow Blade", level:2, school:"Illusion", range:"Self", duration:"1 minute", casting_time:"1 bonus action", components:["V","S"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"You weave together threads of shadow to create a sword of solidified gloom in your hand. This magic sword lasts until the spell ends. It counts as a simple melee weapon with which you are proficient. It deals 2d8 psychic damage on a hit and has the finesse, light, and thrown properties.", source:"XGE 164", higher_levels:"When you cast this spell using a 3rd- or 4th-level spell slot, the damage increases to 3d8. When you cast it using a 5th- or 6th-level slot, the damage increases to 4d8. With a 7th-level slot or higher, it increases to 5d8." },
+  { id:"snillocs-snowball-swarm", name:"Snilloc's Snowball Swarm", level:2, school:"Evocation", range:"90 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"A flurry of magic snowballs erupts from a point you choose within range. Each creature in a 5-foot-radius sphere centered on that point must make a Dexterity saving throw. A creature takes 3d6 cold damage on a failed save, or half as much damage on a successful one.", source:"XGE 165", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d6 for each slot level above 2nd." },
+  { id:"warding-wind", name:"Warding Wind", level:2, school:"Evocation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V"], ritual:false, concentration:true, classes:["Bard","Druid","Sorcerer","Wizard"], description:"A strong wind (20 miles per hour) blows around you in a 10-foot radius and moves with you, remaining centered on you. The wind extinguishes unprotected flames in its area that are torch-sized or smaller. The area is difficult terrain for creatures other than you.", source:"XGE 171" },
+  { id:"erupting-earth", name:"Erupting Earth", level:3, school:"Transmutation", range:"120 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:false, classes:["Druid","Sorcerer","Wizard"], description:"Choose a point you can see on the ground within range. A fountain of churned earth and stone erupts in a 20-foot cube centered on that point. Each creature in that area must make a Dexterity saving throw. A creature takes 3d12 bludgeoning damage on a failed save, or half as much damage on a successful one.", source:"XGE 155", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d12 for each slot level above 3rd." },
+  { id:"flame-arrows", name:"Flame Arrows", level:3, school:"Transmutation", range:"Touch", duration:"1 hour", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Ranger","Sorcerer","Wizard"], description:"You touch a quiver containing arrows or bolts. When a target is hit by a ranged weapon attack using a piece of ammunition drawn from the quiver, the target takes an extra 1d6 fire damage. The spell ends when twelve pieces of ammunition have been drawn from the quiver.", source:"XGE 156", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, the number of pieces of ammunition you can affect increases by two for each slot level above 3rd." },
+  { id:"melf-s-minute-meteors", name:"Melf's Minute Meteors", level:3, school:"Evocation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Sorcerer","Wizard"], description:"You create six tiny meteors in your space. They float in the air and orbit you for the spell's duration. When you cast the spell—and as a bonus action on each of your turns thereafter—you can expend one or two of the meteors, sending them streaking toward one or two points within 120 feet of you.", source:"XGE 161", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, the number of meteors created increases by two for each slot level above 3rd." },
+  { id:"spirit-shroud", name:"Spirit Shroud", level:3, school:"Necromancy", range:"Self", duration:"1 minute", casting_time:"1 bonus action", components:["V","S"], ritual:false, concentration:true, classes:["Cleric","Paladin","Warlock","Wizard"], description:"You call forth spirits of the dead, which flit around you for the spell's duration. Until the spell ends, any attack you make deals 1d8 extra damage when you hit a creature within 10 feet of you. This damage is radiant, necrotic, or cold (your choice).", source:"XGE 166", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d8 for every two slot levels above 3rd." },
+  { id:"tiny-servant", name:"Tiny Servant", level:3, school:"Transmutation", range:"Touch", duration:"8 hours", casting_time:"1 minute", components:["V","S"], ritual:false, concentration:false, classes:["Wizard"], description:"You touch one Tiny, nonmagical object that isn't attached to another object or a surface and isn't being carried by another creature. The target animates and sprouts little arms and legs, becoming a creature under your control until the spell ends or the creature drops to 0 hit points.", source:"XGE 168", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, you can animate two additional objects for each slot level above 3rd." },
+  { id:"wall-of-sand", name:"Wall of Sand", level:3, school:"Evocation", range:"90 ft", duration:"10 minutes", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Wizard"], description:"You conjure up a wall of swirling sand on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 10 feet thick. It blocks line of sight but not movement. A creature is blinded while in the wall's space and must spend 3 feet of movement for every 1 foot it moves there.", source:"XGE 170" },
+  { id:"wall-of-water", name:"Wall of Water", level:3, school:"Evocation", range:"60 ft", duration:"10 minutes", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Wizard"], description:"You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or a ringed wall up to 20 feet in diameter.", source:"XGE 170" },
+  { id:"shadow-of-moil", name:"Shadow of Moil", level:4, school:"Necromancy", range:"Self", duration:"1 minute", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock"], description:"Flame-like shadows wreathe your body until the spell ends, causing you to become heavily obscured to others. The shadows turn dim light within 10 feet of you into darkness. Until the spell ends, you have resistance to radiant damage. Whenever a creature within 10 feet of you hits you with an attack, the shadows lash out at that creature, dealing it 2d8 necrotic damage.", source:"XGE 164" },
+  { id:"sickening-radiance", name:"Sickening Radiance", level:4, school:"Evocation", range:"120 ft", duration:"10 minutes", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"Dim, greenish light spreads within a 30-foot-radius sphere centered on a point you choose within range. When a creature moves into the spell's area for the first time on a turn or starts its turn there, that creature must succeed on a Constitution saving throw or take 4d10 radiant damage and suffer one level of exhaustion.", source:"XGE 164" },
+  { id:"storm-sphere", name:"Storm Sphere", level:4, school:"Evocation", range:"150 ft", duration:"1 minute", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Sorcerer","Wizard"], description:"A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage.", source:"XGE 166", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d6 for each slot level above 4th." },
+  { id:"vitriolic-sphere", name:"Vitriolic Sphere", level:4, school:"Evocation", range:"150 ft", duration:"Instantaneous", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"You point at a location within range, and a glowing 1-foot diameter ball of emerald acid streaks there and then detonates in a 20-foot-radius sphere. Each creature in that area must make a Dexterity saving throw. On a failed save, a creature takes 10d4 acid damage and another 5d4 acid damage at the end of its next turn.", source:"XGE 170", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, the initial damage increases by 2d4 for each slot level above 4th." },
+  { id:"summon-greater-demon", name:"Summon Greater Demon", level:4, school:"Conjuration", range:"60 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"You utter foul words, summoning one demon from the chaos of the Abyss. You choose the demon's type, which must be one of challenge rating 5 or lower, such as a shadow demon or a dretch.", source:"XGE 166", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, the challenge rating increases by 1 for each slot level above 4th." },
+  { id:"danse-macabre", name:"Danse Macabre", level:5, school:"Necromancy", range:"60 ft", duration:"1 hour", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"Threads of dark magic leap from your fingers to pierce up to five Small or Medium corpses you can see within range. Each corpse immediately stands up and becomes undead. You decide whether it is a zombie or a skeleton, and it gains a bonus to its attack and damage rolls equal to your spellcasting ability modifier.", source:"XGE 153", higher_levels:"When you cast this spell using a spell slot of 6th level or higher, you animate up to two additional corpses for each slot level above 5th." },
+  { id:"enervation", name:"Enervation", level:5, school:"Necromancy", range:"60 ft", duration:"1 minute", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"A tendril of inky darkness reaches out from you, touching a creature you can see within range to drain life from it. The target must make a Dexterity saving throw. On a failed save, the target takes 4d8 necrotic damage, and you regain hit points equal to half the amount of necrotic damage dealt.", source:"XGE 155", higher_levels:"When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th." },
+  { id:"far-step", name:"Far Step", level:5, school:"Conjuration", range:"Self", duration:"1 minute", casting_time:"1 bonus action", components:["V"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"You teleport up to 60 feet to an unoccupied space you can see. On each of your turns before the spell ends, you can use a bonus action to teleport in this way again.", source:"XGE 155" },
+  { id:"steel-wind-strike", name:"Steel Wind Strike", level:5, school:"Conjuration", range:"30 ft", duration:"Instantaneous", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Ranger","Wizard"], description:"You flourish the weapon used in the casting and then vanish to strike like the wind. Choose up to five creatures you can see within range. Make a melee spell attack against each target. On a hit, a target takes 6d10 force damage. You can then teleport to an unoccupied space within 5 feet of one of the targets you hit or missed.", source:"XGE 166" },
+  { id:"transmute-rock", name:"Transmute Rock", level:5, school:"Transmutation", range:"120 ft", duration:"Until dispelled", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:false, classes:["Druid","Wizard"], description:"You choose an area of stone or mud up to 40 feet on a side within range and choose one of the following effects: Transmute Rock to Mud or Transmute Mud to Rock.", source:"XGE 169" },
+  { id:"investiture-of-flame", name:"Investiture of Flame", level:6, school:"Transmutation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet. Until the spell ends, you are immune to fire damage and have resistance to cold damage; any creature that moves within 5 feet of you for the first time on a turn or ends its turn there takes 1d10 fire damage.", source:"XGE 159" },
+  { id:"investiture-of-ice", name:"Investiture of Ice", level:6, school:"Transmutation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"Until the spell ends, ice rimes your body. You are immune to cold damage and have resistance to fire damage; you can move across difficult terrain created by ice or snow without spending extra movement; the ground in a 10-foot radius around you is icy and is difficult terrain for creatures other than you.", source:"XGE 159" },
+  { id:"investiture-of-stone", name:"Investiture of Stone", level:6, school:"Transmutation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"Until the spell ends, bits of rock spread across your body. You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks; you can use your action to create a small earthquake on the ground in a 15-foot radius centered on you.", source:"XGE 159" },
+  { id:"investiture-of-wind", name:"Investiture of Wind", level:6, school:"Transmutation", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Warlock","Wizard"], description:"Until the spell ends, wind whirls around you. Ranged weapon attacks made by other creatures have disadvantage on attack rolls against you; you gain a flying speed of 60 feet; you can use your action to create a line of strong wind 60 feet long and 10 feet wide.", source:"XGE 160" },
+  { id:"scatter", name:"Scatter", level:6, school:"Conjuration", range:"30 ft", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"The air quivers around up to five creatures of your choice that you can see within range. An unwilling creature must succeed on a Wisdom saving throw to resist this spell. You teleport each affected target to an unoccupied space that you can see within 120 feet of you.", source:"XGE 164" },
+  { id:"soul-cage", name:"Soul Cage", level:6, school:"Necromancy", range:"60 ft", duration:"8 hours", casting_time:"1 reaction", components:["V","S","M"], ritual:false, concentration:false, classes:["Warlock","Wizard"], description:"This spell snatches the soul of a humanoid as it dies and traps it inside the tiny cage you use for the material component. A stolen soul remains inside the cage until the spell ends or until you destroy the cage, which ends the spell.", source:"XGE 165" },
+  { id:"crown-of-stars", name:"Crown of Stars", level:7, school:"Evocation", range:"Self", duration:"1 hour", casting_time:"1 action", components:["V","S"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"Seven star-like motes of light appear and orbit your head until the spell ends. You can use a bonus action to send one of the motes streaking toward one creature or object within 120 feet of you. When you do so, make a ranged spell attack. On a hit, the target takes 4d12 radiant damage.", source:"XGE 153" },
+  { id:"whirlwind", name:"Whirlwind", level:7, school:"Evocation", range:"300 ft", duration:"1 minute", casting_time:"1 action", components:["V","M"], ritual:false, concentration:true, classes:["Druid","Sorcerer","Wizard"], description:"A whirlwind howls down to a point that you can see on the ground within range. The whirlwind is a 10-foot-radius, 30-foot-high cylinder centered on that point. Until the spell ends, you can use your action to move the whirlwind up to 30 feet in any direction along the ground.", source:"XGE 171" },
+  { id:"illusory-dragon", name:"Illusory Dragon", level:8, school:"Illusion", range:"120 ft", duration:"1 minute", casting_time:"1 action", components:["S"], ritual:false, concentration:true, classes:["Wizard"], description:"By gathering threads of shadow material from the Shadowfell, you create a Huge shadowy dragon in an unoccupied space that you can see within range. The illusion lasts for the spell's duration and occupies its space, as if it were a creature.", source:"XGE 157" },
+  { id:"maddening-darkness", name:"Maddening Darkness", level:8, school:"Evocation", range:"150 ft", duration:"10 minutes", casting_time:"1 action", components:["V","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"Magical darkness spreads from a point you choose within range to fill a 60-foot-radius sphere until the spell ends. A creature with darkvision cannot see through this darkness, and nonmagical light cannot illuminate the area.", source:"XGE 160" },
+  { id:"invulnerability", name:"Invulnerability", level:9, school:"Abjuration", range:"Self", duration:"10 minutes", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Wizard"], description:"You are immune to all damage until the spell ends.", source:"XGE 160" },
+  { id:"mass-polymorph", name:"Mass Polymorph", level:9, school:"Transmutation", range:"120 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Bard","Sorcerer","Wizard"], description:"You transform up to ten creatures of your choice that you can see within range. An unwilling target must succeed on a Wisdom saving throw to resist the transformation. An unwilling shapechanger automatically succeeds on the save.", source:"XGE 160" },
+  { id:"psychic-scream", name:"Psychic Scream", level:9, school:"Enchantment", range:"90 ft", duration:"1 minute", casting_time:"1 action", components:["S"], ritual:false, concentration:false, classes:["Bard","Sorcerer","Warlock","Wizard"], description:"You unleash the power of your mind to blast the intellect of up to ten creatures of your choice that you can see within range. Each target must succeed on an Intelligence saving throw or take 14d6 psychic damage and be stunned.", source:"XGE 163" },
+
+  // ========== TASHA'S CAULDRON OF EVERYTHING ==========
+  { id:"booming-blade", name:"Booming Blade", level:0, school:"Evocation", range:"Self (5-foot radius)", duration:"1 round", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects and then becomes sheathed in booming energy until the start of your next turn. If the target willingly moves 5 feet or more before then, it takes 1d8 thunder damage.", source:"TCE 106" },
+  { id:"tasha-s-caustic-brew", name:"Tasha's Caustic Brew", level:1, school:"Evocation", range:"Self (30-foot line)", duration:"1 minute", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Sorcerer","Wizard"], description:"A stream of acid emanates from you in a line 30 feet long and 5 feet wide in a direction you choose. Each creature in the line must succeed on a Dexterity saving throw or be covered in acid for the spell's duration. A creature covered in the acid takes 2d4 acid damage at the start of each of its turns.", source:"TCE 115", higher_levels:"When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 2d4 for each slot level above 1st." },
+  { id:"tasha-s-mind-whip", name:"Tasha's Mind Whip", level:2, school:"Enchantment", range:"90 ft", duration:"1 round", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"You psychically lash out at one creature you can see within range. The target must make an Intelligence saving throw. On a failed save, the target takes 3d6 psychic damage, and it can't take a reaction until the end of its next turn. Moreover, on its next turn, it must choose whether it gets a move, an action, or a bonus action; it gets only one of the three.", source:"TCE 115", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd." },
+  { id:"mind-spike", name:"Mind Spike", level:2, school:"Divination", range:"60 ft", duration:"1 hour", casting_time:"1 action", components:["S"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"You reach into the mind of one creature you can see within range. The target must make a Wisdom saving throw, taking 3d8 psychic damage on a failed save, or half as much damage on a successful one. On a failed save, you also always know the target's location until the spell ends.", source:"TCE 114", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd." },
+  { id:"rime-s-binding-ice", name:"Rime's Binding Ice", level:2, school:"Evocation", range:"Self (30-foot cone)", duration:"Instantaneous", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Sorcerer","Wizard"], description:"A burst of cold energy emanates from you in a 30-foot cone. Each creature in that area must make a Constitution saving throw. On a failed save, a creature takes 3d8 cold damage and is hindered by ice formations for 1 minute, or until a creature uses its action to break away the ice.", source:"TCE 115", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, increase the cold damage by 1d8 for each slot level above 2nd." },
+  { id:"summon-beast", name:"Summon Beast", level:2, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Druid","Ranger"], description:"You call forth a bestial spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose an environment: Air, Land, or Water. The creature resembles an animal native to the chosen environment and uses the Bestial Spirit stat block.", source:"TCE 109", higher_levels:"When you cast this spell using a spell slot of 3rd level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"intellect-fortress", name:"Intellect Fortress", level:3, school:"Abjuration", range:"30 ft", duration:"1 hour", casting_time:"1 action", components:["V"], ritual:false, concentration:true, classes:["Bard","Sorcerer","Warlock","Wizard"], description:"For the duration, you or one willing creature you can see within range has resistance to psychic damage, as well as advantage on Intelligence, Wisdom, and Charisma saving throws.", source:"TCE 107", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, you can target one additional creature for each slot level above 3rd." },
+  { id:"summon-fey", name:"Summon Fey", level:3, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Druid","Ranger","Warlock","Wizard"], description:"You call forth a fey spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose a mood: Fuming, Mirthful, or Tricksy. The creature resembles a fey creature of your choice marked by the chosen mood.", source:"TCE 112", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-shadowspawn", name:"Summon Shadowspawn", level:3, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"You call forth a shadow spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose an emotion: Fury, Despair, or Fear. The creature resembles a misshapen biped marked by the chosen emotion.", source:"TCE 113", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-undead", name:"Summon Undead", level:3, school:"Necromancy", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"You call forth an undead spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose the creature's form: Ghostly, Putrid, or Skeletal.", source:"TCE 114", higher_levels:"When you cast this spell using a spell slot of 4th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-aberration", name:"Summon Aberration", level:4, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"You call forth an aberrant spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose Beholderkin, Slaad, or Star Spawn. The creature resembles an aberration of the chosen type.", source:"TCE 109", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-construct", name:"Summon Construct", level:4, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Wizard"], description:"You call forth the spirit of a construct. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose Clay, Metal, or Stone. The construct resembles a golem or modron made of the chosen material.", source:"TCE 111", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-elemental", name:"Summon Elemental", level:4, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Druid","Ranger","Wizard"], description:"You call forth an elemental spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose an element: Air, Earth, Fire, or Water. The creature resembles a bipedal form wreathed in the chosen element.", source:"TCE 111", higher_levels:"When you cast this spell using a spell slot of 5th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-celestial", name:"Summon Celestial", level:5, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Cleric","Paladin"], description:"You call forth a celestial spirit. It manifests in an angelic form in an unoccupied space that you can see within range. When you cast the spell, choose Avenger or Defender. Your choice determines certain traits in its stat block.", source:"TCE 110", higher_levels:"When you cast this spell using a spell slot of 6th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"summon-fiend", name:"Summon Fiend", level:6, school:"Conjuration", range:"90 ft", duration:"1 hour", casting_time:"1 action", components:["V","S","M"], ritual:false, concentration:true, classes:["Warlock","Wizard"], description:"You call forth a fiendish spirit. It manifests in an unoccupied space that you can see within range. When you cast the spell, choose Demon, Devil, or Yugoloth. The creature resembles a fiend of the chosen type.", source:"TCE 112", higher_levels:"When you cast this spell using a spell slot of 7th level or higher, use the higher level wherever the spell's level appears in the stat block." },
+  { id:"dream-of-the-blue-veil", name:"Dream of the Blue Veil", level:7, school:"Conjuration", range:"20 ft", duration:"6 hours", casting_time:"10 minutes", components:["V","S","M"], ritual:false, concentration:false, classes:["Bard","Sorcerer","Warlock","Wizard"], description:"You and up to eight willing creatures within range fall unconscious for the spell's duration and experience visions of another world on the Material Plane. Not a dream, these visions are a possibility of travel to another world.", source:"TCE 106" },
+  { id:"blade-of-disaster", name:"Blade of Disaster", level:9, school:"Conjuration", range:"60 ft", duration:"1 minute", casting_time:"1 bonus action", components:["V","S"], ritual:false, concentration:true, classes:["Sorcerer","Warlock","Wizard"], description:"You create a blade-shaped planar rift about 3 feet long in an unoccupied space you can see within range. When you cast this spell, you can make up to two melee spell attacks with the blade, each one against a creature, loose object, or structure within 5 feet of the blade. On a hit, the target takes 4d12 force damage.", source:"TCE 106" },
+
+  // ========== SWORD COAST ADVENTURER'S GUIDE ==========
+  { id:"scag-booming-blade", name:"Booming Blade (SCAG)", level:0, school:"Evocation", range:"Self (5-foot radius)", duration:"1 round", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"(Originally from SCAG, later reprinted in TCE.) You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects and then becomes sheathed in booming energy until the start of your next turn.", source:"SCAG 142" },
+  { id:"green-flame-blade-scag", name:"Green-Flame Blade (SCAG)", level:0, school:"Evocation", range:"Self (5-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["S","M"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"(Originally from SCAG.) You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects, and you can cause green fire to leap from the target to a different creature within 5 feet of it.", source:"SCAG 143" },
+  { id:"lightning-lure-scag", name:"Lightning Lure (SCAG)", level:0, school:"Evocation", range:"Self (15-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"(Originally from SCAG.) You create a lash of lightning energy that strikes at one creature of your choice that you can see within 15 feet of you. The target must succeed on a Strength saving throw or be pulled up to 10 feet in a straight line toward you and then take 1d8 lightning damage.", source:"SCAG 143" },
+  { id:"sword-burst-scag", name:"Sword Burst (SCAG)", level:0, school:"Conjuration", range:"Self (5-foot radius)", duration:"Instantaneous", casting_time:"1 action", components:["V"], ritual:false, concentration:false, classes:["Sorcerer","Warlock","Wizard"], description:"(Originally from SCAG.) You create a momentary circle of spectral blades that sweep around you. All other creatures within 5 feet of you must succeed on a Dexterity saving throw or take 1d6 force damage.", source:"SCAG 143" }
+];
 ];
 
 
@@ -1224,6 +1503,7 @@ const SOURCE_BOOKS = {
   PHB: { label: "Player's Handbook",         abbr: 'PHB', color: '#8B2FC9' },
   XGE: { label: "Xanathar's Guide",          abbr: 'XGE', color: '#1e7a6e' },
   TCE: { label: "Tasha's Cauldron",          abbr: 'TCE', color: '#c97020' },
+  SCAG: { label: "Sword Coast Adv. Guide",   abbr: 'SCAG', color: '#2a5f8a' },
   FTD: { label: "Fizban's Treasury",         abbr: 'FTD', color: '#8a2020' },
   SCC: { label: "Strixhaven",                abbr: 'SCC', color: '#3a6e8a' }
 };
@@ -1670,11 +1950,28 @@ function clearSelection() {
   updateSelectionUI();
 }
 
+function selectAllVisible() {
+  const visibleCards = document.querySelectorAll('#card-grid .spell-card');
+  visibleCards.forEach(card => {
+    const spellId = card.dataset.id;
+    if (spellId) {
+      state.selectedSpells.add(spellId);
+      card.classList.add('selected');
+      const ind = card.querySelector('.select-indicator');
+      if (ind) ind.innerHTML = '&#10003;';
+    }
+  });
+  updateSelectionUI();
+}
+
 function updateSelectionUI() {
   const count = state.selectedSpells.size;
+  const visibleCount = document.querySelectorAll('#card-grid .spell-card').length;
   document.getElementById('selection-count').textContent = `${count} selected`;
   document.getElementById('btn-print').disabled = count === 0;
   document.getElementById('btn-clear').disabled = count === 0;
+  const btnSelectAll = document.getElementById('btn-select-all');
+  if (btnSelectAll) btnSelectAll.disabled = visibleCount === 0;
 
   // Update results bar
   const resultsBar = document.getElementById('results-bar');
