@@ -1,114 +1,134 @@
-# Spell Tome — D&D 5e Spell Card Selector
+# Spell Tome — D&D 5e Spell Card Viewer
 
-A browser-based spell card selector and PDF printer for D&D 5e (2014 ruleset). Choose your class and character level, browse available spells, select cards, and export a print-ready PDF — 8 cards per A4 landscape page.
-
-No server. No build step. No dependencies.
-
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Spells](https://img.shields.io/badge/spells-336-purple.svg)](_src/data/spells.js)
+A single-file, offline-capable browser application for browsing, filtering, and printing D&D 5e spell cards. Supports both the 2014 and 2024 Player's Handbook rulesets, switchable via a toggle in the header.
 
 ---
 
-## GitHub Pages Setup
+## Quick Start
 
-This repo uses **branch-based deployment** — no GitHub Actions required.
+Open `index.html` in Chrome. No server, no dependencies, no installation required.
 
-1. Push this repo to GitHub
-2. Go to **Settings → Pages**
-3. Under **Source**, choose **Deploy from a branch**
-4. Set branch to **main**, folder to **/ (root)**
-5. Click **Save**
-
-Your site will be live at `https://YOUR_USERNAME.github.io/REPO_NAME/` within ~60 seconds.
-
-> If you see a **GitHub Actions error**, it means Pages is set to "GitHub Actions" instead of "Deploy from a branch". Switch it to **Deploy from a branch** and the error will stop.
-
----
-
-## Running Locally
-
-```bash
-git clone https://github.com/YOUR_USERNAME/spelltome.git
-cd spelltome
-open index.html        # macOS
-start index.html       # Windows
-xdg-open index.html    # Linux
-```
-
----
-
-## How to Use
-
-1. Select your **class**
-2. Select your **character level** — available spells appear immediately
-3. Toggle **Spell Level**, **School**, and **Source** pills to filter
-4. Use the **search box** to find spells by name or keyword
-5. **Click any card** to select it
-6. Click **Print to PDF**, review the preview, then **Open Print Dialog**
-7. In Chrome's print dialog: enable **Background graphics** to preserve school colour bands in the PDF
+1. Select your class from the dropdown
+2. Select your character level
+3. Browse and filter the spell cards
+4. On desktop: select cards and use **Print to PDF** to export an A4 landscape sheet (8 cards per page)
 
 ---
 
 ## Features
 
-- 336 spells — Player's Handbook (312) and Xanathar's Guide to Everything (24)
-- Accurate spell slot filtering — full casters, half casters (Paladin/Ranger from level 2), Warlock pact magic
-- Click-to-select cards with running selection count
-- Filter pills — spell level, school, source book — all independently togglable
-- Free text search across spell name and description
-- Print preview before committing to PDF export
-- A4 landscape PDF, 8 cards per page, school colours preserved
-- Zero dependencies — vanilla HTML/CSS/JS, no npm, no frameworks
+### Edition Toggle
+A **2014 / 2024** switcher in the header swaps between the two complete spell datasets. All filters reset on switch. The subtitle updates to reflect the active edition.
+
+### Filter Bar
+- **Class** — filters to spells available to that class
+- **Level** — filters to spells accessible at that character level (respects full-caster / half-caster / Warlock slot progressions)
+- **Spell Level** — pill toggles for Cantrip through 9th level
+- **School** — pill toggles for all eight schools
+- **Source** — pill toggles by sourcebook (PHB, XGE, TCE, SCAG)
+- **Search** — free-text search against spell name
+
+All filters operate simultaneously with AND logic. Filter state resets when the edition is changed.
+
+### Spell Cards
+Each card displays:
+- School-coloured header with school sigil, spell name, and level badge
+- Stats block: Range, Duration, Casting Time, and class access list
+- Component icons (V / S / M), Ritual and Concentration badges where applicable
+- Flavour text band (where available)
+- Full spell description
+- **At Higher Levels** text (where the spell scales with slot level)
+- Source reference
+
+### Mobile
+- Collapsible filter panel (expanded by default, collapses on scroll)
+- Tap any card to open a full-screen modal showing the complete spell text
+- Selection and Print UI hidden on mobile (print is desktop-only)
+- Responsive two-column card grid, single column on narrow screens
+- Title and toggle remain on a single line at all screen widths
+
+### Print to PDF (Desktop / Chrome)
+- Select cards by clicking them (tick indicator appears)
+- Click **Print to PDF** to open a print preview modal
+- Preview shows paginated A4 landscape layout (4×2 grid, 8 cards per page)
+- Click **Print** to trigger the browser print dialog — choose **Save as PDF**
+- **Important:** enable *Background graphics* in Chrome's print dialog for school colours to appear in the output
 
 ---
 
-## Project Structure
+## Spell Data
 
+### 2014 Edition — 400 spells
+
+| Source | Spells |
+|---|---|
+| Player's Handbook (PHB) | 312 |
+| Xanathar's Guide to Everything (XGE) | 67 |
+| Tasha's Cauldron of Everything (TCE) | 17 |
+| Sword Coast Adventurer's Guide (SCAG) | 4 |
+| **Total** | **400** |
+
+Breakdown by spell level: 43 cantrips, 63 × 1st, 65 × 2nd, 52 × 3rd, 35 × 4th, 47 × 5th, 32 × 6th, 24 × 7th, 19 × 8th, 20 × 9th.
+
+142 spells include At Higher Levels scaling text. 179 spells are concentration. 24 are rituals.
+
+### 2024 Edition — 405 spells
+
+Derived from the 2014 dataset with all documented 2024 Player's Handbook rules changes applied. Key differences:
+
+**Concentration removed** from: Aid, Bless, Compelled Duel, Divine Favor, Flame Blade, Heroism, Hex, Hunter's Mark, Protection from Evil and Good, Spiritual Weapon, Stoneskin.
+
+**School reassignments** — all healing and restoration spells (Cure Wounds, Healing Word, Heal, Lesser/Greater Restoration, Revivify, Raise Dead, Resurrection, etc.) moved to Necromancy. Several divination spells corrected.
+
+**Mechanics rewrites** — Sleep (now Wisdom save / Unconscious condition, no HP pool), Thunderwave (push distance increased to 10 ft), Witch Bolt (Bonus Action for sustained damage), Color Spray (Constitution save / Blinded, not HP-based), Slow (40-foot Cube wording), Counterspell (Constitution saving throw), Conjure Animals / Conjure Elemental (unified summoning stat block), Hunter's Mark and Hex (long-duration upcast options), Spiritual Weapon (Bonus Action creation, no concentration), Dispel Magic (auto-dispel at equal or lower level).
+
+**New 2024 spells** — Elementalism (cantrip), Starry Wisp (cantrip), plus 2024-revised versions of Shillelagh (Bonus Action cast) and Spare the Dying (15 ft range).
+
+---
+
+## Technical Notes
+
+### Architecture
+Single self-contained `index.html` file — all CSS, JavaScript, SVG icons, and spell data inline. No external dependencies, no CDN calls, no backend. Works fully offline.
+
+### Data Structure
+Each spell object:
 ```
-├── index.html       self-contained app (all CSS and JS inlined — this is the only file GitHub Pages serves)
-├── _config.yml      tells Jekyll to ignore source files
-├── .nojekyll        disables Jekyll theme application
-├── _src/            source files (Jekyll ignores all folders starting with _)
-│   ├── data/
-│   │   └── spells.js       336 spells — edit this to add or correct spells
-│   ├── scripts/
-│   │   └── app.js          application logic
-│   ├── styles/
-│   │   ├── main.css
-│   │   ├── card.css
-│   │   └── print.css
-│   └── build.py            run to rebuild index.html after editing source files
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-└── LICENSE
+id, name, level, school, range, duration, casting_time,
+components[], ritual, concentration, classes[],
+description, higher_levels (optional), source
 ```
 
-`index.html` is fully self-contained — all CSS and JavaScript are inlined. Source files in `_src/` are for editing and contribution; Jekyll ignores them automatically.
+Both datasets (`SPELLS` and `SPELLS_2024`) are plain JavaScript arrays. The active dataset is selected via `getSpellList()`, which all filter and render functions use. Switching edition calls `setEdition()`, which resets state and re-renders without a page reload.
+
+### Class Level Logic
+The application enforces spell slot access per class and character level:
+- **Full casters** (Bard, Cleric, Druid, Sorcerer, Wizard): standard progression, 9th-level spells at level 17
+- **Half casters** (Paladin, Ranger): access begins at level 2, maximum 5th-level spells
+- **Warlock**: Pact Magic progression, maximum 5th-level spells from level 9
+
+### Browser Support
+Chrome is the primary target (latest two versions). Firefox and Safari function correctly for browsing and filtering. The Print to PDF feature relies on Chrome's print-color-adjust and background-graphics support for accurate output.
+
+### File Size
+~539 KB (single file, including all 805 spell entries across both editions).
 
 ---
 
-## Editing & Rebuilding
+## Planned / Out of Scope
 
-Edit files in `_src/`, then rebuild `index.html`:
+The following are noted for potential future development:
 
-```bash
-python3 _src/build.py
-```
-
-Commit and push the updated `index.html`.
-
----
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). The most useful contribution is adding spells from Tasha's Cauldron (TCE) — edit `_src/data/spells.js` and submit a PR.
+- Subclass spell lists (Arcane Trickster, Eldritch Knight, Oath spells, etc.)
+- Unearthed Arcana and one-off release spells
+- Spell slot tracker / character sheet integration
+- Mobile print support
+- 10-cards-per-page print option
+- Dark mode
+- Bookmark / share a filtered view via URL parameters
 
 ---
 
-## Legal
+## Source Material
 
-Independent fan tool — not affiliated with or endorsed by Wizards of the Coast. D&D and all related marks are trademarks of Wizards of the Coast LLC. Spell text used under the [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy).
-
----
-
-[MIT License](LICENSE)
+Spell rules text is derived from the D&D 5e Systems Reference Document (SRD) and cross-referenced against the Player's Handbook (2014), Xanathar's Guide to Everything, Tasha's Cauldron of Everything, and the 2024 Player's Handbook. This tool is intended for personal use at the table.
