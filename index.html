@@ -492,13 +492,16 @@ input[type="text"]::placeholder { color: #6a6a80; }
 .card-title {
   font-family: 'Cinzel', serif;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: clamp(0.62rem, 1.8vw, 0.88rem);
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
   flex: 1;
   line-height: 1.2;
   text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .card-level {
@@ -509,7 +512,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
   text-shadow: 0 1px 3px rgba(0,0,0,0.35);
   white-space: nowrap;
   flex-shrink: 0;
-  padding-right: 26px; /* room for select indicator */
 }
 
 /* ============================================================
@@ -517,22 +519,26 @@ input[type="text"]::placeholder { color: #6a6a80; }
    ============================================================ */
 .card-stats {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0 8px;
+  grid-template-columns: 1fr minmax(0, 52px);
+  gap: 0 6px;
   padding: 7px 10px 4px;
   background: #fff;
+  overflow: hidden;
 }
 
 .stats-left {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .stat-row {
   display: flex;
   align-items: baseline;
   gap: 5px;
+  min-width: 0;
 }
 
 .stat-label {
@@ -546,6 +552,9 @@ input[type="text"]::placeholder { color: #6a6a80; }
   font-weight: 600;
   font-size: 0.82rem;
   color: #111;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Class list (right column of stats) */
@@ -555,12 +564,18 @@ input[type="text"]::placeholder { color: #6a6a80; }
   align-items: flex-end;
   gap: 0;
   padding-top: 1px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .class-item {
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   color: #bbb;
   line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 52px;
 }
 
 .class-item.has-access {
@@ -946,6 +961,12 @@ input[type="text"]::placeholder { color: #6a6a80; }
 
   .card-spell-name { font-size: 0.75rem; }
   .card-level-badge { font-size: 0.62rem; }
+  /* Card title in header — tighter clamp for 2-col mobile grid */
+  .card-title { font-size: clamp(0.55rem, 3.2vw, 0.78rem); }
+  .card-level { font-size: clamp(0.5rem, 2.5vw, 0.7rem); }
+  /* In modal, restore comfortable size */
+  #spell-modal-card .card-title { font-size: 0.95rem; }
+  #spell-modal-card .card-level { font-size: 0.85rem; }
 
   .card-stats {
     padding: 4px 8px;
@@ -962,6 +983,33 @@ input[type="text"]::placeholder { color: #6a6a80; }
     padding: 4px 8px;
     font-size: 0.72rem;
     line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* In the modal, show the full description */
+  #spell-modal-card .card-description {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+
+  #spell-modal-card .spell-card {
+    cursor: default;
+  }
+
+  /* In the modal, restore full-width class column */
+  #spell-modal-card .card-stats {
+    grid-template-columns: 1fr minmax(0, 72px);
+  }
+  #spell-modal-card .class-item {
+    max-width: 72px;
+    font-size: 0.72rem;
+  }
+  #spell-modal-card .stat-value {
+    white-space: normal;
   }
 
   .card-source {
@@ -1022,6 +1070,73 @@ input[type="text"]::placeholder { color: #6a6a80; }
     padding: 10px;
   }
 }
+
+/* ============================================================
+   SPELL DETAIL MODAL (mobile card tap)
+   ============================================================ */
+#spell-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  overscroll-behavior: contain;
+}
+
+#spell-modal-overlay.active {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#spell-modal-inner {
+  width: 100%;
+  max-width: 480px;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  animation: modalSlideUp 0.22s ease;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+#spell-modal-inner .spell-card {
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+}
+
+/* Close button */
+#spell-modal-close {
+  position: sticky;
+  top: 0;
+  left: 100%;
+  float: right;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  margin: 8px 8px -40px auto;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+#spell-modal-close:active { background: rgba(0,0,0,0.8); }
 
 </style>
 </head>
@@ -1925,7 +2040,13 @@ function buildCard(spell, currentClass, interactive) {
   card.style.setProperty('--school-color', color);
 
   if (interactive) {
-    card.onclick = () => toggleCard(spell.id, card);
+    card.onclick = () => {
+      if (window.innerWidth <= 768) {
+        openSpellModal(spell);
+      } else {
+        toggleCard(spell.id, card);
+      }
+    };
   }
 
   // Level label
@@ -2147,6 +2268,29 @@ function closeMobileFilters() {
   }
 }
 
+// ============================================================
+// SPELL DETAIL MODAL (mobile)
+// ============================================================
+function openSpellModal(spell) {
+  const overlay = document.getElementById('spell-modal-overlay');
+  const container = document.getElementById('spell-modal-card');
+  container.innerHTML = '';
+  // Build a non-interactive full card for the modal
+  const card = buildCard(spell, state.selectedClass, false);
+  // Make description visible in full — remove any overflow restrictions
+  card.style.setProperty('max-height', 'none');
+  container.appendChild(card);
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSpellModal(e) {
+  // If called from overlay click, only close if clicking the backdrop itself
+  if (e && e.target !== document.getElementById('spell-modal-overlay')) return;
+  document.getElementById('spell-modal-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 // Auto-collapse filters when user scrolls down on mobile
 (function initScrollCollapse() {
   let lastScrollY = 0;
@@ -2170,5 +2314,14 @@ function closeMobileFilters() {
 })();
 
 </script>
+
+<!-- Spell detail modal (mobile tap) -->
+<div id="spell-modal-overlay" onclick="closeSpellModal(event)">
+  <div id="spell-modal-inner">
+    <button id="spell-modal-close" onclick="closeSpellModal()" aria-label="Close">&#x2715;</button>
+    <div id="spell-modal-card"></div>
+  </div>
+</div>
+
 </body>
 </html>
