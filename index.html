@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <title>Spell Tome — D&D 5e Spell Cards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -781,8 +781,12 @@ input[type="text"]::placeholder { color: #6a6a80; }
 /* Mobile (up to 768px) */
 @media (max-width: 768px) {
 
-  /* ---- Hide print button entirely on mobile ---- */
-  #btn-print { display: none !important; }
+  /* ---- Hide print + selection UI entirely on mobile ---- */
+  #btn-print,
+  #btn-select-all,
+  #btn-clear,
+  .selection-badge,
+  .select-indicator { display: none !important; }
 
   /* ---- Slim sticky bar (always visible) ---- */
   #app-header {
@@ -800,28 +804,27 @@ input[type="text"]::placeholder { color: #6a6a80; }
     min-height: 44px;
   }
 
-  .app-title { font-size: 1rem; }
-  .app-title span { font-size: 0.68rem; }
+  /* Title: force single line, scale to fit */
+  .app-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: clamp(0.7rem, 3.5vw, 1rem);
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .app-title span {
+    font-size: clamp(0.55rem, 2.5vw, 0.68rem);
+    white-space: nowrap;
+  }
 
-  /* Slim bar right side: count + action buttons + filter toggle */
+  /* Slim bar right side: just the filter toggle */
   .header-actions {
     display: flex;
     flex-wrap: nowrap;
     gap: 6px;
     align-items: center;
     flex-shrink: 0;
-  }
-
-  .header-actions .selection-badge {
-    font-size: 0.7rem;
-    padding: 3px 7px;
-    white-space: nowrap;
-  }
-
-  .header-actions .btn {
-    font-size: 0.7rem;
-    padding: 4px 9px;
-    white-space: nowrap;
   }
 
   /* Filter toggle button — mobile only */
@@ -851,37 +854,56 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .filter-bar {
     flex-direction: column;
     gap: 8px;
-    padding: 10px 14px 12px;
+    padding: 0 14px;
     overflow: hidden;
     max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    transition: max-height 0.25s ease, padding 0.25s ease;
+    transition: max-height 0.28s ease, padding 0.28s ease;
     border-top: none;
   }
 
   .filter-bar.expanded {
-    max-height: 600px;
-    padding: 10px 14px 12px;
+    max-height: 700px;
+    padding: 10px 14px 14px;
     border-top: 1px solid var(--border);
   }
 
-  .filter-group {
+  /* Class + Level side by side */
+  .filter-group-row {
+    display: flex;
     flex-direction: row;
-    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .filter-group-row .filter-group {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .filter-group-row .filter-group select {
+    width: 100%;
+  }
+
+  /* Pill groups (Spell Level, School, Source) — label above, pills left-aligned below */
+  .filter-group-pills {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    width: 100%;
+  }
+  .filter-group-pills .filter-label {
+    min-width: unset;
+  }
+  .filter-group-pills .pill-filters {
+    display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 4px;
+    justify-content: flex-start;
   }
 
   .filter-label {
     min-width: 72px;
     font-size: 0.68rem;
-  }
-
-  .pill-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
   }
 
   .pill {
@@ -893,7 +915,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
   select, .search-input {
     font-size: 0.8rem;
     padding: 5px 8px;
-    width: 100%;
   }
 
   .filter-divider { display: none; }
@@ -923,13 +944,8 @@ input[type="text"]::placeholder { color: #6a6a80; }
     min-width: 26px !important;
   }
 
-  .card-spell-name {
-    font-size: 0.75rem;
-  }
-
-  .card-level-badge {
-    font-size: 0.62rem;
-  }
+  .card-spell-name { font-size: 0.75rem; }
+  .card-level-badge { font-size: 0.62rem; }
 
   .card-stats {
     padding: 4px 8px;
@@ -957,7 +973,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
     width: 18px !important;
     height: 18px !important;
   }
-
   .component-icon svg {
     width: 14px !important;
     height: 14px !important;
@@ -998,6 +1013,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 
   .preview-actions .btn { flex: 1; text-align: center; }
 }
+}
 
 /* Very small phones (under 420px): single column */
 @media (max-width: 420px) {
@@ -1018,44 +1034,46 @@ input[type="text"]::placeholder { color: #6a6a80; }
       <button class="btn btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
       <button class="btn btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
       <button class="btn btn-print" id="btn-print" disabled onclick="openPrintPreview()">&#128424; Print to PDF</button>
-      <button id="btn-filter-toggle" onclick="toggleMobileFilters()" aria-expanded="false">
+      <button id="btn-filter-toggle" onclick="toggleMobileFilters()" aria-expanded="true" class="open">
         Filters <span class="toggle-arrow">&#9660;</span>
       </button>
     </div>
   </div>
-  <div class="filter-bar">
-    <div class="filter-group">
-      <span class="filter-label">Class</span>
-      <select id="class-select" onchange="onClassChange()">
-        <option value="">Select class...</option>
-        <option>Bard</option><option>Cleric</option><option>Druid</option>
-        <option>Paladin</option><option>Ranger</option><option>Sorcerer</option>
-        <option>Warlock</option><option>Wizard</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Level</span>
-      <select id="level-select" disabled onchange="onLevelChange()">
-        <option value="">Select level...</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option>
-        <option>5</option><option>6</option><option>7</option><option>8</option>
-        <option>9</option><option>10</option><option>11</option><option>12</option>
-        <option>13</option><option>14</option><option>15</option><option>16</option>
-        <option>17</option><option>18</option><option>19</option><option>20</option>
-      </select>
+  <div class="filter-bar expanded">
+    <div class="filter-group-row">
+      <div class="filter-group">
+        <span class="filter-label">Class</span>
+        <select id="class-select" onchange="onClassChange()">
+          <option value="">Select class...</option>
+          <option>Bard</option><option>Cleric</option><option>Druid</option>
+          <option>Paladin</option><option>Ranger</option><option>Sorcerer</option>
+          <option>Warlock</option><option>Wizard</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Level</span>
+        <select id="level-select" disabled onchange="onLevelChange()">
+          <option value="">Select level...</option>
+          <option>1</option><option>2</option><option>3</option><option>4</option>
+          <option>5</option><option>6</option><option>7</option><option>8</option>
+          <option>9</option><option>10</option><option>11</option><option>12</option>
+          <option>13</option><option>14</option><option>15</option><option>16</option>
+          <option>17</option><option>18</option><option>19</option><option>20</option>
+        </select>
+      </div>
     </div>
     <div class="filter-divider"></div>
-    <div class="filter-group">
+    <div class="filter-group filter-group-pills">
       <span class="filter-label">Spell Level</span>
       <div class="pill-filters" id="spell-level-pills"></div>
     </div>
     <div class="filter-divider"></div>
-    <div class="filter-group">
+    <div class="filter-group filter-group-pills">
       <span class="filter-label">School</span>
       <div class="pill-filters" id="school-pills"></div>
     </div>
     <div class="filter-divider"></div>
-    <div class="filter-group">
+    <div class="filter-group filter-group-pills">
       <span class="filter-label">Source</span>
       <div class="pill-filters" id="book-pills"></div>
     </div>
@@ -2113,7 +2131,7 @@ function chunkArray(arr, size) {
 function toggleMobileFilters() {
   const bar = document.querySelector('.filter-bar');
   const btn = document.getElementById('btn-filter-toggle');
-  const isOpen = bar.classList.contains('expanded');
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
   bar.classList.toggle('expanded', !isOpen);
   btn.classList.toggle('open', !isOpen);
   btn.setAttribute('aria-expanded', String(!isOpen));
