@@ -213,6 +213,31 @@ input[type="text"]::placeholder { color: #6a6a80; }
 
 .search-input { min-width: 180px; }
 
+.filter-group-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-reset {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-reset:hover { color: var(--gold); border-color: rgba(201,168,76,0.5); }
+.btn-reset:disabled { opacity: 0.3; cursor: not-allowed; }
+
 .filter-divider {
   width: 1px;
   height: 24px;
@@ -1249,7 +1274,10 @@ input[type="text"]::placeholder { color: #6a6a80; }
       <div class="pill-filters" id="book-pills"></div>
     </div>
     <div class="filter-divider"></div>
-    <input type="text" class="search-input" id="search-input" placeholder="Search spells..." oninput="renderGrid()">
+    <div class="filter-group filter-group-search">
+      <input type="text" class="search-input" id="search-input" placeholder="Search spells..." oninput="state.searchText=this.value.toLowerCase();renderGrid()">
+      <button class="btn btn-reset" id="btn-reset-filters" onclick="resetFilters()" title="Reset filters">&#8635; Reset</button>
+    </div>
   </div>
 </header>
 
@@ -2605,12 +2633,45 @@ function clearSelection() {
   updateSelectionUI();
 }
 
+function resetFilters() {
+  const cls = state.selectedClass;
+  const lv  = state.selectedLevel;
+  if (!cls || !lv) return; // nothing to reset if no class/level selected
+
+  // Clear search
+  state.searchText = '';
+  document.getElementById('search-input').value = '';
+
+  // Reactivate all available levels
+  const availableLevels = [];
+  if (getSpellList().some(s => s.level === 0 && s.classes.includes(cls))) availableLevels.push(0);
+  for (let i = 1; i <= 9; i++) {
+    if (getSpellList().some(s => s.level === i && s.classes.includes(cls))) availableLevels.push(i);
+  }
+  state.activeLevels = new Set(availableLevels);
+  const pillsEl = document.getElementById('spell-level-pills');
+  pillsEl.querySelectorAll('.pill').forEach(p => p.classList.add('active'));
+
+  // Reactivate all available schools
+  const schoolsUsed = new Set(getSpellList().filter(s => isAvailable(s, cls, lv)).map(s => s.school));
+  state.activeSchools = new Set(schoolsUsed);
+  document.getElementById('school-pills').querySelectorAll('.pill').forEach(p => p.classList.add('active'));
+
+  // Reactivate all available books
+  const booksUsed = new Set(getSpellList().filter(s => isAvailable(s, cls, lv)).map(s => getSpellBook(s)));
+  state.activeBooks = new Set(booksUsed);
+  document.getElementById('book-pills').querySelectorAll('.pill').forEach(p => p.classList.add('active'));
+
+  renderGrid();
+}
+
 function selectAllVisible() {
-  const visibleCards = document.querySelectorAll('#card-grid .spell-card');
-  visibleCards.forEach(card => {
-    const spellId = card.dataset.id;
-    if (spellId) {
-      state.selectedSpells.add(spellId);
+  const cls = state.selectedClass;
+  const lv  = state.selectedLevel;
+  getSpellList().filter(s => passesFilters(s, cls, lv)).forEach(spell => {
+    state.selectedSpells.add(spell.id);
+    const card = document.querySelector(`#card-grid .spell-card[data-id="${spell.id}"]`);
+    if (card) {
       card.classList.add('selected');
       const ind = card.querySelector('.select-indicator');
       if (ind) ind.innerHTML = '&#10003;';
