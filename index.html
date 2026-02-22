@@ -756,6 +756,9 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .print-page .spell-card .card-source { font-size: 0.46rem !important; padding: 2px 6px 4px !important; }
 }
 
+/* Filter toggle — desktop: always hidden */
+#btn-filter-toggle { display: none; }
+
 /* ============================================================
    MOBILE & TABLET RESPONSIVE
    ============================================================ */
@@ -777,49 +780,90 @@ input[type="text"]::placeholder { color: #6a6a80; }
 
 /* Mobile (up to 768px) */
 @media (max-width: 768px) {
-  /* Header */
-  #app-header { position: sticky; top: 0; }
 
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 10px 14px 6px;
+  /* ---- Hide print button entirely on mobile ---- */
+  #btn-print { display: none !important; }
+
+  /* ---- Slim sticky bar (always visible) ---- */
+  #app-header {
+    position: sticky;
+    top: 0;
+    transition: none;
   }
 
-  .app-title { font-size: 1.1rem; }
-  .app-title span { font-size: 0.72rem; }
+  .header-top {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    gap: 8px;
+    min-height: 44px;
+  }
 
+  .app-title { font-size: 1rem; }
+  .app-title span { font-size: 0.68rem; }
+
+  /* Slim bar right side: count + action buttons + filter toggle */
   .header-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 6px;
-    width: 100%;
     align-items: center;
+    flex-shrink: 0;
   }
 
   .header-actions .selection-badge {
-    font-size: 0.72rem;
-    padding: 3px 8px;
+    font-size: 0.7rem;
+    padding: 3px 7px;
+    white-space: nowrap;
   }
 
   .header-actions .btn {
-    font-size: 0.72rem;
-    padding: 5px 10px;
+    font-size: 0.7rem;
+    padding: 4px 9px;
+    white-space: nowrap;
   }
 
-  .header-actions #btn-print {
-    flex: 1 1 auto;
-    text-align: center;
-    justify-content: center;
+  /* Filter toggle button — mobile only */
+  #btn-filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
   }
+  #btn-filter-toggle:active { background: rgba(201,168,76,0.3); }
+  #btn-filter-toggle .toggle-arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+    font-size: 0.6rem;
+  }
+  #btn-filter-toggle.open .toggle-arrow { transform: rotate(180deg); }
 
-  /* Filter bar: scrollable horizontal strip on mobile */
+  /* ---- Collapsible filter panel ---- */
   .filter-bar {
     flex-direction: column;
     gap: 8px;
-    padding: 10px 14px;
-    overflow-x: visible;
+    padding: 10px 14px 12px;
+    overflow: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+    border-top: none;
+  }
+
+  .filter-bar.expanded {
+    max-height: 600px;
+    padding: 10px 14px 12px;
+    border-top: 1px solid var(--border);
   }
 
   .filter-group {
@@ -974,6 +1018,9 @@ input[type="text"]::placeholder { color: #6a6a80; }
       <button class="btn btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
       <button class="btn btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
       <button class="btn btn-print" id="btn-print" disabled onclick="openPrintPreview()">&#128424; Print to PDF</button>
+      <button id="btn-filter-toggle" onclick="toggleMobileFilters()" aria-expanded="false">
+        Filters <span class="toggle-arrow">&#9660;</span>
+      </button>
     </div>
   </div>
   <div class="filter-bar">
@@ -2059,6 +2106,50 @@ function chunkArray(arr, size) {
   }
   return chunks;
 }
+
+// ============================================================
+// MOBILE FILTER PANEL
+// ============================================================
+function toggleMobileFilters() {
+  const bar = document.querySelector('.filter-bar');
+  const btn = document.getElementById('btn-filter-toggle');
+  const isOpen = bar.classList.contains('expanded');
+  bar.classList.toggle('expanded', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+function closeMobileFilters() {
+  const bar = document.querySelector('.filter-bar');
+  const btn = document.getElementById('btn-filter-toggle');
+  if (bar && bar.classList.contains('expanded')) {
+    bar.classList.remove('expanded');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+// Auto-collapse filters when user scrolls down on mobile
+(function initScrollCollapse() {
+  let lastScrollY = 0;
+  let ticking = false;
+
+  window.addEventListener('scroll', function() {
+    if (window.innerWidth > 768) return; // desktop: do nothing
+    const currentY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        if (currentY > lastScrollY && currentY > 60) {
+          // scrolling down past 60px — collapse filters
+          closeMobileFilters();
+        }
+        lastScrollY = currentY;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
 
 </script>
 </body>
