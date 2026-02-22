@@ -1,0 +1,11 @@
+title: Spell Tome
+description: D&D 5e Spell Card Selector
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - .gitignore
+  - _src/
+theme: null
+plugins: []

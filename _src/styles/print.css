@@ -1,0 +1,69 @@
+/* ============================================================
+   PRINT STYLES — A4 LANDSCAPE, 4x2 GRID
+   ============================================================ */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide everything except print output */
+  body > *:not(#print-output) {
+    display: none !important;
+  }
+
+  #print-output {
+    display: block !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  .print-page {
+    page-break-after: always;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 3mm !important;
+    padding: 8mm !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    overflow: hidden !important;
+    background: #fff !important;
+  }
+
+  .print-page:last-child {
+    page-break-after: avoid;
+  }
+
+  /* Cards in print */
+  .print-page .spell-card {
+    page-break-inside: avoid !important;
+    border-radius: 4px !important;
+    font-size: 0.58rem !important;
+    border: 1px solid #ddd !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .print-page .spell-card .select-indicator { display: none !important; }
+  .print-page .spell-card .card-header { padding: 4px 6px !important; min-height: 28px !important; gap: 4px !important; }
+  .print-page .spell-card .card-school-icon { width: 20px !important; height: 20px !important; }
+  .print-page .spell-card .card-title { font-size: 0.58rem !important; }
+  .print-page .spell-card .card-level { font-size: 0.55rem !important; padding-right: 3px !important; }
+  .print-page .spell-card .stat-label { min-width: 36px !important; font-size: 0.52rem !important; }
+  .print-page .spell-card .stat-value { font-size: 0.56rem !important; }
+  .print-page .spell-card .class-item { font-size: 0.48rem !important; }
+  .print-page .spell-card .card-stats { padding: 3px 6px 2px !important; }
+  .print-page .spell-card .card-components { padding: 2px 6px !important; gap: 3px !important; }
+  .print-page .spell-card .component-icon { width: 13px !important; height: 13px !important; }
+  .print-page .spell-card .component-icon svg { width: 11px !important; height: 11px !important; }
+  .print-page .spell-card .badge { font-size: 0.42rem !important; padding: 1px 3px !important; }
+  .print-page .spell-card .card-flavor { font-size: 0.52rem !important; padding: 2px 6px !important; }
+  .print-page .spell-card .card-description { font-size: 0.52rem !important; padding: 2px 6px !important; line-height: 1.3 !important; flex: 1 !important; overflow: hidden !important; }
+  .print-page .spell-card .higher-levels { font-size: 0.48rem !important; }
+  .print-page .spell-card .card-source { font-size: 0.46rem !important; padding: 2px 6px 4px !important; }
+}
