@@ -219,6 +219,28 @@ input[type="text"]::placeholder { color: #6a6a80; }
   gap: 6px;
 }
 
+/* Search sits above secondary filters as its own full-width row */
+.search-primary {
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.search-primary .search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Secondary filter row: class/level + pills, shown below search */
+.filter-bar-secondary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
 .btn-reset {
   font-family: 'Cinzel', serif;
   font-size: 0.7rem;
@@ -945,18 +967,31 @@ input[type="text"]::placeholder { color: #6a6a80; }
   /* ---- Collapsible filter panel ---- */
   .filter-bar {
     flex-direction: column;
-    gap: 8px;
-    padding: 0 14px;
+    gap: 0;
+    padding: 8px 14px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Search row: always visible, never collapses */
+  .search-primary {
+    width: 100%;
+    padding-bottom: 8px;
+    margin-bottom: 0;
+  }
+
+  /* Secondary filters (class/level/pills): collapse behind the toggle */
+  .filter-bar-secondary {
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.28s ease, padding 0.28s ease;
-    border-top: none;
+    padding: 0;
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .filter-bar.expanded {
+  .filter-bar.expanded .filter-bar-secondary {
     max-height: 700px;
-    padding: 10px 14px 14px;
-    border-top: 1px solid var(--border);
+    padding: 6px 0 14px;
   }
 
   /* Class + Level side by side */
@@ -1236,47 +1271,48 @@ input[type="text"]::placeholder { color: #6a6a80; }
     </div>
   </div>
   <div class="filter-bar expanded">
-    <div class="filter-group-row">
-      <div class="filter-group">
-        <span class="filter-label">Class</span>
-        <select id="class-select" onchange="onClassChange()">
-          <option value="">Select class...</option>
-          <option>Bard</option><option>Cleric</option><option>Druid</option>
-          <option>Paladin</option><option>Ranger</option><option>Sorcerer</option>
-          <option>Warlock</option><option>Wizard</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Level</span>
-        <select id="level-select" disabled onchange="onLevelChange()">
-          <option value="">Select level...</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option><option>11</option><option>12</option>
-          <option>13</option><option>14</option><option>15</option><option>16</option>
-          <option>17</option><option>18</option><option>19</option><option>20</option>
-        </select>
-      </div>
-    </div>
-    <div class="filter-divider"></div>
-    <div class="filter-group filter-group-pills">
-      <span class="filter-label">Spell Level</span>
-      <div class="pill-filters" id="spell-level-pills"></div>
-    </div>
-    <div class="filter-divider"></div>
-    <div class="filter-group filter-group-pills">
-      <span class="filter-label">School</span>
-      <div class="pill-filters" id="school-pills"></div>
-    </div>
-    <div class="filter-divider"></div>
-    <div class="filter-group filter-group-pills">
-      <span class="filter-label">Source</span>
-      <div class="pill-filters" id="book-pills"></div>
-    </div>
-    <div class="filter-divider"></div>
-    <div class="filter-group filter-group-search">
-      <input type="text" class="search-input" id="search-input" placeholder="Search spells..." oninput="state.searchText=this.value.toLowerCase();renderGrid()">
+    <div class="filter-group filter-group-search search-primary">
+      <input type="text" class="search-input" id="search-input" placeholder="Search all spells by name or description..." oninput="state.searchText=this.value.toLowerCase();renderGrid()">
       <button class="btn btn-reset" id="btn-reset-filters" onclick="resetFilters()" title="Reset filters">&#8635; Reset</button>
+    </div>
+    <div class="filter-bar-secondary">
+      <div class="filter-group-row">
+        <div class="filter-group">
+          <span class="filter-label">Class</span>
+          <select id="class-select" onchange="onClassChange()">
+            <option value="">Select class...</option>
+            <option>Bard</option><option>Cleric</option><option>Druid</option>
+            <option>Paladin</option><option>Ranger</option><option>Sorcerer</option>
+            <option>Warlock</option><option>Wizard</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Level</span>
+          <select id="level-select" disabled onchange="onLevelChange()">
+            <option value="">Select level...</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+            <option>13</option><option>14</option><option>15</option><option>16</option>
+            <option>17</option><option>18</option><option>19</option><option>20</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group filter-group-pills">
+        <span class="filter-label">Spell Level</span>
+        <div class="pill-filters" id="spell-level-pills"></div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group filter-group-pills">
+        <span class="filter-label">School</span>
+        <div class="pill-filters" id="school-pills"></div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group filter-group-pills">
+        <span class="filter-label">Source</span>
+        <div class="pill-filters" id="book-pills"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -2492,22 +2528,44 @@ function renderGrid() {
   const search = document.getElementById('search-input').value.toLowerCase().trim();
   state.searchText = search;
 
-  if (!cls || !lv) return;
-
-  const filtered = getSpellList().filter(s => passesFilters(s, cls, lv));
-
-  // Sort: level asc, then alpha
-  filtered.sort((a, b) => a.level !== b.level ? a.level - b.level : a.name.localeCompare(b.name));
-
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
   const resultsBar = document.getElementById('results-bar');
 
+  // Search-only mode: search term present but no class/level selected
+  const searchOnly = search && (!cls || !lv);
+
+  if (!search && (!cls || !lv)) {
+    // Nothing to show — restore default empty state
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+    resultsBar.style.display = 'none';
+    empty.style.display = 'flex';
+    empty.querySelector('h2').textContent = 'Your spells will appear here';
+    empty.querySelector('p').textContent = 'Select a class and level to browse, or type a spell name above to search all spells.';
+    return;
+  }
+
+  let filtered;
+  if (searchOnly) {
+    filtered = getSpellList().filter(s =>
+      s.name.toLowerCase().includes(search) ||
+      (s.description && s.description.toLowerCase().includes(search))
+    );
+  } else {
+    filtered = getSpellList().filter(s => passesFilters(s, cls, lv));
+  }
+
+  filtered.sort((a, b) => a.level !== b.level ? a.level - b.level : a.name.localeCompare(b.name));
+
   if (filtered.length === 0) {
     grid.style.display = 'none';
+    grid.innerHTML = '';
     empty.style.display = 'flex';
     empty.querySelector('h2').textContent = 'No Spells Found';
-    empty.querySelector('p').textContent = 'Try adjusting your filters or search term.';
+    empty.querySelector('p').textContent = searchOnly
+      ? 'No spells match that search. Try a different term.'
+      : 'Try adjusting your filters or search term.';
     resultsBar.style.display = 'none';
     return;
   }
@@ -2515,15 +2573,18 @@ function renderGrid() {
   grid.style.display = 'grid';
   empty.style.display = 'none';
   resultsBar.style.display = 'block';
-  resultsBar.textContent = `${filtered.length} spell${filtered.length !== 1 ? 's' : ''} available${state.selectedSpells.size > 0 ? ` · ${state.selectedSpells.size} selected` : ''}`;
+
+  const modeNote = searchOnly ? ' across all spells' : '';
+  resultsBar.textContent = `${filtered.length} spell${filtered.length !== 1 ? 's' : ''} found${modeNote}${state.selectedSpells.size > 0 ? ' \u00B7 ' + state.selectedSpells.size + ' selected' : ''}`;
 
   grid.innerHTML = '';
   filtered.forEach(spell => {
-    grid.appendChild(buildCard(spell, cls, true));
+    grid.appendChild(buildCard(spell, searchOnly ? null : cls, true));
   });
 
   updateSelectionUI();
 }
+
 
 // ============================================================
 // BUILD CARD ELEMENT
