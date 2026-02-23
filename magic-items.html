@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Magic Item Compendium — D&D 5e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark:#1a1a2e; --bg-panel:#16213e; --text-light:#e8e8e8;
+  --text-muted:#9a9ab0; --text-dim:#6a6a80; --gold:#c9a84c; --gold-dim:#8a6a2c; --border:#2a2a4a;
+  --r-common:#7a7a8a; --r-uncommon:#2a7a3a; --r-rare:#2a3a8a; --r-very-rare:#6a2a8a; --r-legendary:#8a3a1a; --r-artifact:#8a6a0a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--bg-dark);color:var(--text-light);min-height:100vh;background-image:radial-gradient(ellipse at 20% 50%,rgba(80,50,0,0.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,20,80,0.15) 0%,transparent 60%);}
+#app-header{position:sticky;top:0;z-index:100;background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px 10px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.app-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.07em;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,0.4);text-transform:uppercase;}
+.app-title span{color:var(--text-muted);font-weight:400;font-size:0.85rem;margin-left:8px;letter-spacing:0.18em;}
+.nav-links{display:flex;gap:8px;align-items:center;}
+.nav-link{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:5px 12px;color:var(--text-muted);transition:all 0.15s;}
+.nav-link:hover{color:var(--gold);border-color:rgba(201,168,76,0.4);}
+.filter-bar{display:flex;align-items:center;gap:8px;padding:10px 24px 12px;flex-wrap:wrap;}
+.filter-label{font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;}
+select,input[type="text"]{font-family:'EB Garamond',serif;font-size:0.95rem;background:#0d1a30;color:#e8e8e8;border:1px solid #3a3a5a;border-radius:4px;padding:5px 10px;outline:none;transition:border-color 0.15s,background 0.15s;}
+select{padding-right:28px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-color:#0d1a30;cursor:pointer;}
+select option{background:#0d1a30;color:#e8e8e8;}
+select:focus,input[type="text"]:focus{border-color:var(--gold-dim);background:#111f38;box-shadow:0 0 0 2px rgba(201,168,76,0.15);}
+input[type="text"]::placeholder{color:#6a6a80;}
+.search-input{min-width:200px;flex:1;max-width:340px;}
+.pill-filters{display:flex;gap:4px;flex-wrap:wrap;}
+.pill{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.06em;font-weight:600;border-radius:3px;padding:3px 8px;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text-muted);transition:all 0.15s;user-select:none;}
+.pill:hover{border-color:var(--text-dim);color:var(--text-light);}
+.pill.active{background:rgba(201,168,76,0.18);border-color:var(--gold-dim);color:var(--gold);}
+.rarity-pill.active[data-val="Common"]{background:#7a7a8a;color:#fff;border-color:transparent;}
+.rarity-pill.active[data-val="Uncommon"]{background:#2a7a3a;color:#fff;border-color:transparent;}
+.rarity-pill.active[data-val="Rare"]{background:#2a3a8a;color:#fff;border-color:transparent;}
+.rarity-pill.active[data-val="Very Rare"]{background:#6a2a8a;color:#fff;border-color:transparent;}
+.rarity-pill.active[data-val="Legendary"]{background:#8a3a1a;color:#fff;border-color:transparent;}
+.rarity-pill.active[data-val="Artifact"]{background:#8a6a0a;color:#fff;border-color:transparent;}
+.btn-reset{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;border:1px solid var(--border);border-radius:4px;padding:5px 10px;cursor:pointer;background:transparent;color:var(--text-muted);transition:all 0.15s;white-space:nowrap;}
+.btn-reset:hover{color:var(--gold);border-color:rgba(201,168,76,0.5);}
+.filter-divider{width:1px;height:24px;background:var(--border);flex-shrink:0;}
+#results-bar{padding:7px 24px;font-size:0.85rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-style:italic;background:rgba(15,52,96,0.2);}
+#card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;padding:24px;}
+#empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px;text-align:center;color:var(--text-dim);}
+#empty-state .rune{font-size:4rem;opacity:0.25;margin-bottom:20px;display:block;}
+#empty-state h2{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.05em;}
+.item-card{background:#fff;border-radius:7px;overflow:hidden;cursor:pointer;box-shadow:0 3px 16px rgba(0,0,0,0.45);transition:transform 0.15s ease,box-shadow 0.15s ease;color:#222;font-family:'EB Garamond',Georgia,serif;font-size:0.83rem;line-height:1.4;border:2.5px solid transparent;}
+.item-card:hover{transform:translateY(-4px);box-shadow:0 10px 36px rgba(0,0,0,0.6);}
+.card-header{padding:9px 11px 7px;display:flex;align-items:flex-start;gap:8px;}
+.item-icon{font-size:1.6rem;flex-shrink:0;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2));}
+.card-name-block{flex:1;min-width:0;}
+.card-name{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(0.62rem,1.9vw,0.84rem);letter-spacing:0.03em;text-transform:uppercase;color:#fff;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,0.35);overflow-wrap:break-word;}
+.card-subline{font-size:0.68rem;color:rgba(255,255,255,0.72);font-style:italic;margin-top:2px;display:block;}
+.rarity-badge{font-family:'Cinzel',serif;font-weight:700;font-size:0.52rem;letter-spacing:0.07em;text-transform:uppercase;background:rgba(0,0,0,0.25);color:rgba(255,255,255,0.9);border-radius:3px;padding:2px 5px;flex-shrink:0;white-space:nowrap;margin-top:2px;}
+.card-tags{padding:4px 11px 5px;background:#f7f5f0;border-top:1px solid #eee;display:flex;flex-wrap:wrap;gap:3px;}
+.tag{font-family:'Cinzel',serif;font-size:0.5rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;border-radius:3px;padding:2px 5px;}
+.tag.attune{background:#fff0e0;color:#a63;}
+.tag.attune-class{background:#ffe8f0;color:#933;}
+.tag.charges{background:#e8f0ff;color:#336;}
+.tag.consumable{background:#f0ffe8;color:#363;}
+.tag.cursed{background:#fee;color:#933;}
+.card-desc{padding:6px 11px 8px;background:#fff;font-size:0.75rem;color:#333;line-height:1.42;}
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+#modal-overlay.active{display:flex;}
+#modal-box{background:#fff;border-radius:10px;overflow:hidden;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 48px rgba(0,0,0,0.7);color:#222;font-family:'EB Garamond',serif;}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 16px;position:sticky;top:0;}
+.modal-title{font-family:'Cinzel',serif;font-weight:700;font-size:1.1rem;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.35);}
+.modal-subtitle{font-size:0.82rem;color:rgba(255,255,255,0.75);font-style:italic;margin-top:2px;}
+.modal-close{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;background:rgba(0,0,0,0.25);border:none;color:rgba(255,255,255,0.9);border-radius:4px;padding:5px 12px;cursor:pointer;flex-shrink:0;transition:background 0.15s;}
+.modal-close:hover{background:rgba(0,0,0,0.4);}
+.modal-body{padding:16px;}
+.modal-desc{font-size:0.9rem;color:#333;line-height:1.55;margin-bottom:14px;}
+.modal-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;}
+.modal-note{background:#fdf8ee;border-radius:5px;padding:10px 12px;margin-top:12px;font-style:italic;font-size:0.88rem;color:#555;line-height:1.45;border-left:3px solid #c9a84c;}
+.btn{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:7px 16px;cursor:pointer;transition:all 0.15s ease;}
+.btn-print{background:linear-gradient(135deg,#c9a84c,#8a6a2c);color:#1a1a2e;font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,0.3);}
+.btn-print:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,0.5);}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body>*:not(#print-output){display:none!important;}
+  #print-output{display:block!important;}
+  @page{size:A4 landscape;margin:0;}
+  .print-page{page-break-after:always;display:grid!important;grid-template-columns:repeat(4,1fr)!important;grid-template-rows:repeat(2,1fr)!important;gap:3mm!important;padding:8mm!important;width:297mm!important;height:210mm!important;overflow:hidden!important;background:#fff!important;}
+  .print-page:last-child{page-break-after:avoid;}
+  .print-page .item-card{border-radius:4px!important;font-size:0.52rem!important;}
+  .print-page .card-name{font-size:0.58rem!important;}
+  .print-page .card-header{padding:5px 7px!important;}
+  .print-page .item-icon{font-size:1rem!important;}
+  .print-page .rarity-badge{font-size:0.44rem!important;}
+  .print-page .tag{font-size:0.4rem!important;}
+  .print-page .card-desc{font-size:0.5rem!important;padding:3px 7px 5px!important;line-height:1.3!important;}
+}
+#btn-filter-toggle{display:none;}
+@media(max-width:768px){
+  #card-grid{grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
+  .header-top{padding:8px 14px;}
+  .app-title{font-size:clamp(0.75rem,3.5vw,1rem);}
+  .app-title span{display:none;}
+  .btn-print{display:none;}
+  #btn-filter-toggle{display:flex;align-items:center;gap:4px;font-size:0.7rem;padding:4px 10px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--gold);border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;font-weight:600;letter-spacing:0.05em;}
+  .filter-bar{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 14px;}
+  .filter-bar.expanded{max-height:700px;padding:10px 14px 12px;}
+}
+@media(max-width:480px){#card-grid{grid-template-columns:1fr;}}
+#print-output{display:none;}
+
+/* ============================================================
+   SHARED HAMBURGER NAV
+   ============================================================ */
+.nav-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;
+  opacity:0;pointer-events:none;transition:opacity 0.25s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:all;}
+.nav-drawer {
+  position:fixed;top:0;right:-310px;width:290px;height:100vh;
+  background:rgba(13,20,45,0.99);border-left:1px solid var(--border);
+  backdrop-filter:blur(16px);z-index:999;
+  transition:right 0.28s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;
+}
+.nav-drawer.open{right:0;}
+.nav-drawer-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.nav-drawer-title {
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);
+}
+.nav-close-btn {
+  background:none;border:none;color:var(--text-muted);font-size:1.3rem;
+  cursor:pointer;padding:4px 6px;line-height:1;border-radius:4px;transition:color 0.15s;
+}
+.nav-close-btn:hover{color:var(--text-light);}
+.nav-scroll{flex:1;overflow-y:auto;padding:8px 0 24px;}
+.nav-section-label {
+  font-family:'Cinzel',serif;font-size:0.58rem;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);
+  padding:16px 20px 6px;display:block;
+}
+.nav-item {
+  display:flex;align-items:center;gap:12px;padding:11px 20px;
+  text-decoration:none;color:var(--text-muted);
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;
+  letter-spacing:0.07em;text-transform:uppercase;
+  border-left:3px solid transparent;transition:all 0.14s;
+}
+.nav-item:hover,.nav-item.active{
+  color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
+}
+.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.hamburger-btn {
+  background:none;border:1px solid var(--border);border-radius:6px;
+  padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
+  gap:5px;transition:border-color 0.15s;flex-shrink:0;
+}
+.hamburger-btn:hover{border-color:var(--gold-dim);}
+.hamburger-btn span{
+  display:block;width:20px;height:2px;background:var(--text-muted);
+  border-radius:2px;transition:background 0.15s;
+}
+.hamburger-btn:hover span{background:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <span class="nav-section-label">Tools</span>
+    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
+    <a href="conditions.html" class="nav-item"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
+    <a href="wildshape.html" class="nav-item"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
+    <a href="monsters.html" class="nav-item"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
+    <a href="magic-items.html" class="nav-item active"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+  </div>
+</nav>
+
+<div id="app-header">
+  <div class="header-top">
+    <div class="app-title">Magic Item Compendium <span>D&D 5e SRD</span></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+      <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-label">Search</span>
+    <input type="text" class="search-input" id="search-input" placeholder="Search magic items…" oninput="applyFilters()">
+    <div class="filter-divider"></div>
+    <span class="filter-label">Rarity</span>
+    <div class="pill-filters" id="rarity-pills">
+      <div class="pill rarity-pill active" data-val="all" onclick="togglePill(this,'rarity')">All</div>
+      <div class="pill rarity-pill" data-val="Common" onclick="togglePill(this,'rarity')">Common</div>
+      <div class="pill rarity-pill" data-val="Uncommon" onclick="togglePill(this,'rarity')">Uncommon</div>
+      <div class="pill rarity-pill" data-val="Rare" onclick="togglePill(this,'rarity')">Rare</div>
+      <div class="pill rarity-pill" data-val="Very Rare" onclick="togglePill(this,'rarity')">Very Rare</div>
+      <div class="pill rarity-pill" data-val="Legendary" onclick="togglePill(this,'rarity')">Legendary</div>
+    </div>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Type</span>
+    <div class="pill-filters" id="type-pills">
+      <div class="pill active" data-val="all" onclick="togglePill(this,'type')">All</div>
+      <div class="pill" data-val="Weapon" onclick="togglePill(this,'type')">Weapon</div>
+      <div class="pill" data-val="Armor" onclick="togglePill(this,'type')">Armour</div>
+      <div class="pill" data-val="Wondrous" onclick="togglePill(this,'type')">Wondrous</div>
+      <div class="pill" data-val="Ring" onclick="togglePill(this,'type')">Ring</div>
+      <div class="pill" data-val="Rod" onclick="togglePill(this,'type')">Rod</div>
+      <div class="pill" data-val="Staff" onclick="togglePill(this,'type')">Staff</div>
+      <div class="pill" data-val="Wand" onclick="togglePill(this,'type')">Wand</div>
+      <div class="pill" data-val="Potion" onclick="togglePill(this,'type')">Potion</div>
+      <div class="pill" data-val="Scroll" onclick="togglePill(this,'type')">Scroll</div>
+    </div>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Attunement</span>
+    <div class="pill-filters" id="attune-pills">
+      <div class="pill active" data-val="all" onclick="togglePill(this,'attune')">All</div>
+      <div class="pill" data-val="yes" onclick="togglePill(this,'attune')">Required</div>
+      <div class="pill" data-val="no" onclick="togglePill(this,'attune')">Not Required</div>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()" style="margin-left:8px;">Reset</button>
+  </div>
+</div>
+<div id="results-bar"></div>
+<div id="card-grid"></div>
+<div id="empty-state" style="display:none;">
+  <span class="rune">✨</span>
+  <h2>No Items Found</h2>
+  <p>Adjust your filters to find your treasure.</p>
+</div>
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+<div id="print-output"></div>
+
+<script>
+const RARITY_COLORS = {
+  Common:'#7a7a8a', Uncommon:'#2a7a3a', Rare:'#2a3a8a',
+  'Very Rare':'#6a2a8a', Legendary:'#8a3a1a', Artifact:'#8a6a0a', Varies:'#5a5a4a'
+};
+
+const ITEMS = [
+  // POTIONS
+  {name:'Potion of Healing',icon:'🧪',rarity:'Common',type:'Potion',attune:false,consumable:true,
+    desc:'You regain 2d4+2 hit points when you drink this potion. The potion\'s red liquid glimmers when agitated.',
+    note:'The most universally useful item in D&D. Always worth carrying.'},
+  {name:'Potion of Greater Healing',icon:'🧪',rarity:'Uncommon',type:'Potion',attune:false,consumable:true,
+    desc:'You regain 4d4+4 hit points when you drink this potion.',
+    note:'Effective from mid-tier onward. Average 14 HP. Good to stockpile in dungeon crawls.'},
+  {name:'Potion of Superior Healing',icon:'🧪',rarity:'Rare',type:'Potion',attune:false,consumable:true,
+    desc:'You regain 8d4+8 hit points when you drink this potion.',
+    note:'Average 28 HP — a significant mid-combat save at higher tiers.'},
+  {name:'Potion of Supreme Healing',icon:'🧪',rarity:'Very Rare',type:'Potion',attune:false,consumable:true,
+    desc:'You regain 10d4+20 hit points when you drink this potion.',
+    note:'Average 45 HP. Worth every gold piece in high-tier play.'},
+  {name:'Potion of Flying',icon:'🧪',rarity:'Very Rare',type:'Potion',attune:false,consumable:true,
+    desc:'When you drink this potion, you gain a flying speed equal to your walking speed for 1 hour and can hover. If the effect ends while you are still in the air, you fall unless you have another means of flight.',
+    note:'One hour is generous. Can be lifesaving or gamebreaking depending on the encounter.'},
+  {name:'Potion of Heroism',icon:'🧪',rarity:'Rare',type:'Potion',attune:false,consumable:true,
+    desc:'For 1 hour after drinking it, you gain 10 temporary hit points that last for 1 hour. For the same duration, you are under the effect of the Bless spell (no concentration required).',
+    note:'One of the best potions — 10 temp HP plus Bless without concentration.'},
+  {name:'Potion of Invisibility',icon:'🧪',rarity:'Very Rare',type:'Potion',attune:false,consumable:true,
+    desc:'When you drink it, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell.',
+    note:'One of the most powerful single-use items in the game. One hour of full invisibility.'},
+  {name:'Potion of Speed',icon:'🧪',rarity:'Very Rare',type:'Potion',attune:false,consumable:true,
+    desc:'When you drink this potion, you gain the effect of the Haste spell for 1 minute (no concentration required). The yellow fluid moves and swirls like something alive.',
+    note:'One minute of Haste without concentration. Exceptional in decisive combat.'},
+  {name:'Potion of Clairvoyance',icon:'🧪',rarity:'Rare',type:'Potion',attune:false,consumable:true,
+    desc:'When you drink this potion, you gain the effect of the Clairvoyance spell. An eyeball bobs in this yellow liquid but vanishes when the potion is opened.',
+    note:'Recon utility in a bottle. Useful for scouting ahead of the party.'},
+  {name:'Potion of Giant Strength',icon:'🧪',rarity:'Varies',type:'Potion',attune:false,consumable:true,
+    desc:'When you drink this potion, your Strength score changes for 1 hour. The giant type determines the score: Hill (21), Stone/Frost (23), Fire (25), Cloud (27), Storm (29).',
+    note:'Useful for non-Strength characters needing to grapple or break through obstacles. Storm variant sets Str to 29.'},
+  {name:'Potion of Waterbreathing',icon:'🧪',rarity:'Uncommon',type:'Potion',attune:false,consumable:true,
+    desc:'You can breathe underwater for 1 hour after drinking this potion. Its cloudy green fluid smells of the sea.',
+    note:'Cheap insurance for aquatic encounters. Consider buying several before a seafloor dungeon.'},
+  // SCROLLS
+  {name:'Spell Scroll',icon:'📜',rarity:'Varies',type:'Scroll',attune:false,consumable:true,
+    desc:'A spell scroll bears the words of a single spell. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without material components. If it is a higher level than you can normally cast, make a DC check (10 + spell level) or the scroll is wasted.',
+    note:'Rarity scales with spell level. Cantrip/1st: Common; 2nd-3rd: Uncommon; 4th-5th: Rare; 6th-8th: Very Rare; 9th: Legendary.'},
+  // WEAPONS
+  {name:'+1 Weapon',icon:'⚔️',rarity:'Uncommon',type:'Weapon',attune:false,
+    desc:'You have a +1 bonus to attack and damage rolls made with this magic weapon.',
+    note:'No attunement required. A straightforward and reliable upgrade for any martial character.'},
+  {name:'+2 Weapon',icon:'⚔️',rarity:'Rare',type:'Weapon',attune:false,
+    desc:'You have a +2 bonus to attack and damage rolls made with this magic weapon.',
+    note:'No attunement. Also bypasses magical weapon resistance, which is critical in many encounters.'},
+  {name:'+3 Weapon',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:false,
+    desc:'You have a +3 bonus to attack and damage rolls made with this magic weapon.',
+    note:'No attunement. A +3 bonus at high levels is a meaningful difference in hit rate.'},
+  {name:'Flame Tongue',icon:'🔥',rarity:'Rare',type:'Weapon',attune:true,charges:false,
+    desc:'Use a bonus action to speak the command word — flames erupt from the blade, shedding bright light 40 ft and dim light 40 ft further. The sword deals an extra 2d6 fire damage to any target it hits while ablaze.',
+    note:'Attunement. +2d6 fire on demand. Highly effective against trolls, undead, and vegetation.'},
+  {name:'Frost Brand',icon:'❄️',rarity:'Very Rare',type:'Weapon',attune:true,
+    desc:'When you hit with an attack, the target takes an extra 1d6 cold damage. While you hold the sword, you have resistance to fire damage. In freezing temperatures, the blade sheds bright light in a 10-foot radius.',
+    note:'Attunement. Fire resistance is exceptionally valuable. +1d6 cold damage is reliable bonus damage.'},
+  {name:'Sword of Sharpness',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,
+    desc:'When you attack an object with this magic sword and hit, maximize your weapon damage dice. When you attack a creature and roll a 20, that target takes an extra 4d6 slashing damage. Then roll another d20; on a 20, you lop off one of the target\'s limbs.',
+    note:'Attunement. The dismemberment effect is iconic. Object-destroying capability makes it versatile.'},
+  {name:'Sword of Life Stealing',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,
+    desc:'When you attack a creature with this weapon and roll a 20, that creature must make a DC 15 Constitution save or lose 10 HP from its maximum hit points, and you gain 10 temporary hit points.',
+    note:'Attunement. HP maximum reduction is permanent until Greater Restoration. Excellent against solo bosses.'},
+  {name:'Nine Lives Stealer',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,charges:'1d8+1',
+    desc:'The sword has 1d8+1 charges. You can expend a charge when you hit a creature with fewer than 100 HP. That creature must succeed on a DC 15 Constitution save or be slain instantly. An immortal creature is immune.',
+    note:'Attunement. Instant death mechanic against creatures under 100 HP. Potent against humanoid enemies and minions.'},
+  {name:'Dragon Slayer',icon:'🐉',rarity:'Rare',type:'Weapon',attune:false,
+    desc:'You gain a +1 bonus to attack and damage rolls. When you use this weapon to attack a dragon, you deal an extra 3d6 damage of the weapon\'s type.',
+    note:'No attunement. +3d6 specifically vs dragons. Worth keeping available when draconic encounters are expected.'},
+  {name:'Giant Slayer',icon:'🗿',rarity:'Rare',type:'Weapon',attune:false,
+    desc:'You gain a +1 bonus to attack and damage rolls. When you hit a giant with it, the giant takes an extra 2d6 damage of the weapon\'s type and must make a DC 15 Strength save or fall prone.',
+    note:'No attunement. +2d6 plus prone effect vs giants. Excellent for giant-heavy campaigns.'},
+  {name:'Javelin of Lightning',icon:'🌩',rarity:'Uncommon',type:'Weapon',attune:false,
+    desc:'When you hurl it and speak its command word, it transforms into a bolt of lightning — a 5-ft-wide line 120 ft long. Each creature in the line (except you and the target) makes a DC 13 Dex save, taking 4d6 lightning on a failure. The lightning turns back into a javelin when it reaches the target. On a hit, the target takes weapon damage plus 4d6 lightning damage. The property can\'t be used again until the next dawn.',
+    note:'Once per day AoE + single-target lightning damage. Excellent value at Uncommon rarity.'},
+  {name:'Arrow of Slaying',icon:'🏹',rarity:'Very Rare',type:'Weapon',attune:false,consumable:true,
+    desc:'An arrow of slaying is a magic weapon meant to kill a particular kind of creature. When you hit a creature of that kind with this arrow and the creature has fewer than 100 HP, it must succeed on a DC 17 Constitution saving throw or be slain instantly.',
+    note:'Consumable. Single-use instant death vs a specific creature type under 100 HP. Great for anticipated boss fights.'},
+  {name:'Defender',icon:'🛡',rarity:'Legendary',type:'Weapon',attune:true,
+    desc:'The first time you attack with the sword on each of your turns, you can transfer some or all of the sword\'s +3 bonus to your Armor Class instead of using it for attacks. The adjusted bonuses remain until the start of your next turn.',
+    note:'Attunement. A +3 weapon that can flex into AC. Exceptional defensive option — effectively combines offense and defense.'},
+  {name:'Holy Avenger',icon:'✝️',rarity:'Legendary',type:'Weapon',attune:true,attuneClass:'Paladin',
+    desc:'You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a fiend or an undead with it, that creature takes an extra 2d10 radiant damage. While you hold the drawn sword, it creates an aura in a 10-foot radius around you. You and all creatures friendly to you in the aura have advantage on saving throws against spells and other magical effects.',
+    note:'Paladin attunement only. +3, radiant damage vs fiends/undead, and a party-wide magic resistance aura. The definitive paladin weapon.'},
+  {name:'Vorpal Sword',icon:'⚔️',rarity:'Legendary',type:'Weapon',attune:true,
+    desc:'You gain a +3 bonus to attack and damage rolls. The weapon ignores resistance to slashing damage. When you attack a creature that has at least one head with this weapon and roll a 20, you cut off one of its heads. The creature dies if it can\'t survive without the lost head.',
+    note:'Attunement. Decapitation on a natural 20 — even the Tarrasque can be beheaded. Ignores slashing resistance as standard.'},
+  // ARMOR
+  {name:'+1 Armor',icon:'🛡',rarity:'Rare',type:'Armor',attune:false,
+    desc:'You have a +1 bonus to AC while you wear this armor.',
+    note:'No attunement. A reliable AC improvement that stacks with all other bonuses.'},
+  {name:'+2 Armor',icon:'🛡',rarity:'Very Rare',type:'Armor',attune:false,
+    desc:'You have a +2 bonus to AC while you wear this armor.',
+    note:'No attunement. +2 AC is significant at higher levels where each point changes saving throw odds.'},
+  {name:'+3 Armor',icon:'🛡',rarity:'Legendary',type:'Armor',attune:false,
+    desc:'You have a +3 bonus to AC while you wear this armor.',
+    note:'No attunement. The pinnacle of armor bonuses. Exceptionally rare and coveted.'},
+  {name:'Adamantine Armor',icon:'🛡',rarity:'Uncommon',type:'Armor',attune:false,
+    desc:'While you\'re wearing it, any critical hit against you becomes a normal hit.',
+    note:'No attunement. Negates all critical hits — exceptionally powerful since crits deal double dice. Works on any non-natural armor.'},
+  {name:'Mithral Armor',icon:'🛡',rarity:'Uncommon',type:'Armor',attune:false,
+    desc:'Mithral is a light, flexible metal. A mithral chain shirt or breastplate can be worn under normal clothes. The mithral version of the armor has no Stealth disadvantage or Strength requirement.',
+    note:'No attunement. Removes Stealth disadvantage and Strength requirement. Excellent for multiclass and hybrid builds.'},
+  {name:'Armor of Resistance',icon:'🛡',rarity:'Rare',type:'Armor',attune:true,
+    desc:'You have resistance to one type of damage while you wear this armor. The DM chooses the type or determines it randomly.',
+    note:'Attunement. Resistance effectively halves all damage of that type — transformative against specific enemies.'},
+  {name:'Armor of Invulnerability',icon:'🛡',rarity:'Legendary',type:'Armor',attune:true,
+    desc:'You have resistance to nonmagical damage while you wear this armor. Additionally, you can use an action to make yourself immune to nonmagical damage for 10 minutes. Once used, this property can\'t be used again until the next dawn.',
+    note:'Attunement. Permanent nonmagical damage resistance plus daily immunity. The ultimate tank armour item.'},
+  {name:'Demon Armor',icon:'😈',rarity:'Very Rare',type:'Armor',attune:true,cursed:true,
+    desc:'While wearing this armor, you understand and can speak Abyssal. The clawed gauntlets turn unarmed strikes into magic weapons that deal slashing damage, with a +1 bonus to attack rolls and damage rolls and a damage die of 1d8. This armor is cursed — once donned, you can\'t doff it unless targeted by Remove Curse or similar magic.',
+    note:'Attunement. CURSED — cannot be removed without Remove Curse. The clawed attacks and Abyssal language are real benefits, but exercise caution.'},
+  // RINGS
+  {name:'Ring of Protection',icon:'💍',rarity:'Rare',type:'Ring',attune:true,
+    desc:'You gain a +1 bonus to AC and saving throws while wearing this ring.',
+    note:'Attunement. +1 to both AC and all saves from a single item. Exceptional versatility for one attunement slot.'},
+  {name:'Ring of Spell Storing',icon:'💍',rarity:'Rare',type:'Ring',attune:true,
+    desc:'This ring stores spells cast into it, holding them until the attuned wearer uses them. The ring can store up to 5 levels worth of spells at a time. Any creature can cast a spell of 1st through 5th level into the ring.',
+    note:'Attunement. The most flexible ring — any creature can load it with spells that the attuned wearer can then cast on demand.'},
+  {name:'Ring of Evasion',icon:'💍',rarity:'Rare',type:'Ring',attune:true,charges:'3',
+    desc:'This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. When you fail a Dexterity saving throw while wearing it, you can use your reaction to expend 1 charge to succeed on that saving throw instead.',
+    note:'Attunement. Reaction success on a failed Dex save — invaluable against AoE spells like Fireball that could knock out the party.'},
+  {name:'Ring of Resistance',icon:'💍',rarity:'Rare',type:'Ring',attune:true,
+    desc:'You have resistance to one damage type while wearing this ring, indicated by the gem type: Pearl (acid), Tourmaline (cold), Spinelle (fire), Sapphire (lightning), Jet (necrotic), Moonstone (poison), Citrine (radiant), Spinel (thunder).',
+    note:'Attunement. Resistance from a ring slot — excellent if your armour slot is already dedicated elsewhere.'},
+  {name:'Ring of Regeneration',icon:'💍',rarity:'Very Rare',type:'Ring',attune:true,
+    desc:'While wearing this ring, you regain 1d6 hit points every 10 minutes, provided that you have at least 1 hit point. If you lose a body part, the ring causes the missing part to regrow and return to full functionality after 1d6+1 days if you have at least 1 hit point throughout.',
+    note:'Attunement. Passive regeneration ensures you recover between encounters. Limb regrowth removes one of the game\'s rare permanent penalties.'},
+  {name:'Ring of Telekinesis',icon:'💍',rarity:'Very Rare',type:'Ring',attune:true,
+    desc:'While wearing this ring, you can cast the Telekinesis spell at will, but you can target only objects that aren\'t being worn or carried.',
+    note:'Attunement. At-will Telekinesis on objects. Exceptional utility for puzzles, environmental control, and moving heavy obstacles.'},
+  {name:'Ring of Spell Turning',icon:'💍',rarity:'Legendary',type:'Ring',attune:true,
+    desc:'While wearing this ring, you have advantage on saving throws against any spell that targets only you. In addition, if you roll a 20 on the save and the spell is 7th level or lower, the spell is reflected back onto the caster.',
+    note:'Attunement. Advantage on single-target spells plus the chance to reflect them — exceptional defensive item for any concentration-dependent target.'},
+  {name:'Ring of Three Wishes',icon:'💍',rarity:'Legendary',type:'Ring',attune:false,charges:'3',
+    desc:'While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the Wish spell from it. The ring becomes nonmagical when you use the last wish.',
+    note:'No attunement. Three Wish spells. The most powerful item in the game. Use with extreme deliberation.'},
+  // WONDROUS
+  {name:'Bag of Holding',icon:'👜',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'This bag has an interior space considerably larger than its outside dimensions — roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet. The bag weighs 15 pounds regardless of its contents.',
+    note:'No attunement. The quintessential utility item. Overloading or piercing it causes an implosion. Placing a bag of holding inside another extradimensional space tears a hole to the Astral Plane.'},
+  {name:'Cloak of Elvenkind',icon:'🧥',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage, and you have advantage on Dexterity (Stealth) checks made to hide, as the cloak\'s colour shifts to camouflage you.',
+    note:'Attunement. Advantage on Stealth AND disadvantage on enemy Perception. The premier stealth item at Uncommon.'},
+  {name:'Cloak of Protection',icon:'🧥',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'You gain a +1 bonus to AC and saving throws while you wear this cloak.',
+    note:'Attunement. +1 AC and +1 to all saves. Excellent for any character at any tier.'},
+  {name:'Cloak of Displacement',icon:'🧥',rarity:'Rare',type:'Wondrous',attune:true,
+    desc:'While you wear this cloak, it projects an illusion that makes you appear to be standing in a place near your actual location, causing any creature to have disadvantage on attack rolls against you. If you take damage, the property ceases to function until the start of your next turn.',
+    note:'Attunement. Effectively gives permanent disadvantage on attacks — one of the strongest defensive items in the game.'},
+  {name:'Boots of Speed',icon:'👢',rarity:'Rare',type:'Wondrous',attune:true,charges:'10',
+    desc:'While you wear these boots, you can use a bonus action and click the boots\' heels together to double your walking speed. The doubled speed lasts until you use a bonus action to click your heels together again, and the boots expend 1 charge. The boots have 10 charges.',
+    note:'Attunement. Doubling movement speed is extremely strong for positioning, kiting, and escape. Effective for 10 minutes total.'},
+  {name:'Boots of Elvenkind',icon:'👢',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'While you wear these boots, your steps make no sound regardless of the surface you are moving across. You also have advantage on Dexterity (Stealth) checks that involve moving quietly.',
+    note:'No attunement. Advantage on Stealth for movement and silence. Excellent for rogues, rangers, and scout characters.'},
+  {name:'Gauntlets of Ogre Power',icon:'🧤',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'Your Strength score is 19 while you wear these gauntlets. They have no effect on you if your Strength is already 19 or higher.',
+    note:'Attunement. Sets Strength to 19 — transformative for low-Str characters needing to grapple, carry, or break things.'},
+  {name:'Headband of Intellect',icon:'👑',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'Your Intelligence score is 19 while you wear this headband. It has no effect on you if your Intelligence is already 19 or higher.',
+    note:'Attunement. Sets Int to 19. Transformative for non-Wizard Intelligence builds and Int-skill-heavy characters.'},
+  {name:'Amulet of Health',icon:'📿',rarity:'Rare',type:'Wondrous',attune:true,
+    desc:'Your Constitution score is 19 while you wear this amulet. It has no effect on you if your Constitution is already 19 or higher.',
+    note:'Attunement. Sets Con to 19 — significantly boosts HP, concentration checks, and Con saves at lower Constitutions.'},
+  {name:'Amulet of Proof against Detection',icon:'📿',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'While wearing this amulet, you are hidden from divination magic. You can\'t be targeted by such magic or perceived through magical scrying sensors.',
+    note:'Attunement. Complete immunity to scrying and divination targeting. Excellent for characters hiding from powerful enemies.'},
+  {name:'Decanter of Endless Water',icon:'🏺',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'You can use an action to say one of three command words to pour out fresh or salt water: Stream (1 gallon/round), Fountain (5 gallons/round), or Geyser (30 gallons/round — a 30-ft long, 1-ft wide line dealing 1d4 bludgeoning damage, DC 13 Strength save or knocked prone).',
+    note:'No attunement. Geyser can push and prone creatures. Also genuinely useful for survival and environmental puzzles.'},
+  {name:'Eversmoking Bottle',icon:'🏺',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'When you use an action to remove the stopper, a cloud of thick smoke pours out in a 60-foot radius from the bottle. The cloud\'s area is heavily obscured. The cloud persists as long as the bottle is open. If the stopper is replaced, the cloud disperses after 10 minutes.',
+    note:'No attunement. 60 ft radius of heavy obscurement on demand. Powerful area denial that affects all creatures equally.'},
+  {name:'Eyes of Minute Seeing',icon:'👁',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'These crystal lenses fit over the eyes. While wearing them, you can see much better than normal out to a range of 1 foot. You have advantage on Intelligence (Investigation) checks that rely on sight while searching an area or studying an object within that range.',
+    note:'No attunement. Advantage on Investigation within 1 ft — useful for trap detection and document analysis.'},
+  {name:'Eyes of the Eagle',icon:'🦅',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'These crystal lenses fit over the eyes. While wearing them, you have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, you can make out details of even extremely distant creatures and objects as small as 2 feet across.',
+    note:'Attunement. Advantage on sight-based Perception at any range. The best item for lookout and scout characters.'},
+  {name:'Goggles of Night',icon:'🥽',rarity:'Uncommon',type:'Wondrous',attune:false,
+    desc:'While wearing these dark lenses, you have darkvision out to a range of 60 feet. If you already have darkvision, wearing the goggles increases its range by 60 feet.',
+    note:'No attunement. Grants or extends darkvision by 60 ft. Excellent for human and any other non-darkvision races.'},
+  {name:'Helm of Telepathy',icon:'⛑',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'While wearing this helm, you can use an action to cast the Detect Thoughts spell (save DC 13) from it. As long as you concentrate on the spell, you can use a bonus action to send a telepathic message to a creature you are focused on. It can reply with a bonus action.',
+    note:'Attunement. At-will Detect Thoughts plus telepathic communication. Exceptional for social encounters and interrogation.'},
+  {name:'Helm of Brilliance',icon:'✨',rarity:'Very Rare',type:'Wondrous',attune:true,charges:'gems',
+    desc:'This dazzling helm is set with diamonds, rubies, fire opals, and opals. You can use an action to cast a spell by expending a gem (the gem is destroyed): Diamond (Daylight), Ruby (Fireball, 10d6), Fire Opal (Prismatic Spray), Opal (Wall of Fire). The helm also sheds bright light 30 ft when adjacent to undead, and undead must save DC 15 or become blinded.',
+    note:'Attunement. A hoard of spell gems. Multiple casting options, light effects, and undead repelling. Exceptional value.'},
+  {name:'Ioun Stone of Awareness',icon:'🔮',rarity:'Rare',type:'Wondrous',attune:true,
+    desc:'While this pale lavender ellipsoid is orbiting your head, you have advantage on Wisdom (Perception) checks and can\'t be surprised.',
+    note:'Attunement. Cannot be surprised plus Perception advantage — especially potent in ambush-heavy campaigns.'},
+  {name:'Ioun Stone of Reserve',icon:'🔮',rarity:'Rare',type:'Wondrous',attune:true,
+    desc:'This vibrant purple prism stores spells cast into it. While orbiting your head, it stores up to 3 levels of spells. Any creature can cast a 1st-, 2nd-, or 3rd-level spell into the stone by touching it, and you can cast that spell from the stone as a bonus action.',
+    note:'Attunement. Stores spells as bonus-action casting. The bonus action cast element makes this extremely flexible.'},
+  {name:'Necklace of Adaptation',icon:'📿',rarity:'Uncommon',type:'Wondrous',attune:true,
+    desc:'While wearing this necklace, you can breathe normally in any environment, and you have advantage on saving throws made against harmful gases and vapors (such as Cloudkill and Stinking Cloud effects).',
+    note:'Attunement. Breathe anywhere — underwater, in vacuum, through Cloudkill. Essential insurance for environmental hazard campaigns.'},
+  {name:'Pearl of Power',icon:'🔮',rarity:'Uncommon',type:'Wondrous',attune:true,attuneClass:'Spellcaster',
+    desc:'While this pearl is on your person, you can use an action to speak its command word and regain one expended spell slot of 3rd level or lower. The pearl can\'t be used again until the next dawn.',
+    note:'Attunement (spellcaster). Daily regain of a spell slot up to 3rd level. Excellent value for concentration-intensive spellcasters.'},
+  {name:'Portable Hole',icon:'⚫',rarity:'Rare',type:'Wondrous',attune:false,
+    desc:'This fine black cloth, soft as silk, folds into a small package. When unfolded and spread on a solid surface, it creates a circular hole 6 feet in diameter and 10 feet deep. The cloth cannot be folded while the hole is in use. Creatures and objects can be placed inside; the interior has air for 10 minutes.',
+    note:'No attunement. A 6-ft wide, 10-ft deep extradimensional space. If placed inside a Bag of Holding, it tears a rift to the Astral Plane.'},
+  {name:'Ring of Invisibility',icon:'💍',rarity:'Legendary',type:'Ring',attune:true,
+    desc:'While wearing this ring, you can turn invisible as an action. Anything you wear or carry is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a bonus action to become visible again.',
+    note:'Attunement. At-will invisibility without the one-hour limit of the potion. The premier stealth ring.'},
+  // RODS / STAVES / WANDS
+  {name:'Rod of Lordly Might',icon:'🪄',rarity:'Legendary',type:'Rod',attune:true,
+    desc:'This rod has a flanged head and 6 buttons along the haft, each triggering a different function: melee weapon (bonus +3), a ladder extension, a hold person effect, a climbing spike, a flame tongue sword, and a paralyzing touch. The rod can also be wielded as a +3 club.',
+    note:'Attunement. A multi-function legendary rod. Six distinct utility modes plus a +3 weapon baseline.'},
+  {name:'Rod of Security',icon:'🪄',rarity:'Very Rare',type:'Rod',attune:false,
+    desc:'While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures you can see to a paradise that exists in an extradimensional space. You choose the form of the paradise: it can resemble any terrain you\'ve seen. While in the paradise, creatures don\'t age, eat, or sleep. This rod can\'t be used again until 10 days have passed.',
+    note:'No attunement. Up to 200 creatures in an extradimensional paradise for up to 200 days. Exceptional for long rests and refuge.'},
+  {name:'Staff of Fire',icon:'🔥',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Druid/Sorcerer/Warlock/Wizard',charges:'10',
+    desc:'This staff has 10 charges. While holding it, you have resistance to fire damage. You can use an action to expend charges to cast: Burning Hands (1 charge), Fireball (3 charges), or Wall of Fire (4 charges). The staff regains 1d6+4 expended charges daily at dawn. If you expend the last charge, roll a d20; on a 1, the staff blackens, crumbles into cinders, and is destroyed.',
+    note:'Attunement (druid/sorcerer/warlock/wizard). Fire resistance plus fire spell charges. Reliable AoE damage item.'},
+  {name:'Staff of Healing',icon:'🌿',rarity:'Rare',type:'Staff',attune:true,attuneClass:'Bard/Cleric/Druid',charges:'10',
+    desc:'This staff has 10 charges. While holding it, you can use an action to expend charges to cast: Cure Wounds (1 charge per spell level, up to 4th), Lesser Restoration (2 charges), or Mass Cure Wounds (5 charges). The staff regains 1d6+4 expended charges daily at dawn.',
+    note:'Attunement (bard/cleric/druid). Healing action economy from a staff. Mass Cure Wounds for 5 charges is excellent.'},
+  {name:'Staff of Power',icon:'⚡',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Sorcerer/Warlock/Wizard',charges:'20',
+    desc:'This staff has 20 charges and can be used as a +2 quarterstaff. Holding it, you gain +2 to AC, saving throws, and spell attack rolls. It holds numerous powerful spells (Cone of Cold, Fireball, Globe of Invulnerability, Hold Monster, Lightning Bolt, Magic Missile, Ray of Enfeeblement, Wall of Force) costing 1-5 charges. It can also be broken for a Retributive Strike.',
+    note:'Attunement. One of the most powerful staves. +2 to AC/saves/attacks plus a huge repertoire of high-level spells.'},
+  {name:'Staff of the Magi',icon:'⚡',rarity:'Legendary',type:'Staff',attune:true,attuneClass:'Sorcerer/Warlock/Wizard',charges:'50',
+    desc:'This staff has 50 charges and can be used as a +2 quarterstaff. While holding it, you gain +2 to AC, saving throws, and spell attack rolls. It can absorb spells targeted at you (gaining charges equal to the absorbed spell\'s level). You can use charges to cast dozens of spells including Arcane Lock, Conjure Elemental, Dispel Magic, Fireball, Flaming Sphere, Fly, Ice Storm, Invisibility, Knock, Lightning Bolt, Passwall, Plane Shift, Telekinesis, Wall of Fire, and Web. You can also use an action to break it for a Retributive Strike.',
+    note:'Attunement. 50 charges, spell absorption, +2 to three statistics, and the most complete spell list of any staff. The legendary spellcaster staff.'},
+  {name:'Wand of Fireballs',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+    desc:'This wand has 7 charges. While holding it, you can use an action to expend charges to cast Fireball (save DC 15) from it. For 1 charge, Fireball deals 8d6 fire damage. For each additional charge, the damage increases by 1d6. The wand regains 1d6+1 expended charges daily at dawn.',
+    note:'Attunement (spellcaster). Reliable Fireball from a wand — up to 13d6 at max charge. Excellent action economy for non-evocation wizards.'},
+  {name:'Wand of Magic Detection',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'3',
+    desc:'This wand has 3 charges. While holding it, you can expend 1 charge as an action to cast the Detect Magic spell from it. The wand regains 1d3 expended charges daily at dawn.',
+    note:'No attunement. At-will Detect Magic effectively. Excellent for item identification and trap detection.'},
+  {name:'Wand of Magic Missiles',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'7',
+    desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast Magic Missile from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.',
+    note:'No attunement. Auto-hit Magic Missile from any character. Up to 7th-level slots for maximum bolts.'},
+  {name:'Wand of Paralysis',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+    desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cause a thin blue ray to streak from the tip toward a creature you can see within 60 feet of you. The target must succeed on a DC 15 Constitution saving throw or be paralyzed for 1 minute. At the end of each of the target\'s turns, it can repeat the saving throw. On a success, the effect ends.',
+    note:'Attunement (spellcaster). 7 charges of Paralysis — the melee auto-crit condition. Exceptional in high-priority target encounters.'},
+  {name:'Wand of Polymorph',icon:'🪄',rarity:'Very Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+    desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the Polymorph spell (save DC 15) from it. The wand regains 1d6+1 expended charges daily at dawn.',
+    note:'Attunement (spellcaster). 7 uses of Polymorph per dawn cycle. Exceptional utility — combat removal, transformation, and creative problem solving.'},
+];
+
+const RARITY_ORDER = ['Common','Uncommon','Rare','Very Rare','Legendary','Artifact','Varies'];
+
+let activeRarity = new Set(['all']);
+let activeType = new Set(['all']);
+let activeAttune = new Set(['all']);
+let searchQ = '';
+
+function togglePill(pill, group) {
+  const val = pill.dataset.val;
+  const sets = {rarity: activeRarity, type: activeType, attune: activeAttune};
+  const set = sets[group];
+  const pillsId = group+'-pills';
+  if (val === 'all') { set.clear(); set.add('all'); }
+  else {
+    set.delete('all');
+    if (set.has(val)) { set.delete(val); if (set.size === 0) set.add('all'); }
+    else set.add(val);
+  }
+  document.querySelectorAll(`#${pillsId} .pill`).forEach(p => {
+    p.classList.toggle('active', set.has(p.dataset.val));
+  });
+  renderGrid();
+}
+
+function applyFilters() { searchQ = document.getElementById('search-input').value.toLowerCase().trim(); renderGrid(); }
+
+function resetFilters() {
+  document.getElementById('search-input').value = '';
+  searchQ = '';
+  activeRarity = new Set(['all']); activeType = new Set(['all']); activeAttune = new Set(['all']);
+  document.querySelectorAll('.pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.val === 'all');
+    if (p.classList.contains('rarity-pill')) { p.style.background=''; p.style.color=''; p.style.borderColor=''; }
+  });
+  renderGrid();
+}
+
+function filtered() {
+  return ITEMS.filter(item => {
+    const rarityOk = activeRarity.has('all') || activeRarity.has(item.rarity);
+    const typeOk = activeType.has('all') || activeType.has(item.type);
+    let attuneOk = true;
+    if (!activeAttune.has('all')) {
+      if (activeAttune.has('yes') && !item.attune) attuneOk = false;
+      if (activeAttune.has('no') && item.attune) attuneOk = false;
+    }
+    const searchOk = !searchQ ||
+      item.name.toLowerCase().includes(searchQ) ||
+      item.desc.toLowerCase().includes(searchQ) ||
+      item.type.toLowerCase().includes(searchQ) ||
+      item.rarity.toLowerCase().includes(searchQ);
+    return rarityOk && typeOk && attuneOk && searchOk;
+  });
+}
+
+function rarityColor(r) { return RARITY_COLORS[r] || '#555'; }
+
+function buildCard(item) {
+  const color = rarityColor(item.rarity);
+  const tags = [];
+  if (item.attune) tags.push(`<span class="tag attune">${item.attuneClass ? 'Attune: '+item.attuneClass : 'Attunement'}</span>`);
+  if (item.charges) tags.push(`<span class="tag charges">${typeof item.charges === 'string' ? item.charges : item.charges+' charges'}</span>`);
+  if (item.consumable) tags.push(`<span class="tag consumable">Consumable</span>`);
+  if (item.cursed) tags.push(`<span class="tag cursed" style="background:#fee;color:#933;">Cursed</span>`);
+  const shortDesc = item.desc.length > 200 ? item.desc.substring(0, 197) + '…' : item.desc;
+  return `<div class="item-card" style="border-color:${color}20">
+    <div class="card-header" style="background:${color}">
+      <span class="item-icon">${item.icon}</span>
+      <div class="card-name-block">
+        <div class="card-name">${item.name}</div>
+        <span class="card-subline">${item.type} · ${item.rarity}</span>
+      </div>
+    </div>
+    ${tags.length ? `<div class="card-tags">${tags.join('')}</div>` : ''}
+    <div class="card-desc">${shortDesc}</div>
+  </div>`;
+}
+
+function renderGrid() {
+  const list = filtered();
+  const grid = document.getElementById('card-grid');
+  const empty = document.getElementById('empty-state');
+  document.getElementById('results-bar').textContent = `${list.length} item${list.length!==1?'s':''} shown`;
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(item => buildCard(item)).join('');
+  grid.querySelectorAll('.item-card').forEach((el, i) => el.addEventListener('click', () => openModal(list[i])));
+}
+
+function openModal(item) {
+  const color = rarityColor(item.rarity);
+  const box = document.getElementById('modal-box');
+  const tags = [];
+  if (item.attune) tags.push(`<span class="tag attune" style="font-size:0.65rem;padding:3px 8px;">${item.attuneClass ? 'Attunement: '+item.attuneClass : 'Requires Attunement'}</span>`);
+  if (item.charges) tags.push(`<span class="tag charges" style="font-size:0.65rem;padding:3px 8px;">${typeof item.charges === 'string' ? 'Charges: '+item.charges : item.charges+' Charges'}</span>`);
+  if (item.consumable) tags.push(`<span class="tag consumable" style="font-size:0.65rem;padding:3px 8px;">Consumable</span>`);
+  if (item.cursed) tags.push(`<span class="tag cursed" style="font-size:0.65rem;padding:3px 8px;background:#fee;color:#933;">Cursed</span>`);
+  box.innerHTML = `
+    <div class="modal-header" style="background:${color}">
+      <div>
+        <div class="modal-title">${item.icon} ${item.name}</div>
+        <div class="modal-subtitle">${item.type} · ${item.rarity}${item.attune?' · Requires Attunement':''}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+    <div class="modal-body">
+      ${tags.length ? `<div class="modal-tags">${tags.join('')}</div>` : ''}
+      <div class="modal-desc">${item.desc}</div>
+      ${item.note ? `<div class="modal-note">${item.note}</div>` : ''}
+    </div>`;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
+function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+function toggleFilters() {
+  const bar = document.getElementById('filter-bar');
+  bar.classList.toggle('expanded');
+  document.getElementById('toggle-arrow').textContent = bar.classList.contains('expanded') ? '▲' : '▼';
+}
+
+function printCards() {
+  const list = filtered();
+  const output = document.getElementById('print-output');
+  const pages = [];
+  for (let i=0; i<list.length; i+=8) pages.push(list.slice(i,i+8));
+  output.innerHTML = pages.map(page => `<div class="print-page">${page.map(item => buildCard(item)).join('')}</div>`).join('');
+  window.print();
+}
+
+renderGrid();
+</script>
+
+<script>
+function openNav() {
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+</script>
+</body>
+</html>

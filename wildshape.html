@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Wildshape & Familiar — D&D 5e Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark:#1a1a2e; --bg-panel:#16213e; --text-light:#e8e8e8;
+  --text-muted:#9a9ab0; --text-dim:#6a6a80; --gold:#c9a84c;
+  --gold-dim:#8a6a2c; --border:#2a2a4a;
+  --druid-green:#2a6a3a; --druid-green-light:#3a9a5a;
+  --find-purple:#6a2a8a; --find-purple-light:#8a4aaa;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--bg-dark); color: var(--text-light); min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(0,80,40,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(60,0,100,0.12) 0%, transparent 60%);
+}
+#app-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(22,33,62,0.97); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px 10px; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.app-title {
+  font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
+  letter-spacing: 0.06em; color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,168,76,0.4); text-transform: uppercase;
+}
+.app-title span { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; margin-left: 8px; letter-spacing: 0.15em; }
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-link {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid var(--border); border-radius: 4px; padding: 5px 12px;
+  color: var(--text-muted); transition: all 0.15s;
+}
+.nav-link:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+
+/* MODE TOGGLE */
+.mode-toggle {
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  border-radius: 6px; padding: 3px; gap: 2px;
+}
+.mode-btn {
+  font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: none; border-radius: 4px; padding: 6px 16px;
+  cursor: pointer; transition: all 0.15s ease;
+  background: transparent; color: var(--text-muted);
+}
+.mode-btn:hover { color: var(--text-light); }
+.mode-btn.active.druid { background: linear-gradient(135deg, #3a9a5a, #2a6a3a); color: #fff; box-shadow: 0 1px 6px rgba(58,154,90,0.35); }
+.mode-btn.active.familiar { background: linear-gradient(135deg, #8a4aaa, #6a2a8a); color: #fff; box-shadow: 0 1px 6px rgba(138,74,170,0.35); }
+
+.filter-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 24px 12px; flex-wrap: wrap;
+}
+.filter-label {
+  font-family: 'Cinzel', serif; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); white-space: nowrap;
+}
+select, input[type="text"] {
+  font-family: 'EB Garamond', serif; font-size: 0.95rem;
+  background: #0d1a30; color: #e8e8e8; border: 1px solid #3a3a5a;
+  border-radius: 4px; padding: 5px 10px; outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+select {
+  padding-right: 28px; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+  background-color: #0d1a30; cursor: pointer;
+}
+select option { background: #0d1a30; color: #e8e8e8; }
+select:focus, input[type="text"]:focus {
+  border-color: var(--gold-dim); background: #111f38;
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.15);
+}
+input[type="text"]::placeholder { color: #6a6a80; }
+.search-input { min-width: 180px; }
+.pill-filters { display: flex; gap: 4px; flex-wrap: wrap; }
+.pill {
+  font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.06em;
+  font-weight: 600; border-radius: 3px; padding: 3px 8px;
+  cursor: pointer; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04); color: var(--text-muted);
+  transition: all 0.15s; user-select: none;
+}
+.pill:hover { border-color: var(--text-dim); color: var(--text-light); }
+.pill.active { background: rgba(201,168,76,0.18); border-color: var(--gold-dim); color: var(--gold); }
+.btn-reset {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px;
+  cursor: pointer; background: transparent; color: var(--text-muted);
+  transition: all 0.15s; white-space: nowrap;
+}
+.btn-reset:hover { color: var(--gold); border-color: rgba(201,168,76,0.5); }
+.filter-divider { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
+
+/* DRUID INFO PANEL */
+.druid-info-bar {
+  background: rgba(42,106,58,0.15); border-bottom: 1px solid rgba(58,154,90,0.2);
+  padding: 8px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.druid-rule {
+  font-size: 0.82rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.druid-rule strong { color: var(--druid-green-light); font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.05em; }
+.familiar-info-bar {
+  background: rgba(106,42,138,0.12); border-bottom: 1px solid rgba(138,74,170,0.2);
+  padding: 8px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.familiar-rule {
+  font-size: 0.82rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.familiar-rule strong { color: #8a4aaa; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.05em; }
+
+#results-bar {
+  padding: 7px 24px; font-size: 0.85rem; color: var(--text-dim);
+  border-bottom: 1px solid var(--border); font-style: italic;
+  background: rgba(15,52,96,0.2);
+}
+#card-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px; padding: 24px;
+}
+#empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 80px 24px; text-align: center; color: var(--text-dim);
+}
+#empty-state .rune { font-size: 4rem; opacity: 0.25; margin-bottom: 20px; display: block; }
+#empty-state h2 { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.05em; }
+
+/* BEAST CARD */
+.beast-card {
+  background: #fff; border-radius: 7px; overflow: hidden; cursor: pointer;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222; font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem; line-height: 1.4; border: 2.5px solid transparent;
+}
+.beast-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.6); }
+.beast-card.wildshape { border-color: rgba(42,106,58,0.3); }
+.beast-card.familiar { border-color: rgba(106,42,138,0.3); }
+
+.card-header {
+  padding: 9px 11px 7px; display: flex; align-items: flex-start; gap: 8px;
+}
+.beast-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
+.card-name-block { flex: 1; min-width: 0; }
+.card-name {
+  font-family: 'Cinzel', serif; font-weight: 700;
+  font-size: clamp(0.68rem, 2vw, 0.88rem); letter-spacing: 0.03em;
+  text-transform: uppercase; color: #fff; line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35); overflow-wrap: break-word;
+}
+.card-subline { font-size: 0.7rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 1px; }
+.cr-badge {
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.7rem;
+  background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.95);
+  border-radius: 3px; padding: 2px 6px; flex-shrink: 0; white-space: nowrap; margin-top: 2px;
+}
+.card-core-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  padding: 5px 11px 4px; background: #fff; gap: 2px;
+}
+.core-stat { text-align: center; }
+.core-stat .cs-label { font-size: 0.6rem; color: #888; font-family: 'Cinzel', serif; letter-spacing: 0.08em; text-transform: uppercase; display: block; }
+.core-stat .cs-val { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.8rem; color: #222; }
+.card-tags {
+  padding: 4px 11px 5px; background: #f7f5f0; border-top: 1px solid #eee;
+  display: flex; flex-wrap: wrap; gap: 3px;
+}
+.tag {
+  font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; border-radius: 3px;
+  padding: 2px 5px;
+}
+.tag.swim { background: #ddeeff; color: #336; }
+.tag.fly { background: #eeeeff; color: #446; }
+.tag.climb { background: #eefee8; color: #363; }
+.tag.burrow { background: #f5f0e0; color: #553; }
+.tag.darkvision { background: #2a2a3a; color: #aaa; }
+.tag.blindsight { background: #1a1a2a; color: #888; }
+.tag.pack-tactics { background: #fff0e0; color: #a63; }
+.tag.special { background: #f0e8ff; color: #553; }
+.tag.eligible { background: #e8ffe8; color: #363; }
+.tag.level-req { background: rgba(201,168,76,0.15); color: #7a5500; border: 1px solid rgba(201,168,76,0.3); }
+.card-note {
+  padding: 4px 11px 7px; background: #fff; font-size: 0.75rem;
+  color: #444; font-style: italic; border-top: 1px solid #f0f0f0; line-height: 1.35;
+}
+
+/* DRUID ELIGIBILITY CHECKER */
+.druid-level-banner {
+  padding: 6px 24px; background: rgba(42,106,58,0.08);
+  border-bottom: 1px solid rgba(42,106,58,0.15);
+  display: flex; align-items: center; gap: 10px;
+}
+.druid-level-banner label {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* MODAL */
+#modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85); z-index: 500;
+  align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
+}
+#modal-overlay.active { display: flex; }
+#modal-box {
+  background: #fff; border-radius: 10px; overflow: hidden;
+  max-width: 560px; width: 100%; max-height: 85vh;
+  overflow-y: auto; box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+  color: #222; font-family: 'EB Garamond', serif;
+}
+.modal-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 10px; padding: 14px 16px; position: sticky; top: 0;
+}
+.modal-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+.modal-subtitle { font-size: 0.82rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 2px; }
+.modal-close {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  background: rgba(0,0,0,0.25); border: none; color: rgba(255,255,255,0.9);
+  border-radius: 4px; padding: 5px 12px; cursor: pointer; flex-shrink: 0;
+}
+.modal-close:hover { background: rgba(0,0,0,0.4); }
+.modal-body { padding: 16px; }
+.stat-row-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
+.stat-box { background: #f7f5f0; border-radius: 5px; padding: 7px 8px; text-align: center; }
+.stat-box .lb { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; }
+.stat-box .vl { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95rem; color: #222; }
+.ab-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 5px; margin-bottom: 14px; }
+.ab-box { background: #f7f5f0; border-radius: 5px; padding: 6px 4px; text-align: center; }
+.ab-box .abl { font-family: 'Cinzel', serif; font-size: 0.55rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; }
+.ab-box .abs { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.88rem; color: #222; }
+.ab-box .abm { font-size: 0.7rem; color: #555; }
+.msec { margin-top: 12px; }
+.msec-label { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; padding-bottom: 3px; border-bottom: 1px solid #eee; }
+.mabil { margin-bottom: 5px; font-size: 0.88rem; color: #333; line-height: 1.45; }
+.mabil strong { font-weight: 700; }
+.eligibility-panel { background: #f0faf4; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; border: 1px solid #c0e0c8; }
+.eligibility-title { font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: #2a6a3a; margin-bottom: 6px; text-transform: uppercase; }
+.eligibility-row { font-size: 0.85rem; color: #333; margin-bottom: 3px; }
+.eligibility-row .ok { color: #2a6a3a; font-weight: 600; }
+.eligibility-row .no { color: #8a2a2a; font-weight: 600; }
+
+.btn { font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 4px; padding: 7px 16px; cursor: pointer; transition: all 0.15s ease; }
+.btn-print { background: linear-gradient(135deg, #c9a84c, #8a6a2c); color: #1a1a2e; font-weight: 700; box-shadow: 0 2px 12px rgba(201,168,76,0.3); }
+.btn-print:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.5); }
+
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body > *:not(#print-output) { display: none !important; }
+  #print-output { display: block !important; }
+  @page { size: A4 landscape; margin: 0; }
+  .print-page { page-break-after: always; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; grid-template-rows: repeat(2, 1fr) !important; gap: 3mm !important; padding: 8mm !important; width: 297mm !important; height: 210mm !important; overflow: hidden !important; background: #fff !important; }
+  .print-page:last-child { page-break-after: avoid; }
+  .print-page .beast-card { border-radius: 4px !important; font-size: 0.52rem !important; }
+  .print-page .card-header { padding: 5px 7px !important; }
+  .print-page .card-name { font-size: 0.6rem !important; }
+  .print-page .beast-icon { font-size: 1.1rem !important; }
+  .print-page .cs-label { font-size: 0.44rem !important; }
+  .print-page .cs-val { font-size: 0.6rem !important; }
+  .print-page .tag { font-size: 0.4rem !important; }
+}
+
+#btn-filter-toggle { display: none; }
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+  .header-top { padding: 8px 14px; }
+  .app-title { font-size: clamp(0.7rem, 3.2vw, 1rem); }
+  .app-title span { display: none; }
+  .btn-print { display: none; }
+  #btn-filter-toggle { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; padding: 4px 10px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4); color: var(--gold); border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.05em; }
+  .filter-bar { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 14px; }
+  .filter-bar.expanded { max-height: 600px; padding: 10px 14px 12px; }
+  .druid-info-bar, .familiar-info-bar { display: none; }
+}
+@media (max-width: 480px) { #card-grid { grid-template-columns: 1fr; } }
+#print-output { display: none; }
+
+/* ============================================================
+   SHARED HAMBURGER NAV
+   ============================================================ */
+.nav-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;
+  opacity:0;pointer-events:none;transition:opacity 0.25s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:all;}
+.nav-drawer {
+  position:fixed;top:0;right:-310px;width:290px;height:100vh;
+  background:rgba(13,20,45,0.99);border-left:1px solid var(--border);
+  backdrop-filter:blur(16px);z-index:999;
+  transition:right 0.28s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;
+}
+.nav-drawer.open{right:0;}
+.nav-drawer-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.nav-drawer-title {
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);
+}
+.nav-close-btn {
+  background:none;border:none;color:var(--text-muted);font-size:1.3rem;
+  cursor:pointer;padding:4px 6px;line-height:1;border-radius:4px;transition:color 0.15s;
+}
+.nav-close-btn:hover{color:var(--text-light);}
+.nav-scroll{flex:1;overflow-y:auto;padding:8px 0 24px;}
+.nav-section-label {
+  font-family:'Cinzel',serif;font-size:0.58rem;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);
+  padding:16px 20px 6px;display:block;
+}
+.nav-item {
+  display:flex;align-items:center;gap:12px;padding:11px 20px;
+  text-decoration:none;color:var(--text-muted);
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;
+  letter-spacing:0.07em;text-transform:uppercase;
+  border-left:3px solid transparent;transition:all 0.14s;
+}
+.nav-item:hover,.nav-item.active{
+  color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
+}
+.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.hamburger-btn {
+  background:none;border:1px solid var(--border);border-radius:6px;
+  padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
+  gap:5px;transition:border-color 0.15s;flex-shrink:0;
+}
+.hamburger-btn:hover{border-color:var(--gold-dim);}
+.hamburger-btn span{
+  display:block;width:20px;height:2px;background:var(--text-muted);
+  border-radius:2px;transition:background 0.15s;
+}
+.hamburger-btn:hover span{background:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <span class="nav-section-label">Tools</span>
+    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
+    <a href="conditions.html" class="nav-item"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
+    <a href="wildshape.html" class="nav-item active"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
+    <a href="monsters.html" class="nav-item"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
+    <a href="magic-items.html" class="nav-item"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+  </div>
+</nav>
+
+<div id="app-header">
+  <div class="header-top">
+    <div class="app-title">Wildshape & Familiar <span>D&D 5e Reference</span></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="mode-toggle">
+        <button class="mode-btn druid active" id="btn-druid" onclick="setMode('druid')">Wildshape</button>
+        <button class="mode-btn familiar" id="btn-familiar" onclick="setMode('familiar')">Familiars</button>
+      </div>
+      <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+      <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-label">Search</span>
+    <input type="text" class="search-input" id="search-input" placeholder="Search beasts…" oninput="applyFilters()">
+    <div id="druid-filters">
+      <span class="filter-label" style="margin-left:8px;">Druid Level</span>
+      <select id="druid-level" onchange="applyFilters()">
+        <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+        <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        <option value="8" selected>8</option><option value="9">9</option><option value="10">10</option>
+        <option value="11">11</option><option value="12">12</option><option value="13">13</option>
+        <option value="14">14</option><option value="15">15</option><option value="16">16</option>
+        <option value="17">17</option><option value="18">18</option><option value="20">20</option>
+      </select>
+      <span class="filter-label" style="margin-left:8px;">Max CR</span>
+      <select id="cr-filter" onchange="applyFilters()">
+        <option value="all">All eligible</option>
+        <option value="0.125">1/8</option><option value="0.25">1/4</option>
+        <option value="0.5">1/2</option><option value="1">1</option>
+        <option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="6">6</option>
+      </select>
+    </div>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Terrain</span>
+    <div class="pill-filters" id="terrain-pills">
+      <div class="pill active" data-val="all" onclick="togglePill(this,'terrain')">All</div>
+      <div class="pill" data-val="any" onclick="togglePill(this,'terrain')">Any</div>
+      <div class="pill" data-val="aquatic" onclick="togglePill(this,'terrain')">Aquatic</div>
+      <div class="pill" data-val="arctic" onclick="togglePill(this,'terrain')">Arctic</div>
+      <div class="pill" data-val="coast" onclick="togglePill(this,'terrain')">Coast</div>
+      <div class="pill" data-val="desert" onclick="togglePill(this,'terrain')">Desert</div>
+      <div class="pill" data-val="forest" onclick="togglePill(this,'terrain')">Forest</div>
+      <div class="pill" data-val="grassland" onclick="togglePill(this,'terrain')">Grassland</div>
+      <div class="pill" data-val="hill" onclick="togglePill(this,'terrain')">Hill</div>
+      <div class="pill" data-val="mountain" onclick="togglePill(this,'terrain')">Mountain</div>
+      <div class="pill" data-val="swamp" onclick="togglePill(this,'terrain')">Swamp</div>
+      <div class="pill" data-val="underdark" onclick="togglePill(this,'terrain')">Underdark</div>
+      <div class="pill" data-val="underwater" onclick="togglePill(this,'terrain')">Underwater</div>
+    </div>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Movement</span>
+    <div class="pill-filters" id="move-pills">
+      <div class="pill active" data-val="all" onclick="togglePill(this,'move')">All</div>
+      <div class="pill" data-val="fly" onclick="togglePill(this,'move')">Fly</div>
+      <div class="pill" data-val="swim" onclick="togglePill(this,'move')">Swim</div>
+      <div class="pill" data-val="climb" onclick="togglePill(this,'move')">Climb</div>
+      <div class="pill" data-val="burrow" onclick="togglePill(this,'move')">Burrow</div>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()" style="margin-left:8px;">Reset</button>
+  </div>
+  <div id="info-bar-druid" class="druid-info-bar">
+    <div class="druid-rule"><strong>Retain:</strong> HP becomes beast HP; Int/Wis/Cha stay yours</div>
+    <div class="druid-rule"><strong>Limit:</strong> Cannot cast spells; no flying form until level 8</div>
+    <div class="druid-rule"><strong>Duration:</strong> Up to half druid level in hours; can revert as bonus action</div>
+    <div class="druid-rule"><strong>Uses:</strong> 2/short rest (recharge). CR max = level ÷ 3, round down</div>
+  </div>
+  <div id="info-bar-familiar" class="familiar-info-bar" style="display:none;">
+    <div class="familiar-rule"><strong>Source:</strong> Find Familiar spell (1st level ritual, any class with access)</div>
+    <div class="familiar-rule"><strong>Actions:</strong> Familiar uses its own initiative; can't attack but can use Help</div>
+    <div class="familiar-rule"><strong>Bond:</strong> Telepathic link within 100 ft; share senses action</div>
+    <div class="familiar-rule"><strong>Death:</strong> If reduced to 0 HP it disappears; re-summon with 1 hour ritual</div>
+  </div>
+</div>
+<div id="results-bar"></div>
+<div id="card-grid"></div>
+<div id="empty-state" style="display:none;">
+  <span class="rune">🐾</span>
+  <h2>No Forms Found</h2>
+  <p>Adjust your druid level or filters.</p>
+</div>
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+<div id="print-output"></div>
+
+<script>
+function cr(n) { if(n===0.125)return'1/8'; if(n===0.25)return'1/4'; if(n===0.5)return'1/2'; return String(n); }
+function mod(n) { const m=Math.floor((n-10)/2); return (m>=0?'+':'')+m; }
+
+// Wildshape beasts — all SRD beasts eligible for Wildshape (no fly/swim restricted forms noted)
+const BEASTS = [
+  // CR 0
+  {name:'Owl',cr:0,size:'Tiny',icon:'🦉',terrain:['forest','grassland','hill'],fly:true,
+    ac:11,hp:1,speed:'5 ft, fly 60 ft',str:3,dex:13,con:8,int:2,wis:12,cha:7,
+    darkvision:120,passive:13,
+    abilities:[{n:'Flyby',t:'No opportunity attacks when flying out of reach.'},{n:'Keen Hearing and Sight',t:'Advantage on Perception checks.'}],
+    actions:[{n:'Talons',t:'+3 to hit, 1 slashing.'}],
+    note:'Excellent scout in flying form (requires level 8+). 120 ft darkvision makes it one of the best familiar options too.'},
+  {name:'Cat',cr:0.125,size:'Tiny',icon:'🐱',terrain:['any'],
+    ac:12,hp:2,speed:'40 ft, climb 30 ft',str:3,dex:15,con:10,int:3,wis:12,cha:7,
+    darkvision:30,passive:13,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
+    actions:[{n:'Claws',t:'+0 to hit, 1 slashing.'}],
+    note:'Useful for infiltration and scouting. Darkvision 30 ft. High Dex for Stealth.'},
+  {name:'Frog',cr:0,size:'Tiny',icon:'🐸',terrain:['swamp','coast','aquatic'],swim:true,
+    ac:11,hp:1,speed:'20 ft, swim 20 ft',str:1,dex:13,con:8,int:1,wis:8,cha:3,
+    passive:10,
+    abilities:[{n:'Amphibious',t:'Can breathe air and water.'},{n:'Standing Leap',t:'Long jump up to 10 ft, high jump up to 5 ft.'}],
+    actions:[{n:'Bite',t:'+1 to hit, 1 piercing.'}],
+    note:'Amphibious movement makes it useful for aquatic scouting. Tiny size great for infiltration.'},
+  {name:'Hawk',cr:0.125,size:'Tiny',icon:'🦅',terrain:['grassland','forest','hill','coast'],fly:true,
+    ac:13,hp:1,speed:'10 ft, fly 60 ft',str:5,dex:16,con:8,int:2,wis:14,cha:6,
+    passive:14,
+    abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'}],
+    actions:[{n:'Talons',t:'+5 to hit, 1 slashing.'}],
+    note:'Best Passive Perception among Tiny beasts at 14. Excellent aerial scout.'},
+  {name:'Poisonous Snake',cr:0.125,size:'Tiny',icon:'🐍',terrain:['forest','grassland','swamp'],swim:true,
+    ac:13,hp:2,speed:'30 ft, swim 30 ft',str:2,dex:16,con:11,int:1,wis:10,cha:3,
+    blindsight:10,passive:10,
+    abilities:[],
+    actions:[{n:'Bite',t:'+5 to hit, 1 piercing + 2d4 poison. DC 10 Con or poisoned for 1 minute.'}],
+    note:'Blindsight 10 ft. The poison DC is low but the delivery mechanism makes it useful.'},
+  {name:'Raven',cr:0,size:'Tiny',icon:'🪶',terrain:['forest','grassland','hill','any'],fly:true,
+    ac:12,hp:1,speed:'10 ft, fly 50 ft',str:2,dex:14,con:8,int:2,wis:12,cha:6,
+    passive:13,
+    abilities:[{n:'Mimicry',t:'Can mimic simple sounds it has heard. DC 10 Insight to recognise as imitation.'}],
+    actions:[{n:'Beak',t:'+4 to hit, 1 piercing.'}],
+    note:'The Mimicry trait provides unique utility. Popular familiar choice — can speak for Find Familiar master.'},
+  // CR 1/4
+  {name:'Panther',cr:0.25,size:'Medium',icon:'🐆',terrain:['forest','grassland'],climb:true,
+    ac:12,hp:13,speed:'50 ft, climb 40 ft',str:14,dex:15,con:10,int:3,wis:14,cha:7,
+    passive:14,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception relying on smell.'},{n:'Pounce',t:'If moves 20+ ft toward target and hits with Claws, target DC 12 Str or knocked prone; bonus Bite attack.'}],
+    actions:[{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Claws',t:'+4 to hit, 1d4+2 slashing.'}],
+    note:'Pounce combo is effective early combat. Best mobility of CR 1/4 forms with 50 ft speed.'},
+  {name:'Wolf',cr:0.25,size:'Medium',icon:'🐺',terrain:['forest','grassland','hill','arctic'],
+    ac:13,hp:11,speed:'40 ft',str:12,dex:15,con:12,int:3,wis:12,cha:6,
+    passive:13,
+    abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent to target.'}],
+    actions:[{n:'Bite',t:'+4 to hit, 2d4+2 piercing. DC 11 Str or knocked prone.'}],
+    note:'Pack Tactics synergises with party combat. Prone-on-hit is highly valuable early game.'},
+  {name:'Constrictor Snake',cr:0.25,size:'Large',icon:'🐍',terrain:['forest','swamp','coast','aquatic'],swim:true,
+    ac:12,hp:13,speed:'30 ft, swim 30 ft',str:15,dex:14,con:12,int:1,wis:10,cha:3,
+    blindsight:10,passive:10,
+    abilities:[],
+    actions:[{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Constrict',t:'+4 to hit, 1d8+2 bludgeoning. Target grappled (DC 14 Str); restrained while grappled.'}],
+    note:'Restraining Constrict is powerful utility. Large size; Blindsight 10 ft.'},
+  {name:'Giant Badger',cr:0.25,size:'Medium',icon:'🦡',terrain:['forest','hill','grassland'],burrow:true,
+    ac:10,hp:13,speed:'30 ft, burrow 10 ft',str:13,dex:10,con:15,int:2,wis:12,cha:5,
+    darkvision:30,passive:11,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
+    actions:[{n:'Multiattack',t:'One Bite and one Claws.'},{n:'Bite',t:'+3 to hit, 1d6+1 piercing.'},{n:'Claws',t:'+3 to hit, 2d4+1 slashing.'}],
+    note:'Multiattack at CR 1/4 is unusual and valuable. Burrow for tunnelling utility.'},
+  {name:'Mastiff',cr:0.125,size:'Medium',icon:'🐕',terrain:['any'],
+    ac:12,hp:5,speed:'40 ft',str:13,dex:14,con:12,int:3,wis:12,cha:7,
+    passive:13,
+    abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'}],
+    actions:[{n:'Bite',t:'+3 to hit, 1d6+1 piercing. DC 11 Str or knocked prone.'}],
+    note:'Popular familiar choice (Find Steed adjacency). Prone on bite is reliable crowd control.'},
+  // CR 1/2
+  {name:'Black Bear',cr:0.5,size:'Medium',icon:'🐻',terrain:['forest','swamp','hill'],climb:true,
+    ac:11,hp:19,speed:'40 ft, climb 30 ft',str:15,dex:10,con:14,int:2,wis:12,cha:7,
+    passive:13,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
+    actions:[{n:'Multiattack',t:'Two attacks: one Bite and one Claws.'},{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Claws',t:'+4 to hit, 2d4+2 slashing.'}],
+    note:'First form with Multiattack. Excellent general-purpose combat form at levels 4-5.'},
+  {name:'Crocodile',cr:0.5,size:'Large',icon:'🐊',terrain:['swamp','coast','aquatic'],swim:true,
+    ac:12,hp:19,speed:'20 ft, swim 30 ft',str:15,dex:10,con:13,int:2,wis:10,cha:5,
+    passive:10,
+    abilities:[{n:'Hold Breath',t:'Can hold breath for 15 minutes.'}],
+    actions:[{n:'Bite',t:'+4 to hit, 1d10+2 piercing. Target grappled (DC 12 Str); restrained while grappled.'}],
+    note:'Aquatic grappler. Useful when encounter has a water element. Large size.'},
+  {name:'Giant Goat',cr:0.5,size:'Large',icon:'🐐',terrain:['mountain','hill'],
+    ac:11,hp:19,speed:'40 ft',str:17,dex:11,con:12,int:3,wis:12,cha:6,
+    passive:13,
+    abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Horns, target DC 13 Str or knocked prone.'},{n:'Sure-Footed',t:'Advantage on Str and Dex saves to avoid being knocked prone.'}],
+    actions:[{n:'Ram',t:'+5 to hit, 2d4+3 bludgeoning.'}],
+    note:'Solid Strength score (17). Reliable for mountain terrain. Charge prone is potent.'},
+  // CR 1
+  {name:'Brown Bear',cr:1,size:'Large',icon:'🐻',terrain:['forest','hill','arctic'],climb:true,
+    ac:11,hp:34,speed:'40 ft, climb 30 ft',str:19,dex:10,con:16,int:2,wis:13,cha:7,
+    passive:13,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
+    actions:[{n:'Multiattack',t:'Two attacks: one Bite and one Claws.'},{n:'Bite',t:'+6 to hit, 1d8+4 piercing.'},{n:'Claws',t:'+6 to hit, 2d6+4 slashing.'}],
+    note:'Str 19 is excellent for grappling. Best all-round combat wildshape for levels 6-8.'},
+  {name:'Dire Wolf',cr:1,size:'Large',icon:'🐺',terrain:['forest','grassland','arctic','hill'],
+    ac:14,hp:37,speed:'50 ft',str:17,dex:15,con:15,int:3,wis:12,cha:7,
+    passive:13,
+    abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
+    actions:[{n:'Bite',t:'+5 to hit, 2d6+3 piercing. DC 13 Str or knocked prone.'}],
+    note:'High AC (14) and Speed (50 ft). Pack Tactics and prone-on-hit make this highly effective in a party.'},
+  {name:'Giant Eagle',cr:1,size:'Large',icon:'🦅',terrain:['mountain','grassland','hill'],fly:true,
+    ac:13,hp:26,speed:'10 ft, fly 80 ft',str:16,dex:17,con:13,int:8,wis:14,cha:10,
+    passive:14,
+    abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'}],
+    actions:[{n:'Multiattack',t:'Two attacks: one Beak and one Talons.'},{n:'Beak',t:'+5 to hit, 1d6+3 piercing.'},{n:'Talons',t:'+5 to hit, 2d6+3 slashing.'}],
+    note:'Available for flight only at Druid level 8+. Fly speed 80 ft is exceptional. Multiattack.'},
+  {name:'Giant Hyena',cr:1,size:'Large',icon:'🦁',terrain:['desert','grassland'],
+    ac:12,hp:45,speed:'50 ft',str:16,dex:14,con:14,int:2,wis:10,cha:7,
+    passive:10,
+    abilities:[{n:'Rampage',t:'When reduces a creature to 0 HP, moves up to half speed and makes a Bite as a bonus action.'}],
+    actions:[{n:'Bite',t:'+5 to hit, 2d6+3 piercing.'}],
+    note:'Most HP of any CR 1 beast (45). Rampage bonus Bite means excellent action economy if enemies drop.'},
+  {name:'Giant Octopus',cr:1,size:'Large',icon:'🐙',terrain:['aquatic','coast','underwater'],swim:true,
+    ac:11,hp:52,speed:'10 ft, swim 60 ft',str:17,dex:13,con:13,int:4,wis:10,cha:4,
+    darkvision:60,passive:12,
+    abilities:[{n:'Hold Breath',t:'Out of water for up to 1 hour.'},{n:'Underwater Camouflage',t:'Advantage on Stealth checks in water.'},{n:'Water Breathing',t:'Can only breathe underwater.'}],
+    actions:[{n:'Tentacles',t:'+5 to hit, 2d6+3 bludgeoning. Grappled (DC 16) and restrained until end of grapple.'},{n:'Ink Cloud (Recharge 6)',t:'20 ft radius heavily obscured cloud for 1 minute.'}],
+    note:'52 HP is exceptional for CR 1. Best aquatic form; Ink Cloud provides unique utility.'},
+  // CR 2
+  {name:'Allosaurus',cr:2,size:'Large',icon:'🦕',terrain:['grassland','forest'],
+    ac:13,hp:51,speed:'60 ft',str:19,dex:13,con:17,int:2,wis:12,cha:5,
+    passive:11,
+    abilities:[{n:'Pounce',t:'If moves 30+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack.'}],
+    actions:[{n:'Bite',t:'+6 to hit, 2d8+4 piercing.'},{n:'Claw',t:'+6 to hit, 1d8+4 slashing.'}],
+    note:'60 ft speed; Str 19; Pounce combo for big damage output. Excellent combat form for level 6+ druids.'},
+  {name:'Polar Bear',cr:2,size:'Large',icon:'🐻‍❄️',terrain:['arctic','coast'],swim:true,
+    ac:12,hp:42,speed:'40 ft, swim 30 ft',str:20,dex:10,con:16,int:2,wis:13,cha:7,
+    passive:13,
+    abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
+    actions:[{n:'Multiattack',t:'One Bite and one Claws.'},{n:'Bite',t:'+7 to hit, 1d8+5 piercing.'},{n:'Claws',t:'+7 to hit, 2d6+5 slashing.'}],
+    note:'Str 20 — highest of any CR 2 beast. Exceptional grappler. Works in arctic and aquatic.'},
+  {name:'Giant Constrictor Snake',cr:2,size:'Huge',icon:'🐍',terrain:['forest','swamp','aquatic'],swim:true,
+    ac:12,hp:60,speed:'30 ft, swim 30 ft',str:19,dex:14,con:12,int:1,wis:10,cha:3,
+    blindsight:10,passive:12,
+    abilities:[],
+    actions:[{n:'Bite',t:'+6 to hit, 2d6+4 piercing.'},{n:'Constrict',t:'+6 to hit, 2d8+4 bludgeoning. Grappled (DC 16); restrained while grappled.'}],
+    note:'Huge size; 60 HP; DC 16 Constrict restraint is powerful. The Huge size has significant tactical implications.'},
+  // CR 3
+  {name:'Ankylosaurus',cr:3,size:'Huge',icon:'🦕',terrain:['grassland','forest'],
+    ac:15,hp:68,speed:'30 ft',str:19,dex:11,con:15,int:2,wis:12,cha:5,
+    passive:11,
+    abilities:[],
+    actions:[{n:'Tail',t:'+7 to hit, 4d6+4 bludgeoning. DC 14 Str or knocked prone.'}],
+    note:'AC 15 is highest of any Wildshape form. Huge size, 68 HP. Available from Druid level 9.'},
+  {name:'Giant Scorpion',cr:3,size:'Large',icon:'🦂',terrain:['desert','underdark'],burrow:true,
+    ac:15,hp:52,speed:'40 ft',str:15,dex:13,con:15,int:1,wis:9,cha:3,
+    blindsight:60,passive:9,
+    abilities:[],
+    actions:[{n:'Multiattack',t:'Two Claws and one Sting.'},{n:'Claw',t:'+4 to hit, 1d8+2 bludgeoning. Grappled (DC 12).'},{n:'Sting',t:'+4 to hit, 1d10+2 piercing + 4d10 poison. DC 12 Con or poisoned for 1 hour.'}],
+    note:'Blindsight 60 ft. Triple attack Multiattack. Grapple + Sting combo. Available Druid level 9.'},
+  {name:'Killer Whale',cr:3,size:'Huge',icon:'🐋',terrain:['aquatic','underwater'],swim:true,
+    ac:12,hp:90,speed:'0 ft, swim 60 ft',str:19,dex:10,con:13,int:3,wis:12,cha:7,
+    blindsight:120,passive:13,
+    abilities:[{n:'Echolocation',t:'Blindsight only works unless deafened.'},{n:'Hold Breath',t:'Can hold breath for 30 minutes.'},{n:'Keen Hearing',t:'Advantage on Perception checks relying on hearing.'}],
+    actions:[{n:'Bite',t:'+6 to hit, 5d6+4 piercing.'}],
+    note:'90 HP and Blindsight 120 ft make this exceptional underwater. 5d6+4 damage on Bite.'},
+  // CR 4-6 (Moon Druid higher forms)
+  {name:'Elephant',cr:4,size:'Huge',icon:'🐘',terrain:['grassland','desert'],
+    ac:12,hp:76,speed:'40 ft',str:22,dex:9,con:17,int:3,wis:11,cha:6,
+    passive:10,
+    abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Tusks, target DC 12 Str or knocked prone; bonus Stomp attack.'}],
+    actions:[{n:'Tusks',t:'+8 to hit, 3d6+6 piercing.'},{n:'Stomp',t:'+8 to hit, 3d10+6 bludgeoning (prone targets only).'}],
+    note:'Str 22 highest of any common beast. Stomp deals 3d10+6 vs prone targets. Moon Druid level 12+.'},
+  {name:'Triceratops',cr:5,size:'Huge',icon:'🦕',terrain:['grassland'],
+    ac:13,hp:114,speed:'50 ft',str:22,dex:9,con:17,int:2,wis:11,cha:5,
+    passive:10,
+    abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Gore, DC 13 Str or knocked prone; bonus Stomp attack.'}],
+    actions:[{n:'Gore',t:'+9 to hit, 4d8+6 piercing.'},{n:'Stomp',t:'+9 to hit, 3d10+6 bludgeoning (prone targets only).'}],
+    note:'114 HP and Str 22. Moon Druid level 15+. Exceptional tank and damage form.'},
+  {name:'Mammoth',cr:6,size:'Huge',icon:'🦣',terrain:['arctic','grassland'],
+    ac:13,hp:126,speed:'40 ft',str:24,dex:9,con:21,int:3,wis:11,cha:6,
+    passive:10,
+    abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Gore, DC 18 Str or knocked prone; bonus Stomp.'}],
+    actions:[{n:'Gore',t:'+10 to hit, 4d10+7 piercing.'},{n:'Stomp',t:'+10 to hit, 4d10+7 bludgeoning (prone targets only).'}],
+    note:'Str 24, 126 HP — highest HP Wildshape form. Moon Druid level 18+. The pinnacle of combat wildshape.'},
+];
+
+// Familiars (Find Familiar spell options)
+const FAMILIARS = [
+  {name:'Bat',icon:'🦇',ac:12,hp:1,speed:'5 ft, fly 30 ft',blindsight:60,passive:11,
+    note:'Blindsight 60 ft is exceptional for navigating darkness. Tiny size for infiltration.',
+    str:2,dex:15,con:8,int:2,wis:12,cha:4,
+    traits:['Blindsight 60 ft','Echolocation','Keen Hearing'],
+    use:'Scouting in total darkness. 60 ft blindsight extends your sensory range dramatically.'},
+  {name:'Cat',icon:'🐱',ac:12,hp:2,speed:'40 ft, climb 30 ft',darkvision:30,passive:13,
+    note:'40 ft movement and Climb 30 ft. Keen Smell advantage. Popular for its mundane appearance.',
+    str:3,dex:15,con:10,int:3,wis:12,cha:7,
+    traits:['Darkvision 30 ft','Keen Smell','Climb 30 ft'],
+    use:'Urban scouting, infiltration. Easily overlooked. Good passive Perception (13).'},
+  {name:'Crab',icon:'🦀',ac:11,hp:2,speed:'20 ft, swim 20 ft',blindsight:30,passive:9,
+    note:'Blindsight 30 ft; amphibious. Niche utility in coastal and underwater settings.',
+    str:2,dex:11,con:10,int:1,wis:8,cha:2,
+    traits:['Blindsight 30 ft','Amphibious'],
+    use:'Underwater scouting. Blindsight compensates for murky water.'},
+  {name:'Frog',icon:'🐸',ac:11,hp:1,speed:'20 ft, swim 20 ft',passive:10,
+    note:'Amphibious. Tiny size. Standing leap. Rarely picked but excellent in swamp/coastal settings.',
+    str:1,dex:13,con:8,int:1,wis:8,cha:3,
+    traits:['Amphibious','Standing Leap','Tiny'],
+    use:'Aquatic infiltration. Tiny size and swimming make it versatile in wet environments.'},
+  {name:'Hawk',icon:'🦅',ac:13,hp:1,speed:'10 ft, fly 60 ft',passive:14,
+    note:'Passive Perception 14 — highest of any familiar. Fly 60 ft for aerial scouting.',
+    str:5,dex:16,con:8,int:2,wis:14,cha:6,
+    traits:['Fly 60 ft','Keen Sight','Passive Perception 14'],
+    use:'Daytime aerial scouting. Best raw perception of any familiar option.'},
+  {name:'Lizard',icon:'🦎',ac:10,hp:2,speed:'20 ft, climb 20 ft',darkvision:30,passive:9,
+    note:'Darkvision 30 ft, climb 20 ft. Very low profile — easily disguised in natural environments.',
+    str:2,dex:11,con:10,int:1,wis:8,cha:3,
+    traits:['Darkvision 30 ft','Climb 20 ft','Tiny'],
+    use:'Wall and ceiling traversal. Low profile for indoor infiltration.'},
+  {name:'Octopus',icon:'🐙',ac:12,hp:3,speed:'5 ft, swim 30 ft',darkvision:30,passive:12,
+    note:'Underwater camouflage. Ink Cloud once per encounter. Blindsight 30 ft.',
+    str:4,dex:15,con:11,int:3,wis:10,cha:4,
+    traits:['Darkvision 30 ft','Underwater Camouflage','Ink Cloud','Swim 30 ft'],
+    use:'Aquatic environments. Ink Cloud provides obscurement. Best aquatic familiar.'},
+  {name:'Owl',icon:'🦉',ac:11,hp:1,speed:'5 ft, fly 60 ft',darkvision:120,passive:13,
+    note:'Darkvision 120 ft. Flyby means no opportunity attacks. Most versatile familiar overall.',
+    str:3,dex:13,con:8,int:2,wis:12,cha:7,
+    traits:['Darkvision 120 ft','Flyby','Fly 60 ft','Keen Hearing & Sight'],
+    use:'Night scouting. Flyby lets it safely deliver touch spells. The gold standard familiar.'},
+  {name:'Poisonous Snake',icon:'🐍',ac:13,hp:2,speed:'30 ft, swim 30 ft',blindsight:10,passive:10,
+    note:'Can deliver poison on the touch spell action if your DM allows. Blindsight 10 ft.',
+    str:2,dex:16,con:11,int:1,wis:10,cha:3,
+    traits:['Blindsight 10 ft','Swim 30 ft'],
+    use:'Touch spell delivery. High AC (13) for a familiar.'},
+  {name:'Quipper',icon:'🐟',ac:13,hp:1,speed:'0 ft, swim 40 ft',darkvision:60,passive:13,
+    note:'Swim 40 ft; Darkvision 60 ft. Blood Frenzy gives advantage vs injured creatures.',
+    str:2,dex:16,con:9,int:1,wis:7,cha:2,
+    traits:['Darkvision 60 ft','Swim 40 ft','Blood Frenzy','Tiny'],
+    use:'Underwater scouting specifically. Blood Frenzy for combat adjacency.'},
+  {name:'Rat',icon:'🐀',ac:10,hp:1,speed:'20 ft',darkvision:30,passive:10,
+    note:'Keen Smell advantage. Tiny size. Common and easy to disguise. Low-profile city familiar.',
+    str:2,dex:11,con:9,int:2,wis:10,cha:4,
+    traits:['Darkvision 30 ft','Keen Smell','Tiny'],
+    use:'Urban infiltration. Easily ignored in city environments.'},
+  {name:'Raven',icon:'🪶',ac:12,hp:1,speed:'10 ft, fly 50 ft',passive:13,
+    note:'Mimicry trait — can repeat words heard. Useful for delivering messages.',
+    str:2,dex:14,con:8,int:2,wis:12,cha:6,
+    traits:['Fly 50 ft','Mimicry'],
+    use:'Communication familiar. Mimicry allows voice relay in a 100 ft radius.'},
+  {name:'Sea Horse',icon:'🌊',ac:11,hp:1,speed:'0 ft, swim 20 ft',passive:11,
+    note:'Aquatic only. Seahorse Head ability (moving while being pushed). Niche but thematic.',
+    str:1,dex:12,con:8,int:1,wis:10,cha:2,
+    traits:['Swim 20 ft','Underwater only'],
+    use:'Aquatic-only settings. Limited utility outside water.'},
+  {name:'Spider',icon:'🕷',ac:12,hp:1,speed:'20 ft, climb 20 ft',darkvision:30,passive:10,
+    note:'Spider Climb — walls and ceilings. Web Sense if web present. Poisonous bite.',
+    str:2,dex:14,con:8,int:1,wis:10,cha:2,
+    traits:['Spider Climb','Darkvision 30 ft','Web Sense','Tiny'],
+    use:'Ceiling and wall traversal. Web Sense alerts to web interactions.'},
+  {name:'Weasel',icon:'🐾',ac:13,hp:1,speed:'30 ft',passive:13,
+    note:'Keen Hearing and Smell. High AC (13) for a Tiny familiar. Passive Perception 13.',
+    str:3,dex:16,con:8,int:2,wis:12,cha:3,
+    traits:['Darkvision (none)','Keen Hearing & Smell','AC 13'],
+    use:'Detection and alert familiar. Good Passive Perception for a terrestrial option.'},
+];
+
+let mode = 'druid';
+let activeTerrain = new Set(['all']);
+let activeMove = new Set(['all']);
+let searchQ = '';
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-druid').className = 'mode-btn druid' + (m==='druid'?' active':'');
+  document.getElementById('btn-familiar').className = 'mode-btn familiar' + (m==='familiar'?' active':'');
+  document.getElementById('druid-filters').style.display = m==='druid' ? 'contents' : 'none';
+  document.getElementById('info-bar-druid').style.display = m==='druid' ? 'flex' : 'none';
+  document.getElementById('info-bar-familiar').style.display = m==='familiar' ? 'flex' : 'none';
+  renderGrid();
+}
+
+function togglePill(pill, group) {
+  const val = pill.dataset.val;
+  const set = group === 'terrain' ? activeTerrain : activeMove;
+  const id = group === 'terrain' ? 'terrain-pills' : 'move-pills';
+  if (val === 'all') { set.clear(); set.add('all'); }
+  else {
+    set.delete('all');
+    if (set.has(val)) { set.delete(val); if (set.size === 0) set.add('all'); }
+    else set.add(val);
+  }
+  document.querySelectorAll(`#${id} .pill`).forEach(p => p.classList.toggle('active', set.has(p.dataset.val)));
+  renderGrid();
+}
+
+function applyFilters() { searchQ = document.getElementById('search-input').value.toLowerCase().trim(); renderGrid(); }
+
+function resetFilters() {
+  document.getElementById('search-input').value = ''; searchQ = '';
+  activeTerrain = new Set(['all']); activeMove = new Set(['all']);
+  document.getElementById('druid-level').value = '8';
+  document.getElementById('cr-filter').value = 'all';
+  document.querySelectorAll('#terrain-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.val==='all'));
+  document.querySelectorAll('#move-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.val==='all'));
+  renderGrid();
+}
+
+function druidMaxCR() {
+  const lvl = parseInt(document.getElementById('druid-level').value);
+  return Math.floor(lvl / 3);
+}
+
+function filtered() {
+  if (mode === 'familiar') {
+    return FAMILIARS.filter(f => !searchQ || f.name.toLowerCase().includes(searchQ));
+  }
+  const maxCR = druidMaxCR();
+  const crFilter = document.getElementById('cr-filter').value;
+  const effectiveMax = crFilter === 'all' ? maxCR : Math.min(maxCR, parseFloat(crFilter));
+  return BEASTS.filter(b => {
+    const crOk = b.cr <= effectiveMax;
+    const terrainOk = activeTerrain.has('all') || b.terrain.some(t => activeTerrain.has(t));
+    const moveOk = activeMove.has('all') ||
+      (activeMove.has('fly') && b.fly) ||
+      (activeMove.has('swim') && b.swim) ||
+      (activeMove.has('climb') && b.climb) ||
+      (activeMove.has('burrow') && b.burrow);
+    const searchOk = !searchQ || b.name.toLowerCase().includes(searchQ);
+    // Fly restriction: need level 8
+    const flyOk = !b.fly || parseInt(document.getElementById('druid-level').value) >= 8;
+    const swimOk = !b.swim || parseInt(document.getElementById('druid-level').value) >= 4;
+    return crOk && terrainOk && moveOk && searchOk && flyOk;
+  });
+}
+
+function buildBeastCard(b) {
+  const color = '#2a6a3a';
+  const tags = [];
+  if (b.fly) tags.push(`<span class="tag fly">Fly ${b.speed.match(/fly (\d+ ft)/i)?.[1]||''}</span>`);
+  if (b.swim) tags.push(`<span class="tag swim">Swim</span>`);
+  if (b.climb) tags.push(`<span class="tag climb">Climb</span>`);
+  if (b.burrow) tags.push(`<span class="tag burrow">Burrow</span>`);
+  if (b.darkvision) tags.push(`<span class="tag darkvision">Darkvision ${b.darkvision} ft</span>`);
+  if (b.blindsight) tags.push(`<span class="tag blindsight">Blindsight ${b.blindsight} ft</span>`);
+  if (b.abilities?.some(a => a.n.includes('Pack Tactics'))) tags.push(`<span class="tag pack-tactics">Pack Tactics</span>`);
+  const lvlRequired = b.cr > 3 ? `<span class="tag level-req">Level ${b.cr*3}+ Druid</span>` : '';
+  return `<div class="beast-card wildshape">
+    <div class="card-header" style="background:${color}">
+      <span class="beast-icon">${b.icon}</span>
+      <div class="card-name-block">
+        <div class="card-name">${b.name}</div>
+        <div class="card-subline">${b.size} Beast</div>
+      </div>
+      <span class="cr-badge">CR ${cr(b.cr)}</span>
+    </div>
+    <div class="card-core-stats">
+      <div class="core-stat"><span class="cs-label">AC</span><span class="cs-val">${b.ac}</span></div>
+      <div class="core-stat"><span class="cs-label">HP</span><span class="cs-val">${b.hp}</span></div>
+      <div class="core-stat"><span class="cs-label">STR</span><span class="cs-val">${mod(b.str)}</span></div>
+      <div class="core-stat"><span class="cs-label">Speed</span><span class="cs-val" style="font-size:0.65rem">${b.speed.split(',')[0]}</span></div>
+    </div>
+    ${tags.length || lvlRequired ? `<div class="card-tags">${lvlRequired}${tags.join('')}</div>` : ''}
+    ${b.note ? `<div class="card-note">${b.note}</div>` : ''}
+  </div>`;
+}
+
+function buildFamiliarCard(f) {
+  const color = '#6a2a8a';
+  const tags = f.traits.map(t => `<span class="tag special">${t}</span>`).join('');
+  return `<div class="beast-card familiar">
+    <div class="card-header" style="background:${color}">
+      <span class="beast-icon">${f.icon}</span>
+      <div class="card-name-block">
+        <div class="card-name">${f.name}</div>
+        <div class="card-subline">Find Familiar</div>
+      </div>
+      <span class="cr-badge">AC ${f.ac}</span>
+    </div>
+    <div class="card-core-stats">
+      <div class="core-stat"><span class="cs-label">AC</span><span class="cs-val">${f.ac}</span></div>
+      <div class="core-stat"><span class="cs-label">HP</span><span class="cs-val">${f.hp}</span></div>
+      <div class="core-stat"><span class="cs-label">Speed</span><span class="cs-val" style="font-size:0.62rem">${f.speed.split(',')[0]}</span></div>
+      <div class="core-stat"><span class="cs-label">Percep.</span><span class="cs-val">${f.passive}</span></div>
+    </div>
+    ${tags ? `<div class="card-tags">${tags}</div>` : ''}
+    ${f.use ? `<div class="card-note">${f.use}</div>` : ''}
+  </div>`;
+}
+
+function renderGrid() {
+  const list = filtered();
+  const grid = document.getElementById('card-grid');
+  const empty = document.getElementById('empty-state');
+  const lbl = mode === 'druid' ? 'form' : 'familiar';
+  document.getElementById('results-bar').textContent = `${list.length} ${lbl}${list.length !== 1 ? 's' : ''} shown${mode==='druid'?' (max CR '+cr(druidMaxCR())+' at this level)':''}`;
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = (mode === 'druid' ? list.map(b => buildBeastCard(b)) : list.map(f => buildFamiliarCard(f))).join('');
+  grid.querySelectorAll('.beast-card').forEach((el, i) => el.addEventListener('click', () => openModal(list[i])));
+}
+
+function openModal(item) {
+  const box = document.getElementById('modal-box');
+  const color = mode === 'druid' ? '#2a6a3a' : '#6a2a8a';
+  if (mode === 'druid') {
+    const b = item;
+    const tags = [];
+    if (b.fly) tags.push(`<span class="tag fly">Fly</span>`);
+    if (b.swim) tags.push(`<span class="tag swim">Swim</span>`);
+    if (b.climb) tags.push(`<span class="tag climb">Climb</span>`);
+    if (b.burrow) tags.push(`<span class="tag burrow">Burrow</span>`);
+    if (b.darkvision) tags.push(`<span class="tag darkvision">Darkvision ${b.darkvision} ft</span>`);
+    if (b.blindsight) tags.push(`<span class="tag blindsight">Blindsight ${b.blindsight} ft</span>`);
+    const maxCR = druidMaxCR();
+    const eligible = b.cr <= maxCR;
+    const flyOk = !b.fly || parseInt(document.getElementById('druid-level').value) >= 8;
+    box.innerHTML = `
+      <div class="modal-header" style="background:${color}">
+        <div>
+          <div class="modal-title">${b.icon} ${b.name}</div>
+          <div class="modal-subtitle">${b.size} Beast — CR ${cr(b.cr)}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="eligibility-panel">
+          <div class="eligibility-title">Wildshape Eligibility</div>
+          <div class="eligibility-row">CR ${cr(b.cr)} vs max CR ${cr(maxCR)}: <span class="${eligible?'ok':'no'}">${eligible?'✓ Eligible':'✗ Not yet eligible'}</span></div>
+          ${b.fly?`<div class="eligibility-row">Flying form: <span class="${flyOk?'ok':'no'}">${flyOk?'✓ Level 8 met':'✗ Requires Druid level 8'}</span></div>`:''}
+          ${b.swim?`<div class="eligibility-row">Swimming form: <span class="ok">✓ No restriction</span></div>`:''}
+          <div class="eligibility-row">Terrains: ${b.terrain.map(t => t.charAt(0).toUpperCase()+t.slice(1)).join(', ')}</div>
+        </div>
+        <div class="stat-row-grid">
+          <div class="stat-box"><div class="lb">AC</div><div class="vl">${b.ac}</div></div>
+          <div class="stat-box"><div class="lb">HP</div><div class="vl">${b.hp}</div></div>
+          <div class="stat-box"><div class="lb">Speed</div><div class="vl" style="font-size:0.7rem">${b.speed.split(',')[0]}</div></div>
+          <div class="stat-box"><div class="lb">Percep.</div><div class="vl">${b.passive}</div></div>
+        </div>
+        <div class="ab-grid">
+          ${['STR','DEX','CON','INT','WIS','CHA'].map((ab,i)=>{const v=[b.str,b.dex,b.con,b.int,b.wis,b.cha][i];return`<div class="ab-box"><div class="abl">${ab}</div><div class="abs">${v}</div><div class="abm">${mod(v)}</div></div>`}).join('')}
+        </div>
+        ${tags.length?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">${tags.join('')}</div>`:''}
+        ${b.abilities?.length?`<div class="msec"><div class="msec-label" style="color:${color}">Traits</div>${b.abilities.map(a=>`<div class="mabil"><strong>${a.n}.</strong> ${a.t}</div>`).join('')}</div>`:''}
+        ${b.actions?.length?`<div class="msec"><div class="msec-label" style="color:${color}">Actions</div>${b.actions.map(a=>`<div class="mabil"><strong>${a.n}.</strong> ${a.t}</div>`).join('')}</div>`:''}
+        ${b.note?`<div style="background:#f0faf4;border-radius:5px;padding:10px 12px;margin-top:12px;font-style:italic;color:#555;font-size:0.88rem;">${b.note}</div>`:''}
+      </div>`;
+  } else {
+    const f = item;
+    box.innerHTML = `
+      <div class="modal-header" style="background:${color}">
+        <div>
+          <div class="modal-title">${f.icon} ${f.name}</div>
+          <div class="modal-subtitle">Find Familiar — Celestial / Fey / Fiend form</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="stat-row-grid">
+          <div class="stat-box"><div class="lb">AC</div><div class="vl">${f.ac}</div></div>
+          <div class="stat-box"><div class="lb">HP</div><div class="vl">${f.hp}</div></div>
+          <div class="stat-box"><div class="lb">Speed</div><div class="vl" style="font-size:0.7rem">${f.speed.split(',')[0]}</div></div>
+          <div class="stat-box"><div class="lb">Passive</div><div class="vl">${f.passive}</div></div>
+        </div>
+        <div class="ab-grid">
+          ${['STR','DEX','CON','INT','WIS','CHA'].map((ab,i)=>{const v=[f.str,f.dex,f.con,f.int,f.wis,f.cha][i];return`<div class="ab-box"><div class="abl">${ab}</div><div class="abs">${v}</div><div class="abm">${mod(v)}</div></div>`}).join('')}
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
+          ${f.traits.map(t=>`<span class="tag special">${t}</span>`).join('')}
+        </div>
+        ${f.note?`<div class="msec"><div class="msec-label" style="color:${color}">Notes</div><p style="font-size:0.9rem;color:#333;line-height:1.5">${f.note}</p></div>`:''}
+        ${f.use?`<div style="background:#f8f0ff;border-radius:5px;padding:10px 12px;margin-top:12px;border:1px solid #d0b0e8;"><div style="font-family:'Cinzel',serif;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;color:#6a2a8a;text-transform:uppercase;margin-bottom:5px;">Best Use</div><p style="font-size:0.9rem;color:#333;line-height:1.45">${f.use}</p></div>`:''}
+      </div>`;
+  }
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
+function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+function toggleFilters() {
+  const bar = document.getElementById('filter-bar');
+  bar.classList.toggle('expanded');
+  document.getElementById('toggle-arrow').textContent = bar.classList.contains('expanded') ? '▲' : '▼';
+}
+
+function printCards() {
+  const list = filtered();
+  const output = document.getElementById('print-output');
+  const pages = [];
+  for (let i=0; i<list.length; i+=8) pages.push(list.slice(i,i+8));
+  output.innerHTML = pages.map(page =>
+    `<div class="print-page">${page.map(item => mode==='druid' ? buildBeastCard(item) : buildFamiliarCard(item)).join('')}</div>`
+  ).join('');
+  window.print();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('druid-level').addEventListener('change', renderGrid);
+  renderGrid();
+});
+renderGrid();
+</script>
+
+<script>
+function openNav() {
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+</script>
+</body>
+</html>

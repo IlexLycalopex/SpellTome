@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Condition Codex — D&D 5e Status Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark:    #1a1a2e;
+  --bg-panel:   #16213e;
+  --text-light: #e8e8e8;
+  --text-muted: #9a9ab0;
+  --text-dim:   #6a6a80;
+  --gold:       #c9a84c;
+  --gold-dim:   #8a6a2c;
+  --border:     #2a2a4a;
+  --shadow:     0 4px 24px rgba(0,0,0,0.5);
+
+  --c-blinded:       #5a5a7a;
+  --c-charmed:       #c4306a;
+  --c-deafened:      #7a5a2a;
+  --c-exhaustion:    #8a2a2a;
+  --c-frightened:    #6a2a8a;
+  --c-grappled:      #4a6a2a;
+  --c-incapacitated: #3a6a8a;
+  --c-invisible:     #2a7a6a;
+  --c-paralyzed:     #7a4a2a;
+  --c-petrified:     #5a6a4a;
+  --c-poisoned:      #3a7a3a;
+  --c-prone:         #8a6a2a;
+  --c-restrained:    #6a4a8a;
+  --c-stunned:       #3a5a8a;
+  --c-unconscious:   #2a2a5a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(100,0,60,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,40,100,0.12) 0%, transparent 60%);
+}
+
+/* HEADER */
+#app-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(22,33,62,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.app-title {
+  font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 900;
+  letter-spacing: 0.08em; color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  text-transform: uppercase;
+}
+.app-title span {
+  color: var(--text-muted); font-weight: 400; font-size: 0.9rem;
+  margin-left: 8px; letter-spacing: 0.2em;
+}
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-link {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid var(--border); border-radius: 4px; padding: 5px 12px;
+  color: var(--text-muted); transition: all 0.15s;
+}
+.nav-link:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+
+/* FILTER BAR */
+.filter-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 24px 12px; flex-wrap: wrap;
+}
+.filter-label {
+  font-family: 'Cinzel', serif; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); white-space: nowrap;
+}
+input[type="text"] {
+  font-family: 'EB Garamond', serif; font-size: 0.95rem;
+  background: #0d1a30; color: #e8e8e8;
+  border: 1px solid #3a3a5a; border-radius: 4px;
+  padding: 5px 10px; outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+input[type="text"]:focus {
+  border-color: var(--gold-dim); background: #111f38;
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.15);
+}
+input[type="text"]::placeholder { color: #6a6a80; }
+.search-input { min-width: 200px; flex: 1; max-width: 340px; }
+
+.pill-filters { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.pill {
+  font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.06em;
+  font-weight: 600; border-radius: 3px; padding: 3px 8px;
+  cursor: pointer; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04); color: var(--text-muted);
+  transition: all 0.15s; user-select: none;
+}
+.pill:hover { border-color: var(--text-dim); color: var(--text-light); }
+.pill.active {
+  background: rgba(201,168,76,0.18); border-color: var(--gold-dim); color: var(--gold);
+}
+.btn-reset {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px;
+  cursor: pointer; background: transparent; color: var(--text-muted);
+  transition: all 0.15s; white-space: nowrap;
+}
+.btn-reset:hover { color: var(--gold); border-color: rgba(201,168,76,0.5); }
+
+/* RESULTS BAR */
+#results-bar {
+  padding: 7px 24px; font-size: 0.85rem; color: var(--text-dim);
+  border-bottom: 1px solid var(--border); font-style: italic;
+  background: rgba(15,52,96,0.2);
+}
+
+/* CARD GRID */
+#card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px; padding: 24px;
+}
+
+/* CONDITION CARD */
+.cond-card {
+  background: #fff; border-radius: 7px; overflow: hidden;
+  cursor: pointer; position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222; font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem; line-height: 1.4;
+  border: 2.5px solid transparent;
+}
+.cond-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.6); }
+
+.card-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; min-height: 54px; position: relative;
+  background: var(--cond-color, #444);
+}
+.card-icon { font-size: 1.6rem; flex-shrink: 0; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4)); }
+.card-title {
+  font-family: 'Cinzel', serif; font-weight: 700;
+  font-size: 0.95rem; letter-spacing: 0.04em;
+  text-transform: uppercase; color: #fff; flex: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+.card-type-badge {
+  font-family: 'Cinzel', serif; font-size: 0.56rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.85);
+  border-radius: 3px; padding: 2px 6px; flex-shrink: 0;
+}
+
+.card-effects {
+  padding: 8px 12px 6px; background: #fff;
+}
+.effect-item {
+  display: flex; gap: 7px; align-items: flex-start;
+  padding: 3px 0; border-bottom: 1px solid #f0f0f0;
+  font-size: 0.8rem; color: #333; line-height: 1.4;
+}
+.effect-item:last-child { border-bottom: none; }
+.effect-bullet {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cond-color, #666);
+  flex-shrink: 0; margin-top: 5px;
+}
+
+.card-notes {
+  padding: 5px 12px 8px; background: #f9f7f2;
+  border-top: 1px solid #eee;
+  font-size: 0.76rem; color: #555; font-style: italic;
+  line-height: 1.4;
+}
+
+/* EXHAUSTION CARD (special multi-level) */
+.exhaustion-levels { padding: 6px 12px 8px; background: #fff; }
+.exhaustion-level {
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 0; border-bottom: 1px solid #f0f0f0;
+  font-size: 0.8rem; color: #333;
+}
+.exhaustion-level:last-child { border-bottom: none; }
+.level-num {
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.75rem;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--cond-color, #666); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.65rem;
+}
+
+/* EMPTY STATE */
+#empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 100px 24px; text-align: center;
+  color: var(--text-dim);
+}
+#empty-state .rune { font-size: 4rem; opacity: 0.25; margin-bottom: 20px; display: block; }
+#empty-state h2 {
+  font-family: 'Cinzel', serif; font-size: 1.3rem;
+  color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.05em;
+}
+
+/* MODAL */
+#modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.82); z-index: 500;
+  align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
+}
+#modal-overlay.active { display: flex; }
+#modal-box {
+  background: #fff; border-radius: 10px; overflow: hidden;
+  max-width: 520px; width: 100%; max-height: 80vh;
+  overflow-y: auto; box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+  color: #222; font-family: 'EB Garamond', serif;
+}
+.modal-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; position: sticky; top: 0;
+  background: var(--cond-color, #444);
+}
+.modal-icon { font-size: 2rem; flex-shrink: 0; }
+.modal-title {
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.15rem;
+  letter-spacing: 0.05em; text-transform: uppercase; color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.35); flex: 1;
+}
+.modal-close {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+  background: rgba(0,0,0,0.25); border: none; color: rgba(255,255,255,0.9);
+  border-radius: 4px; padding: 5px 12px; cursor: pointer; transition: background 0.15s;
+}
+.modal-close:hover { background: rgba(0,0,0,0.4); }
+.modal-body { padding: 16px; }
+.modal-section-label {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cond-color, #444); margin-bottom: 8px; margin-top: 14px;
+}
+.modal-section-label:first-child { margin-top: 0; }
+.modal-effect-item {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 4px 0; border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem; color: #333; line-height: 1.45;
+}
+.modal-effect-item:last-child { border-bottom: none; }
+.modal-bullet {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cond-color, #666); flex-shrink: 0; margin-top: 6px;
+}
+.modal-notes {
+  background: #f9f7f2; border-radius: 5px;
+  padding: 10px 12px; margin-top: 12px;
+  font-style: italic; font-size: 0.88rem; color: #555; line-height: 1.45;
+}
+.modal-exh-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 0; border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem; color: #333;
+}
+.modal-exh-row:last-child { border-bottom: none; }
+.modal-level-num {
+  font-family: 'Cinzel', serif; font-weight: 700;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--cond-color, #666); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.72rem;
+}
+
+/* Print */
+.btn-print-bar {
+  display: flex; align-items: center; gap: 10px;
+}
+.btn {
+  font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: none; border-radius: 4px; padding: 7px 16px;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.btn-print {
+  background: linear-gradient(135deg, #c9a84c, #8a6a2c);
+  color: #1a1a2e; font-weight: 700;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.3);
+}
+.btn-print:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.5); }
+
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body > *:not(#print-output) { display: none !important; }
+  #print-output { display: block !important; }
+  @page { size: A4 landscape; margin: 0; }
+  .print-page {
+    page-break-after: always;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 3mm !important; padding: 8mm !important;
+    width: 297mm !important; height: 210mm !important;
+    overflow: hidden !important; background: #fff !important;
+  }
+  .print-page:last-child { page-break-after: avoid; }
+  .print-page .cond-card { border-radius: 4px !important; font-size: 0.55rem !important; }
+  .print-page .card-header { padding: 5px 8px !important; min-height: 30px !important; }
+  .print-page .card-title { font-size: 0.65rem !important; }
+  .print-page .card-icon { font-size: 1rem !important; }
+  .print-page .effect-item { font-size: 0.52rem !important; padding: 2px 0 !important; }
+  .print-page .card-notes { font-size: 0.5rem !important; padding: 3px 8px 5px !important; }
+}
+
+/* Mobile */
+#btn-filter-toggle { display: none; }
+@media (max-width: 768px) {
+  .nav-link span { display: none; }
+  #card-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+  .header-top { padding: 8px 14px; }
+  .app-title { font-size: clamp(0.75rem, 3.5vw, 1.1rem); }
+  .app-title span { display: none; }
+  .btn-print-bar { display: none; }
+  #btn-filter-toggle {
+    display: flex; align-items: center; gap: 4px; font-size: 0.7rem;
+    padding: 4px 10px; background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
+    border-radius: 6px; cursor: pointer;
+    font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.05em;
+  }
+  .filter-bar { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 14px; }
+  .filter-bar.expanded { max-height: 300px; padding: 10px 14px 12px; }
+}
+@media (max-width: 480px) {
+  #card-grid { grid-template-columns: 1fr; }
+}
+
+#print-output { display: none; }
+
+/* ============================================================
+   SHARED HAMBURGER NAV
+   ============================================================ */
+.nav-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;
+  opacity:0;pointer-events:none;transition:opacity 0.25s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:all;}
+.nav-drawer {
+  position:fixed;top:0;right:-310px;width:290px;height:100vh;
+  background:rgba(13,20,45,0.99);border-left:1px solid var(--border);
+  backdrop-filter:blur(16px);z-index:999;
+  transition:right 0.28s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;
+}
+.nav-drawer.open{right:0;}
+.nav-drawer-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.nav-drawer-title {
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);
+}
+.nav-close-btn {
+  background:none;border:none;color:var(--text-muted);font-size:1.3rem;
+  cursor:pointer;padding:4px 6px;line-height:1;border-radius:4px;transition:color 0.15s;
+}
+.nav-close-btn:hover{color:var(--text-light);}
+.nav-scroll{flex:1;overflow-y:auto;padding:8px 0 24px;}
+.nav-section-label {
+  font-family:'Cinzel',serif;font-size:0.58rem;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);
+  padding:16px 20px 6px;display:block;
+}
+.nav-item {
+  display:flex;align-items:center;gap:12px;padding:11px 20px;
+  text-decoration:none;color:var(--text-muted);
+  font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;
+  letter-spacing:0.07em;text-transform:uppercase;
+  border-left:3px solid transparent;transition:all 0.14s;
+}
+.nav-item:hover,.nav-item.active{
+  color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
+}
+.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.hamburger-btn {
+  background:none;border:1px solid var(--border);border-radius:6px;
+  padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
+  gap:5px;transition:border-color 0.15s;flex-shrink:0;
+}
+.hamburger-btn:hover{border-color:var(--gold-dim);}
+.hamburger-btn span{
+  display:block;width:20px;height:2px;background:var(--text-muted);
+  border-radius:2px;transition:background 0.15s;
+}
+.hamburger-btn:hover span{background:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <span class="nav-section-label">Tools</span>
+    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
+    <a href="conditions.html" class="nav-item active"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
+    <a href="wildshape.html" class="nav-item"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
+    <a href="monsters.html" class="nav-item"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
+    <a href="magic-items.html" class="nav-item"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+  </div>
+</nav>
+
+<div id="app-header">
+  <div class="header-top">
+    <div class="app-title">Condition Codex <span>D&D 5e Status Reference</span></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="btn-print-bar">
+        <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+      </div>
+      <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-label">Search</span>
+    <input type="text" class="search-input" id="search-input" placeholder="Search conditions…" oninput="applyFilters()">
+    <span class="filter-label" style="margin-left:8px;">Type</span>
+    <div class="pill-filters" id="type-pills">
+      <div class="pill active" data-type="all" onclick="toggleType(this)">All</div>
+      <div class="pill" data-type="condition" onclick="toggleType(this)">Conditions</div>
+      <div class="pill" data-type="special" onclick="toggleType(this)">Special</div>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  </div>
+</div>
+
+<div id="results-bar"></div>
+<div id="card-grid"></div>
+<div id="empty-state" style="display:none;">
+  <span class="rune">⚠</span>
+  <h2>No Conditions Found</h2>
+  <p>Try adjusting your search or filters.</p>
+</div>
+
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal-box"></div>
+</div>
+
+<div id="print-output"></div>
+
+<script>
+const CONDITIONS = [
+  {
+    id: 'blinded', name: 'Blinded', icon: '👁', type: 'condition',
+    color: '#5a5a7a',
+    effects: [
+      'A blinded creature cannot see and automatically fails any ability check that requires sight.',
+      'Attack rolls against the creature have advantage.',
+      'The creature\'s attack rolls have disadvantage.'
+    ],
+    notes: 'Common sources: Darkness spell, Blindness/Deafness, sand or dust thrown in eyes, certain traps.',
+    flavor: 'Sight stolen away — the world collapses to sound and touch.'
+  },
+  {
+    id: 'charmed', name: 'Charmed', icon: '💞', type: 'condition',
+    color: '#c4306a',
+    effects: [
+      'A charmed creature cannot attack the charmer or target them with harmful abilities or magical effects.',
+      'The charmer has advantage on any ability check to interact socially with the creature.'
+    ],
+    notes: 'The condition ends if the charmer or their companions do anything harmful to the charmed creature. Many charm effects also end at the end of the creature\'s turn with a Wisdom saving throw.',
+    flavor: 'The mind bends toward another will — not compelled, but deeply persuaded.'
+  },
+  {
+    id: 'deafened', name: 'Deafened', icon: '👂', type: 'condition',
+    color: '#7a5a2a',
+    effects: [
+      'A deafened creature cannot hear and automatically fails any ability check that requires hearing.'
+    ],
+    notes: 'Rarely debilitating alone, but combined with Blinded it severely isolates the creature. Verbal spells with V components can still be cast unless the rules specifically state otherwise.',
+    flavor: 'Silence falls — not peace, but isolation from the world\'s warnings.'
+  },
+  {
+    id: 'exhaustion', name: 'Exhaustion', icon: '😓', type: 'special',
+    color: '#8a2a2a',
+    isExhaustion: true,
+    levels: [
+      { level: 1, effect: 'Disadvantage on Ability Checks' },
+      { level: 2, effect: 'Speed halved' },
+      { level: 3, effect: 'Disadvantage on Attack Rolls and Saving Throws' },
+      { level: 4, effect: 'Hit point maximum halved' },
+      { level: 5, effect: 'Speed reduced to 0' },
+      { level: 6, effect: 'Death' }
+    ],
+    notes: 'Effects are cumulative. Finishing a long rest reduces exhaustion level by 1, provided the creature has also had food and water. Levels 1-5 stack on top of each other.',
+    flavor: 'The body fails by degrees — each level brings the grave one step closer.'
+  },
+  {
+    id: 'frightened', name: 'Frightened', icon: '😱', type: 'condition',
+    color: '#6a2a8a',
+    effects: [
+      'A frightened creature has disadvantage on Ability Checks and Attack Rolls while the source of its fear is within line of sight.',
+      'The creature cannot willingly move closer to the source of its fear.'
+    ],
+    notes: 'The creature can still act, cast spells, and use abilities — it just cannot approach the source. Moving away or losing line of sight removes the disadvantage but not the condition itself.',
+    flavor: 'Fear roots the feet and clouds the mind — the prey instinct overrides all reason.'
+  },
+  {
+    id: 'grappled', name: 'Grappled', icon: '🤼', type: 'condition',
+    color: '#4a6a2a',
+    effects: [
+      'A grappled creature\'s speed becomes 0, and it can\'t benefit from any bonus to its speed.',
+      'The condition ends if the grappler is incapacitated.',
+      'The condition also ends if an effect removes the grappled creature from the reach of the grappler.'
+    ],
+    notes: 'Escaping a grapple requires an action and a successful Athletics or Acrobatics check contested by the grappler\'s Athletics. The grappler can drag the creature at half speed.',
+    flavor: 'Held fast — strength against strength, will against will.'
+  },
+  {
+    id: 'incapacitated', name: 'Incapacitated', icon: '🫁', type: 'condition',
+    color: '#3a6a8a',
+    effects: [
+      'An incapacitated creature cannot take Actions or Reactions.'
+    ],
+    notes: 'Movement and free object interactions are still possible. This condition is the foundation of Paralyzed, Stunned, and Unconscious — those conditions all impose Incapacitated as well.',
+    flavor: 'Action stripped away — a body present, a will absent.'
+  },
+  {
+    id: 'invisible', name: 'Invisible', icon: '👻', type: 'condition',
+    color: '#2a7a6a',
+    effects: [
+      'An invisible creature is impossible to see without the aid of magic or a special sense.',
+      'For the purpose of hiding, the creature is heavily obscured.',
+      'The creature\'s location can be detected by noise or tracks.',
+      'Attack rolls against the creature have disadvantage.',
+      'The creature\'s attack rolls have advantage.'
+    ],
+    notes: 'Unlike Blinded, Invisible does not impose automatic ability check failure — it only affects sight-based perception. Creatures that can see invisible things (e.g. via See Invisibility) negate all these effects.',
+    flavor: 'Present but unseen — the greatest of tactical advantages.'
+  },
+  {
+    id: 'paralyzed', name: 'Paralyzed', icon: '🧊', type: 'condition',
+    color: '#7a4a2a',
+    effects: [
+      'A paralyzed creature is Incapacitated and cannot move or speak.',
+      'The creature automatically fails Strength and Dexterity saving throws.',
+      'Attack rolls against the creature have advantage.',
+      'Any attack that hits the creature is a critical hit if the attacker is within 5 feet of it.'
+    ],
+    notes: 'One of the most debilitating conditions. The 5-foot auto-crit rule makes melee particularly dangerous against paralyzed creatures. Hold Person and Hold Monster are the most common sources.',
+    flavor: 'The body becomes a prison — the mind screams but the flesh will not answer.'
+  },
+  {
+    id: 'petrified', name: 'Petrified', icon: '🗿', type: 'condition',
+    color: '#5a6a4a',
+    effects: [
+      'A petrified creature is transformed, along with any nonmagical objects it is wearing or carrying, into a solid inanimate substance (usually stone).',
+      'Its weight increases by a factor of ten, and it ceases aging.',
+      'The creature is Incapacitated, cannot move or speak, and is unaware of its surroundings.',
+      'Attack rolls against the creature have advantage.',
+      'The creature automatically fails Strength and Dexterity saving throws.',
+      'The creature has resistance to all damage.',
+      'The creature is immune to poison and disease, though existing ones are suspended rather than neutralised.'
+    ],
+    notes: 'One of the most comprehensive conditions in the game. The damage resistance makes it paradoxically safer against some threats. Greater Restoration or the Stone to Flesh spell removes it.',
+    flavor: 'Flesh becomes stone — time itself stops for the creature within.'
+  },
+  {
+    id: 'poisoned', name: 'Poisoned', icon: '🤢', type: 'condition',
+    color: '#3a7a3a',
+    effects: [
+      'A poisoned creature has disadvantage on Attack Rolls and Ability Checks.'
+    ],
+    notes: 'Simple but highly effective. Constitution saving throws are the most common way to resist poison. The Poisoned condition is distinct from ongoing poison damage — a creature can take poison damage without being Poisoned.',
+    flavor: 'The venom works its way through blood and bone — clarity dissolves into fog.'
+  },
+  {
+    id: 'prone', name: 'Prone', icon: '🧎', type: 'condition',
+    color: '#8a6a2a',
+    effects: [
+      'A prone creature\'s only movement option is to crawl, unless it stands up (costing half its movement).',
+      'The creature has disadvantage on Attack Rolls.',
+      'An attack roll against the creature has advantage if the attacker is within 5 feet; otherwise, the attack roll has disadvantage.'
+    ],
+    notes: 'Prone has a ranged weapon weakness — attackers beyond 5 ft have disadvantage. Standing up costs half your speed but does not provoke opportunity attacks. Widely triggered by spells like Thunderwave.',
+    flavor: 'Laid low — the ground becomes both sanctuary and trap.'
+  },
+  {
+    id: 'restrained', name: 'Restrained', icon: '⛓', type: 'condition',
+    color: '#6a4a8a',
+    effects: [
+      'A restrained creature\'s speed becomes 0, and it can\'t benefit from any bonus to its speed.',
+      'Attack rolls against the creature have advantage.',
+      'The creature\'s attack rolls have disadvantage.',
+      'The creature has disadvantage on Dexterity saving throws.'
+    ],
+    notes: 'More punishing than Grappled — the additional attack disadvantage and Dex save disadvantage stack badly with most combat situations. Common from Web, Entangle, and certain monster abilities.',
+    flavor: 'Bound in place — neither fight nor flight remains.'
+  },
+  {
+    id: 'stunned', name: 'Stunned', icon: '💫', type: 'condition',
+    color: '#3a5a8a',
+    effects: [
+      'A stunned creature is Incapacitated, cannot move, and can speak only falteringly.',
+      'The creature automatically fails Strength and Dexterity saving throws.',
+      'Attack rolls against the creature have advantage.'
+    ],
+    notes: 'Extremely powerful but typically brief. The Monk\'s Stunning Strike is the most common source. Unlike Paralyzed, attacks against a stunned creature are not auto-crits outside 5 feet.',
+    flavor: 'Overwhelmed — the senses short-circuit and leave only confusion.'
+  },
+  {
+    id: 'unconscious', name: 'Unconscious', icon: '💤', type: 'condition',
+    color: '#2a2a5a',
+    effects: [
+      'An unconscious creature is Incapacitated, cannot move or speak, and is unaware of its surroundings.',
+      'The creature drops whatever it is holding and falls Prone.',
+      'The creature automatically fails Strength and Dexterity saving throws.',
+      'Attack rolls against the creature have advantage.',
+      'Any attack that hits the creature is a critical hit if the attacker is within 5 feet.'
+    ],
+    notes: 'A creature at 0 HP that is unconscious must make Death Saving Throws. Damage stabilises a creature\'s saving throw count. A successful Medicine DC 10 check or magical healing also stabilises. The creature regains consciousness with 1+ HP.',
+    flavor: 'Gone from the world — the body remains, the person has left.'
+  }
+];
+
+let activeTypes = new Set(['all']);
+let searchQuery = '';
+let modalCondition = null;
+
+function applyFilters() {
+  searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+  renderGrid();
+}
+
+function toggleType(pill) {
+  const type = pill.dataset.type;
+  if (type === 'all') {
+    activeTypes = new Set(['all']);
+  } else {
+    activeTypes.delete('all');
+    if (activeTypes.has(type)) {
+      activeTypes.delete(type);
+      if (activeTypes.size === 0) activeTypes = new Set(['all']);
+    } else {
+      activeTypes.add(type);
+    }
+  }
+  document.querySelectorAll('#type-pills .pill').forEach(p => {
+    p.classList.toggle('active', activeTypes.has(p.dataset.type));
+  });
+  renderGrid();
+}
+
+function resetFilters() {
+  document.getElementById('search-input').value = '';
+  searchQuery = '';
+  activeTypes = new Set(['all']);
+  document.querySelectorAll('#type-pills .pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.type === 'all');
+  });
+  renderGrid();
+}
+
+function filtered() {
+  return CONDITIONS.filter(c => {
+    const typeOk = activeTypes.has('all') || activeTypes.has(c.type);
+    const searchOk = !searchQuery || c.name.toLowerCase().includes(searchQuery) ||
+      (c.effects && c.effects.some(e => e.toLowerCase().includes(searchQuery))) ||
+      (c.notes && c.notes.toLowerCase().includes(searchQuery));
+    return typeOk && searchOk;
+  });
+}
+
+function renderGrid() {
+  const list = filtered();
+  const grid = document.getElementById('card-grid');
+  const empty = document.getElementById('empty-state');
+  const bar = document.getElementById('results-bar');
+  bar.textContent = `${list.length} condition${list.length !== 1 ? 's' : ''} shown`;
+  if (list.length === 0) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(c => buildCard(c)).join('');
+  grid.querySelectorAll('.cond-card').forEach((el, i) => {
+    el.addEventListener('click', () => openModal(list[i]));
+  });
+}
+
+function buildCard(c) {
+  const styleVar = `--cond-color: ${c.color};`;
+  if (c.isExhaustion) {
+    return `<div class="cond-card" style="${styleVar}">
+      <div class="card-header" style="background:${c.color}">
+        <span class="card-icon">${c.icon}</span>
+        <span class="card-title">${c.name}</span>
+        <span class="card-type-badge">Cumulative</span>
+      </div>
+      <div class="exhaustion-levels">
+        ${c.levels.map(l => `<div class="exhaustion-level">
+          <span class="level-num" style="background:${c.color}">${l.level}</span>
+          <span>${l.effect}</span>
+        </div>`).join('')}
+      </div>
+      <div class="card-notes">${c.notes}</div>
+    </div>`;
+  }
+  return `<div class="cond-card" style="${styleVar}">
+    <div class="card-header" style="background:${c.color}">
+      <span class="card-icon">${c.icon}</span>
+      <span class="card-title">${c.name}</span>
+      <span class="card-type-badge">${c.type === 'special' ? 'Special' : 'Condition'}</span>
+    </div>
+    <div class="card-effects">
+      ${c.effects.map(e => `<div class="effect-item">
+        <span class="effect-bullet" style="background:${c.color}"></span>
+        <span>${e}</span>
+      </div>`).join('')}
+    </div>
+    ${c.notes ? `<div class="card-notes">${c.notes}</div>` : ''}
+  </div>`;
+}
+
+function openModal(c) {
+  modalCondition = c;
+  const box = document.getElementById('modal-box');
+  box.style.setProperty('--cond-color', c.color);
+  if (c.isExhaustion) {
+    box.innerHTML = `
+      <div class="modal-header" style="background:${c.color}">
+        <span class="modal-icon">${c.icon}</span>
+        <span class="modal-title">${c.name}</span>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section-label">Cumulative Effects</div>
+        ${c.levels.map(l => `<div class="modal-exh-row">
+          <span class="modal-level-num" style="background:${c.color}">${l.level}</span>
+          <span>${l.effect}</span>
+        </div>`).join('')}
+        <div class="modal-notes">${c.notes}</div>
+      </div>`;
+  } else {
+    box.innerHTML = `
+      <div class="modal-header" style="background:${c.color}">
+        <span class="modal-icon">${c.icon}</span>
+        <span class="modal-title">${c.name}</span>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modal-body">
+        ${c.flavor ? `<p style="font-style:italic;color:#666;font-size:0.9rem;margin-bottom:12px;border-left:3px solid ${c.color};padding-left:10px;">${c.flavor}</p>` : ''}
+        <div class="modal-section-label">Effects</div>
+        ${c.effects.map(e => `<div class="modal-effect-item">
+          <span class="modal-bullet" style="background:${c.color}"></span>
+          <span>${e}</span>
+        </div>`).join('')}
+        ${c.notes ? `<div class="modal-notes">${c.notes}</div>` : ''}
+      </div>`;
+  }
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || e.type !== 'click' || !e.target.closest('#modal-box')) {
+    document.getElementById('modal-overlay').classList.remove('active');
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function toggleFilters() {
+  const bar = document.getElementById('filter-bar');
+  const arrow = document.getElementById('toggle-arrow');
+  bar.classList.toggle('expanded');
+  arrow.textContent = bar.classList.contains('expanded') ? '▲' : '▼';
+}
+
+function printCards() {
+  const list = filtered();
+  const output = document.getElementById('print-output');
+  const pages = [];
+  for (let i = 0; i < list.length; i += 8) pages.push(list.slice(i, i + 8));
+  output.innerHTML = pages.map((page, pi) =>
+    `<div class="print-page">${page.map(c => buildCard(c)).join('')}</div>`
+  ).join('');
+  window.print();
+}
+
+renderGrid();
+</script>
+
+<script>
+function openNav() {
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+</script>
+</body>
+</html>
