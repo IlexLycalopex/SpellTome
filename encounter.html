@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Encounter Tracker | The Tome</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="card.css">
+<link rel="stylesheet" href="print.css">
+<link rel="stylesheet" href="encounter.css">
+</head>
+
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Tools</span>
+
+    <a href="spelltome.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+
+    <a href="conditions.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+
+    <a href="wildshape.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1C7.55 18.78 14 16 22 16 22 9 17 8 17 8z"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+
+    <a href="monsters.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12 4C8.14 4 5 7.14 5 11c0 2.38 1.19 4.47 3 5.74V19h8v-2.26c1.81-1.27 3-3.36 3-5.74C19 7.14 15.86 4 12 4z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+
+    <a href="magic-items.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="22 9 12 9 6 3"/><line x1="12" y1="22" x2="12" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+
+    <a href="encounter.html" class="nav-item active">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+        <path d="M13 19 19 13"/>
+        <path d="M16 16 20 20"/>
+        <path d="M19 21 21 19"/>
+        <path d="M14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+        <path d="M5 14 9 18"/>
+        <path d="M7 17 3 21"/>
+        <path d="M3 19 5 21"/>
+      </svg>
+      &nbsp;Encounter Tracker
+    </a>
+
+  </div>
+</nav>
+
+<header id="app-header">
+  <div class="header-top">
+    <div class="app-title">Encounter Tracker <span id="edition-label">D&amp;D 5e</span></div>
+
+    <div class="header-actions">
+      <span class="selection-badge" id="combatant-count">0 combatants</span>
+
+      <button class="btn btn-ghost" id="btn-add" onclick="openAddModal()">Add</button>
+      <button class="btn btn-ghost" id="btn-next" onclick="nextTurn()" disabled>Next Turn</button>
+      <button class="btn btn-ghost" id="btn-new" onclick="newEncounter()">New</button>
+      <button class="btn btn-print" id="btn-export" onclick="openExportModal()">Export / Import</button>
+
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main class="encounter-wrap">
+  <div class="encounter-grid">
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Encounter</div>
+        <div class="panel-sub" id="encounter-status">Round 1</div>
+      </div>
+      <div class="panel-body">
+        <div class="kv">
+          <div class="k">Current</div>
+          <div class="v" id="current-name">None</div>
+
+          <div class="k">Turn</div>
+          <div class="v" id="turn-index">0 / 0</div>
+
+          <div class="k">Initiative</div>
+          <div class="v" id="current-init">-</div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="btn btn-ghost" onclick="previousTurn()" id="btn-prev" disabled>Previous</button>
+          <button class="btn btn-ghost" onclick="endRound()" id="btn-end-round" disabled>End Round</button>
+          <button class="btn btn-ghost" onclick="sortByInitiative()" id="btn-sort" disabled>Sort</button>
+        </div>
+
+        <p class="small-note">
+          Tips: click a condition chip to remove it. Use N for next turn, A to add.
+          This page auto-saves locally in your browser.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Initiative Order</div>
+        <div class="panel-sub" id="order-sub">Highest to lowest</div>
+      </div>
+
+      <div class="table-head">
+        <div>Turn</div>
+        <div>Side</div>
+        <div>Name</div>
+        <div>Init</div>
+        <div>HP</div>
+        <div>AC</div>
+        <div>Conditions</div>
+        <div></div>
+      </div>
+
+      <div id="rows"></div>
+    </section>
+  </div>
+</main>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="add-overlay" role="dialog" aria-modal="true" aria-labelledby="add-title">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="add-title">Add Combatant</div>
+      <button class="icon-btn" onclick="closeAddModal()" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="add-name">Name</label>
+          <input class="inline" id="add-name" type="text" placeholder="Goblin, Cleric, Veteran…" maxlength="60">
+        </div>
+        <div class="form-row">
+          <label for="add-side">Side</label>
+          <select id="add-side">
+            <option value="enemy">Enemy</option>
+            <option value="pc">PC / Ally</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="add-init">Initiative</label>
+          <input class="inline" id="add-init" type="number" placeholder="0" step="1">
+        </div>
+        <div class="form-row">
+          <label for="add-ac">AC</label>
+          <input class="inline" id="add-ac" type="number" placeholder="10" step="1">
+        </div>
+        <div class="form-row">
+          <label for="add-hp">HP (current)</label>
+          <input class="inline" id="add-hp" type="number" placeholder="7" step="1">
+        </div>
+        <div class="form-row">
+          <label for="add-hpmax">HP (max)</label>
+          <input class="inline" id="add-hpmax" type="number" placeholder="7" step="1">
+        </div>
+        <div class="form-row" style="grid-column:1/-1;">
+          <label for="add-notes">Notes (optional)</label>
+          <textarea class="inline" id="add-notes" placeholder="Tactics, spell slots, concentration, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeAddModal()">Cancel</button>
+        <button class="btn btn-print" onclick="addCombatant()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT / IMPORT MODAL -->
+<div class="modal-overlay" id="export-overlay" role="dialog" aria-modal="true" aria-labelledby="export-title">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="export-title">Export / Import Encounter</div>
+      <button class="icon-btn" onclick="closeExportModal()" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label for="export-json">JSON</label>
+        <textarea class="inline" id="export-json" spellcheck="false"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="copyExport()">Copy</button>
+        <button class="btn btn-ghost" onclick="loadFromExport()">Import</button>
+        <button class="btn btn-print" onclick="closeExportModal()">Done</button>
+      </div>
+      <p class="small-note" style="margin-top:10px;">
+        Import will overwrite the current encounter.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   NAV DRAWER (shared)
+   ============================================================ */
+function openNav() {
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeNav(); closeAddModal(); closeExportModal(); }});
+
+/* ============================================================
+   ENCOUNTER STATE
+   ============================================================ */
+const STORAGE_KEY = 'tome_encounter_tracker_v1';
+
+const CONDITIONS = [
+  'Blinded','Charmed','Deafened','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified',
+  'Poisoned','Prone','Restrained','Stunned','Unconscious','Exhaustion'
+];
+
+let state = {
+  round: 1,
+  currentId: null,
+  combatants: [] // {id,name,side,initiative,hp,hpMax,ac,notes,conditions:[]}
+};
+
+function uid() {
+  return Math.random().toString(16).slice(2) + Date.now().toString(16);
+}
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return;
+    state = {
+      round: Number(parsed.round || 1),
+      currentId: parsed.currentId || null,
+      combatants: Array.isArray(parsed.combatants) ? parsed.combatants : []
+    };
+  } catch (e) {}
+}
+
+function sortCombatants() {
+  const currentId = state.currentId;
+  state.combatants.sort((a, b) => {
+    const ia = Number(a.initiative || 0);
+    const ib = Number(b.initiative || 0);
+    if (ib !== ia) return ib - ia;
+    return String(a.name || '').localeCompare(String(b.name || ''));
+  });
+  if (currentId && !state.combatants.some(c => c.id === currentId)) {
+    state.currentId = state.combatants.length ? state.combatants[0].id : null;
+  }
+}
+
+function currentIndex() {
+  if (!state.currentId) return -1;
+  return state.combatants.findIndex(c => c.id === state.currentId);
+}
+
+function ensureCurrent() {
+  if (!state.combatants.length) {
+    state.currentId = null;
+    state.round = 1;
+    return;
+  }
+  if (!state.currentId || !state.combatants.some(c => c.id === state.currentId)) {
+    state.currentId = state.combatants[0].id;
+  }
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render() {
+  const rows = document.getElementById('rows');
+  rows.innerHTML = '';
+
+  const count = state.combatants.length;
+  document.getElementById('combatant-count').textContent = `${count} combatant${count === 1 ? '' : 's'}`;
+
+  const idx = currentIndex();
+  const current = idx >= 0 ? state.combatants[idx] : null;
+
+  document.getElementById('encounter-status').textContent = `Round ${state.round}`;
+  document.getElementById('turn-index').textContent = `${count ? (idx + 1) : 0} / ${count}`;
+  document.getElementById('current-name').textContent = current ? current.name : 'None';
+  document.getElementById('current-init').textContent = current ? String(current.initiative ?? '-') : '-';
+
+  // Buttons
+  const has = count > 0;
+  document.getElementById('btn-next').disabled = !has;
+  document.getElementById('btn-prev').disabled = !has;
+  document.getElementById('btn-end-round').disabled = !has;
+  document.getElementById('btn-sort').disabled = !has;
+
+  state.combatants.forEach((c, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (c.id === state.currentId ? ' current' : '');
+
+    // Turn
+    const cellTurn = document.createElement('div');
+    const pill = document.createElement('div');
+    pill.className = 'turn-pill';
+    pill.textContent = String(i + 1);
+    cellTurn.appendChild(pill);
+
+    // Side
+    const cellSide = document.createElement('div');
+    cellSide.className = 'cell-side';
+    const side = document.createElement('span');
+    side.className = 'side-badge ' + (c.side === 'pc' ? 'side-pc' : 'side-enemy');
+    side.textContent = c.side === 'pc' ? 'PC' : 'Enemy';
+    cellSide.appendChild(side);
+
+    // Name
+    const cellName = document.createElement('div');
+    cellName.className = 'cell-name';
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = c.name || '(unnamed)';
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = c.notes ? c.notes : '';
+    cellName.appendChild(name);
+    if (c.notes) cellName.appendChild(note);
+
+    // Mobile meta
+    const cellMeta = document.createElement('div');
+    cellMeta.className = 'cell-meta';
+    cellMeta.textContent = `${c.side === 'pc' ? 'PC' : 'Enemy'}`;
+
+    // Init
+    const cellInit = document.createElement('div');
+    cellInit.className = 'cell-init';
+    const initInput = document.createElement('input');
+    initInput.className = 'inline';
+    initInput.type = 'number';
+    initInput.step = '1';
+    initInput.value = (c.initiative ?? '');
+    initInput.addEventListener('change', () => {
+      c.initiative = toIntOrNull(initInput.value);
+      sortByInitiative(false);
+    });
+    cellInit.appendChild(initInput);
+
+    // HP
+    const cellHp = document.createElement('div');
+    cellHp.className = 'cell-hp';
+    const hpWrap = document.createElement('div');
+    hpWrap.className = 'hp-wrap';
+    const hp = document.createElement('input');
+    hp.className = 'inline';
+    hp.type = 'number';
+    hp.step = '1';
+    hp.value = (c.hp ?? '');
+    hp.addEventListener('change', () => { c.hp = toIntOrNull(hp.value); save(); });
+
+    const sep = document.createElement('span');
+    sep.className = 'sep';
+    sep.textContent = '/';
+
+    const hpMax = document.createElement('input');
+    hpMax.className = 'inline';
+    hpMax.type = 'number';
+    hpMax.step = '1';
+    hpMax.value = (c.hpMax ?? '');
+    hpMax.addEventListener('change', () => { c.hpMax = toIntOrNull(hpMax.value); save(); });
+
+    hpWrap.appendChild(hp);
+    hpWrap.appendChild(sep);
+    hpWrap.appendChild(hpMax);
+    cellHp.appendChild(hpWrap);
+
+    // AC
+    const cellAc = document.createElement('div');
+    cellAc.className = 'cell-ac';
+    const ac = document.createElement('input');
+    ac.className = 'inline';
+    ac.type = 'number';
+    ac.step = '1';
+    ac.value = (c.ac ?? '');
+    ac.addEventListener('change', () => { c.ac = toIntOrNull(ac.value); save(); });
+    cellAc.appendChild(ac);
+
+    // Conditions
+    const cellCond = document.createElement('div');
+    cellCond.className = 'cell-cond';
+    const condWrap = document.createElement('div');
+    condWrap.className = 'cond-wrap';
+
+    (c.conditions || []).forEach(cond => {
+      condWrap.appendChild(buildCondChip(c, cond));
+    });
+
+    const condSel = document.createElement('select');
+    condSel.style.maxWidth = '100%';
+    condSel.innerHTML = `<option value="">Add condition…</option>` + CONDITIONS.map(x => `<option>${escapeHtml(x)}</option>`).join('');
+    condSel.addEventListener('change', () => {
+      const v = condSel.value;
+      if (!v) return;
+      c.conditions = Array.isArray(c.conditions) ? c.conditions : [];
+      if (!c.conditions.includes(v)) c.conditions.push(v);
+      save();
+      render();
+    });
+
+    condWrap.appendChild(condSel);
+    cellCond.appendChild(condWrap);
+
+    // Delete
+    const cellDel = document.createElement('div');
+    cellDel.className = 'cell-del';
+    const del = document.createElement('button');
+    del.className = 'icon-btn';
+    del.title = 'Remove';
+    del.innerHTML = '&#128465;';
+    del.addEventListener('click', () => removeCombatant(c.id));
+    cellDel.appendChild(del);
+
+    // Clicking name sets current
+    row.addEventListener('click', (e) => {
+      const tag = String(e.target.tagName || '').toLowerCase();
+      if (['input','select','button','textarea','option'].includes(tag)) return;
+      state.currentId = c.id;
+      save();
+      render();
+    });
+
+    row.appendChild(cellTurn);
+    row.appendChild(cellSide);
+    row.appendChild(cellName);
+    row.appendChild(cellInit);
+    row.appendChild(cellHp);
+    row.appendChild(cellAc);
+    row.appendChild(cellCond);
+    row.appendChild(cellDel);
+    row.appendChild(cellMeta);
+
+    rows.appendChild(row);
+  });
+
+  save();
+}
+
+function buildCondChip(combatant, cond) {
+  const chip = document.createElement('span');
+  chip.className = 'cond-chip';
+  chip.textContent = cond;
+  chip.title = 'Click to remove';
+  chip.addEventListener('click', (e) => {
+    e.stopPropagation();
+    combatant.conditions = (combatant.conditions || []).filter(x => x !== cond);
+    save();
+    render();
+  });
+  return chip;
+}
+
+function toIntOrNull(v) {
+  if (v === '' || v === null || v === undefined) return null;
+  const n = Number(v);
+  if (Number.isNaN(n)) return null;
+  return Math.trunc(n);
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#39;");
+}
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+function sortByInitiative(reRender = true) {
+  sortCombatants();
+  ensureCurrent();
+  save();
+  if (reRender) render();
+}
+
+function nextTurn() {
+  if (!state.combatants.length) return;
+  const idx = currentIndex();
+  const next = idx + 1;
+  if (next >= state.combatants.length) {
+    state.round += 1;
+    state.currentId = state.combatants[0].id;
+  } else {
+    state.currentId = state.combatants[next].id;
+  }
+  save();
+  render();
+}
+
+function previousTurn() {
+  if (!state.combatants.length) return;
+  const idx = currentIndex();
+  const prev = idx - 1;
+  if (prev < 0) {
+    state.round = Math.max(1, state.round - 1);
+    state.currentId = state.combatants[state.combatants.length - 1].id;
+  } else {
+    state.currentId = state.combatants[prev].id;
+  }
+  save();
+  render();
+}
+
+function endRound() {
+  if (!state.combatants.length) return;
+  state.round += 1;
+  state.currentId = state.combatants[0].id;
+  save();
+  render();
+}
+
+function removeCombatant(id) {
+  const wasCurrent = id === state.currentId;
+  state.combatants = state.combatants.filter(c => c.id !== id);
+  sortCombatants();
+  if (wasCurrent) {
+    ensureCurrent();
+  }
+  save();
+  render();
+}
+
+function newEncounter() {
+  const ok = confirm('Start a new encounter? This will clear the current list.');
+  if (!ok) return;
+  state = { round: 1, currentId: null, combatants: [] };
+  save();
+  render();
+}
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+function openAddModal() {
+  document.getElementById('add-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('add-name').focus();
+}
+function closeAddModal() {
+  const el = document.getElementById('add-overlay');
+  if (!el.classList.contains('active')) return;
+  el.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function addCombatant() {
+  const name = document.getElementById('add-name').value.trim();
+  const side = document.getElementById('add-side').value;
+  const initiative = toIntOrNull(document.getElementById('add-init').value);
+  const ac = toIntOrNull(document.getElementById('add-ac').value);
+  const hp = toIntOrNull(document.getElementById('add-hp').value);
+  const hpMax = toIntOrNull(document.getElementById('add-hpmax').value);
+  const notes = document.getElementById('add-notes').value.trim();
+
+  if (!name) {
+    alert('Name is required.');
+    return;
+  }
+
+  const c = {
+    id: uid(),
+    name,
+    side: side === 'pc' ? 'pc' : 'enemy',
+    initiative: initiative ?? 0,
+    hp: hp ?? null,
+    hpMax: hpMax ?? null,
+    ac: ac ?? null,
+    notes: notes || '',
+    conditions: []
+  };
+
+  state.combatants.push(c);
+  sortCombatants();
+  ensureCurrent();
+
+  // If this is the first entry, make it current
+  if (state.combatants.length === 1) state.currentId = state.combatants[0].id;
+
+  // Clear form
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-init').value = '';
+  document.getElementById('add-ac').value = '';
+  document.getElementById('add-hp').value = '';
+  document.getElementById('add-hpmax').value = '';
+  document.getElementById('add-notes').value = '';
+
+  save();
+  closeAddModal();
+  render();
+}
+
+function openExportModal() {
+  const t = document.getElementById('export-json');
+  t.value = JSON.stringify(state, null, 2);
+  document.getElementById('export-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  t.focus();
+  t.select();
+}
+
+function closeExportModal() {
+  const el = document.getElementById('export-overlay');
+  if (!el.classList.contains('active')) return;
+  el.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+async function copyExport() {
+  const t = document.getElementById('export-json');
+  try {
+    await navigator.clipboard.writeText(t.value);
+  } catch (e) {
+    t.select();
+    document.execCommand('copy');
+  }
+}
+
+function loadFromExport() {
+  const ok = confirm('Import will overwrite the current encounter. Continue?');
+  if (!ok) return;
+  const raw = document.getElementById('export-json').value;
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON');
+    state = {
+      round: Number(parsed.round || 1),
+      currentId: parsed.currentId || null,
+      combatants: Array.isArray(parsed.combatants) ? parsed.combatants : []
+    };
+    sortCombatants();
+    ensureCurrent();
+    save();
+    closeExportModal();
+    render();
+  } catch (e) {
+    alert('Could not import. Check the JSON is valid.');
+  }
+}
+
+/* ============================================================
+   SHORTCUTS
+   ============================================================ */
+document.addEventListener('keydown', (e) => {
+  if (e.target && ['input','textarea','select'].includes(String(e.target.tagName || '').toLowerCase())) return;
+  if (e.key === 'n' || e.key === 'N') nextTurn();
+  if (e.key === 'a' || e.key === 'A') openAddModal();
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+load();
+sortCombatants();
+ensureCurrent();
+render();
+</script>
+
+</body>
+</html>
