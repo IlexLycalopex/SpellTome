@@ -314,7 +314,8 @@ input[type="text"]::placeholder { color: #6a6a80; }
 .nav-item:hover,.nav-item.active{
   color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
 }
-.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.nav-item .ni{width:1.1rem;height:1.1rem;flex-shrink:0;opacity:0.75;}
+.nav-item:hover .ni,.nav-item.active .ni{opacity:1;}
 .hamburger-btn {
   background:none;border:1px solid var(--border);border-radius:6px;
   padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
@@ -339,13 +340,13 @@ input[type="text"]::placeholder { color: #6a6a80; }
   </div>
   <div class="nav-scroll">
     <span class="nav-section-label">Home</span>
-    <a href="index.html" class="nav-item"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <a href="index.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>&nbsp;Hub</a>
     <span class="nav-section-label">Tools</span>
-    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
-    <a href="conditions.html" class="nav-item"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
-    <a href="wildshape.html" class="nav-item"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
-    <a href="monsters.html" class="nav-item active"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
-    <a href="magic-items.html" class="nav-item"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+    <a href="spelltome.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>&nbsp;Spell Tome</a>
+    <a href="conditions.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>&nbsp;Condition Codex</a>
+    <a href="wildshape.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1C7.55 18.78 14 16 22 16 22 9 17 8 17 8z"/></svg></span>&nbsp;Wildshape &amp; Familiar</a>
+    <a href="monsters.html" class="nav-item active"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12 4C8.14 4 5 7.14 5 11c0 2.38 1.19 4.47 3 5.74V19h8v-2.26c1.81-1.27 3-3.36 3-5.74C19 7.14 15.86 4 12 4z"/></svg></span>&nbsp;Monster Codex</a>
+    <a href="magic-items.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="22 9 12 9 6 3"/><line x1="12" y1="22" x2="12" y2="9"/></svg></span>&nbsp;Magic Item Compendium</a>
   </div>
 </nav>
 
