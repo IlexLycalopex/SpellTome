@@ -71,7 +71,8 @@ body::before {
 .nav-item:hover,.nav-item.active{
   color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
 }
-.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.nav-item .ni{width:1.1rem;height:1.1rem;flex-shrink:0;opacity:0.75;}
+.nav-item:hover .ni,.nav-item.active .ni{opacity:1;}
 .hamburger-btn {
   background:none;border:1px solid var(--border);border-radius:6px;
   padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
@@ -94,18 +95,22 @@ body::before {
   padding:14px 28px;
 }
 .site-logo {
+  display:flex;align-items:center;gap:9px;
   font-family:'Cinzel',serif;font-size:1.15rem;font-weight:900;
   letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);
   text-shadow:0 0 18px rgba(201,168,76,0.35);text-decoration:none;
 }
+.site-logo svg{width:1.3rem;height:1.3rem;flex-shrink:0;}
 
 /* HERO */
 .hero{text-align:center;padding:80px 28px 52px;}
 .hero-sigil{
-  display:block;font-size:3.8rem;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;width:72px;height:72px;
   filter:drop-shadow(0 0 28px rgba(201,168,76,0.45));
   animation:sigil-float 4.5s ease-in-out infinite;
 }
+.hero-sigil svg{width:72px;height:72px;}
 @keyframes sigil-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
 .hero-title {
   font-family:'Cinzel',serif;
@@ -149,7 +154,12 @@ body::before {
 .card-stripe{height:5px;background:var(--accent,var(--gold));flex-shrink:0;}
 .card-inner{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column;gap:8px;}
 .card-top{display:flex;align-items:center;gap:12px;margin-bottom:2px;}
-.card-glyph{font-size:2rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.4));}
+.card-glyph{
+  width:2.2rem;height:2.2rem;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+.card-glyph svg{width:100%;height:100%;}
 .card-name{
   font-family:'Cinzel',serif;font-size:0.98rem;font-weight:700;
   letter-spacing:0.06em;text-transform:uppercase;color:var(--accent,var(--gold));
@@ -191,6 +201,55 @@ body::before {
 </head>
 <body>
 
+<!-- SVG ICON DEFS (reusable inline symbols) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Open book / Hub -->
+  <symbol id="ico-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <!-- Star / Spell Tome -->
+  <symbol id="ico-spell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <!-- Shield / Condition Codex -->
+  <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <!-- Leaf / Wildshape & Familiar -->
+  <symbol id="ico-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+  </symbol>
+  <!-- Skull / Monster Codex -->
+  <symbol id="ico-skull" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/>
+    <path d="M8 20v2h8v-2"/>
+    <path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/>
+  </symbol>
+  <!-- Gem / Magic Item Compendium -->
+  <symbol id="ico-gem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="6 3 18 3 22 9 12 22 2 9"/>
+    <line x1="2" y1="9" x2="22" y2="9"/>
+    <line x1="12" y1="3" x2="6" y2="9"/>
+    <line x1="12" y1="3" x2="18" y2="9"/>
+    <line x1="12" y1="22" x2="6" y2="9"/>
+    <line x1="12" y1="22" x2="18" y2="9"/>
+  </symbol>
+  <!-- Crossed swords / site logo -->
+  <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+    <line x1="13" y1="19" x2="19" y2="13"/>
+    <line x1="16" y1="16" x2="20" y2="20"/>
+    <line x1="19" y1="21" x2="21" y2="19"/>
+    <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+    <line x1="5" y1="14" x2="9" y2="18"/>
+    <line x1="7" y1="17" x2="3" y2="21"/>
+    <line x1="3" y1="19" x2="5" y2="21"/>
+  </symbol>
+</svg>
+
 <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
 <nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
   <div class="nav-drawer-header">
@@ -199,19 +258,40 @@ body::before {
   </div>
   <div class="nav-scroll">
     <span class="nav-section-label">Home</span>
-    <a href="index.html" class="nav-item active"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <a href="index.html" class="nav-item active">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
     <span class="nav-section-label">Tools</span>
-    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
-    <a href="conditions.html" class="nav-item"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
-    <a href="wildshape.html" class="nav-item"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
-    <a href="monsters.html" class="nav-item"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
-    <a href="magic-items.html" class="nav-item"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+    <a href="spelltome.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
   </div>
 </nav>
 
 <div class="page-wrap">
   <header id="site-header">
-    <a href="index.html" class="site-logo">&#x2694;&#xFE0F; The Tome</a>
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
     <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
       <span></span><span></span><span></span>
     </button>
@@ -219,9 +299,33 @@ body::before {
 
   <main>
     <div class="hero">
-      <span class="hero-sigil">&#x1F4D6;</span>
+      <div class="hero-sigil" aria-hidden="true">
+        <!-- Arcane tome sigil -->
+        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="34" stroke="#c9a84c" stroke-width="1.5" opacity="0.35"/>
+          <circle cx="36" cy="36" r="27" stroke="#c9a84c" stroke-width="0.8" opacity="0.2"/>
+          <!-- Book -->
+          <path d="M14 18h16a6 6 0 0 1 6 6v22a4.5 4.5 0 0 0-4.5-4.5H14V18z" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M58 18H42a6 6 0 0 0-6 6v22a4.5 4.5 0 0 1 4.5-4.5H58V18z" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Spine -->
+          <line x1="36" y1="18" x2="36" y2="46" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
+          <!-- Star above -->
+          <polygon points="36,8 37.4,12 41.5,12 38.3,14.6 39.5,18.5 36,16 32.5,18.5 33.7,14.6 30.5,12 34.6,12" stroke="#c9a84c" stroke-width="1" fill="#c9a84c" opacity="0.7"/>
+          <!-- Rune lines on left page -->
+          <line x1="19" y1="28" x2="29" y2="28" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <line x1="19" y1="32" x2="29" y2="32" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <line x1="19" y1="36" x2="26" y2="36" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <!-- Rune lines on right page -->
+          <line x1="43" y1="28" x2="53" y2="28" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <line x1="43" y1="32" x2="53" y2="32" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <line x1="43" y1="36" x2="50" y2="36" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+          <!-- Corner runes -->
+          <text x="10" y="64" font-size="8" fill="#c9a84c" opacity="0.3" font-family="serif">ᚱ</text>
+          <text x="56" y="64" font-size="8" fill="#c9a84c" opacity="0.3" font-family="serif">ᚢ</text>
+        </svg>
+      </div>
       <h1 class="hero-title">The Tome</h1>
-      <p class="hero-sub">D&amp;D 5e reference tools &mdash; offline, printable, at the table</p>
+      <p class="hero-sub">D&amp;D 5e reference tools for players and Dungeon Masters</p>
       <div class="hero-rule"></div>
     </div>
 
@@ -229,16 +333,23 @@ body::before {
       <p class="section-eyebrow">Choose your reference</p>
       <div class="tool-grid">
 
+        <!-- SPELL TOME -->
         <a href="spelltome.html" class="tool-card" style="--accent:#9a54cc;">
           <div class="card-stripe"></div>
           <div class="card-inner">
             <div class="card-top">
-              <span class="card-glyph">&#x2728;</span>
+              <div class="card-glyph" style="color:#9a54cc;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  <line x1="12" y1="7" x2="12" y2="14"/>
+                  <line x1="8.5" y1="10.5" x2="15.5" y2="10.5"/>
+                </svg>
+              </div>
               <span class="card-name">Spell Tome</span>
             </div>
-            <p class="card-desc">Filter and print every 5e spell. Full 2014 and 2024 PHB datasets with class filters, spell-level pills, school sorting, and a print-ready card layout.</p>
+            <p class="card-desc">Browse, filter, and print every 5e spell. Full 2014 and 2024 PHB datasets with class filters, spell-level pills, school sorting, and a print-ready card layout.</p>
             <div class="card-pills">
-              <span class="c-pill" style="color:#9a54cc;border:1px solid rgba(154,84,204,0.3);background:rgba(154,84,204,0.08);">400+ Spells</span>
+              <span class="c-pill" style="color:#9a54cc;border:1px solid rgba(154,84,204,0.3);background:rgba(154,84,204,0.08);">800+ Spells</span>
               <span class="c-pill" style="color:#9a54cc;border:1px solid rgba(154,84,204,0.3);background:rgba(154,84,204,0.08);">2014 &amp; 2024 PHB</span>
               <span class="c-pill" style="color:#9a54cc;border:1px solid rgba(154,84,204,0.3);background:rgba(154,84,204,0.08);">8 Schools</span>
               <span class="c-pill" style="color:#9a54cc;border:1px solid rgba(154,84,204,0.3);background:rgba(154,84,204,0.08);">Print to PDF</span>
@@ -247,16 +358,23 @@ body::before {
           </div>
         </a>
 
+        <!-- CONDITION CODEX -->
         <a href="conditions.html" class="tool-card" style="--accent:#c4306a;">
           <div class="card-stripe"></div>
           <div class="card-inner">
             <div class="card-top">
-              <span class="card-glyph">&#x26A0;&#xFE0F;</span>
+              <div class="card-glyph" style="color:#c4306a;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
               <span class="card-name">Condition Codex</span>
             </div>
-            <p class="card-desc">All 15 conditions plus Exhaustion levels at a glance. Mechanical effects, common sources, and DM notes &mdash; ready when the table needs a quick ruling.</p>
+            <p class="card-desc">Every 5e condition and Exhaustion levels at a glance. Mechanical effects, common sources, and DM notes &mdash; ready when the table needs a quick ruling.</p>
             <div class="card-pills">
-              <span class="c-pill" style="color:#c4306a;border:1px solid rgba(196,48,106,0.3);background:rgba(196,48,106,0.08);">15 Conditions</span>
+              <span class="c-pill" style="color:#c4306a;border:1px solid rgba(196,48,106,0.3);background:rgba(196,48,106,0.08);">14 Conditions</span>
               <span class="c-pill" style="color:#c4306a;border:1px solid rgba(196,48,106,0.3);background:rgba(196,48,106,0.08);">Exhaustion Levels</span>
               <span class="c-pill" style="color:#c4306a;border:1px solid rgba(196,48,106,0.3);background:rgba(196,48,106,0.08);">DM Notes</span>
               <span class="c-pill" style="color:#c4306a;border:1px solid rgba(196,48,106,0.3);background:rgba(196,48,106,0.08);">Print to PDF</span>
@@ -265,34 +383,49 @@ body::before {
           </div>
         </a>
 
+        <!-- WILDSHAPE & FAMILIAR -->
         <a href="wildshape.html" class="tool-card" style="--accent:#2d8a40;">
           <div class="card-stripe"></div>
           <div class="card-inner">
             <div class="card-top">
-              <span class="card-glyph">&#x1F43E;</span>
+              <div class="card-glyph" style="color:#2d8a40;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+              </div>
               <span class="card-name">Wildshape &amp; Familiar</span>
             </div>
-            <p class="card-desc">Druid beast forms filtered by level and terrain, with automatic CR limits and fly-restriction enforcement. Flips to show all 15 Find Familiar options with best-use notes.</p>
+            <p class="card-desc">Druid beast forms filtered by level and terrain, with automatic CR limits and fly-restriction enforcement. Flips to show all Find Familiar options with stat lines and best-use notes.</p>
             <div class="card-pills">
               <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">Auto CR Filter</span>
               <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">Fly Restriction</span>
-              <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">15 Familiars</span>
-              <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">13 Terrains</span>
+              <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">Familiars</span>
+              <span class="c-pill" style="color:#2d8a40;border:1px solid rgba(45,138,64,0.3);background:rgba(45,138,64,0.08);">12 Terrains</span>
             </div>
             <div class="card-foot">Open tool <span class="c-arrow">&#x2192;</span></div>
           </div>
         </a>
 
+        <!-- MONSTER CODEX -->
         <a href="monsters.html" class="tool-card" style="--accent:#8a2a2a;">
           <div class="card-stripe"></div>
           <div class="card-inner">
             <div class="card-top">
-              <span class="card-glyph">&#x1F409;</span>
+              <div class="card-glyph" style="color:#8a2a2a;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="12" r="1"/>
+                  <circle cx="15" cy="12" r="1"/>
+                  <path d="M8 20v2h8v-2"/>
+                  <path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/>
+                  <path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/>
+                </svg>
+              </div>
               <span class="card-name">Monster Codex</span>
             </div>
-            <p class="card-desc">SRD monsters from CR 0 to CR 22. Filter by challenge rating, creature type, and size. Full stat blocks with traits, actions, and legendary actions in a click-through modal.</p>
+            <p class="card-desc">SRD monsters from CR 0 to CR 30. Filter by challenge rating, creature type, and size. Full stat blocks with traits, actions, and legendary actions in a click-through modal.</p>
             <div class="card-pills">
-              <span class="c-pill" style="color:#8a2a2a;border:1px solid rgba(138,42,42,0.3);background:rgba(138,42,42,0.08);">CR 0&ndash;22</span>
+              <span class="c-pill" style="color:#8a2a2a;border:1px solid rgba(138,42,42,0.3);background:rgba(138,42,42,0.08);">CR 0&ndash;30</span>
               <span class="c-pill" style="color:#8a2a2a;border:1px solid rgba(138,42,42,0.3);background:rgba(138,42,42,0.08);">14 Types</span>
               <span class="c-pill" style="color:#8a2a2a;border:1px solid rgba(138,42,42,0.3);background:rgba(138,42,42,0.08);">Full Stat Blocks</span>
               <span class="c-pill" style="color:#8a2a2a;border:1px solid rgba(138,42,42,0.3);background:rgba(138,42,42,0.08);">Legendary Actions</span>
@@ -301,16 +434,26 @@ body::before {
           </div>
         </a>
 
+        <!-- MAGIC ITEM COMPENDIUM -->
         <a href="magic-items.html" class="tool-card" style="--accent:#8a6a0a;">
           <div class="card-stripe"></div>
           <div class="card-inner">
             <div class="card-top">
-              <span class="card-glyph">&#x1F48D;</span>
+              <div class="card-glyph" style="color:#8a6a0a;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="6 3 18 3 22 9 12 22 2 9"/>
+                  <line x1="2" y1="9" x2="22" y2="9"/>
+                  <line x1="12" y1="3" x2="6" y2="9"/>
+                  <line x1="12" y1="3" x2="18" y2="9"/>
+                  <line x1="12" y1="22" x2="6" y2="9"/>
+                  <line x1="12" y1="22" x2="18" y2="9"/>
+                </svg>
+              </div>
               <span class="card-name">Magic Item Compendium</span>
             </div>
-            <p class="card-desc">70+ SRD magic items filterable by rarity, type, and attunement requirement. Each card includes a DM utility note. Print a filtered loot handout directly from the view.</p>
+            <p class="card-desc">SRD magic items filterable by rarity, type, and attunement requirement. Each card includes a DM utility note. Print a filtered loot handout directly from the view.</p>
             <div class="card-pills">
-              <span class="c-pill" style="color:#8a6a0a;border:1px solid rgba(138,106,10,0.3);background:rgba(138,106,10,0.08);">70+ Items</span>
+              <span class="c-pill" style="color:#8a6a0a;border:1px solid rgba(138,106,10,0.3);background:rgba(138,106,10,0.08);">SRD Items</span>
               <span class="c-pill" style="color:#8a6a0a;border:1px solid rgba(138,106,10,0.3);background:rgba(138,106,10,0.08);">6 Rarities</span>
               <span class="c-pill" style="color:#8a6a0a;border:1px solid rgba(138,106,10,0.3);background:rgba(138,106,10,0.08);">Attunement Filter</span>
               <span class="c-pill" style="color:#8a6a0a;border:1px solid rgba(138,106,10,0.3);background:rgba(138,106,10,0.08);">Loot Handout</span>
@@ -324,8 +467,8 @@ body::before {
   </main>
 
   <footer class="site-footer">
-    <p>All content derived from the D&amp;D 5e Systems Reference Document (SRD 5.1). For personal use at the table.</p>
-    <p style="margin-top:5px;">Fully offline &mdash; no server, no CDN dependencies beyond Google Fonts.</p>
+    <p>All content derived from the D&amp;D 5e Systems Reference Document (SRD 5.1). For use by players and Dungeon Masters at the table.</p>
+    <p style="margin-top:5px;">Requires Google Fonts. No account or installation needed &mdash; open in any browser.</p>
   </footer>
 </div>
 

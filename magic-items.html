@@ -78,6 +78,26 @@ input[type="text"]::placeholder{color:#6a6a80;}
 .btn{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:7px 16px;cursor:pointer;transition:all 0.15s ease;}
 .btn-print{background:linear-gradient(135deg,#c9a84c,#8a6a2c);color:#1a1a2e;font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,0.3);}
 .btn-print:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,0.5);}
+.btn-print:disabled{opacity:0.38;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
+.btn-ghost{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border);border-radius:4px;padding:5px 12px;cursor:pointer;background:transparent;color:var(--text-muted);transition:all 0.15s;white-space:nowrap;}
+.btn-ghost:hover{color:var(--gold);border-color:rgba(201,168,76,0.4);}
+.btn-ghost:disabled{opacity:0.3;cursor:not-allowed;}
+.selection-badge{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:4px 13px;letter-spacing:0.05em;white-space:nowrap;}
+.item-card{position:relative;}
+.item-card.selected{box-shadow:0 0 0 3px rgba(201,168,76,0.5),0 8px 28px rgba(0,0,0,0.5)!important;transform:translateY(-4px);}
+.select-indicator{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.8);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.12s ease;font-size:0.65rem;color:#fff;font-weight:700;line-height:1;pointer-events:none;}
+.item-card.selected .select-indicator{background:var(--gold);border-color:#fff;}
+#print-preview-overlay.active{display:flex;}
+.print-preview-page-label{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+.print-preview-page{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#e8e4dc;padding:10px;border-radius:6px;}
+.print-preview-page .item-card{font-size:0.48rem!important;cursor:default!important;}
+.print-preview-page .item-card:hover{transform:none!important;}
+.print-preview-page .card-name{font-size:0.52rem!important;}
+.print-preview-page .card-header{padding:5px 7px!important;}
+.print-preview-page .item-icon{font-size:0.9rem!important;}
+.print-preview-page .tag{font-size:0.38rem!important;}
+.print-preview-page .card-desc{font-size:0.44rem!important;padding:3px 7px 5px!important;line-height:1.28!important;}
+.print-preview-page .select-indicator{display:none!important;}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
   body>*:not(#print-output){display:none!important;}
@@ -94,12 +114,19 @@ input[type="text"]::placeholder{color:#6a6a80;}
   .print-page .card-desc{font-size:0.5rem!important;padding:3px 7px 5px!important;line-height:1.3!important;}
 }
 #btn-filter-toggle{display:none;}
+.tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:4px;}
+.tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;border:1px solid var(--text-dim);color:var(--text-dim);font-size:0.6rem;font-family:sans-serif;font-style:normal;font-weight:700;cursor:default;line-height:1;flex-shrink:0;transition:border-color 0.15s,color 0.15s;}
+.tooltip-wrap:hover .tooltip-icon{border-color:var(--gold);color:var(--gold);}
+.tooltip-bubble{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:230px;background:#0d1427;border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-family:'EB Garamond',serif;font-size:0.8rem;font-style:normal;font-weight:400;color:var(--text-light);line-height:1.45;letter-spacing:0;text-transform:none;box-shadow:0 6px 24px rgba(0,0,0,0.6);z-index:200;pointer-events:none;}
+.tooltip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0d1427;}
+.tooltip-bubble::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--border);margin-top:1px;}
+.tooltip-wrap:hover .tooltip-bubble{display:block;}
 @media(max-width:768px){
   #card-grid{grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
   .header-top{padding:8px 14px;}
   .app-title{font-size:clamp(0.75rem,3.5vw,1rem);}
   .app-title span{display:none;}
-  .btn-print{display:none;}
+  .btn-print,.btn-ghost,.selection-badge,.select-indicator{display:none!important;}
   #btn-filter-toggle{display:flex;align-items:center;gap:4px;font-size:0.7rem;padding:4px 10px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--gold);border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;font-weight:600;letter-spacing:0.05em;}
   .filter-bar{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 14px;}
   .filter-bar.expanded{max-height:700px;padding:10px 14px 12px;}
@@ -152,7 +179,8 @@ input[type="text"]::placeholder{color:#6a6a80;}
 .nav-item:hover,.nav-item.active{
   color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);
 }
-.nav-item .ni{font-size:1rem;flex-shrink:0;}
+.nav-item .ni{width:1.1rem;height:1.1rem;flex-shrink:0;opacity:0.75;}
+.nav-item:hover .ni,.nav-item.active .ni{opacity:1;}
 .hamburger-btn {
   background:none;border:1px solid var(--border);border-radius:6px;
   padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;
@@ -177,21 +205,24 @@ input[type="text"]::placeholder{color:#6a6a80;}
   </div>
   <div class="nav-scroll">
     <span class="nav-section-label">Home</span>
-    <a href="index.html" class="nav-item"><span class="ni">&#x1F4D6;</span>&nbsp;Hub</a>
+    <a href="index.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>&nbsp;Hub</a>
     <span class="nav-section-label">Tools</span>
-    <a href="spelltome.html" class="nav-item"><span class="ni">&#x2728;</span>&nbsp;Spell Tome</a>
-    <a href="conditions.html" class="nav-item"><span class="ni">&#x26A0;&#xFE0F;</span>&nbsp;Condition Codex</a>
-    <a href="wildshape.html" class="nav-item"><span class="ni">&#x1F43E;</span>&nbsp;Wildshape &amp; Familiar</a>
-    <a href="monsters.html" class="nav-item"><span class="ni">&#x1F409;</span>&nbsp;Monster Codex</a>
-    <a href="magic-items.html" class="nav-item active"><span class="ni">&#x1F48D;</span>&nbsp;Magic Item Compendium</a>
+    <a href="spelltome.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>&nbsp;Spell Tome</a>
+    <a href="conditions.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>&nbsp;Condition Codex</a>
+    <a href="wildshape.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1C7.55 18.78 14 16 22 16 22 9 17 8 17 8z"/></svg></span>&nbsp;Wildshape &amp; Familiar</a>
+    <a href="monsters.html" class="nav-item"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12 4C8.14 4 5 7.14 5 11c0 2.38 1.19 4.47 3 5.74V19h8v-2.26c1.81-1.27 3-3.36 3-5.74C19 7.14 15.86 4 12 4z"/></svg></span>&nbsp;Monster Codex</a>
+    <a href="magic-items.html" class="nav-item active"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="22 9 12 9 6 3"/><line x1="12" y1="22" x2="12" y2="9"/></svg></span>&nbsp;Magic Item Compendium</a>
   </div>
 </nav>
 
 <div id="app-header">
   <div class="header-top">
     <div class="app-title">Magic Item Compendium <span>D&D 5e SRD</span></div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="selection-badge" id="selection-count">0 selected</span>
+      <button class="btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
+      <button class="btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
+      <button class="btn btn-print" id="btn-print" onclick="openPrintPreview()" disabled>&#128424; Print to PDF</button>
       <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
       <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
     </div>
@@ -224,7 +255,10 @@ input[type="text"]::placeholder{color:#6a6a80;}
       <div class="pill" data-val="Scroll" onclick="togglePill(this,'type')">Scroll</div>
     </div>
     <div class="filter-divider"></div>
-    <span class="filter-label">Attunement</span>
+    <span class="filter-label tooltip-wrap">Attunement
+      <span class="tooltip-icon">?</span>
+      <span class="tooltip-bubble">Some magic items require a creature to <strong>attune</strong> to them before their properties can be used. Attuning takes a short rest focusing on the item. A creature can be attuned to a maximum of <strong>3 magic items</strong> at a time.</span>
+    </span>
     <div class="pill-filters" id="attune-pills">
       <div class="pill active" data-val="all" onclick="togglePill(this,'attune')">All</div>
       <div class="pill" data-val="yes" onclick="togglePill(this,'attune')">Required</div>
@@ -242,6 +276,20 @@ input[type="text"]::placeholder{color:#6a6a80;}
 </div>
 <div id="modal-overlay" onclick="handleOverlayClick(event)">
   <div id="modal-box"></div>
+</div>
+<!-- PRINT PREVIEW OVERLAY -->
+<div id="print-preview-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:600;flex-direction:column;align-items:center;backdrop-filter:blur(4px);">
+  <div style="width:100%;max-width:700px;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;flex-shrink:0;border-bottom:1px solid var(--border);">
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">Print Preview</div>
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;" id="preview-page-count"></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-ghost" onclick="closePrintPreview()">Cancel</button>
+      <button class="btn btn-print" onclick="executePrint()">&#128424; Open Print Dialog</button>
+    </div>
+  </div>
+  <div id="print-pages-container" style="flex:1;overflow-y:auto;padding:24px;width:100%;max-width:700px;display:flex;flex-direction:column;gap:20px;"></div>
 </div>
 <div id="print-output"></div>
 
@@ -287,9 +335,9 @@ const ITEMS = [
     desc:'You can breathe underwater for 1 hour after drinking this potion. Its cloudy green fluid smells of the sea.',
     note:'Cheap insurance for aquatic encounters. Consider buying several before a seafloor dungeon.'},
   // SCROLLS
-  {name:'Spell Scroll',icon:'📜',rarity:'Varies',type:'Scroll',attune:false,consumable:true,
-    desc:'A spell scroll bears the words of a single spell. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without material components. If it is a higher level than you can normally cast, make a DC check (10 + spell level) or the scroll is wasted.',
-    note:'Rarity scales with spell level. Cantrip/1st: Common; 2nd-3rd: Uncommon; 4th-5th: Rare; 6th-8th: Very Rare; 9th: Legendary.'},
+  {name:'Spell Scroll',icon:'📜',rarity:'Varies',type:'Scroll',attune:false,consumable:true,source:'SRD 5.1',activation:'action',
+    desc:'A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade and it crumbles to dust. If the spell is of a higher level than you can normally cast, you must make a spellcasting ability check using your spellcasting ability with a DC equal to 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.',
+    note:'Rarity scales with spell level. Cantrip/1st: Common; 2nd-3rd: Uncommon; 4th-5th: Rare; 6th-8th: Very Rare; 9th: Legendary. Failed ability check destroys the scroll.'},
   // WEAPONS
   {name:'+1 Weapon',icon:'⚔️',rarity:'Uncommon',type:'Weapon',attune:false,
     desc:'You have a +1 bonus to attack and damage rolls made with this magic weapon.',
@@ -303,18 +351,18 @@ const ITEMS = [
   {name:'Flame Tongue',icon:'🔥',rarity:'Rare',type:'Weapon',attune:true,charges:false,
     desc:'Use a bonus action to speak the command word — flames erupt from the blade, shedding bright light 40 ft and dim light 40 ft further. The sword deals an extra 2d6 fire damage to any target it hits while ablaze.',
     note:'Attunement. +2d6 fire on demand. Highly effective against trolls, undead, and vegetation.'},
-  {name:'Frost Brand',icon:'❄️',rarity:'Very Rare',type:'Weapon',attune:true,
-    desc:'When you hit with an attack, the target takes an extra 1d6 cold damage. While you hold the sword, you have resistance to fire damage. In freezing temperatures, the blade sheds bright light in a 10-foot radius.',
-    note:'Attunement. Fire resistance is exceptionally valuable. +1d6 cold damage is reliable bonus damage.'},
-  {name:'Sword of Sharpness',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,
-    desc:'When you attack an object with this magic sword and hit, maximize your weapon damage dice. When you attack a creature and roll a 20, that target takes an extra 4d6 slashing damage. Then roll another d20; on a 20, you lop off one of the target\'s limbs.',
-    note:'Attunement. The dismemberment effect is iconic. Object-destroying capability makes it versatile.'},
-  {name:'Sword of Life Stealing',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,
-    desc:'When you attack a creature with this weapon and roll a 20, that creature must make a DC 15 Constitution save or lose 10 HP from its maximum hit points, and you gain 10 temporary hit points.',
-    note:'Attunement. HP maximum reduction is permanent until Greater Restoration. Excellent against solo bosses.'},
-  {name:'Nine Lives Stealer',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,charges:'1d8+1',
-    desc:'The sword has 1d8+1 charges. You can expend a charge when you hit a creature with fewer than 100 HP. That creature must succeed on a DC 15 Constitution save or be slain instantly. An immortal creature is immune.',
-    note:'Attunement. Instant death mechanic against creatures under 100 HP. Potent against humanoid enemies and minions.'},
+  {name:'Frost Brand',icon:'❄️',rarity:'Very Rare',type:'Weapon',attune:true,source:'SRD 5.1',activation:'action',
+    desc:'When you hit with an attack using this magic sword, the target takes an extra 1d6 cold damage. In addition, while you hold the sword, you have resistance to fire damage. When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of you. This property can be used no more than once per hour. In freezing temperatures, the blade sheds bright light in a 10-foot radius and dim light for an additional 10 feet.',
+    note:'Attunement. Fire resistance is exceptionally valuable. +1d6 cold damage is reliable bonus damage. The flame-extinguish feature is excellent for ambushes and stealth.'},
+  {name:'Sword of Sharpness',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,source:'SRD 5.1',activation:'action',
+    desc:'When you attack an object with this magic sword and hit, maximize your weapon damage dice against the object. When you attack a creature with this weapon and roll a 20 on the attack roll, that target takes an extra 4d6 slashing damage. Then roll another d20. On a 19 or 20, you lop off one of the target\'s limbs, with the effect of such loss determined by the DM.',
+    note:'Attunement. The dismemberment effect is iconic. Object-destroying capability makes it versatile. Note: the sever trigger is a 19–20 on the SECOND d20 roll, not the first.'},
+  {name:'Sword of Life Stealing',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,saveDC:15,source:'SRD 5.1',activation:'action',
+    desc:'When you attack a creature with this weapon and roll a 20 on the attack roll, that creature must succeed on a DC 15 Constitution saving throw or its hit point maximum is reduced by 10 and you gain 10 temporary hit points. This reduction lasts until the creature finishes a long rest. A creature dies if its hit point maximum is reduced to 0.',
+    note:'Attunement. HP maximum reduction persists until long rest (not permanent — Greater Restoration not required). Excellent against solo bosses.'},
+  {name:'Nine Lives Stealer',icon:'⚔️',rarity:'Very Rare',type:'Weapon',attune:true,charges:'1d8+1',saveDC:15,source:'SRD 5.1',activation:'action',destruction:'Becomes nonmagical when the last charge is expended',
+    desc:'The sword has 1d8+1 charges. You can expend 1 charge when you hit a creature with this weapon if it has fewer than 100 hit points. The creature must succeed on a DC 15 Constitution saving throw or be slain instantly. The sword doesn\'t expend a charge if the target is immune to the effect. Creatures that are immune to being killed instantly, or that do not have a fixed number of hit points, are immune to this effect. When all charges are expended, the sword becomes a nonmagical weapon.',
+    note:'Attunement. Instant death mechanic against creatures under 100 HP. Potent against humanoid enemies and minions. Becomes mundane once all charges are used.'},
   {name:'Dragon Slayer',icon:'🐉',rarity:'Rare',type:'Weapon',attune:false,
     desc:'You gain a +1 bonus to attack and damage rolls. When you use this weapon to attack a dragon, you deal an extra 3d6 damage of the weapon\'s type.',
     note:'No attunement. +3d6 specifically vs dragons. Worth keeping available when draconic encounters are expected.'},
@@ -368,11 +416,11 @@ const ITEMS = [
   {name:'Ring of Spell Storing',icon:'💍',rarity:'Rare',type:'Ring',attune:true,
     desc:'This ring stores spells cast into it, holding them until the attuned wearer uses them. The ring can store up to 5 levels worth of spells at a time. Any creature can cast a spell of 1st through 5th level into the ring.',
     note:'Attunement. The most flexible ring — any creature can load it with spells that the attuned wearer can then cast on demand.'},
-  {name:'Ring of Evasion',icon:'💍',rarity:'Rare',type:'Ring',attune:true,charges:'3',
+  {name:'Ring of Evasion',icon:'💍',rarity:'Rare',type:'Ring',attune:true,charges:'3',recharge:'1d3 daily at dawn',source:'SRD 5.1',activation:'reaction',
     desc:'This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. When you fail a Dexterity saving throw while wearing it, you can use your reaction to expend 1 charge to succeed on that saving throw instead.',
     note:'Attunement. Reaction success on a failed Dex save — invaluable against AoE spells like Fireball that could knock out the party.'},
-  {name:'Ring of Resistance',icon:'💍',rarity:'Rare',type:'Ring',attune:true,
-    desc:'You have resistance to one damage type while wearing this ring, indicated by the gem type: Pearl (acid), Tourmaline (cold), Spinelle (fire), Sapphire (lightning), Jet (necrotic), Moonstone (poison), Citrine (radiant), Spinel (thunder).',
+  {name:'Ring of Resistance',icon:'💍',rarity:'Rare',type:'Ring',attune:true,source:'SRD 5.1',
+    desc:'You have resistance to one damage type while wearing this ring, determined by the gem set into it: Pearl (acid), Tourmaline (cold), Garnet (fire), Sapphire (lightning), Jet (necrotic), Moonstone (poison), Amber (radiant), Spinel (thunder).',
     note:'Attunement. Resistance from a ring slot — excellent if your armour slot is already dedicated elsewhere.'},
   {name:'Ring of Regeneration',icon:'💍',rarity:'Very Rare',type:'Ring',attune:true,
     desc:'While wearing this ring, you regain 1d6 hit points every 10 minutes, provided that you have at least 1 hit point. If you lose a body part, the ring causes the missing part to regrow and return to full functionality after 1d6+1 days if you have at least 1 hit point throughout.',
@@ -383,7 +431,7 @@ const ITEMS = [
   {name:'Ring of Spell Turning',icon:'💍',rarity:'Legendary',type:'Ring',attune:true,
     desc:'While wearing this ring, you have advantage on saving throws against any spell that targets only you. In addition, if you roll a 20 on the save and the spell is 7th level or lower, the spell is reflected back onto the caster.',
     note:'Attunement. Advantage on single-target spells plus the chance to reflect them — exceptional defensive item for any concentration-dependent target.'},
-  {name:'Ring of Three Wishes',icon:'💍',rarity:'Legendary',type:'Ring',attune:false,charges:'3',
+  {name:'Ring of Three Wishes',icon:'💍',rarity:'Legendary',type:'Ring',attune:false,charges:'3',destruction:'Becomes nonmagical when the last charge is expended',source:'SRD 5.1',activation:'action',
     desc:'While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the Wish spell from it. The ring becomes nonmagical when you use the last wish.',
     note:'No attunement. Three Wish spells. The most powerful item in the game. Use with extreme deliberation.'},
   // WONDROUS
@@ -399,9 +447,9 @@ const ITEMS = [
   {name:'Cloak of Displacement',icon:'🧥',rarity:'Rare',type:'Wondrous',attune:true,
     desc:'While you wear this cloak, it projects an illusion that makes you appear to be standing in a place near your actual location, causing any creature to have disadvantage on attack rolls against you. If you take damage, the property ceases to function until the start of your next turn.',
     note:'Attunement. Effectively gives permanent disadvantage on attacks — one of the strongest defensive items in the game.'},
-  {name:'Boots of Speed',icon:'👢',rarity:'Rare',type:'Wondrous',attune:true,charges:'10',
-    desc:'While you wear these boots, you can use a bonus action and click the boots\' heels together to double your walking speed. The doubled speed lasts until you use a bonus action to click your heels together again, and the boots expend 1 charge. The boots have 10 charges.',
-    note:'Attunement. Doubling movement speed is extremely strong for positioning, kiting, and escape. Effective for 10 minutes total.'},
+  {name:'Boots of Speed',icon:'👢',rarity:'Rare',type:'Wondrous',attune:true,charges:'10',recharge:'1d10 daily at dawn',depletionEffect:'Unusable at 0 charges until at least 1 charge is regained',source:'SRD 5.1',activation:'bonus action',
+    desc:'While you wear these boots, you can use a bonus action and click the boots\' heels together to double your walking speed and allow you to move up to 10 feet as a reaction when a creature ends its turn within 5 feet of you. The effect lasts until you use a bonus action to click your heels together again. The boots expend 1 charge per minute of use. The boots have 10 charges and regain 1d10 expended charges daily at dawn. If the boots have 0 charges, they cease to function until at least 1 charge is restored.',
+    note:'Attunement. Doubling movement speed is extremely strong for positioning, kiting, and escape. Effective for 10 minutes total per full recharge.'},
   {name:'Boots of Elvenkind',icon:'👢',rarity:'Uncommon',type:'Wondrous',attune:false,
     desc:'While you wear these boots, your steps make no sound regardless of the surface you are moving across. You also have advantage on Dexterity (Stealth) checks that involve moving quietly.',
     note:'No attunement. Advantage on Stealth for movement and silence. Excellent for rogues, rangers, and scout characters.'},
@@ -457,37 +505,37 @@ const ITEMS = [
     desc:'While wearing this ring, you can turn invisible as an action. Anything you wear or carry is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a bonus action to become visible again.',
     note:'Attunement. At-will invisibility without the one-hour limit of the potion. The premier stealth ring.'},
   // RODS / STAVES / WANDS
-  {name:'Rod of Lordly Might',icon:'🪄',rarity:'Legendary',type:'Rod',attune:true,
-    desc:'This rod has a flanged head and 6 buttons along the haft, each triggering a different function: melee weapon (bonus +3), a ladder extension, a hold person effect, a climbing spike, a flame tongue sword, and a paralyzing touch. The rod can also be wielded as a +3 club.',
-    note:'Attunement. A multi-function legendary rod. Six distinct utility modes plus a +3 weapon baseline.'},
+  {name:'Rod of Lordly Might',icon:'🪄',rarity:'Legendary',type:'Rod',attune:true,charges:'6 buttons',saveDC:17,source:'SRD 5.1',activation:'action',
+    desc:'This rod has a flanged head and six buttons down one side. The rod can be wielded as a magic mace that grants a +3 bonus to attack and damage rolls. The rod has the following properties, each button activating a different function (one function active at a time): Button 1 – Flame Blade: A fiery blade springs from the flanged head. The rod deals an extra 2d6 fire damage on a hit. Button 2 – Drain Life: When you hit a creature, expend a charge to deal an extra 4d6 necrotic damage; you regain hit points equal to the necrotic damage dealt (DC 17 Constitution saving throw to negate). Button 3 – Paralyse: A creature you hit must succeed on a DC 17 Strength saving throw or be paralysed for 1 minute. The creature repeats the save at the end of each of its turns. Button 4 – Terrify: Each creature of your choice within 30 feet must make a DC 17 Wisdom saving throw or be frightened of you for 1 minute, repeating the save at the end of each of its turns. Button 5 – Extendable Ladder: The rod elongates into a 50-foot ladder (bonus action to retract). Button 6 – Siege Weapon: The rod becomes a +3 battering ram, granting +10 to Strength checks made to break down doors and similar barriers.',
+    note:'Attunement. A multi-function legendary rod. Six distinct modes plus +3 weapon baseline. Fear and drain features are the combat highlights; ladder and siege mode provide exceptional utility.'},
   {name:'Rod of Security',icon:'🪄',rarity:'Very Rare',type:'Rod',attune:false,
     desc:'While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures you can see to a paradise that exists in an extradimensional space. You choose the form of the paradise: it can resemble any terrain you\'ve seen. While in the paradise, creatures don\'t age, eat, or sleep. This rod can\'t be used again until 10 days have passed.',
     note:'No attunement. Up to 200 creatures in an extradimensional paradise for up to 200 days. Exceptional for long rests and refuge.'},
-  {name:'Staff of Fire',icon:'🔥',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Druid/Sorcerer/Warlock/Wizard',charges:'10',
+  {name:'Staff of Fire',icon:'🔥',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Druid/Sorcerer/Warlock/Wizard',charges:'10',recharge:'1d6+4 daily at dawn',destruction:'Roll d20 when last charge expended — on a 1, staff is destroyed',source:'SRD 5.1',activation:'action',
     desc:'This staff has 10 charges. While holding it, you have resistance to fire damage. You can use an action to expend charges to cast: Burning Hands (1 charge), Fireball (3 charges), or Wall of Fire (4 charges). The staff regains 1d6+4 expended charges daily at dawn. If you expend the last charge, roll a d20; on a 1, the staff blackens, crumbles into cinders, and is destroyed.',
     note:'Attunement (druid/sorcerer/warlock/wizard). Fire resistance plus fire spell charges. Reliable AoE damage item.'},
-  {name:'Staff of Healing',icon:'🌿',rarity:'Rare',type:'Staff',attune:true,attuneClass:'Bard/Cleric/Druid',charges:'10',
+  {name:'Staff of Healing',icon:'🌿',rarity:'Rare',type:'Staff',attune:true,attuneClass:'Bard/Cleric/Druid',charges:'10',recharge:'1d6+4 daily at dawn',source:'SRD 5.1',activation:'action',
     desc:'This staff has 10 charges. While holding it, you can use an action to expend charges to cast: Cure Wounds (1 charge per spell level, up to 4th), Lesser Restoration (2 charges), or Mass Cure Wounds (5 charges). The staff regains 1d6+4 expended charges daily at dawn.',
     note:'Attunement (bard/cleric/druid). Healing action economy from a staff. Mass Cure Wounds for 5 charges is excellent.'},
-  {name:'Staff of Power',icon:'⚡',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Sorcerer/Warlock/Wizard',charges:'20',
+  {name:'Staff of Power',icon:'⚡',rarity:'Very Rare',type:'Staff',attune:true,attuneClass:'Sorcerer/Warlock/Wizard',charges:'20',recharge:'2d8+4 daily at dawn',destruction:'Can be broken for Retributive Strike (expends all charges; 16×charges force damage in 30-ft radius, DC 17 Dex save for half); roll d20 on last charge — on 1, staff is destroyed',source:'SRD 5.1',activation:'action',
     desc:'This staff has 20 charges and can be used as a +2 quarterstaff. Holding it, you gain +2 to AC, saving throws, and spell attack rolls. It holds numerous powerful spells (Cone of Cold, Fireball, Globe of Invulnerability, Hold Monster, Lightning Bolt, Magic Missile, Ray of Enfeeblement, Wall of Force) costing 1-5 charges. It can also be broken for a Retributive Strike.',
     note:'Attunement. One of the most powerful staves. +2 to AC/saves/attacks plus a huge repertoire of high-level spells.'},
   {name:'Staff of the Magi',icon:'⚡',rarity:'Legendary',type:'Staff',attune:true,attuneClass:'Sorcerer/Warlock/Wizard',charges:'50',
     desc:'This staff has 50 charges and can be used as a +2 quarterstaff. While holding it, you gain +2 to AC, saving throws, and spell attack rolls. It can absorb spells targeted at you (gaining charges equal to the absorbed spell\'s level). You can use charges to cast dozens of spells including Arcane Lock, Conjure Elemental, Dispel Magic, Fireball, Flaming Sphere, Fly, Ice Storm, Invisibility, Knock, Lightning Bolt, Passwall, Plane Shift, Telekinesis, Wall of Fire, and Web. You can also use an action to break it for a Retributive Strike.',
     note:'Attunement. 50 charges, spell absorption, +2 to three statistics, and the most complete spell list of any staff. The legendary spellcaster staff.'},
-  {name:'Wand of Fireballs',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+  {name:'Wand of Fireballs',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',recharge:'1d6+1 daily at dawn',saveDC:15,source:'SRD 5.1',activation:'action',
     desc:'This wand has 7 charges. While holding it, you can use an action to expend charges to cast Fireball (save DC 15) from it. For 1 charge, Fireball deals 8d6 fire damage. For each additional charge, the damage increases by 1d6. The wand regains 1d6+1 expended charges daily at dawn.',
     note:'Attunement (spellcaster). Reliable Fireball from a wand — up to 13d6 at max charge. Excellent action economy for non-evocation wizards.'},
-  {name:'Wand of Magic Detection',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'3',
+  {name:'Wand of Magic Detection',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'3',recharge:'1d3 daily at dawn',source:'SRD 5.1',activation:'action',
     desc:'This wand has 3 charges. While holding it, you can expend 1 charge as an action to cast the Detect Magic spell from it. The wand regains 1d3 expended charges daily at dawn.',
     note:'No attunement. At-will Detect Magic effectively. Excellent for item identification and trap detection.'},
-  {name:'Wand of Magic Missiles',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'7',
+  {name:'Wand of Magic Missiles',icon:'🪄',rarity:'Uncommon',type:'Wand',attune:false,charges:'7',source:'SRD 5.1',activation:'action',
     desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast Magic Missile from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.',
     note:'No attunement. Auto-hit Magic Missile from any character. Up to 7th-level slots for maximum bolts.'},
-  {name:'Wand of Paralysis',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+  {name:'Wand of Paralysis',icon:'🪄',rarity:'Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',saveDC:15,source:'SRD 5.1',activation:'action',
     desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cause a thin blue ray to streak from the tip toward a creature you can see within 60 feet of you. The target must succeed on a DC 15 Constitution saving throw or be paralyzed for 1 minute. At the end of each of the target\'s turns, it can repeat the saving throw. On a success, the effect ends.',
     note:'Attunement (spellcaster). 7 charges of Paralysis — the melee auto-crit condition. Exceptional in high-priority target encounters.'},
-  {name:'Wand of Polymorph',icon:'🪄',rarity:'Very Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',
+  {name:'Wand of Polymorph',icon:'🪄',rarity:'Very Rare',type:'Wand',attune:true,attuneClass:'Spellcaster',charges:'7',recharge:'1d6+1 daily at dawn',saveDC:15,source:'SRD 5.1',activation:'action',
     desc:'This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the Polymorph spell (save DC 15) from it. The wand regains 1d6+1 expended charges daily at dawn.',
     note:'Attunement (spellcaster). 7 uses of Polymorph per dawn cycle. Exceptional utility — combat removal, transformation, and creative problem solving.'},
 ];
@@ -549,7 +597,9 @@ function filtered() {
 
 function rarityColor(r) { return RARITY_COLORS[r] || '#555'; }
 
-function buildCard(item) {
+const selectedItems = new Set();
+
+function buildCard(item, forPreview) {
   const color = rarityColor(item.rarity);
   const tags = [];
   if (item.attune) tags.push(`<span class="tag attune">${item.attuneClass ? 'Attune: '+item.attuneClass : 'Attunement'}</span>`);
@@ -557,7 +607,9 @@ function buildCard(item) {
   if (item.consumable) tags.push(`<span class="tag consumable">Consumable</span>`);
   if (item.cursed) tags.push(`<span class="tag cursed" style="background:#fee;color:#933;">Cursed</span>`);
   const shortDesc = item.desc.length > 200 ? item.desc.substring(0, 197) + '…' : item.desc;
-  return `<div class="item-card" style="border-color:${color}20">
+  const indicator = forPreview ? '' : `<div class="select-indicator"></div>`;
+  return `<div class="item-card${selectedItems.has(item.name)?' selected':''}" style="border-color:${color}20">
+    ${indicator}
     <div class="card-header" style="background:${color}">
       <span class="item-icon">${item.icon}</span>
       <div class="card-name-block">
@@ -570,15 +622,70 @@ function buildCard(item) {
   </div>`;
 }
 
+function toggleSelect(item, cardEl) {
+  if (selectedItems.has(item.name)) {
+    selectedItems.delete(item.name);
+    cardEl.classList.remove('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '';
+  } else {
+    selectedItems.add(item.name);
+    cardEl.classList.add('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '&#10003;';
+  }
+  updateSelectionUI();
+}
+
+function selectAllVisible() {
+  filtered().forEach(item => {
+    selectedItems.add(item.name);
+  });
+  document.querySelectorAll('#card-grid .item-card').forEach(el => {
+    el.classList.add('selected');
+    el.querySelector('.select-indicator').innerHTML = '&#10003;';
+  });
+  updateSelectionUI();
+}
+
+function clearSelection() {
+  selectedItems.clear();
+  document.querySelectorAll('#card-grid .item-card.selected').forEach(el => {
+    el.classList.remove('selected');
+    el.querySelector('.select-indicator').innerHTML = '';
+  });
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = selectedItems.size;
+  const visibleCount = document.querySelectorAll('#card-grid .item-card').length;
+  document.getElementById('selection-count').textContent = `${count} selected`;
+  document.getElementById('btn-print').disabled = count === 0;
+  document.getElementById('btn-clear').disabled = count === 0;
+  document.getElementById('btn-select-all').disabled = visibleCount === 0;
+  const total = visibleCount;
+  document.getElementById('results-bar').textContent =
+    `${total} item${total!==1?'s':''} shown${count > 0 ? ` · ${count} selected` : ''}`;
+}
+
 function renderGrid() {
   const list = filtered();
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
-  document.getElementById('results-bar').textContent = `${list.length} item${list.length!==1?'s':''} shown`;
-  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; updateSelectionUI(); return; }
   empty.style.display = 'none';
-  grid.innerHTML = list.map(item => buildCard(item)).join('');
-  grid.querySelectorAll('.item-card').forEach((el, i) => el.addEventListener('click', () => openModal(list[i])));
+  grid.innerHTML = list.map(item => buildCard(item, false)).join('');
+  // Restore tick on already-selected cards
+  grid.querySelectorAll('.item-card').forEach((el, i) => {
+    if (selectedItems.has(list[i].name)) el.querySelector('.select-indicator').innerHTML = '&#10003;';
+    el.addEventListener('click', e => {
+      // Click on indicator area or the card itself toggles selection
+      toggleSelect(list[i], el);
+    });
+    el.addEventListener('dblclick', e => {
+      openModal(list[i]);
+    });
+  });
+  updateSelectionUI();
 }
 
 function openModal(item) {
@@ -607,7 +714,9 @@ function openModal(item) {
 
 function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') { closeModal(); closePrintPreview(); }
+});
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');
@@ -615,13 +724,44 @@ function toggleFilters() {
   document.getElementById('toggle-arrow').textContent = bar.classList.contains('expanded') ? '▲' : '▼';
 }
 
-function printCards() {
-  const list = filtered();
-  const output = document.getElementById('print-output');
+function openPrintPreview() {
+  const items = ITEMS.filter(item => selectedItems.has(item.name));
   const pages = [];
-  for (let i=0; i<list.length; i+=8) pages.push(list.slice(i,i+8));
-  output.innerHTML = pages.map(page => `<div class="print-page">${page.map(item => buildCard(item)).join('')}</div>`).join('');
-  window.print();
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const container = document.getElementById('print-pages-container');
+  container.innerHTML = '';
+  pages.forEach((page, idx) => {
+    const lbl = document.createElement('div');
+    lbl.className = 'print-preview-page-label';
+    lbl.textContent = `Page ${idx+1} of ${pages.length}`;
+    container.appendChild(lbl);
+    const pageEl = document.createElement('div');
+    pageEl.className = 'print-preview-page';
+    pageEl.innerHTML = page.map(item => buildCard(item, true)).join('');
+    container.appendChild(pageEl);
+  });
+  document.getElementById('preview-page-count').textContent =
+    `${items.length} card${items.length!==1?'s':''} · ${pages.length} page${pages.length!==1?'s':''}`;
+  const overlay = document.getElementById('print-preview-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrintPreview() {
+  document.getElementById('print-preview-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function executePrint() {
+  const items = ITEMS.filter(item => selectedItems.has(item.name));
+  const pages = [];
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const output = document.getElementById('print-output');
+  output.innerHTML = pages.map(page =>
+    `<div class="print-page">${page.map(item => buildCard(item, true)).join('')}</div>`
+  ).join('');
+  closePrintPreview();
+  setTimeout(() => { window.print(); setTimeout(() => { output.innerHTML = ''; }, 1500); }, 100);
 }
 
 renderGrid();
