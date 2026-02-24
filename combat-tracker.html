@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Combat Tracker — The Tome | D&D 5e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark:#1a1a2e; --bg-panel:#16213e; --text-light:#e8e8e8;
+  --text-muted:#9a9ab0; --text-dim:#6a6a80;
+  --gold:#c9a84c; --gold-dim:#8a6a2c; --border:#2a2a4a;
+  /* Combat accent — crimson */
+  --acc:#c0392b; --acc-dim:#7a1a10; --acc-glow:rgba(192,57,43,0.25);
+  --acc-bg:rgba(192,57,43,0.08);
+  /* Unit type colours */
+  --pc-bg:rgba(41,128,185,0.12); --pc-b:#2980b9; --pc-a:#5dade2;
+  --npc-bg:rgba(39,174,96,0.10); --npc-b:#27ae60; --npc-a:#58d68d;
+  --en-bg:rgba(192,57,43,0.12);  --en-b:#c0392b;  --en-a:#ec7063;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body {
+  font-family:'EB Garamond',Georgia,serif;
+  background:var(--bg-dark); color:var(--text-light);
+  display:flex; flex-direction:column;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(74,0,120,0.2) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 75%, rgba(0,55,110,0.18) 0%, transparent 52%);
+}
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.025;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px);
+}
+
+/* ── NAV DRAWER (matches index exactly) ── */
+.nav-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;
+  opacity:0;pointer-events:none;transition:opacity 0.25s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:all;}
+.nav-drawer {
+  position:fixed;top:0;right:-310px;width:290px;height:100vh;
+  background:rgba(13,20,45,0.99);border-left:1px solid var(--border);
+  backdrop-filter:blur(16px);z-index:999;
+  transition:right 0.28s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;
+}
+.nav-drawer.open{right:0;}
+.nav-drawer-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.nav-drawer-title{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+.nav-close-btn{background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;padding:4px 6px;line-height:1;border-radius:4px;transition:color 0.15s;}
+.nav-close-btn:hover{color:var(--text-light);}
+.nav-scroll{flex:1;overflow-y:auto;padding:8px 0 24px;}
+.nav-section-label{font-family:'Cinzel',serif;font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);padding:16px 20px 6px;display:block;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 20px;text-decoration:none;color:var(--text-muted);font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;border-left:3px solid transparent;transition:all 0.14s;}
+.nav-item:hover,.nav-item.active{color:var(--gold);background:rgba(201,168,76,0.07);border-left-color:var(--gold-dim);}
+.nav-item .ni{width:1.1rem;height:1.1rem;flex-shrink:0;opacity:0.75;}
+.nav-item:hover .ni,.nav-item.active .ni{opacity:1;}
+.hamburger-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:7px 10px;cursor:pointer;display:flex;flex-direction:column;gap:5px;transition:border-color 0.15s;flex-shrink:0;position:relative;z-index:1;}
+.hamburger-btn:hover{border-color:var(--gold-dim);}
+.hamburger-btn span{display:block;width:20px;height:2px;background:var(--text-muted);border-radius:2px;transition:background 0.15s;}
+.hamburger-btn:hover span{background:var(--gold);}
+
+/* ── SITE HEADER ── */
+#site-header {
+  position:relative;z-index:100;flex-shrink:0;
+  background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;
+}
+.site-logo{display:flex;align-items:center;gap:9px;font-family:'Cinzel',serif;font-size:1rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-shadow:0 0 18px rgba(201,168,76,0.35);text-decoration:none;}
+.site-logo svg{width:1.2rem;height:1.2rem;flex-shrink:0;}
+.page-title{font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc);opacity:0.9;}
+
+/* ── PHASE WRAPPER ── */
+.phase-setup,.phase-combat{display:flex;flex-direction:column;flex:1;overflow:hidden;position:relative;z-index:1;}
+body:not(.in-combat) .phase-combat{display:none;}
+body.in-combat .phase-setup{display:none;}
+
+/* ── SETUP PHASE ── */
+.setup-topbar{
+  padding:.65rem 1.1rem;background:rgba(22,33,62,0.9);border-bottom:1px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;
+}
+.setup-label{font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);}
+.mode-toggle{display:flex;border:1px solid var(--border);border-radius:5px;overflow:hidden;}
+.mode-btn{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.08em;padding:.38rem 1.1rem;border:none;cursor:pointer;color:var(--text-dim);background:transparent;transition:all .2s;}
+.mode-btn.active{background:linear-gradient(135deg,var(--acc-dim),var(--acc));color:#fff;font-weight:700;}
+
+.setup-body{flex:1;overflow-y:auto;padding:1rem;}
+
+/* Party bar */
+.party-bar{
+  background:rgba(22,33,62,0.7);border:1px solid var(--border);border-radius:8px;
+  padding:.7rem 1rem;margin-bottom:.9rem;
+  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+  transition:border-color .2s;
+}
+.party-bar:hover{border-color:var(--gold-dim);}
+.party-bar-names{flex:1;font-family:'Cinzel',serif;font-size:.68rem;color:var(--text-muted);min-width:0;}
+.party-bar-names .pname{color:var(--pc-a);}
+.party-bar-actions{display:flex;gap:.4rem;flex-shrink:0;}
+
+/* Roster */
+.roster{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.9rem;}
+.roster-card{
+  display:grid;grid-template-columns:38px 1fr auto;gap:.5rem;align-items:center;
+  padding:.55rem .85rem;border-radius:6px;border-left:3px solid;cursor:grab;
+  background:rgba(22,33,62,0.6);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  transition:background .15s;
+}
+.roster-card:hover{background:rgba(22,33,62,0.9);}
+.roster-card.type-pc   {border-left-color:var(--pc-b);}
+.roster-card.type-npc  {border-left-color:var(--npc-b);}
+.roster-card.type-enemy{border-left-color:var(--en-b);}
+.roster-init{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;text-align:center;}
+.type-pc    .roster-init{color:var(--pc-a);}
+.type-npc   .roster-init{color:var(--npc-a);}
+.type-enemy .roster-init{color:var(--en-a);}
+.roster-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;color:var(--text-light);}
+.roster-meta{font-size:.68rem;color:var(--text-dim);font-style:italic;margin-top:.1rem;}
+.roster-acts{display:flex;gap:.25rem;}
+
+/* Add panel */
+.add-panel{
+  background:rgba(22,33,62,0.7);border:1px solid var(--border);border-radius:8px;
+  padding:1rem;
+}
+.add-panel-title{font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.75rem;}
+.type-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-bottom:.6rem;}
+.type-btn{font-family:'Cinzel',serif;font-size:.62rem;padding:.4rem .2rem;border:1px solid var(--border);border-radius:5px;background:transparent;color:var(--text-dim);cursor:pointer;text-align:center;transition:all .15s;}
+.type-btn.sel-pc   {background:var(--pc-bg);  border-color:var(--pc-b); color:var(--pc-a);}
+.type-btn.sel-npc  {background:var(--npc-bg); border-color:var(--npc-b);color:var(--npc-a);}
+.type-btn.sel-enemy{background:var(--en-bg);  border-color:var(--en-b); color:var(--en-a);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+.form-row.trio{grid-template-columns:1fr 1fr 1fr;}
+.fg{display:flex;flex-direction:column;gap:.2rem;}
+.fg label{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);}
+.fg input,.fg select{
+  background:rgba(13,20,45,0.8);border:1px solid var(--border);color:var(--text-light);
+  padding:.38rem .55rem;border-radius:5px;font-family:'EB Garamond',Georgia,serif;font-size:.9rem;
+  width:100%;transition:border-color .15s;
+}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--gold-dim);}
+.fg input::placeholder{color:var(--text-dim);}
+.form-gap{margin-top:.4rem;}
+
+/* ── COMBAT PHASE ── */
+.combat-bar{
+  flex-shrink:0;position:relative;z-index:1;
+  background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  padding:.65rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  box-shadow:0 2px 16px rgba(0,0,0,0.5);
+}
+.cb-left{display:flex;align-items:center;gap:.8rem;}
+.cb-round-block{display:flex;flex-direction:column;align-items:center;line-height:1;}
+.cb-round-label{font-family:'Cinzel',serif;font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);}
+.cb-round-num{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1.1;}
+.cb-divider{width:1px;height:2.2rem;background:var(--border);}
+.cb-turn{font-family:'Cinzel',serif;font-size:.8rem;color:var(--text-muted);}
+.cb-active-name{color:var(--gold);font-weight:700;}
+.cb-right{display:flex;gap:.4rem;align-items:center;}
+
+/* Combat list */
+.combat-list{flex:1;overflow-y:auto;padding:.85rem;}
+.combat-list-inner{display:flex;flex-direction:column;gap:.45rem;}
+
+/* Unit card */
+.unit{
+  border-radius:6px;border-left:4px solid;
+  display:grid;grid-template-columns:42px 1fr auto;gap:.55rem;align-items:center;
+  padding:.65rem .85rem;cursor:grab;user-select:none;
+  background:rgba(22,33,62,0.65);border-top:1px solid var(--border);
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  transition:background .15s,opacity .15s,transform .15s;
+  backdrop-filter:blur(6px);
+}
+.unit:active{cursor:grabbing;}
+.unit:hover{background:rgba(22,33,62,0.85);}
+.unit.type-pc   {border-left-color:var(--pc-b);}
+.unit.type-npc  {border-left-color:var(--npc-b);}
+.unit.type-enemy{border-left-color:var(--en-b);}
+.unit.active-turn{
+  border-color:var(--gold-dim);
+  background:rgba(201,168,76,0.06);
+  box-shadow:0 0 0 1px var(--gold-dim), 0 4px 20px rgba(0,0,0,0.5);
+}
+.unit.is-dying{opacity:.72;filter:brightness(.8);}
+.unit.is-dead{opacity:.25;filter:grayscale(.85);}
+.unit.dragging{opacity:.3;transform:scale(.97);}
+.unit.drag-over{border-top:2px solid var(--gold) !important;}
+
+.unit-init{
+  width:38px;height:38px;border-radius:50%;border:1.5px solid;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:700;flex-shrink:0;
+}
+.type-pc    .unit-init{border-color:var(--pc-a); color:var(--pc-a);}
+.type-npc   .unit-init{border-color:var(--npc-a);color:var(--npc-a);}
+.type-enemy .unit-init{border-color:var(--en-a); color:var(--en-a);}
+
+.unit-body{min-width:0;}
+.unit-name-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.unit-name{font-family:'Cinzel',serif;font-size:.83rem;font-weight:600;color:var(--text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.unit-badge{font-family:'Cinzel',serif;font-size:.55rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid;flex-shrink:0;}
+.type-pc    .unit-badge{color:var(--pc-a); border-color:rgba(41,128,185,0.4); background:var(--pc-bg);}
+.type-npc   .unit-badge{color:var(--npc-a);border-color:rgba(39,174,96,0.4);  background:var(--npc-bg);}
+.type-enemy .unit-badge{color:var(--en-a); border-color:rgba(192,57,43,0.4);  background:var(--en-bg);}
+.active-pip{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;box-shadow:0 0 6px var(--gold);}
+
+/* HP bar */
+.unit-hp{display:flex;align-items:center;gap:.4rem;margin-top:.3rem;}
+.hp-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.hp-fill{height:100%;border-radius:2px;transition:width .25s,background .25s;}
+.hp-label{font-family:'Cinzel',serif;font-size:.62rem;color:var(--text-muted);white-space:nowrap;}
+
+/* Conditions */
+.unit-conds{display:flex;flex-wrap:wrap;gap:.2rem;margin-top:.28rem;}
+.cond-chip{font-size:.58rem;font-family:'Cinzel',serif;padding:1px 6px;border-radius:10px;border:1px solid rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);color:var(--gold);cursor:pointer;transition:all .12s;}
+.cond-chip:hover{background:rgba(192,57,43,.15);border-color:var(--acc);color:var(--en-a);}
+
+.unit-notes-text{font-size:.7rem;font-style:italic;color:var(--text-dim);margin-top:.2rem;}
+
+/* Death saves */
+.ds-row{display:flex;align-items:center;gap:.5rem;margin-top:.3rem;}
+.ds-label{font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--en-a);flex-shrink:0;}
+.ds-pips{display:flex;gap:.22rem;}
+.ds-pip{width:13px;height:13px;border-radius:50%;border:1.5px solid;cursor:pointer;transition:all .15s;flex-shrink:0;}
+.ds-pip.success{border-color:var(--npc-b);}
+.ds-pip.success.filled{background:var(--npc-b);}
+.ds-pip.failure{border-color:var(--en-b);}
+.ds-pip.failure.filled{background:var(--en-b);}
+.ds-sep{font-size:.6rem;color:var(--text-dim);}
+.dying-badge{font-family:'Cinzel',serif;font-size:.56rem;font-weight:700;letter-spacing:.06em;color:#e8c97a;animation:flicker 1.8s ease infinite;}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Unit actions */
+.unit-acts{display:flex;flex-direction:column;gap:.25rem;align-items:flex-end;flex-shrink:0;}
+.unit-acts-row{display:flex;gap:.22rem;}
+.ib{background:none;border:1px solid var(--border);color:var(--text-muted);width:27px;height:27px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .12s;flex-shrink:0;}
+.ib:hover{border-color:var(--gold-dim);color:var(--gold);}
+.ib.red:hover{border-color:var(--acc);color:var(--en-a);}
+.ib.grn:hover{border-color:var(--npc-b);color:var(--npc-a);}
+
+/* Condition slide panel */
+.cond-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(13,20,45,0.99);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:.85rem 1.1rem;z-index:40;transform:translateY(100%);transition:transform .25s ease;}
+.cond-panel.open{transform:translateY(0);}
+.cond-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem;}
+.cond-panel-title{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.cond-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;}
+@media(min-width:500px){.cond-grid{grid-template-columns:repeat(6,1fr);}}
+.cond-btn{font-size:.62rem;font-family:'Cinzel',serif;padding:.32rem .2rem;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--text-dim);cursor:pointer;text-align:center;transition:all .12s;}
+.cond-btn:hover{border-color:var(--gold-dim);color:var(--gold);background:rgba(201,168,76,.06);}
+
+/* Bottom strip */
+.combat-strip{background:rgba(22,33,62,0.97);border-top:1px solid var(--border);padding:.6rem 1.1rem;display:flex;gap:.5rem;align-items:center;flex-shrink:0;position:relative;z-index:1;}
+.combat-strip-left{display:flex;gap:.4rem;flex:1;flex-wrap:wrap;}
+
+/* ── BUTTONS ── */
+.btn{font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.42rem .9rem;border:1px solid;border-radius:5px;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.btn-acc{background:linear-gradient(135deg,var(--acc-dim),var(--acc));border-color:var(--acc);color:#fff;}
+.btn-acc:hover{background:linear-gradient(135deg,var(--acc),#e05a4a);box-shadow:0 0 16px var(--acc-glow);}
+.btn-gold{background:linear-gradient(135deg,var(--gold-dim),var(--gold));border-color:var(--gold);color:#0d0b08;font-weight:700;}
+.btn-gold:hover{background:linear-gradient(135deg,var(--gold),#e8c97a);}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--text-muted);}
+.btn-ghost:hover{border-color:var(--gold-dim);color:var(--gold);}
+.btn-danger{background:transparent;border-color:rgba(192,57,43,0.4);color:var(--en-a);}
+.btn-danger:hover{background:rgba(192,57,43,.12);border-color:var(--acc);}
+.btn-next{background:linear-gradient(135deg,#1a3a1a,#27ae60);border-color:#27ae60;color:#fff;font-size:.78rem;padding:.46rem 1.1rem;flex-shrink:0;}
+.btn-next:hover{background:linear-gradient(135deg,#27ae60,#58d68d);}
+.btn-sm{font-size:.62rem;padding:.3rem .6rem;}
+.btn:disabled{opacity:.32;cursor:not-allowed;}
+
+/* ── MODALS ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:300;align-items:center;justify-content:center;padding:1rem;}
+.overlay.open{display:flex;}
+.modal{background:rgba(13,20,45,0.99);border:1px solid var(--border);border-radius:8px;padding:1.3rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.9);max-height:85vh;overflow-y:auto;backdrop-filter:blur(16px);}
+.modal h3{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;}
+.modal-actions{display:flex;gap:.4rem;justify-content:flex-end;margin-top:.9rem;flex-wrap:wrap;}
+.modal .fg{margin-bottom:.5rem;}
+.modal .form-row{margin-bottom:.5rem;}
+.hp-input-big{font-size:1.8rem;font-family:'Cinzel',serif;text-align:center;padding:.5rem;width:100%;background:rgba(13,20,45,0.8);border:1px solid var(--border);color:var(--gold);border-radius:6px;margin-bottom:.75rem;}
+.hp-input-big:focus{outline:none;border-color:var(--gold-dim);}
+
+/* Party modal slots */
+.party-slot{display:flex;align-items:center;gap:.35rem;margin-bottom:.38rem;}
+.party-slot-icon{font-size:.65rem;color:var(--pc-a);width:12px;flex-shrink:0;}
+.party-slot input[type=text]{flex:1;background:rgba(13,20,45,0.8);border:1px solid var(--border);color:var(--text-light);padding:.35rem .5rem;border-radius:5px;font-family:'EB Garamond',Georgia,serif;font-size:.88rem;}
+.party-slot input[type=text]:focus{outline:none;border-color:var(--gold-dim);}
+.party-slot input[type=text]::placeholder{color:var(--text-dim);}
+.party-slot-bonus{width:40px;background:rgba(13,20,45,0.8);border:1px solid var(--border);color:var(--text-muted);padding:.35rem .25rem;border-radius:5px;font-family:'Cinzel',serif;font-size:.75rem;text-align:center;}
+.party-slot-bonus:focus{outline:none;border-color:var(--gold-dim);}
+
+/* ── ANIMATIONS ── */
+@keyframes slideIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.unit{animation:slideIn .15s ease;}
+@keyframes activeGlow{0%,100%{box-shadow:0 0 0 1px var(--gold-dim),0 2px 8px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 1px var(--gold-dim),0 0 18px rgba(201,168,76,.35)}}
+.active-turn{animation:activeGlow 2.2s ease infinite;}
+
+/* Full-mode extras */
+.full-only{display:none;}
+body.full-mode .full-only{display:revert;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg-dark);}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px;}
+
+@media(max-width:640px){
+  #site-header{padding:10px 14px;}
+  .setup-body,.combat-list{padding:.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG DEFS -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+    <line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/>
+    <line x1="19" y1="21" x2="21" y2="19"/>
+    <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+    <line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/>
+    <line x1="3" y1="19" x2="5" y2="21"/>
+  </symbol>
+</svg>
+
+<!-- NAV OVERLAY + DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+    <span class="nav-section-label">Tools</span>
+    <a href="spelltome.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="combat-tracker.html" class="nav-item active">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+  </div>
+</nav>
+
+<!-- SITE HEADER -->
+<header id="site-header">
+  <a href="index.html" class="site-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+    The Tome
+  </a>
+  <span class="page-title">Combat Tracker</span>
+  <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ══════════════════ SETUP PHASE ══════════════════ -->
+<div class="phase-setup" id="phase-setup">
+
+  <div class="setup-topbar">
+    <span class="setup-label">Encounter Setup</span>
+    <div style="display:flex;gap:.5rem;align-items:center;">
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="mode-simple-btn" onclick="setMode('simple')">Simple</button>
+        <button class="mode-btn" id="mode-full-btn" onclick="setMode('full')">Full</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="setup-body">
+
+    <!-- Saved party -->
+    <div class="party-bar">
+      <div class="party-bar-names" id="party-bar-names">No party saved</div>
+      <div class="party-bar-actions">
+        <button class="btn btn-gold btn-sm" id="load-party-btn" onclick="loadParty()" disabled>⚔ Load</button>
+        <button class="btn btn-ghost btn-sm" onclick="openSavePartyModal()">💾 Edit</button>
+      </div>
+    </div>
+
+    <!-- Roster -->
+    <div class="roster" id="roster"></div>
+
+    <!-- Add form -->
+    <div class="add-panel">
+      <div class="add-panel-title">Add Combatant</div>
+      <div class="type-row">
+        <button class="type-btn sel-pc" id="tb-pc" onclick="pickType('pc')">Player</button>
+        <button class="type-btn" id="tb-npc" onclick="pickType('npc')">NPC</button>
+        <button class="type-btn" id="tb-enemy" onclick="pickType('enemy')">Enemy</button>
+      </div>
+      <div class="form-row" style="margin-bottom:.4rem">
+        <div class="fg"><label>Name</label><input type="text" id="a-name" placeholder="Name" maxlength="30" autocomplete="off"></div>
+        <div class="fg"><label>Initiative</label><input type="number" id="a-init" placeholder="Roll" min="-5" max="40"></div>
+      </div>
+      <div class="form-row full-only form-gap">
+        <div class="fg"><label>Init Bonus</label><input type="number" id="a-bonus" value="0" min="-5" max="10"></div>
+        <div class="fg"><label>Max HP</label><input type="number" id="a-hp" placeholder="HP" min="1"></div>
+        <div class="fg"><label>AC</label><input type="number" id="a-ac" placeholder="AC" min="1"></div>
+      </div>
+      <div class="fg full-only form-gap"><label>Notes</label><input type="text" id="a-notes" placeholder="Concentrating, spellcaster…" maxlength="60"></div>
+      <div style="margin-top:.65rem">
+        <button class="btn btn-acc" onclick="addCombatant()" style="width:100%">+ Add</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="combat-strip">
+    <div class="combat-strip-left">
+      <button class="btn btn-ghost btn-sm" onclick="sortByInit()">⇅ Sort</button>
+      <button class="btn btn-ghost btn-sm" onclick="clearRoster()">↺ Clear</button>
+    </div>
+    <button class="btn btn-next" onclick="startCombat()" id="start-btn" disabled>Start Combat ▶</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════ COMBAT PHASE ══════════════════ -->
+<div class="phase-combat" id="phase-combat">
+
+  <div class="combat-bar">
+    <div class="cb-left">
+      <div class="cb-round-block">
+        <span class="cb-round-label">Round</span>
+        <span class="cb-round-num" id="cb-round">1</span>
+      </div>
+      <div class="cb-divider"></div>
+      <div class="cb-turn" id="cb-turn">—</div>
+    </div>
+    <div class="cb-right">
+      <button class="btn btn-ghost btn-sm" onclick="endCombat()">✕ End</button>
+      <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+    </div>
+  </div>
+
+  <div class="combat-list">
+    <div class="combat-list-inner" id="combat-list"></div>
+  </div>
+
+  <div class="combat-strip">
+    <div class="combat-strip-left">
+      <button class="btn btn-ghost btn-sm" onclick="sortByInit()">⇅ Sort</button>
+      <button class="btn btn-ghost btn-sm full-only" onclick="openCondPanel()">◈ Conditions</button>
+      <button class="btn btn-ghost btn-sm" onclick="clearDead()">✕ Dead</button>
+    </div>
+    <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- Condition panel -->
+<div class="cond-panel" id="cond-panel">
+  <div class="cond-panel-header">
+    <span class="cond-panel-title" id="cond-panel-title">Apply Condition</span>
+    <button class="btn btn-ghost btn-sm" onclick="closeCondPanel()">✕ Close</button>
+  </div>
+  <div class="cond-grid" id="cond-grid"></div>
+</div>
+
+<!-- HP Modal -->
+<div class="overlay" id="hp-modal">
+  <div class="modal">
+    <h3 id="hp-modal-title">Adjust HP</h3>
+    <input type="number" class="hp-input-big" id="hp-amount" placeholder="0" min="0" inputmode="numeric">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('hp-modal')">Cancel</button>
+      <button class="btn btn-danger" onclick="applyHp('damage')">− Damage</button>
+      <button class="btn btn-next" onclick="applyHp('heal')">+ Heal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="overlay" id="edit-modal">
+  <div class="modal">
+    <h3>Edit Combatant</h3>
+    <input type="hidden" id="edit-id">
+    <div class="fg" style="margin-bottom:.5rem"><label>Name</label><input type="text" id="edit-name" maxlength="40"></div>
+    <div class="form-row">
+      <div class="fg"><label>Initiative</label><input type="number" id="edit-init"></div>
+      <div class="fg"><label>Type</label>
+        <select id="edit-type">
+          <option value="pc">Player</option>
+          <option value="npc">NPC</option>
+          <option value="enemy">Enemy</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row full-only" style="margin-top:.4rem">
+      <div class="fg"><label>Current HP</label><input type="number" id="edit-hp-cur"></div>
+      <div class="fg"><label>Max HP</label><input type="number" id="edit-hp-max"></div>
+    </div>
+    <div class="form-row full-only" style="margin-top:.4rem">
+      <div class="fg"><label>AC</label><input type="number" id="edit-ac"></div>
+      <div class="fg"><label>Notes</label><input type="text" id="edit-notes" maxlength="60"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('edit-modal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Save Party Modal -->
+<div class="overlay" id="party-modal">
+  <div class="modal">
+    <h3>Save Party</h3>
+    <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;margin-bottom:.85rem">Names and initiative bonuses are stored. Fresh rolls each time you load.</p>
+    <div id="party-slots"></div>
+    <div style="margin-bottom:.7rem"><button class="btn btn-ghost btn-sm" onclick="addPartySlot()">+ Add Member</button></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('party-modal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveParty()">Save Party</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════ STATE ═══════
+let units = [];
+let nextId = 1;
+let selectedType = 'pc';
+let mode = 'simple';
+let phase = 'setup';
+let turnIdx = -1;
+let round = 1;
+let selUnitId = null;
+let hpTarget = null;
+let dragSrcId = null;
+let touchId = null, touchClone = null;
+
+const CONDITIONS = ['Blinded','Charmed','Deafened','Exhausted','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified','Poisoned','Prone','Restrained','Stunned','Unconscious','Concentrating'];
+
+function init() {
+  buildCondGrid();
+  renderSavedParty();
+  renderSetup();
+  bindEnter('a-name', () => focus('a-init'));
+  bindEnter('a-init', addCombatant);
+  bindEnter('hp-amount', () => applyHp('damage'));
+}
+function bindEnter(id, fn) { document.getElementById(id)?.addEventListener('keydown', e => { if(e.key==='Enter') fn(); }); }
+
+// ═══════ NAV ═══════
+function openNav() { document.getElementById('nav-drawer').classList.add('open'); document.getElementById('nav-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeNav() { document.getElementById('nav-drawer').classList.remove('open'); document.getElementById('nav-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+// ═══════ MODE ═══════
+function setMode(m) {
+  mode = m;
+  document.body.classList.toggle('full-mode', m==='full');
+  document.getElementById('mode-simple-btn').classList.toggle('active', m==='simple');
+  document.getElementById('mode-full-btn').classList.toggle('active', m==='full');
+  renderSetup(); if(phase==='combat') renderCombat();
+}
+
+// ═══════ TYPE ═══════
+function pickType(t) {
+  selectedType = t;
+  ['pc','npc','enemy'].forEach(x => {
+    document.getElementById('tb-'+x).className = 'type-btn' + (x===t ? ' sel-'+x : '');
+  });
+}
+
+// ═══════ ADD ═══════
+function addCombatant() {
+  const name = val('a-name'); if(!name) { focus('a-name'); return; }
+  const initRaw = document.getElementById('a-init').value;
+  const bonus   = int('a-bonus', 0);
+  const initiative = initRaw !== '' ? parseInt(initRaw) : d20() + bonus;
+  const hpMax  = int('a-hp', 0);
+  const ac     = int('a-ac', 0) || null;
+  const notes  = val('a-notes');
+  units.push({ id:nextId++, name, type:selectedType, initiative, bonus, hpMax, hpCur:hpMax, ac, notes, conditions:[], dead:false, dying:false, ds:{s:0,f:0} });
+  clear('a-name'); clear('a-init'); focus('a-name');
+  renderSetup();
+}
+
+function removeUnit(id) {
+  units = units.filter(u => u.id !== id);
+  renderSetup(); if(phase==='combat') renderCombat();
+}
+
+// ═══════ SORT / CLEAR ═══════
+function sortByInit() {
+  units.sort((a,b) => b.initiative - a.initiative || b.bonus - a.bonus);
+  if(turnIdx >= units.length) turnIdx = units.length-1;
+  renderSetup(); if(phase==='combat') renderCombat();
+}
+function clearRoster() {
+  if(units.length && !confirm('Clear all combatants?')) return;
+  units=[]; turnIdx=-1; round=1; renderSetup();
+}
+
+// ═══════ PHASES ═══════
+function startCombat() {
+  if(!units.length) return;
+  sortByInit(); turnIdx=-1; round=1; phase='combat';
+  document.body.classList.add('in-combat');
+  renderCombat();
+}
+function endCombat() {
+  phase='setup'; turnIdx=-1; round=1; selUnitId=null;
+  closeCondPanel();
+  document.body.classList.remove('in-combat');
+  renderSetup();
+}
+
+// ═══════ TURN ═══════
+function nextTurn() {
+  const active = units.filter(u => !u.dead);
+  if(!active.length) return;
+  if(turnIdx===-1) { turnIdx=0; }
+  else {
+    const cur = units[turnIdx];
+    let ai = active.findIndex(u => u.id===(cur?cur.id:-1));
+    ai = (ai+1) % active.length;
+    if(ai===0) round++;
+    turnIdx = units.indexOf(active[ai]);
+  }
+  renderCombat();
+  document.querySelector('.active-turn')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ═══════ DEAD / DYING ═══════
+function toggleDead(id) {
+  const u = byId(id);
+  if(u.dead) { u.dead=false; u.dying=false; u.hpCur=1; u.ds={s:0,f:0}; }
+  else if(u.dying) { u.dying=false; u.dead=true; u.ds={s:0,f:0}; }
+  else { u.dying=true; u.hpCur=0; }
+  renderCombat();
+}
+function clearDead() {
+  units=units.filter(u=>!u.dead);
+  if(turnIdx>=units.length) turnIdx=units.length-1;
+  renderCombat();
+}
+function addDeathSave(id, type) {
+  const u=byId(id); if(!u||!u.dying) return;
+  if(type==='s') { u.ds.s=Math.min(3,u.ds.s+1); if(u.ds.s>=3){u.dying=false;u.dead=false;u.hpCur=1;u.ds={s:0,f:0};} }
+  else           { u.ds.f=Math.min(3,u.ds.f+1); if(u.ds.f>=3){u.dying=false;u.dead=true; u.ds={s:0,f:0};} }
+  renderCombat();
+}
+
+// ═══════ HP ═══════
+function openHpModal(id) {
+  hpTarget=id;
+  document.getElementById('hp-modal-title').textContent=byId(id).name+' — HP';
+  document.getElementById('hp-amount').value='';
+  openModal('hp-modal');
+  setTimeout(()=>document.getElementById('hp-amount').focus(),80);
+}
+function applyHp(mode) {
+  const amt=parseInt(document.getElementById('hp-amount').value);
+  if(isNaN(amt)||amt<0) return;
+  const u=byId(hpTarget); if(!u) return;
+  if(mode==='damage') { u.hpCur=Math.max(0,u.hpCur-amt); if(u.hpCur===0&&!u.dead) u.dying=true; }
+  else { u.hpCur=Math.min(u.hpMax||99999,u.hpCur+amt); if(u.hpCur>0){u.dying=false;u.dead=false;u.ds={s:0,f:0};} }
+  closeModal('hp-modal'); renderCombat();
+}
+
+// ═══════ EDIT ═══════
+function openEditModal(id) {
+  const u=byId(id);
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-name').value=u.name;
+  document.getElementById('edit-init').value=u.initiative;
+  document.getElementById('edit-type').value=u.type;
+  if(mode==='full') {
+    document.getElementById('edit-hp-cur').value=u.hpCur||'';
+    document.getElementById('edit-hp-max').value=u.hpMax||'';
+    document.getElementById('edit-ac').value=u.ac||'';
+    document.getElementById('edit-notes').value=u.notes||'';
+  }
+  openModal('edit-modal');
+}
+function saveEdit() {
+  const id=parseInt(document.getElementById('edit-id').value);
+  const u=byId(id);
+  u.name=document.getElementById('edit-name').value.trim()||u.name;
+  u.initiative=parseInt(document.getElementById('edit-init').value)||u.initiative;
+  u.type=document.getElementById('edit-type').value;
+  if(mode==='full') {
+    u.hpCur=parseInt(document.getElementById('edit-hp-cur').value)||u.hpCur;
+    u.hpMax=parseInt(document.getElementById('edit-hp-max').value)||u.hpMax;
+    u.ac=parseInt(document.getElementById('edit-ac').value)||null;
+    u.notes=document.getElementById('edit-notes').value.trim();
+  }
+  closeModal('edit-modal'); renderSetup(); renderCombat();
+}
+
+// ═══════ CONDITIONS ═══════
+function buildCondGrid() {
+  const g=document.getElementById('cond-grid');
+  CONDITIONS.forEach(c=>{
+    const b=document.createElement('button'); b.className='cond-btn'; b.textContent=c;
+    b.onclick=()=>applyCondition(c); g.appendChild(b);
+  });
+}
+function openCondPanel() {
+  if(!selUnitId) selUnitId=units[turnIdx]?.id||null;
+  const u=selUnitId?byId(selUnitId):null;
+  document.getElementById('cond-panel-title').textContent=u?'Conditions: '+u.name:'Select a unit first';
+  document.getElementById('cond-panel').classList.add('open');
+}
+function closeCondPanel() { document.getElementById('cond-panel').classList.remove('open'); }
+function applyCondition(cond) {
+  if(!selUnitId) return;
+  const u=byId(selUnitId); if(!u||u.conditions.includes(cond)) return;
+  u.conditions.push(cond); renderCombat();
+}
+function removeCondition(id,cond) { const u=byId(id); u.conditions=u.conditions.filter(c=>c!==cond); renderCombat(); }
+function selectUnit(id) {
+  selUnitId=selUnitId===id?null:id;
+  renderCombat();
+  if(selUnitId&&mode==='full') openCondPanel();
+}
+
+// ═══════ PARTY ═══════
+function openSavePartyModal() {
+  const saved=getSavedParty();
+  const c=document.getElementById('party-slots'); c.innerHTML='';
+  const members=saved.length?saved:[{name:'',bonus:2},{name:'',bonus:2},{name:'',bonus:2},{name:'',bonus:2}];
+  members.forEach(m=>addPartySlotEl(m.name,m.bonus));
+  openModal('party-modal');
+}
+function addPartySlot() { addPartySlotEl('',2); }
+function addPartySlotEl(name,bonus) {
+  const c=document.getElementById('party-slots');
+  const d=document.createElement('div'); d.className='party-slot';
+  d.innerHTML=`<span class="party-slot-icon">⚔</span><input type="text" placeholder="Name" value="${esc(name)}" maxlength="30"><input type="number" class="party-slot-bonus" value="${bonus||0}" title="Init bonus"><button class="ib red" onclick="this.closest('.party-slot').remove()" title="Remove">✕</button>`;
+  c.appendChild(d);
+}
+function saveParty() {
+  const party=[];
+  document.querySelectorAll('#party-slots .party-slot').forEach(s=>{
+    const ins=s.querySelectorAll('input');
+    const name=ins[0].value.trim(); const bonus=parseInt(ins[1].value)||0;
+    if(name) party.push({name,bonus});
+  });
+  if(!party.length){alert('Add at least one character.');return;}
+  try{localStorage.setItem('dnd-party',JSON.stringify(party));}catch(e){}
+  closeModal('party-modal'); renderSavedParty();
+}
+function getSavedParty(){try{return JSON.parse(localStorage.getItem('dnd-party')||'[]');}catch(e){return[];}}
+function renderSavedParty() {
+  const party=getSavedParty();
+  const el=document.getElementById('party-bar-names');
+  const btn=document.getElementById('load-party-btn');
+  if(!party.length){el.textContent='No party saved';if(btn)btn.disabled=true;return;}
+  if(btn)btn.disabled=false;
+  el.innerHTML=party.map(m=>`<span class="pname">⚔ ${esc(m.name)}</span>`).join(' ');
+}
+function loadParty() {
+  const party=getSavedParty(); if(!party.length) return;
+  party.forEach(m=>units.push({id:nextId++,name:m.name,type:'pc',initiative:d20()+(m.bonus||0),bonus:m.bonus||0,hpMax:0,hpCur:0,ac:null,notes:'',conditions:[],dead:false,dying:false,ds:{s:0,f:0}}));
+  sortByInit();
+}
+
+// ═══════ DRAG ═══════
+function onDragStart(e,id){dragSrcId=id;e.dataTransfer.effectAllowed='move';setTimeout(()=>document.querySelector(`[data-id="${id}"]`)?.classList.add('dragging'),0);}
+function onDragOver(e,id){e.preventDefault();document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));const el=document.querySelector(`[data-id="${id}"]`);if(el&&id!==dragSrcId)el.classList.add('drag-over');}
+function onDrop(e,tid){e.preventDefault();if(dragSrcId===tid)return;reorder(dragSrcId,tid);dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));renderSetup();renderCombat();}
+function onDragEnd(){dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));}
+function reorder(si,ti){const sI=units.findIndex(u=>u.id===si),tI=units.findIndex(u=>u.id===ti);if(sI<0||tI<0)return;const[m]=units.splice(sI,1);units.splice(tI,0,m);}
+function onTouchStart(e,id){touchId=id;const touch=e.touches[0],card=e.currentTarget;touchClone=card.cloneNode(true);touchClone.style.cssText=`position:fixed;top:${touch.clientY-20}px;left:${touch.clientX-100}px;width:${card.offsetWidth}px;opacity:.7;pointer-events:none;z-index:999;border:2px solid var(--gold);border-radius:6px;`;document.body.appendChild(touchClone);}
+function onTouchMove(e){if(!touchClone)return;e.preventDefault();const t=e.touches[0];touchClone.style.top=(t.clientY-20)+'px';touchClone.style.left=(t.clientX-100)+'px';document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under&&parseInt(under.dataset.id)!==touchId)under.classList.add('drag-over');}
+function onTouchEnd(e){if(!touchClone)return;touchClone.remove();touchClone=null;const t=e.changedTouches[0];const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under){const tid=parseInt(under.dataset.id);if(tid!==touchId)reorder(touchId,tid);}touchId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));renderSetup();renderCombat();}
+const drag=id=>`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`;
+
+// ═══════ RENDER SETUP ═══════
+function renderSetup() {
+  const roster=document.getElementById('roster');
+  roster.innerHTML=units.map(u=>{
+    const meta=[];
+    if(u.ac)meta.push('AC '+u.ac);
+    if(u.hpMax)meta.push(u.hpCur+'/'+u.hpMax+' HP');
+    if(u.notes)meta.push(u.notes);
+    return `<div class="roster-card type-${u.type}" data-id="${u.id}" ${drag(u.id)}>
+      <div class="roster-init">${u.initiative}</div>
+      <div>
+        <div class="roster-name">${esc(u.name)}</div>
+        ${meta.length?`<div class="roster-meta">${meta.join(' · ')}</div>`:''}
+      </div>
+      <div class="roster-acts">
+        <button class="ib" onclick="openEditModal(${u.id})" title="Edit">✎</button>
+        <button class="ib red" onclick="removeUnit(${u.id})" title="Remove">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('start-btn').disabled=units.length===0;
+}
+
+// ═══════ RENDER COMBAT ═══════
+function renderCombat() {
+  document.getElementById('cb-round').textContent=round;
+  const turnEl=document.getElementById('cb-turn');
+  if(!units.length){turnEl.innerHTML='No combatants';}
+  else if(turnIdx===-1){turnEl.innerHTML='Press <strong style="color:var(--gold)">Next</strong> to begin';}
+  else {
+    const a=units[turnIdx];
+    const dyingNote=a?.dying?` <span style="font-family:Cinzel,serif;font-size:.62rem;color:#e8c97a">— Death Save</span>`:'';
+    turnEl.innerHTML=a?`<span class="cb-active-name">${esc(a.name)}</span>'s turn${dyingNote}`:'—';
+  }
+
+  const list=document.getElementById('combat-list');
+  if(!units.length){list.innerHTML='<div style="text-align:center;padding:2.5rem;color:var(--text-dim);font-style:italic;font-family:Cinzel,serif;font-size:.8rem">No combatants.</div>';return;}
+
+  list.innerHTML=units.map((u,idx)=>{
+    const isActive=idx===turnIdx;
+    const isSel=u.id===selUnitId;
+    const isDying=u.dying&&!u.dead;
+    const selStyle=isSel?'box-shadow:0 0 0 2px var(--gold-dim);':'';
+    const hpPct=u.hpMax?Math.max(0,(u.hpCur/u.hpMax)*100):0;
+    const hpCol=u.hpMax?(hpPct>50?'#27ae60':hpPct>25?'#f39c12':hpPct>0?'#e74c3c':'#6b5d4a'):'rgba(255,255,255,.08)';
+    const typeName={pc:'PC',npc:'NPC',enemy:'Enemy'}[u.type];
+    const condChips=u.conditions.map(c=>`<span class="cond-chip" onclick="removeCondition(${u.id},'${c}')" title="Remove">${c} ✕</span>`).join('');
+    const stateClass=u.dead?' is-dead':isDying?' is-dying':'';
+
+    const dsPips=isDying?`<div class="ds-row">
+      <span class="ds-label">Death Save</span>
+      <div class="ds-pips">${[0,1,2].map(i=>`<div class="ds-pip success${i<u.ds.s?' filled':''}" onclick="event.stopPropagation();addDeathSave(${u.id},'s')" title="Success"></div>`).join('')}</div>
+      <span class="ds-sep">/</span>
+      <div class="ds-pips">${[0,1,2].map(i=>`<div class="ds-pip failure${i<u.ds.f?' filled':''}" onclick="event.stopPropagation();addDeathSave(${u.id},'f')" title="Failure"></div>`).join('')}</div>
+    </div>`:'';
+
+    const stateBadge=u.dead
+      ?`<span style="font-family:Cinzel,serif;font-size:.55rem;font-weight:700;letter-spacing:.06em;color:var(--en-a)">DEAD</span>`
+      :isDying?`<span class="dying-badge">DYING</span>`:'';
+    const deadBtn=u.dead?`<button class="ib grn" onclick="toggleDead(${u.id})" title="Revive">↑</button>`
+      :isDying?`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dead">☠</button>`
+      :`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dying">☠</button>`;
+
+    return `<div class="unit type-${u.type}${isActive?' active-turn':''}${stateClass}" data-id="${u.id}" ${drag(u.id)} onclick="selectUnit(${u.id})" style="${selStyle}">
+      <div class="unit-init">${u.initiative}</div>
+      <div class="unit-body">
+        <div class="unit-name-row">
+          ${isActive?'<div class="active-pip"></div>':''}
+          <span class="unit-name">${esc(u.name)}</span>
+          <span class="unit-badge">${typeName}</span>
+          ${stateBadge}
+        </div>
+        ${mode==='full'&&u.hpMax?`<div class="unit-hp"><div class="hp-track"><div class="hp-fill" style="width:${hpPct}%;background:${hpCol}"></div></div><span class="hp-label">${u.hpCur}/${u.hpMax}</span></div>`:''}
+        ${dsPips}
+        ${mode==='full'&&condChips?`<div class="unit-conds">${condChips}</div>`:''}
+        ${mode==='full'&&u.ac?`<span style="font-family:Cinzel,serif;font-size:.6rem;color:var(--text-dim)">AC ${u.ac}</span>`:''}
+        ${mode==='full'&&u.notes?`<div class="unit-notes-text">${esc(u.notes)}</div>`:''}
+      </div>
+      <div class="unit-acts" onclick="event.stopPropagation()">
+        ${mode==='full'?`<div class="unit-acts-row"><button class="ib" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
+        <div class="unit-acts-row">
+          ${deadBtn}
+          <button class="ib red" onclick="removeUnit(${u.id})" title="Remove">✕</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════ MODALS ═══════
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+['hp-modal','edit-modal','party-modal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});});
+
+// ═══════ UTILS ═══════
+function d20(){return Math.floor(Math.random()*20)+1;}
+function byId(id){return units.find(u=>u.id===id);}
+function val(id){return(document.getElementById(id)?.value||'').trim();}
+function int(id,def){const v=parseInt(document.getElementById(id)?.value);return isNaN(v)?def:v;}
+function clear(id){const el=document.getElementById(id);if(el)el.value='';}
+function focus(id){document.getElementById(id)?.focus();}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+// ═══════ KEYBOARD ═══════
+document.addEventListener('keydown',e=>{
+  if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;
+  if(e.key==='n'||e.key==='N'){if(phase==='combat')nextTurn();}
+  if(e.key==='Escape'){closeCondPanel();['hp-modal','edit-modal','party-modal'].forEach(closeModal);}
+});
+
+init();
+</script>
+</body>
+</html>
