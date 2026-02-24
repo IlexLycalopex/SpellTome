@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lycalopex Encounter Tracker (Prototype)</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; }
+    header { padding: 12px 16px; border-bottom: 1px solid rgba(127,127,127,.35); position: sticky; top: 0; background: Canvas; z-index: 10; }
+    header h1 { font-size: 16px; margin: 0 0 4px; }
+    header .sub { font-size: 12px; opacity: .8; }
+    main { display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; padding: 12px; }
+    @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+    .card { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 12px; background: Canvas; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .col { display: flex; flex-direction: column; gap: 8px; }
+    .grow { flex: 1; }
+    label { font-size: 12px; opacity: .85; }
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(127,127,127,.35);
+      background: Canvas;
+      color: CanvasText;
+    }
+    textarea { min-height: 70px; resize: vertical; }
+    button {
+      border: 1px solid rgba(127,127,127,.35);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: Canvas;
+      color: CanvasText;
+      cursor: pointer;
+    }
+    button.primary { font-weight: 600; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid rgba(127,127,127,.25); padding: 8px 6px; font-size: 13px; vertical-align: top; }
+    th { text-align: left; font-size: 12px; opacity: .85; }
+    .pill { display: inline-flex; gap: 6px; align-items: center; padding: 4px 8px; border: 1px solid rgba(127,127,127,.35); border-radius: 999px; font-size: 12px; }
+    .muted { opacity: .75; }
+    .right { text-align: right; }
+    .danger { border-color: rgba(200,60,60,.6); }
+    .ok { border-color: rgba(60,160,80,.6); }
+    .warn { border-color: rgba(200,140,40,.6); }
+    .tabs { display: flex; gap: 8px; margin-top: 8px; }
+    .tab { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(127,127,127,.35); font-size: 12px; }
+    .tab.active { font-weight: 650; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 980px) { .grid2 { grid-template-columns: 1fr; } }
+    .small { font-size: 12px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    .divider { height: 1px; background: rgba(127,127,127,.25); margin: 10px 0; }
+    .stickyActions { position: sticky; bottom: 10px; display: flex; gap: 8px; background: Canvas; padding: 10px; border-radius: 12px; border: 1px solid rgba(127,127,127,.25); }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Encounter Tracker (Prototype Page)</h1>
+  <div class="sub">Build, balance, save, and run. LocalStorage-backed. No server required.</div>
+  <div class="tabs" role="tablist" aria-label="Mode">
+    <button id="tabBuilder" class="tab active" role="tab" aria-selected="true">Builder</button>
+    <button id="tabRun" class="tab" role="tab" aria-selected="false">Run</button>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: Builder / Run main -->
+  <section class="card" id="leftPane">
+    <!-- Builder -->
+    <div id="builderView">
+      <div class="row">
+        <div class="grow">
+          <label>Encounter name</label>
+          <input id="encName" type="text" placeholder="e.g., Ambush at the ford" />
+        </div>
+        <div style="width: 180px">
+          <label>Ruleset</label>
+          <select id="ruleset">
+            <option value="simple" selected>Simple (prototype)</option>
+            <option value="custom">Custom (plug-in later)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:10px">
+        <div class="col">
+          <div class="row">
+            <div class="grow">
+              <label>Monster search</label>
+              <input id="monsterSearch" type="text" placeholder="Search by name" />
+            </div>
+            <div style="width: 110px">
+              <label>CR ≤</label>
+              <input id="filterCR" type="number" min="0" step="0.125" placeholder="Any" />
+            </div>
+            <div style="width: 150px">
+              <label>Type</label>
+              <select id="filterType">
+                <option value="">Any</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="width: 160px">
+              <label>Environment</label>
+              <select id="filterEnv">
+                <option value="">Any</option>
+              </select>
+            </div>
+            <div class="grow">
+              <label class="muted">Compendium import (JSON)</label>
+              <input id="compendiumFile" type="file" accept="application/json" />
+            </div>
+            <button id="btnResetCompendium" title="Reset to sample compendium">Reset</button>
+          </div>
+
+          <div class="divider"></div>
+          <div class="row" style="justify-content: space-between;">
+            <div class="pill" id="monsterCountPill">0 results</div>
+            <div class="small muted">Tip: click “Add” to stack monsters. Expand later when running.</div>
+          </div>
+          <div style="max-height: 360px; overflow:auto; margin-top:8px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th style="width:80px">CR</th>
+                  <th style="width:110px">Type</th>
+                  <th style="width:130px">Env</th>
+                  <th class="right" style="width:90px"></th>
+                </tr>
+              </thead>
+              <tbody id="monsterResults"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="row">
+            <div class="grow">
+              <label>Party size</label>
+              <input id="partySize" type="number" min="1" step="1" value="4" />
+            </div>
+            <div class="grow">
+              <label>Party level</label>
+              <input id="partyLevel" type="number" min="1" step="1" value="5" />
+            </div>
+            <div style="width: 190px">
+              <label>Target difficulty</label>
+              <select id="targetDifficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+                <option value="deadly">Deadly</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row" style="justify-content: space-between;">
+            <div class="pill" id="difficultyPill">Difficulty: n/a</div>
+            <div class="row">
+              <button id="btnClearEncounter" class="danger">Clear</button>
+              <button id="btnSaveEncounter">Save</button>
+              <button id="btnExport">Export JSON</button>
+            </div>
+          </div>
+
+          <div style="max-height: 360px; overflow:auto; margin-top:8px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Combatant</th>
+                  <th style="width:70px">Qty</th>
+                  <th style="width:90px">HP</th>
+                  <th class="right" style="width:160px"></th>
+                </tr>
+              </thead>
+              <tbody id="encMembers"></tbody>
+            </table>
+          </div>
+
+          <label style="margin-top:10px">Encounter notes</label>
+          <textarea id="encNotes" placeholder="Tactics, objectives, terrain, hazards..."></textarea>
+
+          <div class="stickyActions">
+            <button id="btnStartEncounter" class="primary" style="flex:1" disabled>Start encounter</button>
+            <button id="btnRollHP" title="Roll HP for all (prototype dice)">Roll HP</button>
+            <button id="btnRollInit" title="Roll initiative for all monsters (prototype dice)">Roll Init</button>
+          </div>
+
+          <div class="small muted" id="saveStatus"></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="row">
+        <div class="grow">
+          <label>Saved encounters</label>
+          <select id="savedEncounters"></select>
+        </div>
+        <button id="btnLoad">Load</button>
+        <button id="btnDuplicate">Duplicate</button>
+        <button id="btnDelete" class="danger">Delete</button>
+      </div>
+    </div>
+
+    <!-- Run -->
+    <div id="runView" style="display:none">
+      <div class="row" style="justify-content: space-between;">
+        <div class="col" style="gap:4px">
+          <div class="pill"><span class="muted">Running:</span> <span id="runName"></span></div>
+          <div class="small muted" id="runMeta"></div>
+        </div>
+        <div class="row">
+          <button id="btnBackToBuilder">Back to builder</button>
+          <button id="btnEndEncounter" class="danger">End</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row" style="justify-content: space-between;">
+        <div class="row">
+          <div class="pill" id="roundPill">Round: 1</div>
+          <div class="pill" id="turnPill">Turn: 1/0</div>
+          <div class="pill" id="currentTurnPill">Current: n/a</div>
+        </div>
+        <div class="row">
+          <button id="btnPrevTurn">Prev</button>
+          <button id="btnNextTurn" class="primary">Next</button>
+          <button id="btnNewRound">New round</button>
+        </div>
+      </div>
+
+      <div style="max-height: 520px; overflow:auto; margin-top:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:80px">Init</th>
+              <th>Name</th>
+              <th style="width:110px">HP</th>
+              <th style="width:220px">Conditions</th>
+              <th class="right" style="width:220px">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="runTable"></tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+      <div class="row">
+        <div class="grow">
+          <label>Quick add condition</label>
+          <input id="quickCondition" type="text" placeholder="e.g., Prone, Grappled, Concentrating" />
+        </div>
+        <button id="btnApplyCondition">Apply to current</button>
+        <button id="btnClearCondition">Clear from current</button>
+      </div>
+
+      <div class="small muted" style="margin-top:10px">
+        Note: This prototype uses a simple difficulty model and simple dice rolls. Wire in your existing compendium schema and tracker logic as needed.
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Diagnostics / Difficulty / Export -->
+  <aside class="card">
+    <div class="row" style="justify-content: space-between;">
+      <div class="pill">Diagnostics</div>
+      <button id="btnFactoryReset" class="danger" title="Clears all saved data">Factory reset</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="col">
+      <div class="row" style="justify-content: space-between;">
+        <div class="pill">Difficulty breakdown</div>
+        <div class="pill mono" id="xpPill">XP: 0</div>
+      </div>
+
+      <div class="small">
+        <div><span class="muted">Party:</span> <span id="partySummary"></span></div>
+        <div><span class="muted">Monsters:</span> <span id="monsterSummary"></span></div>
+        <div><span class="muted">Heuristic:</span> <span id="heuristicSummary"></span></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="pill">Encounter JSON</div>
+      <textarea id="jsonOut" class="mono" style="min-height: 220px" readonly></textarea>
+
+      <div class="row">
+        <button id="btnImportEncounter">Import JSON</button>
+        <input id="encImportFile" type="file" accept="application/json" class="grow" />
+      </div>
+    </div>
+  </aside>
+</main>
+
+<script>
+  // -----------------------------
+  // Sample compendium (replace with your own schema)
+  // Fields: id, name, cr, xp, type, env, hp: {avg, dice:"XdY+Z"}
+  // -----------------------------
+  const SAMPLE_COMPENDIUM = [
+    { id:"goblin", name:"Goblin", cr:0.25, xp:50, type:"humanoid", env:"forest", hp:{ avg:7, dice:"2d6" } },
+    { id:"orc", name:"Orc", cr:0.5, xp:100, type:"humanoid", env:"hills", hp:{ avg:15, dice:"2d8+6" } },
+    { id:"owlbear", name:"Owlbear", cr:3, xp:700, type:"monstrosity", env:"forest", hp:{ avg:59, dice:"7d10+21" } },
+    { id:"bandit", name:"Bandit", cr:0.125, xp:25, type:"humanoid", env:"urban", hp:{ avg:11, dice:"2d8+2" } },
+    { id:"cultist", name:"Cultist", cr:0.125, xp:25, type:"humanoid", env:"dungeon", hp:{ avg:9, dice:"2d8" } },
+    { id:"skeleton", name:"Skeleton", cr:0.25, xp:50, type:"undead", env:"dungeon", hp:{ avg:13, dice:"2d8+4" } },
+    { id:"zombie", name:"Zombie", cr:0.25, xp:50, type:"undead", env:"dungeon", hp:{ avg:22, dice:"3d8+9" } }
+  ];
+
+  // -----------------------------
+  // Storage keys
+  // -----------------------------
+  const LS = {
+    compendium: "lyca_compendium_v1",
+    encounters: "lyca_encounters_v1",
+    lastLoadedId: "lyca_last_loaded_enc_id",
+    runningInstance: "lyca_running_instance_v1"
+  };
+
+  // -----------------------------
+  // Utilities
+  // -----------------------------
+  const $ = (id) => document.getElementById(id);
+  const safeJsonParse = (text) => { try { return JSON.parse(text); } catch { return null; } };
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
+
+  function rollDice(expr) {
+    // Supports "XdY+Z" and "XdY" and "dY+Z"
+    // Prototype: not cryptographically fair; good enough for table utilities.
+    const s = (expr || "").replace(/\s+/g,"").toLowerCase();
+    const m = s.match(/^(\d*)d(\d+)([+-]\d+)?$/);
+    if (!m) return null;
+    const count = m[1] ? parseInt(m[1],10) : 1;
+    const sides = parseInt(m[2],10);
+    const mod = m[3] ? parseInt(m[3],10) : 0;
+    let total = mod;
+    for (let i=0;i<count;i++) total += 1 + Math.floor(Math.random()*sides);
+    return total;
+  }
+
+  // -----------------------------
+  // Difficulty engine (prototype)
+  // -----------------------------
+  function difficultyHeuristic({ partySize, partyLevel, monsters }) {
+    // This is a simple heuristic using XP total and a basic multiplier by monster count.
+    // Replace with DMG XP thresholds + multipliers if you wish.
+    const baseXP = monsters.reduce((sum, m) => sum + (m.xp * m.qty), 0);
+
+    // Rough multiplier: more enemies increases challenge.
+    const count = monsters.reduce((sum, m) => sum + m.qty, 0);
+    let mult = 1;
+    if (count >= 2) mult = 1.2;
+    if (count >= 3) mult = 1.4;
+    if (count >= 7) mult = 1.8;
+    if (count >= 11) mult = 2.2;
+
+    const adjusted = Math.round(baseXP * mult);
+
+    // Party budget heuristic: level * size * 100 (very rough)
+    const budget = partySize * partyLevel * 100;
+
+    const ratio = budget > 0 ? adjusted / budget : 0;
+
+    let band = "n/a";
+    let css = "";
+    if (ratio < 0.6) { band = "Easy"; css="ok"; }
+    else if (ratio < 1.0) { band = "Medium"; css="ok"; }
+    else if (ratio < 1.5) { band = "Hard"; css="warn"; }
+    else { band = "Deadly"; css="danger"; }
+
+    // Action economy warning
+    const ae = count >= partySize * 2 ? "Enemy count may overwhelm action economy." :
+               count <= 1 && partySize >= 5 ? "Solo enemy may be swingy (stun/disable risk)." : "";
+
+    return { baseXP, adjustedXP: adjusted, band, css, ratio, mult, ae, budget };
+  }
+
+  // -----------------------------
+  // App state
+  // -----------------------------
+  let compendium = [];
+  let encounters = {}; // id -> encounter template
+  let currentEncounterId = null;
+
+  let encounter = {
+    id: null,
+    name: "",
+    notes: "",
+    ruleset: "simple",
+    party: { size: 4, level: 5 },
+    members: [
+      // { refId, name, cr, xp, type, env, hpAvg, hpDice, qty, defaults:{hpMode:"avg"|"roll", initMode:"roll"|"manual"} }
+    ],
+    createdAt: null,
+    updatedAt: null
+  };
+
+  let running = null; // encounter instance
+
+  // -----------------------------
+  // Persistence
+  // -----------------------------
+  function loadAll() {
+    const c = safeJsonParse(localStorage.getItem(LS.compendium));
+    compendium = Array.isArray(c) && c.length ? c : SAMPLE_COMPENDIUM.slice();
+
+    const e = safeJsonParse(localStorage.getItem(LS.encounters));
+    encounters = (e && typeof e === "object") ? e : {};
+
+    currentEncounterId = localStorage.getItem(LS.lastLoadedId) || null;
+
+    const r = safeJsonParse(localStorage.getItem(LS.runningInstance));
+    running = r && typeof r === "object" ? r : null;
+  }
+
+  function saveAll() {
+    localStorage.setItem(LS.compendium, JSON.stringify(compendium));
+    localStorage.setItem(LS.encounters, JSON.stringify(encounters));
+    if (currentEncounterId) localStorage.setItem(LS.lastLoadedId, currentEncounterId);
+    if (running) localStorage.setItem(LS.runningInstance, JSON.stringify(running));
+    else localStorage.removeItem(LS.runningInstance);
+  }
+
+  // -----------------------------
+  // Encounter template helpers
+  // -----------------------------
+  function newEncounterTemplate() {
+    const now = new Date().toISOString();
+    return {
+      ...structuredClone(encounter),
+      id: uid(),
+      createdAt: now,
+      updatedAt: now
+    };
+  }
+
+  function hydrateEncounterFromTemplate(t) {
+    encounter = structuredClone(t);
+    $("encName").value = encounter.name || "";
+    $("encNotes").value = encounter.notes || "";
+    $("ruleset").value = encounter.ruleset || "simple";
+    $("partySize").value = encounter.party?.size ?? 4;
+    $("partyLevel").value = encounter.party?.level ?? 5;
+    renderEncounterMembers();
+    recalcDifficulty();
+    refreshJsonOut();
+    setSaveStatus(`Loaded: ${encounter.name || "Untitled"}`);
+  }
+
+  function setSaveStatus(text) {
+    $("saveStatus").textContent = text || "";
+  }
+
+  // -----------------------------
+  // UI renderers
+  // -----------------------------
+  function populateFilters() {
+    const types = Array.from(new Set(compendium.map(m => m.type).filter(Boolean))).sort();
+    const envs  = Array.from(new Set(compendium.map(m => m.env).filter(Boolean))).sort();
+
+    const typeSel = $("filterType");
+    typeSel.innerHTML = `<option value="">Any</option>` + types.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+
+    const envSel = $("filterEnv");
+    envSel.innerHTML = `<option value="">Any</option>` + envs.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[c]));
+  }
+
+  function renderMonsterResults() {
+    const q = $("monsterSearch").value.trim().toLowerCase();
+    const maxCR = $("filterCR").value ? parseFloat($("filterCR").value) : null;
+    const type = $("filterType").value;
+    const env  = $("filterEnv").value;
+
+    let rows = compendium.filter(m => {
+      if (q && !m.name.toLowerCase().includes(q)) return false;
+      if (maxCR !== null && Number.isFinite(maxCR) && (m.cr ?? 0) > maxCR) return false;
+      if (type && m.type !== type) return false;
+      if (env && m.env !== env) return false;
+      return true;
+    });
+
+    $("monsterCountPill").textContent = `${rows.length} results`;
+
+    const body = $("monsterResults");
+    body.innerHTML = rows.slice(0, 200).map(m => `
+      <tr>
+        <td>${escapeHtml(m.name)}</td>
+        <td>${escapeHtml(m.cr)}</td>
+        <td>${escapeHtml(m.type || "")}</td>
+        <td>${escapeHtml(m.env || "")}</td>
+        <td class="right">
+          <button data-add="${escapeHtml(m.id)}">Add</button>
+        </td>
+      </tr>
+    `).join("");
+
+    body.querySelectorAll("button[data-add]").forEach(btn => {
+      btn.addEventListener("click", () => addMonsterToEncounter(btn.getAttribute("data-add")));
+    });
+  }
+
+  function renderEncounterMembers() {
+    const body = $("encMembers");
+    body.innerHTML = encounter.members.map((m, idx) => `
+      <tr>
+        <td>
+          <div><strong>${escapeHtml(m.name)}</strong></div>
+          <div class="small muted">CR ${escapeHtml(m.cr)} · ${escapeHtml(m.type || "")} · ${escapeHtml(m.env || "")}</div>
+        </td>
+        <td>
+          <input type="number" min="1" step="1" value="${m.qty}" data-qty="${idx}" />
+        </td>
+        <td>
+          <div class="small">Avg ${escapeHtml(m.hpAvg ?? "")}</div>
+          <div class="small muted">${escapeHtml(m.hpDice ?? "")}</div>
+        </td>
+        <td class="right">
+          <button data-dec="${idx}">-</button>
+          <button data-inc="${idx}">+</button>
+          <button data-del="${idx}" class="danger">Remove</button>
+        </td>
+      </tr>
+    `).join("");
+
+    body.querySelectorAll("input[data-qty]").forEach(inp => {
+      inp.addEventListener("input", () => {
+        const idx = parseInt(inp.getAttribute("data-qty"), 10);
+        const v = clamp(parseInt(inp.value || "1", 10), 1, 999);
+        encounter.members[idx].qty = v;
+        recalcDifficulty();
+        refreshJsonOut();
+      });
+    });
+
+    body.querySelectorAll("button[data-inc]").forEach(btn => btn.addEventListener("click", () => {
+      const idx = parseInt(btn.getAttribute("data-inc"), 10);
+      encounter.members[idx].qty += 1;
+      renderEncounterMembers();
+      recalcDifficulty();
+      refreshJsonOut();
+    }));
+    body.querySelectorAll("button[data-dec]").forEach(btn => btn.addEventListener("click", () => {
+      const idx = parseInt(btn.getAttribute("data-dec"), 10);
+      encounter.members[idx].qty = Math.max(1, encounter.members[idx].qty - 1);
+      renderEncounterMembers();
+      recalcDifficulty();
+      refreshJsonOut();
+    }));
+    body.querySelectorAll("button[data-del]").forEach(btn => btn.addEventListener("click", () => {
+      const idx = parseInt(btn.getAttribute("data-del"), 10);
+      encounter.members.splice(idx, 1);
+      renderEncounterMembers();
+      recalcDifficulty();
+      refreshJsonOut();
+    }));
+
+    $("btnStartEncounter").disabled = encounter.members.length === 0;
+  }
+
+  function refreshSavedEncountersDropdown() {
+    const sel = $("savedEncounters");
+    const ids = Object.keys(encounters).sort((a,b) => (encounters[b].updatedAt || "").localeCompare(encounters[a].updatedAt || ""));
+    sel.innerHTML = ids.length
+      ? ids.map(id => `<option value="${escapeHtml(id)}">${escapeHtml(encounters[id].name || "Untitled")} (${id.slice(0,6)})</option>`).join("")
+      : `<option value="">No saved encounters</option>`;
+
+    if (currentEncounterId && encounters[currentEncounterId]) sel.value = currentEncounterId;
+  }
+
+  function recalcDifficulty() {
+    const partySize = clamp(parseInt($("partySize").value || "4", 10), 1, 20);
+    const partyLevel = clamp(parseInt($("partyLevel").value || "5", 10), 1, 20);
+    encounter.party.size = partySize;
+    encounter.party.level = partyLevel;
+
+    const res = difficultyHeuristic({
+      partySize,
+      partyLevel,
+      monsters: encounter.members.map(m => ({ xp: m.xp || 0, qty: m.qty }))
+    });
+
+    const pill = $("difficultyPill");
+    pill.textContent = `Difficulty: ${res.band}`;
+    pill.className = `pill ${res.css}`;
+
+    $("xpPill").textContent = `XP: ${res.adjustedXP}`;
+    $("partySummary").textContent = `${partySize} PCs at level ${partyLevel}`;
+    const monsterCount = encounter.members.reduce((s,m)=>s+m.qty,0);
+    $("monsterSummary").textContent = `${monsterCount} total (${encounter.members.length} stacks), base XP ${res.baseXP}, mult x${res.mult}`;
+    $("heuristicSummary").textContent = `${Math.round(res.ratio*100)}% of budget (${res.budget}). ${res.ae || ""}`.trim();
+
+    refreshJsonOut();
+  }
+
+  function refreshJsonOut() {
+    $("jsonOut").value = JSON.stringify(encounter, null, 2);
+  }
+
+  // -----------------------------
+  // Builder actions
+  // -----------------------------
+  function addMonsterToEncounter(refId) {
+    const m = compendium.find(x => x.id === refId);
+    if (!m) return;
+
+    const existing = encounter.members.find(x => x.refId === refId);
+    if (existing) existing.qty += 1;
+    else {
+      encounter.members.push({
+        refId: m.id,
+        name: m.name,
+        cr: m.cr ?? 0,
+        xp: m.xp ?? 0,
+        type: m.type || "",
+        env: m.env || "",
+        hpAvg: m.hp?.avg ?? null,
+        hpDice: m.hp?.dice ?? "",
+        qty: 1,
+        defaults: { hpMode: "avg", initMode: "roll" }
+      });
+    }
+    renderEncounterMembers();
+    recalcDifficulty();
+    setSaveStatus("Added monster.");
+  }
+
+  function clearEncounter() {
+    const keepParty = { ...encounter.party };
+    encounter = newEncounterTemplate();
+    encounter.name = "";
+    encounter.notes = "";
+    encounter.party = keepParty;
+    encounter.members = [];
+    currentEncounterId = null;
+    $("encName").value = "";
+    $("encNotes").value = "";
+    renderEncounterMembers();
+    recalcDifficulty();
+    refreshSavedEncountersDropdown();
+    setSaveStatus("Cleared.");
+  }
+
+  function saveEncounter() {
+    const now = new Date().toISOString();
+    encounter.name = $("encName").value.trim();
+    encounter.notes = $("encNotes").value;
+    encounter.ruleset = $("ruleset").value;
+    encounter.updatedAt = now;
+    if (!encounter.id) encounter.id = uid();
+
+    encounters[encounter.id] = structuredClone(encounter);
+    currentEncounterId = encounter.id;
+    saveAll();
+    refreshSavedEncountersDropdown();
+    setSaveStatus("Saved.");
+  }
+
+  function loadEncounter(id) {
+    const t = encounters[id];
+    if (!t) return;
+    currentEncounterId = id;
+    hydrateEncounterFromTemplate(t);
+    saveAll();
+  }
+
+  function duplicateEncounter() {
+    const t = structuredClone(encounter);
+    t.id = uid();
+    t.name = (t.name || "Untitled") + " (Copy)";
+    t.createdAt = new Date().toISOString();
+    t.updatedAt = t.createdAt;
+    encounters[t.id] = t;
+    currentEncounterId = t.id;
+    saveAll();
+    refreshSavedEncountersDropdown();
+    hydrateEncounterFromTemplate(t);
+    setSaveStatus("Duplicated.");
+  }
+
+  function deleteEncounter(id) {
+    if (!id || !encounters[id]) return;
+    delete encounters[id];
+    if (currentEncounterId === id) currentEncounterId = null;
+    saveAll();
+    refreshSavedEncountersDropdown();
+    setSaveStatus("Deleted.");
+  }
+
+  function exportEncounterJson() {
+    refreshJsonOut();
+    const blob = new Blob([$("jsonOut").value], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = (encounter.name || "encounter").replace(/[^\w\-]+/g,"_").toLowerCase() + ".json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // -----------------------------
+  // Run mode (encounter instance)
+  // -----------------------------
+  function startEncounterInstance() {
+    // Build combatants from stacks.
+    const now = new Date().toISOString();
+    const partySize = encounter.party.size;
+    const partyLevel = encounter.party.level;
+
+    const combatants = [];
+    for (const stack of encounter.members) {
+      for (let i=1; i<=stack.qty; i++) {
+        const hp = (stack.defaults?.hpMode === "roll" && stack.hpDice)
+          ? rollDice(stack.hpDice)
+          : (stack.hpAvg ?? (stack.hpDice ? rollDice(stack.hpDice) : 1));
+
+        combatants.push({
+          id: uid(),
+          refId: stack.refId,
+          name: stack.qty > 1 ? `${stack.name} ${i}` : stack.name,
+          baseName: stack.name,
+          cr: stack.cr,
+          xp: stack.xp,
+          init: null,
+          hpMax: hp ?? 1,
+          hpCur: hp ?? 1,
+          conditions: [],
+          visible: { name: true, hp: false, ac: false }
+        });
+      }
+    }
+
+    // Prototype: roll initiative for all monsters.
+    for (const c of combatants) c.init = (rollDice("1d20") || 10);
+
+    // Sort descending init
+    combatants.sort((a,b) => (b.init ?? 0) - (a.init ?? 0));
+
+    running = {
+      id: uid(),
+      templateId: encounter.id || null,
+      name: encounter.name || "Untitled",
+      createdAt: now,
+      party: { size: partySize, level: partyLevel },
+      round: 1,
+      turnIndex: 0,
+      combatants
+    };
+
+    saveAll();
+    switchToRun();
+    renderRun();
+  }
+
+  function renderRun() {
+    if (!running) return;
+    $("runName").textContent = running.name;
+    $("runMeta").textContent = `Party: ${running.party.size} at level ${running.party.level} · Combatants: ${running.combatants.length}`;
+
+    $("roundPill").textContent = `Round: ${running.round}`;
+    $("turnPill").textContent = `Turn: ${running.turnIndex + 1}/${running.combatants.length}`;
+    const current = running.combatants[running.turnIndex];
+    $("currentTurnPill").textContent = `Current: ${current ? current.name : "n/a"}`;
+
+    const body = $("runTable");
+    body.innerHTML = running.combatants.map((c, idx) => {
+      const isCurrent = idx === running.turnIndex;
+      const cond = (c.conditions || []).join(", ");
+      return `
+        <tr ${isCurrent ? 'style="outline:2px solid rgba(80,140,240,.6); outline-offset:-2px; border-radius:10px;"' : ""}>
+          <td class="mono">${c.init ?? ""}</td>
+          <td>
+            <div><strong>${escapeHtml(c.name)}</strong> ${isCurrent ? '<span class="pill">Current</span>' : ""}</div>
+            <div class="small muted">CR ${escapeHtml(c.cr)} · ${escapeHtml(c.refId)}</div>
+          </td>
+          <td class="mono">${c.hpCur}/${c.hpMax}</td>
+          <td class="small">${escapeHtml(cond || "")}</td>
+          <td class="right">
+            <button data-hp="-1" data-id="${c.id}" title="Damage 1">-1</button>
+            <button data-hp="-5" data-id="${c.id}" title="Damage 5">-5</button>
+            <button data-hp="+5" data-id="${c.id}" title="Heal 5">+5</button>
+            <button data-hp="+1" data-id="${c.id}" title="Heal 1">+1</button>
+            <button data-edit="${c.id}">Edit</button>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    body.querySelectorAll("button[data-hp]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const delta = parseInt(btn.getAttribute("data-hp"), 10);
+        const c = running.combatants.find(x => x.id === id);
+        if (!c) return;
+        c.hpCur = clamp((c.hpCur ?? 0) + delta, 0, c.hpMax ?? 0);
+        saveAll();
+        renderRun();
+      });
+    });
+
+    body.querySelectorAll("button[data-edit]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-edit");
+        const c = running.combatants.find(x => x.id === id);
+        if (!c) return;
+
+        const newInit = prompt("Initiative (blank to keep)", c.init ?? "");
+        if (newInit !== null && newInit.trim() !== "") c.init = clamp(parseInt(newInit,10), 0, 40);
+
+        const newHp = prompt("Set HP current (e.g., 12). Blank to keep.", c.hpCur ?? "");
+        if (newHp !== null && newHp.trim() !== "") c.hpCur = clamp(parseInt(newHp,10), 0, c.hpMax ?? 999);
+
+        const newMax = prompt("Set HP max (e.g., 22). Blank to keep.", c.hpMax ?? "");
+        if (newMax !== null && newMax.trim() !== "") {
+          c.hpMax = clamp(parseInt(newMax,10), 1, 9999);
+          c.hpCur = clamp(c.hpCur ?? c.hpMax, 0, c.hpMax);
+        }
+
+        // resort on init edit
+        running.combatants.sort((a,b) => (b.init ?? 0) - (a.init ?? 0));
+        // keep current by name best-effort
+        running.turnIndex = clamp(running.turnIndex, 0, running.combatants.length - 1);
+
+        saveAll();
+        renderRun();
+      });
+    });
+  }
+
+  function nextTurn() {
+    if (!running) return;
+    running.turnIndex += 1;
+    if (running.turnIndex >= running.combatants.length) {
+      running.turnIndex = 0;
+      running.round += 1;
+    }
+    saveAll();
+    renderRun();
+  }
+
+  function prevTurn() {
+    if (!running) return;
+    running.turnIndex -= 1;
+    if (running.turnIndex < 0) {
+      running.round = Math.max(1, running.round - 1);
+      running.turnIndex = running.combatants.length - 1;
+    }
+    saveAll();
+    renderRun();
+  }
+
+  function newRound() {
+    if (!running) return;
+    running.round += 1;
+    running.turnIndex = 0;
+    saveAll();
+    renderRun();
+  }
+
+  function applyConditionToCurrent(add) {
+    if (!running) return;
+    const c = running.combatants[running.turnIndex];
+    if (!c) return;
+
+    const text = $("quickCondition").value.trim();
+    if (!text) return;
+
+    c.conditions = Array.isArray(c.conditions) ? c.conditions : [];
+    if (add) {
+      if (!c.conditions.includes(text)) c.conditions.push(text);
+    } else {
+      c.conditions = c.conditions.filter(x => x !== text);
+    }
+    saveAll();
+    renderRun();
+  }
+
+  function endEncounter() {
+    running = null;
+    saveAll();
+    switchToBuilder();
+  }
+
+  // -----------------------------
+  // Dice helpers in builder
+  // -----------------------------
+  function rollHPForAllStacks() {
+    for (const m of encounter.members) {
+      if (m.hpDice) m.hpAvg = rollDice(m.hpDice) ?? m.hpAvg;
+    }
+    renderEncounterMembers();
+    refreshJsonOut();
+    setSaveStatus("Rolled HP (prototype).");
+  }
+
+  function rollInitForAllStacks() {
+    // This is for template defaults; actual init is rolled on start (prototype)
+    setSaveStatus("Initiative is rolled on Start (prototype).");
+  }
+
+  // -----------------------------
+  // Mode switching
+  // -----------------------------
+  function switchToBuilder() {
+    $("builderView").style.display = "";
+    $("runView").style.display = "none";
+    $("tabBuilder").classList.add("active");
+    $("tabRun").classList.remove("active");
+    $("tabBuilder").setAttribute("aria-selected","true");
+    $("tabRun").setAttribute("aria-selected","false");
+  }
+
+  function switchToRun() {
+    $("builderView").style.display = "none";
+    $("runView").style.display = "";
+    $("tabRun").classList.add("active");
+    $("tabBuilder").classList.remove("active");
+    $("tabRun").setAttribute("aria-selected","true");
+    $("tabBuilder").setAttribute("aria-selected","false");
+  }
+
+  // -----------------------------
+  // Import/export compendium and encounter
+  // -----------------------------
+  function importCompendiumFile(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = safeJsonParse(String(reader.result || ""));
+      if (!Array.isArray(data)) {
+        alert("Invalid compendium JSON. Expected an array of monsters.");
+        return;
+      }
+      // very light validation
+      const ok = data.every(m => m && typeof m.id === "string" && typeof m.name === "string");
+      if (!ok) {
+        alert("Compendium JSON entries must include at least {id, name}.");
+        return;
+      }
+      compendium = data;
+      saveAll();
+      populateFilters();
+      renderMonsterResults();
+      setSaveStatus("Compendium imported.");
+    };
+    reader.readAsText(file);
+  }
+
+  function importEncounterFile(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = safeJsonParse(String(reader.result || ""));
+      if (!data || typeof data !== "object" || !Array.isArray(data.members)) {
+        alert("Invalid encounter JSON.");
+        return;
+      }
+      // Assign new id if missing
+      if (!data.id) data.id = uid();
+      encounter = structuredClone(data);
+      hydrateEncounterFromTemplate(encounter);
+      setSaveStatus("Encounter imported (not saved yet).");
+    };
+    reader.readAsText(file);
+  }
+
+  // -----------------------------
+  // Wire up events
+  // -----------------------------
+  function bindEvents() {
+    $("monsterSearch").addEventListener("input", renderMonsterResults);
+    $("filterCR").addEventListener("input", renderMonsterResults);
+    $("filterType").addEventListener("change", renderMonsterResults);
+    $("filterEnv").addEventListener("change", renderMonsterResults);
+
+    $("partySize").addEventListener("input", recalcDifficulty);
+    $("partyLevel").addEventListener("input", recalcDifficulty);
+    $("encName").addEventListener("input", () => { encounter.name = $("encName").value; refreshJsonOut(); });
+    $("encNotes").addEventListener("input", () => { encounter.notes = $("encNotes").value; refreshJsonOut(); });
+    $("ruleset").addEventListener("change", () => { encounter.ruleset = $("ruleset").value; refreshJsonOut(); });
+
+    $("btnClearEncounter").addEventListener("click", clearEncounter);
+    $("btnSaveEncounter").addEventListener("click", saveEncounter);
+    $("btnExport").addEventListener("click", exportEncounterJson);
+    $("btnLoad").addEventListener("click", () => {
+      const id = $("savedEncounters").value;
+      if (id) loadEncounter(id);
+    });
+    $("btnDuplicate").addEventListener("click", duplicateEncounter);
+    $("btnDelete").addEventListener("click", () => {
+      const id = $("savedEncounters").value;
+      if (id && confirm("Delete this saved encounter?")) deleteEncounter(id);
+    });
+
+    $("btnStartEncounter").addEventListener("click", startEncounterInstance);
+    $("btnRollHP").addEventListener("click", rollHPForAllStacks);
+    $("btnRollInit").addEventListener("click", rollInitForAllStacks);
+
+    $("btnBackToBuilder").addEventListener("click", switchToBuilder);
+    $("btnEndEncounter").addEventListener("click", () => {
+      if (confirm("End encounter? This will clear the running instance.")) endEncounter();
+    });
+
+    $("btnNextTurn").addEventListener("click", nextTurn);
+    $("btnPrevTurn").addEventListener("click", prevTurn);
+    $("btnNewRound").addEventListener("click", newRound);
+    $("btnApplyCondition").addEventListener("click", () => applyConditionToCurrent(true));
+    $("btnClearCondition").addEventListener("click", () => applyConditionToCurrent(false));
+
+    $("tabBuilder").addEventListener("click", switchToBuilder);
+    $("tabRun").addEventListener("click", () => {
+      if (running) { switchToRun(); renderRun(); }
+      else alert("No running encounter. Start one from the Builder.");
+    });
+
+    $("compendiumFile").addEventListener("change", (e) => {
+      const f = e.target.files?.[0];
+      if (f) importCompendiumFile(f);
+      e.target.value = "";
+    });
+
+    $("btnResetCompendium").addEventListener("click", () => {
+      if (!confirm("Reset compendium to the sample set?")) return;
+      compendium = SAMPLE_COMPENDIUM.slice();
+      saveAll();
+      populateFilters();
+      renderMonsterResults();
+      setSaveStatus("Compendium reset.");
+    });
+
+    $("btnImportEncounter").addEventListener("click", () => {
+      const f = $("encImportFile").files?.[0];
+      if (!f) { alert("Choose an encounter JSON file first."); return; }
+      importEncounterFile(f);
+      $("encImportFile").value = "";
+    });
+
+    $("btnFactoryReset").addEventListener("click", () => {
+      if (!confirm("Factory reset clears all saved encounters and compendium imports. Continue?")) return;
+      localStorage.removeItem(LS.compendium);
+      localStorage.removeItem(LS.encounters);
+      localStorage.removeItem(LS.lastLoadedId);
+      localStorage.removeItem(LS.runningInstance);
+      location.reload();
+    });
+  }
+
+  // -----------------------------
+  // Init
+  // -----------------------------
+  function init() {
+    loadAll();
+    populateFilters();
+    bindEvents();
+    renderMonsterResults();
+    refreshSavedEncountersDropdown();
+
+    // Load last encounter if present
+    if (currentEncounterId && encounters[currentEncounterId]) {
+      hydrateEncounterFromTemplate(encounters[currentEncounterId]);
+    } else {
+      encounter = newEncounterTemplate();
+      renderEncounterMembers();
+      recalcDifficulty();
+      refreshJsonOut();
+    }
+
+    // If running instance exists, allow Run tab to open it
+    if (running) {
+      $("tabRun").disabled = false;
+      // Keep builder open by default; user can switch to Run.
+    }
+
+    setSaveStatus("");
+  }
+
+  init();
+</script>
+</body>
+</html>
