@@ -16,7 +16,7 @@
 body{font-family:'EB Garamond',Georgia,serif;background:var(--bg-dark);color:var(--text-light);min-height:100vh;background-image:radial-gradient(ellipse at 20% 50%,rgba(80,50,0,0.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,20,80,0.15) 0%,transparent 60%);}
 #app-header{position:sticky;top:0;z-index:100;background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
 .header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px 10px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.app-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.07em;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,0.4);text-transform:uppercase;}
+.app-title{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:900;letter-spacing:0.07em;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,0.4);text-transform:uppercase;}
 .app-title span{color:var(--text-muted);font-weight:400;font-size:0.85rem;margin-left:8px;letter-spacing:0.18em;}
 .nav-links{display:flex;gap:8px;align-items:center;}
 .nav-link{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:5px 12px;color:var(--text-muted);transition:all 0.15s;}
@@ -30,7 +30,7 @@ select:focus,input[type="text"]:focus{border-color:var(--gold-dim);background:#1
 input[type="text"]::placeholder{color:#6a6a80;}
 .search-input{min-width:200px;flex:1;max-width:340px;}
 .pill-filters{display:flex;gap:4px;flex-wrap:wrap;}
-.pill{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.06em;font-weight:600;border-radius:3px;padding:3px 8px;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text-muted);transition:all 0.15s;user-select:none;}
+.pill{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.06em;font-weight:600;border-radius:3px;padding:3px 8px;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text-muted);transition:all 0.15s;user-select:none;}
 .pill:hover{border-color:var(--text-dim);color:var(--text-light);}
 .pill.active{background:rgba(201,168,76,0.18);border-color:var(--gold-dim);color:var(--gold);}
 .rarity-pill.active[data-val="Common"]{background:#7a7a8a;color:#fff;border-color:transparent;}
@@ -45,7 +45,7 @@ input[type="text"]::placeholder{color:#6a6a80;}
 #results-bar{padding:7px 24px;font-size:0.85rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-style:italic;background:rgba(15,52,96,0.2);}
 #card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;padding:24px;}
 #empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px;text-align:center;color:var(--text-dim);}
-#empty-state .rune{font-size:4rem;opacity:0.25;margin-bottom:20px;display:block;}
+#empty-state .rune{width:4rem;height:4rem;opacity:0.25;margin-bottom:20px;display:block;}
 #empty-state h2{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.05em;}
 .item-card{background:#fff;border-radius:7px;overflow:hidden;cursor:pointer;box-shadow:0 3px 16px rgba(0,0,0,0.45);transition:transform 0.15s ease,box-shadow 0.15s ease;color:#222;font-family:'EB Garamond',Georgia,serif;font-size:0.83rem;line-height:1.4;border:2.5px solid transparent;}
 .item-card:hover{transform:translateY(-4px);box-shadow:0 10px 36px rgba(0,0,0,0.6);}
@@ -63,7 +63,7 @@ input[type="text"]::placeholder{color:#6a6a80;}
 .tag.consumable{background:#f0ffe8;color:#363;}
 .tag.cursed{background:#fee;color:#933;}
 .card-desc{padding:6px 11px 8px;background:#fff;font-size:0.75rem;color:#333;line-height:1.42;}
-#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
 #modal-overlay.active{display:flex;}
 #modal-box{background:#fff;border-radius:10px;overflow:hidden;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 48px rgba(0,0,0,0.7);color:#222;font-family:'EB Garamond',serif;}
 .modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 16px;position:sticky;top:0;}
@@ -78,6 +78,26 @@ input[type="text"]::placeholder{color:#6a6a80;}
 .btn{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:7px 16px;cursor:pointer;transition:all 0.15s ease;}
 .btn-print{background:linear-gradient(135deg,#c9a84c,#8a6a2c);color:#1a1a2e;font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,0.3);}
 .btn-print:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,0.5);}
+.btn-print:disabled{opacity:0.38;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
+.btn-ghost{font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border);border-radius:4px;padding:5px 12px;cursor:pointer;background:transparent;color:var(--text-muted);transition:all 0.15s;white-space:nowrap;}
+.btn-ghost:hover{color:var(--gold);border-color:rgba(201,168,76,0.4);}
+.btn-ghost:disabled{opacity:0.3;cursor:not-allowed;}
+.selection-badge{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:4px 13px;letter-spacing:0.05em;white-space:nowrap;}
+.item-card{position:relative;}
+.item-card.selected{box-shadow:0 0 0 3px rgba(201,168,76,0.5),0 8px 28px rgba(0,0,0,0.5)!important;transform:translateY(-4px);}
+.select-indicator{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.8);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.12s ease;font-size:0.65rem;color:#fff;font-weight:700;line-height:1;pointer-events:none;}
+.item-card.selected .select-indicator{background:var(--gold);border-color:#fff;}
+#print-preview-overlay.active{display:flex;}
+.print-preview-page-label{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+.print-preview-page{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#e8e4dc;padding:10px;border-radius:6px;}
+.print-preview-page .item-card{font-size:0.48rem!important;cursor:default!important;}
+.print-preview-page .item-card:hover{transform:none!important;}
+.print-preview-page .card-name{font-size:0.52rem!important;}
+.print-preview-page .card-header{padding:5px 7px!important;}
+.print-preview-page .item-icon{font-size:0.9rem!important;}
+.print-preview-page .tag{font-size:0.38rem!important;}
+.print-preview-page .card-desc{font-size:0.44rem!important;padding:3px 7px 5px!important;line-height:1.28!important;}
+.print-preview-page .select-indicator{display:none!important;}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
   body>*:not(#print-output){display:none!important;}
@@ -94,12 +114,19 @@ input[type="text"]::placeholder{color:#6a6a80;}
   .print-page .card-desc{font-size:0.5rem!important;padding:3px 7px 5px!important;line-height:1.3!important;}
 }
 #btn-filter-toggle{display:none;}
+.tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:4px;}
+.tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;border:1px solid var(--text-dim);color:var(--text-dim);font-size:0.6rem;font-family:sans-serif;font-style:normal;font-weight:700;cursor:default;line-height:1;flex-shrink:0;transition:border-color 0.15s,color 0.15s;}
+.tooltip-wrap:hover .tooltip-icon{border-color:var(--gold);color:var(--gold);}
+.tooltip-bubble{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:230px;background:#0d1427;border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-family:'EB Garamond',serif;font-size:0.8rem;font-style:normal;font-weight:400;color:var(--text-light);line-height:1.45;letter-spacing:0;text-transform:none;box-shadow:0 6px 24px rgba(0,0,0,0.6);z-index:200;pointer-events:none;}
+.tooltip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0d1427;}
+.tooltip-bubble::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--border);margin-top:1px;}
+.tooltip-wrap:hover .tooltip-bubble{display:block;}
 @media(max-width:768px){
   #card-grid{grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
   .header-top{padding:8px 14px;}
   .app-title{font-size:clamp(0.75rem,3.5vw,1rem);}
   .app-title span{display:none;}
-  .btn-print{display:none;}
+  .btn-print,.btn-ghost,.selection-badge,.select-indicator{display:none!important;}
   #btn-filter-toggle{display:flex;align-items:center;gap:4px;font-size:0.7rem;padding:4px 10px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--gold);border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;font-weight:600;letter-spacing:0.05em;}
   .filter-bar{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 14px;}
   .filter-bar.expanded{max-height:700px;padding:10px 14px 12px;}
@@ -191,45 +218,51 @@ input[type="text"]::placeholder{color:#6a6a80;}
 <div id="app-header">
   <div class="header-top">
     <div class="app-title">Magic Item Compendium <span>D&D 5e SRD</span></div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="selection-badge" id="selection-count">0 selected</span>
+      <button class="btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
+      <button class="btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
+      <button class="btn btn-print" id="btn-print" onclick="openPrintPreview()" disabled>&#128424; Print to PDF</button>
       <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
       <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
     </div>
   </div>
   <div class="filter-bar" id="filter-bar">
-    <span class="filter-label">Search</span>
-    <input type="text" class="search-input" id="search-input" placeholder="Search magic items…" oninput="applyFilters()">
+    <label for="search-input" class="filter-label">Search</label>
+    <input type="text" class="search-input" id="search-input" placeholder="Search magic items…" oninput="applyFilters()" aria-label="Search magic items">
     <div class="filter-divider"></div>
     <span class="filter-label">Rarity</span>
     <div class="pill-filters" id="rarity-pills">
-      <div class="pill rarity-pill active" data-val="all" onclick="togglePill(this,'rarity')">All</div>
-      <div class="pill rarity-pill" data-val="Common" onclick="togglePill(this,'rarity')">Common</div>
-      <div class="pill rarity-pill" data-val="Uncommon" onclick="togglePill(this,'rarity')">Uncommon</div>
-      <div class="pill rarity-pill" data-val="Rare" onclick="togglePill(this,'rarity')">Rare</div>
-      <div class="pill rarity-pill" data-val="Very Rare" onclick="togglePill(this,'rarity')">Very Rare</div>
-      <div class="pill rarity-pill" data-val="Legendary" onclick="togglePill(this,'rarity')">Legendary</div>
+      <button type="button" class="pill rarity-pill active" data-val="all" onclick="togglePill(this,'rarity')" aria-pressed="true">All</button>
+      <button type="button" class="pill rarity-pill" data-val="Common" onclick="togglePill(this,'rarity')">Common</button>
+      <button type="button" class="pill rarity-pill" data-val="Uncommon" onclick="togglePill(this,'rarity')">Uncommon</button>
+      <button type="button" class="pill rarity-pill" data-val="Rare" onclick="togglePill(this,'rarity')">Rare</button>
+      <button type="button" class="pill rarity-pill" data-val="Very Rare" onclick="togglePill(this,'rarity')">Very Rare</button>
+      <button type="button" class="pill rarity-pill" data-val="Legendary" onclick="togglePill(this,'rarity')">Legendary</button>
     </div>
     <div class="filter-divider"></div>
     <span class="filter-label">Type</span>
     <div class="pill-filters" id="type-pills">
-      <div class="pill active" data-val="all" onclick="togglePill(this,'type')">All</div>
-      <div class="pill" data-val="Weapon" onclick="togglePill(this,'type')">Weapon</div>
-      <div class="pill" data-val="Armor" onclick="togglePill(this,'type')">Armour</div>
-      <div class="pill" data-val="Wondrous" onclick="togglePill(this,'type')">Wondrous</div>
-      <div class="pill" data-val="Ring" onclick="togglePill(this,'type')">Ring</div>
-      <div class="pill" data-val="Rod" onclick="togglePill(this,'type')">Rod</div>
-      <div class="pill" data-val="Staff" onclick="togglePill(this,'type')">Staff</div>
-      <div class="pill" data-val="Wand" onclick="togglePill(this,'type')">Wand</div>
-      <div class="pill" data-val="Potion" onclick="togglePill(this,'type')">Potion</div>
-      <div class="pill" data-val="Scroll" onclick="togglePill(this,'type')">Scroll</div>
+      <button type="button" class="pill active" data-val="all" onclick="togglePill(this,'type')" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-val="Weapon" onclick="togglePill(this,'type')">Weapon</button>
+      <button type="button" class="pill" data-val="Armor" onclick="togglePill(this,'type')">Armour</button>
+      <button type="button" class="pill" data-val="Wondrous" onclick="togglePill(this,'type')">Wondrous</button>
+      <button type="button" class="pill" data-val="Ring" onclick="togglePill(this,'type')">Ring</button>
+      <button type="button" class="pill" data-val="Rod" onclick="togglePill(this,'type')">Rod</button>
+      <button type="button" class="pill" data-val="Staff" onclick="togglePill(this,'type')">Staff</button>
+      <button type="button" class="pill" data-val="Wand" onclick="togglePill(this,'type')">Wand</button>
+      <button type="button" class="pill" data-val="Potion" onclick="togglePill(this,'type')">Potion</button>
+      <button type="button" class="pill" data-val="Scroll" onclick="togglePill(this,'type')">Scroll</button>
     </div>
     <div class="filter-divider"></div>
-    <span class="filter-label">Attunement</span>
+    <span class="filter-label tooltip-wrap">Attunement
+      <span class="tooltip-icon">?</span>
+      <span class="tooltip-bubble">Some magic items require a creature to <strong>attune</strong> to them before their properties can be used. Attuning takes a short rest focusing on the item. A creature can be attuned to a maximum of <strong>3 magic items</strong> at a time.</span>
+    </span>
     <div class="pill-filters" id="attune-pills">
-      <div class="pill active" data-val="all" onclick="togglePill(this,'attune')">All</div>
-      <div class="pill" data-val="yes" onclick="togglePill(this,'attune')">Required</div>
-      <div class="pill" data-val="no" onclick="togglePill(this,'attune')">Not Required</div>
+      <button type="button" class="pill active" data-val="all" onclick="togglePill(this,'attune')" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-val="yes" onclick="togglePill(this,'attune')">Required</button>
+      <button type="button" class="pill" data-val="no" onclick="togglePill(this,'attune')">Not Required</button>
     </div>
     <button class="btn-reset" onclick="resetFilters()" style="margin-left:8px;">Reset</button>
   </div>
@@ -237,12 +270,26 @@ input[type="text"]::placeholder{color:#6a6a80;}
 <div id="results-bar"></div>
 <div id="card-grid"></div>
 <div id="empty-state" style="display:none;">
-  <span class="rune">✨</span>
+  <svg class="rune" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M32 14v36M14 32h36M20 20l24 24M44 20L20 44"/></svg>
   <h2>No Items Found</h2>
   <p>Adjust your filters to find your treasure.</p>
 </div>
 <div id="modal-overlay" onclick="handleOverlayClick(event)">
   <div id="modal-box"></div>
+</div>
+<!-- PRINT PREVIEW OVERLAY -->
+<div id="print-preview-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:600;flex-direction:column;align-items:center;backdrop-filter:blur(4px);">
+  <div style="width:100%;max-width:700px;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;flex-shrink:0;border-bottom:1px solid var(--border);">
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">Print Preview</div>
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;" id="preview-page-count"></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-ghost" onclick="closePrintPreview()">Cancel</button>
+      <button class="btn btn-print" onclick="executePrint()">&#128424; Open Print Dialog</button>
+    </div>
+  </div>
+  <div id="print-pages-container" style="flex:1;overflow-y:auto;padding:24px;width:100%;max-width:700px;display:flex;flex-direction:column;gap:20px;"></div>
 </div>
 <div id="print-output"></div>
 
@@ -550,7 +597,9 @@ function filtered() {
 
 function rarityColor(r) { return RARITY_COLORS[r] || '#555'; }
 
-function buildCard(item) {
+const selectedItems = new Set();
+
+function buildCard(item, forPreview) {
   const color = rarityColor(item.rarity);
   const tags = [];
   if (item.attune) tags.push(`<span class="tag attune">${item.attuneClass ? 'Attune: '+item.attuneClass : 'Attunement'}</span>`);
@@ -558,7 +607,9 @@ function buildCard(item) {
   if (item.consumable) tags.push(`<span class="tag consumable">Consumable</span>`);
   if (item.cursed) tags.push(`<span class="tag cursed" style="background:#fee;color:#933;">Cursed</span>`);
   const shortDesc = item.desc.length > 200 ? item.desc.substring(0, 197) + '…' : item.desc;
-  return `<div class="item-card" style="border-color:${color}20">
+  const indicator = forPreview ? '' : `<div class="select-indicator"></div>`;
+  return `<div class="item-card${selectedItems.has(item.name)?' selected':''}" style="border-color:${color}20">
+    ${indicator}
     <div class="card-header" style="background:${color}">
       <span class="item-icon">${item.icon}</span>
       <div class="card-name-block">
@@ -571,15 +622,70 @@ function buildCard(item) {
   </div>`;
 }
 
+function toggleSelect(item, cardEl) {
+  if (selectedItems.has(item.name)) {
+    selectedItems.delete(item.name);
+    cardEl.classList.remove('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '';
+  } else {
+    selectedItems.add(item.name);
+    cardEl.classList.add('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '&#10003;';
+  }
+  updateSelectionUI();
+}
+
+function selectAllVisible() {
+  filtered().forEach(item => {
+    selectedItems.add(item.name);
+  });
+  document.querySelectorAll('#card-grid .item-card').forEach(el => {
+    el.classList.add('selected');
+    el.querySelector('.select-indicator').innerHTML = '&#10003;';
+  });
+  updateSelectionUI();
+}
+
+function clearSelection() {
+  selectedItems.clear();
+  document.querySelectorAll('#card-grid .item-card.selected').forEach(el => {
+    el.classList.remove('selected');
+    el.querySelector('.select-indicator').innerHTML = '';
+  });
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = selectedItems.size;
+  const visibleCount = document.querySelectorAll('#card-grid .item-card').length;
+  document.getElementById('selection-count').textContent = `${count} selected`;
+  document.getElementById('btn-print').disabled = count === 0;
+  document.getElementById('btn-clear').disabled = count === 0;
+  document.getElementById('btn-select-all').disabled = visibleCount === 0;
+  const total = visibleCount;
+  document.getElementById('results-bar').textContent =
+    `${total} item${total!==1?'s':''} shown${count > 0 ? ` · ${count} selected` : ''}`;
+}
+
 function renderGrid() {
   const list = filtered();
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
-  document.getElementById('results-bar').textContent = `${list.length} item${list.length!==1?'s':''} shown`;
-  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; updateSelectionUI(); return; }
   empty.style.display = 'none';
-  grid.innerHTML = list.map(item => buildCard(item)).join('');
-  grid.querySelectorAll('.item-card').forEach((el, i) => el.addEventListener('click', () => openModal(list[i])));
+  grid.innerHTML = list.map(item => buildCard(item, false)).join('');
+  // Restore tick on already-selected cards
+  grid.querySelectorAll('.item-card').forEach((el, i) => {
+    if (selectedItems.has(list[i].name)) el.querySelector('.select-indicator').innerHTML = '&#10003;';
+    el.addEventListener('click', e => {
+      // Click on indicator area or the card itself toggles selection
+      toggleSelect(list[i], el);
+    });
+    el.addEventListener('dblclick', e => {
+      openModal(list[i]);
+    });
+  });
+  updateSelectionUI();
 }
 
 function openModal(item) {
@@ -608,7 +714,9 @@ function openModal(item) {
 
 function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') { closeModal(); closePrintPreview(); }
+});
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');
@@ -616,13 +724,44 @@ function toggleFilters() {
   document.getElementById('toggle-arrow').textContent = bar.classList.contains('expanded') ? '▲' : '▼';
 }
 
-function printCards() {
-  const list = filtered();
-  const output = document.getElementById('print-output');
+function openPrintPreview() {
+  const items = ITEMS.filter(item => selectedItems.has(item.name));
   const pages = [];
-  for (let i=0; i<list.length; i+=8) pages.push(list.slice(i,i+8));
-  output.innerHTML = pages.map(page => `<div class="print-page">${page.map(item => buildCard(item)).join('')}</div>`).join('');
-  window.print();
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const container = document.getElementById('print-pages-container');
+  container.innerHTML = '';
+  pages.forEach((page, idx) => {
+    const lbl = document.createElement('div');
+    lbl.className = 'print-preview-page-label';
+    lbl.textContent = `Page ${idx+1} of ${pages.length}`;
+    container.appendChild(lbl);
+    const pageEl = document.createElement('div');
+    pageEl.className = 'print-preview-page';
+    pageEl.innerHTML = page.map(item => buildCard(item, true)).join('');
+    container.appendChild(pageEl);
+  });
+  document.getElementById('preview-page-count').textContent =
+    `${items.length} card${items.length!==1?'s':''} · ${pages.length} page${pages.length!==1?'s':''}`;
+  const overlay = document.getElementById('print-preview-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrintPreview() {
+  document.getElementById('print-preview-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function executePrint() {
+  const items = ITEMS.filter(item => selectedItems.has(item.name));
+  const pages = [];
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const output = document.getElementById('print-output');
+  output.innerHTML = pages.map(page =>
+    `<div class="print-page">${page.map(item => buildCard(item, true)).join('')}</div>`
+  ).join('');
+  closePrintPreview();
+  setTimeout(() => { window.print(); setTimeout(() => { output.innerHTML = ''; }, 1500); }, 100);
 }
 
 renderGrid();

@@ -6,7 +6,7 @@ A single-file, offline-capable browser application for browsing, filtering, and 
 
 ## Quick Start
 
-Open `index.html` in Chrome. No server, no dependencies, no installation required.
+Open `spelltome.html` in Chrome. No server, no dependencies, no installation required.
 
 1. Select your class from the dropdown
 2. Select your character level
@@ -42,7 +42,7 @@ Each card displays:
 
 ### Mobile
 - Collapsible filter panel (expanded by default, collapses on scroll)
-- Tap any card to open a full-screen modal showing the complete spell text
+- Tap any card once to expand it into a full-width accordion strip below its grid row — tap again to collapse. Only one card open at a time.
 - Selection and Print UI hidden on mobile (print is desktop-only)
 - Responsive two-column card grid, single column on narrow screens
 - Title and toggle remain on a single line at all screen widths
@@ -89,7 +89,7 @@ Derived from the 2014 dataset with all documented 2024 Player's Handbook rules c
 ## Technical Notes
 
 ### Architecture
-Single self-contained `index.html` file — all CSS, JavaScript, SVG icons, and spell data inline. No external dependencies, no CDN calls, no backend. Works fully offline.
+Six self-contained HTML files — `index.html` (hub), `spelltome.html` (spell tool), `conditions.html`, `wildshape.html`, `monsters.html`, `magic-items.html`. All CSS, JavaScript, SVG icons, and data inline. No external dependencies, no CDN calls, no backend. Works fully offline.
 
 ### Data Structure
 Each spell object:

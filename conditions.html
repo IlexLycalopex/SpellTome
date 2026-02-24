@@ -60,7 +60,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .app-title {
-  font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 900;
+  font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900;
   letter-spacing: 0.08em; color: var(--gold);
   text-shadow: 0 0 20px rgba(201,168,76,0.4);
   text-transform: uppercase;
@@ -222,7 +222,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 /* MODAL */
 #modal-overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.82); z-index: 500;
+  background: rgba(0,0,0,0.88); z-index: 1000;
   align-items: center; justify-content: center;
   padding: 24px; backdrop-filter: blur(4px);
 }
@@ -287,46 +287,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
   flex-shrink: 0; font-size: 0.72rem;
 }
 
-/* Print */
-.btn-print-bar {
-  display: flex; align-items: center; gap: 10px;
-}
-.btn {
-  font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border: none; border-radius: 4px; padding: 7px 16px;
-  cursor: pointer; transition: all 0.15s ease;
-}
-.btn-print {
-  background: linear-gradient(135deg, #c9a84c, #8a6a2c);
-  color: #1a1a2e; font-weight: 700;
-  box-shadow: 0 2px 12px rgba(201,168,76,0.3);
-}
-.btn-print:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.5); }
-
-@media print {
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  body > *:not(#print-output) { display: none !important; }
-  #print-output { display: block !important; }
-  @page { size: A4 landscape; margin: 0; }
-  .print-page {
-    page-break-after: always;
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
-    gap: 3mm !important; padding: 8mm !important;
-    width: 297mm !important; height: 210mm !important;
-    overflow: hidden !important; background: #fff !important;
-  }
-  .print-page:last-child { page-break-after: avoid; }
-  .print-page .cond-card { border-radius: 4px !important; font-size: 0.55rem !important; }
-  .print-page .card-header { padding: 5px 8px !important; min-height: 30px !important; }
-  .print-page .card-title { font-size: 0.65rem !important; }
-  .print-page .card-icon { width: 1.2rem !important; height: 1.2rem !important; }
-  .print-page .card-icon svg { width: 1.1rem !important; height: 1.1rem !important; }
-  .print-page .effect-item { font-size: 0.52rem !important; padding: 2px 0 !important; }
-  .print-page .card-notes { font-size: 0.5rem !important; padding: 3px 8px 5px !important; }
-}
 
 /* Mobile */
 #btn-filter-toggle { display: none; }
@@ -336,8 +296,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .header-top { padding: 8px 14px; }
   .app-title { font-size: clamp(0.75rem, 3.5vw, 1.1rem); }
   .app-title span { display: none; }
-  .btn-print-bar { display: none; }
-  #btn-filter-toggle {
+#btn-filter-toggle {
     display: flex; align-items: center; gap: 4px; font-size: 0.7rem;
     padding: 4px 10px; background: rgba(201,168,76,0.15);
     border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
@@ -350,8 +309,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
 @media (max-width: 480px) {
   #card-grid { grid-template-columns: 1fr; }
 }
-
-#print-output { display: none; }
 
 /* ============================================================
    SHARED HAMBURGER NAV
@@ -456,21 +413,18 @@ input[type="text"]::placeholder { color: #6a6a80; }
   <div class="header-top">
     <div class="app-title">Condition Codex <span>D&D 5e Status Reference</span></div>
     <div style="display:flex;align-items:center;gap:12px;">
-      <div class="btn-print-bar">
-        <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
-      </div>
       <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
       <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
     </div>
   </div>
   <div class="filter-bar" id="filter-bar">
-    <span class="filter-label">Search</span>
-    <input type="text" class="search-input" id="search-input" placeholder="Search conditions…" oninput="applyFilters()">
+    <label for="search-input" class="filter-label">Search</label>
+    <input type="text" class="search-input" id="search-input" placeholder="Search conditions…" oninput="applyFilters()" aria-label="Search conditions">
     <span class="filter-label" style="margin-left:8px;">Type</span>
     <div class="pill-filters" id="type-pills">
-      <div class="pill active" data-type="all" onclick="toggleType(this)">All</div>
-      <div class="pill" data-type="condition" onclick="toggleType(this)">Conditions</div>
-      <div class="pill" data-type="special" onclick="toggleType(this)">Special</div>
+      <button type="button" class="pill active" data-type="all" onclick="toggleType(this)" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-type="condition" onclick="toggleType(this)">Conditions</button>
+      <button type="button" class="pill" data-type="special" onclick="toggleType(this)">Special</button>
     </div>
     <button class="btn-reset" onclick="resetFilters()">Reset</button>
   </div>
@@ -479,7 +433,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 <div id="results-bar"></div>
 <div id="card-grid"></div>
 <div id="empty-state" style="display:none;">
-  <svg class="rune" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  <svg class="rune" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M32 14v36M14 32h36M20 20l24 24M44 20L20 44"/></svg>
   <h2>No Conditions Found</h2>
   <p>Try adjusting your search or filters.</p>
 </div>
@@ -487,8 +441,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal-box"></div>
 </div>
-
-<div id="print-output"></div>
 
 <script>
 // SVG icon strings used as card/modal icons for each condition
@@ -498,7 +450,7 @@ const SVG = {
   deafened:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M11 5a4 4 0 0 1 4 4c0 2.21-1.79 4-4 4H9"/><path d="M9 13v2a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3v-2"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`,
   exhaustion:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M9 18h6"/></svg>`,
   frightened:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
-  grappled:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  grappled:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M18 11V8a2 2 0 0 0-4 0v3"/><path d="M14 10V7a2 2 0 0 0-4 0v4"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M6 14c0 0-1 0-1 2.5C5 19 7 21 10 21h3c3.5 0 5-2 5-5v-3a2 2 0 0 0-4 0v1"/></svg>`,
   incapacitated: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="5" r="2"/><path d="M12 7v5"/><path d="M9 12l-3 6"/><path d="M15 12l3 6"/><path d="M9 14h6"/></svg>`,
   invisible:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" stroke-dasharray="2 2"/></svg>`,
   paralyzed:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
@@ -831,17 +783,6 @@ function toggleFilters() {
   const arrow = document.getElementById('toggle-arrow');
   bar.classList.toggle('expanded');
   arrow.textContent = bar.classList.contains('expanded') ? '▲' : '▼';
-}
-
-function printCards() {
-  const list = filtered();
-  const output = document.getElementById('print-output');
-  const pages = [];
-  for (let i = 0; i < list.length; i += 8) pages.push(list.slice(i, i + 8));
-  output.innerHTML = pages.map((page, pi) =>
-    `<div class="print-page">${page.map(c => buildCard(c)).join('')}</div>`
-  ).join('');
-  window.print();
 }
 
 renderGrid();

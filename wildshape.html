@@ -32,7 +32,7 @@ body {
   padding: 14px 24px 10px; border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .app-title {
-  font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
+  font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900;
   letter-spacing: 0.06em; color: var(--gold);
   text-shadow: 0 0 20px rgba(201,168,76,0.4); text-transform: uppercase;
 }
@@ -93,7 +93,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 .search-input { min-width: 180px; }
 .pill-filters { display: flex; gap: 4px; flex-wrap: wrap; }
 .pill {
-  font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.06em;
+  font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.06em;
   font-weight: 600; border-radius: 3px; padding: 3px 8px;
   cursor: pointer; border: 1px solid var(--border);
   background: rgba(255,255,255,0.04); color: var(--text-muted);
@@ -162,8 +162,6 @@ input[type="text"]::placeholder { color: #6a6a80; }
 .card-header {
   padding: 9px 11px 7px; display: flex; align-items: flex-start; gap: 8px;
 }
-.beast-icon { width: 2rem; height: 2rem; flex-shrink: 0; display:flex; align-items:center; justify-content:center; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
-.beast-icon svg { width: 1.8rem; height: 1.8rem; stroke: rgba(255,255,255,0.9); }
 .card-name-block { flex: 1; min-width: 0; }
 .card-name {
   font-family: 'Cinzel', serif; font-weight: 700;
@@ -221,7 +219,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 /* MODAL */
 #modal-overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.85); z-index: 500;
+  background: rgba(0,0,0,0.88); z-index: 1000;
   align-items: center; justify-content: center;
   padding: 24px; backdrop-filter: blur(4px);
 }
@@ -267,7 +265,26 @@ input[type="text"]::placeholder { color: #6a6a80; }
 .btn { font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 4px; padding: 7px 16px; cursor: pointer; transition: all 0.15s ease; }
 .btn-print { background: linear-gradient(135deg, #c9a84c, #8a6a2c); color: #1a1a2e; font-weight: 700; box-shadow: 0 2px 12px rgba(201,168,76,0.3); }
 .btn-print:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.5); }
-
+.btn-print:disabled { opacity: 0.38; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.btn-ghost { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); border-radius: 4px; padding: 5px 12px; cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.15s; white-space: nowrap; }
+.btn-ghost:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+.btn-ghost:disabled { opacity: 0.3; cursor: not-allowed; }
+.selection-badge { font-family: 'Cinzel', serif; font-size: 0.78rem; color: var(--gold); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 4px 13px; letter-spacing: 0.05em; white-space: nowrap; }
+.beast-card { position: relative; }
+.beast-card.selected { box-shadow: 0 0 0 3px rgba(201,168,76,0.5), 0 8px 28px rgba(0,0,0,0.5) !important; transform: translateY(-4px); }
+.select-indicator { position: absolute; top: 7px; right: 7px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.8); background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.12s ease; font-size: 0.65rem; color: #fff; font-weight: 700; line-height: 1; pointer-events: none; }
+.beast-card.selected .select-indicator { background: var(--gold); border-color: #fff; }
+#print-preview-overlay.active { display: flex; }
+.print-preview-page { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; background: #e8e4dc; padding: 10px; border-radius: 6px; }
+.print-preview-page .beast-card { font-size: 0.46rem !important; cursor: default !important; }
+.print-preview-page .beast-card:hover { transform: none !important; }
+.print-preview-page .card-name { font-size: 0.5rem !important; }
+.print-preview-page .card-header { padding: 4px 6px !important; }
+.print-preview-page .cs-label { font-size: 0.38rem !important; }
+.print-preview-page .cs-val { font-size: 0.5rem !important; }
+.print-preview-page .tag { font-size: 0.36rem !important; }
+.print-preview-page .card-note { font-size: 0.4rem !important; padding: 3px 6px 5px !important; }
+.print-preview-page .select-indicator { display: none !important; }
 @media print {
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   body > *:not(#print-output) { display: none !important; }
@@ -275,14 +292,13 @@ input[type="text"]::placeholder { color: #6a6a80; }
   @page { size: A4 landscape; margin: 0; }
   .print-page { page-break-after: always; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; grid-template-rows: repeat(2, 1fr) !important; gap: 3mm !important; padding: 8mm !important; width: 297mm !important; height: 210mm !important; overflow: hidden !important; background: #fff !important; }
   .print-page:last-child { page-break-after: avoid; }
-  .print-page .beast-card { border-radius: 4px !important; font-size: 0.52rem !important; }
+  .print-page .beast-card { border-radius: 4px !important; font-size: 0.5rem !important; }
   .print-page .card-header { padding: 5px 7px !important; }
-  .print-page .card-name { font-size: 0.6rem !important; }
-  .print-page .beast-icon { width: 1.2rem !important; height: 1.2rem !important; }
-  .print-page .beast-icon svg { width: 1.1rem !important; height: 1.1rem !important; }
-  .print-page .cs-label { font-size: 0.44rem !important; }
-  .print-page .cs-val { font-size: 0.6rem !important; }
-  .print-page .tag { font-size: 0.4rem !important; }
+  .print-page .card-name { font-size: 0.58rem !important; }
+  .print-page .cs-label { font-size: 0.42rem !important; }
+  .print-page .cs-val { font-size: 0.58rem !important; }
+  .print-page .tag { font-size: 0.38rem !important; }
+  .print-page .select-indicator { display: none !important; }
 }
 
 #btn-filter-toggle { display: none; }
@@ -291,7 +307,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .header-top { padding: 8px 14px; }
   .app-title { font-size: clamp(0.7rem, 3.2vw, 1rem); }
   .app-title span { display: none; }
-  .btn-print { display: none; }
+  .btn-print, .btn-ghost, .selection-badge, .select-indicator { display: none !important; }
   #btn-filter-toggle { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; padding: 4px 10px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4); color: var(--gold); border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.05em; }
   .filter-bar { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 14px; }
   .filter-bar.expanded { max-height: 600px; padding: 10px 14px 12px; }
@@ -407,16 +423,19 @@ input[type="text"]::placeholder { color: #6a6a80; }
         <button class="mode-btn druid active" id="btn-druid" onclick="setMode('druid')">Wildshape</button>
         <button class="mode-btn familiar" id="btn-familiar" onclick="setMode('familiar')">Familiars</button>
       </div>
-      <button class="btn btn-print" onclick="printCards()">Print to PDF</button>
+      <span class="selection-badge" id="selection-count">0 selected</span>
+      <button class="btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
+      <button class="btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
+      <button class="btn btn-print" id="btn-print" onclick="openPrintPreview()" disabled>&#128424; Print to PDF</button>
       <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
       <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
     </div>
   </div>
   <div class="filter-bar" id="filter-bar">
-    <span class="filter-label">Search</span>
-    <input type="text" class="search-input" id="search-input" placeholder="Search beasts…" oninput="applyFilters()">
+    <label for="search-input" class="filter-label">Search</label>
+    <input type="text" class="search-input" id="search-input" placeholder="Search beasts…" oninput="applyFilters()" aria-label="Search beasts and familiars">
     <div id="druid-filters">
-      <span class="filter-label" style="margin-left:8px;">Druid Level</span>
+      <label for="druid-level" class="filter-label" style="margin-left:8px;">Druid Level</label>
       <select id="druid-level" onchange="applyFilters()">
         <option value="2">2</option><option value="3">3</option><option value="4">4</option>
         <option value="5">5</option><option value="6">6</option><option value="7">7</option>
@@ -425,7 +444,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
         <option value="14">14</option><option value="15">15</option><option value="16">16</option>
         <option value="17">17</option><option value="18">18</option><option value="20">20</option>
       </select>
-      <span class="filter-label" style="margin-left:8px;">Max CR</span>
+      <label for="cr-filter" class="filter-label" style="margin-left:8px;">Max CR</label>
       <select id="cr-filter" onchange="applyFilters()">
         <option value="all">All eligible</option>
         <option value="0.125">1/8</option><option value="0.25">1/4</option>
@@ -437,28 +456,28 @@ input[type="text"]::placeholder { color: #6a6a80; }
     <div class="filter-divider"></div>
     <span class="filter-label">Terrain</span>
     <div class="pill-filters" id="terrain-pills">
-      <div class="pill active" data-val="all" onclick="togglePill(this,'terrain')">All</div>
-      <div class="pill" data-val="any" onclick="togglePill(this,'terrain')">Any</div>
-      <div class="pill" data-val="aquatic" onclick="togglePill(this,'terrain')">Aquatic</div>
-      <div class="pill" data-val="arctic" onclick="togglePill(this,'terrain')">Arctic</div>
-      <div class="pill" data-val="coast" onclick="togglePill(this,'terrain')">Coast</div>
-      <div class="pill" data-val="desert" onclick="togglePill(this,'terrain')">Desert</div>
-      <div class="pill" data-val="forest" onclick="togglePill(this,'terrain')">Forest</div>
-      <div class="pill" data-val="grassland" onclick="togglePill(this,'terrain')">Grassland</div>
-      <div class="pill" data-val="hill" onclick="togglePill(this,'terrain')">Hill</div>
-      <div class="pill" data-val="mountain" onclick="togglePill(this,'terrain')">Mountain</div>
-      <div class="pill" data-val="swamp" onclick="togglePill(this,'terrain')">Swamp</div>
-      <div class="pill" data-val="underdark" onclick="togglePill(this,'terrain')">Underdark</div>
-      <div class="pill" data-val="underwater" onclick="togglePill(this,'terrain')">Underwater</div>
+      <button type="button" class="pill active" data-val="all" onclick="togglePill(this,'terrain')" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-val="any" onclick="togglePill(this,'terrain')">Any</button>
+      <button type="button" class="pill" data-val="aquatic" onclick="togglePill(this,'terrain')">Aquatic</button>
+      <button type="button" class="pill" data-val="arctic" onclick="togglePill(this,'terrain')">Arctic</button>
+      <button type="button" class="pill" data-val="coast" onclick="togglePill(this,'terrain')">Coast</button>
+      <button type="button" class="pill" data-val="desert" onclick="togglePill(this,'terrain')">Desert</button>
+      <button type="button" class="pill" data-val="forest" onclick="togglePill(this,'terrain')">Forest</button>
+      <button type="button" class="pill" data-val="grassland" onclick="togglePill(this,'terrain')">Grassland</button>
+      <button type="button" class="pill" data-val="hill" onclick="togglePill(this,'terrain')">Hill</button>
+      <button type="button" class="pill" data-val="mountain" onclick="togglePill(this,'terrain')">Mountain</button>
+      <button type="button" class="pill" data-val="swamp" onclick="togglePill(this,'terrain')">Swamp</button>
+      <button type="button" class="pill" data-val="underdark" onclick="togglePill(this,'terrain')">Underdark</button>
+      <button type="button" class="pill" data-val="underwater" onclick="togglePill(this,'terrain')">Underwater</button>
     </div>
     <div class="filter-divider"></div>
     <span class="filter-label">Movement</span>
     <div class="pill-filters" id="move-pills">
-      <div class="pill active" data-val="all" onclick="togglePill(this,'move')">All</div>
-      <div class="pill" data-val="fly" onclick="togglePill(this,'move')">Fly</div>
-      <div class="pill" data-val="swim" onclick="togglePill(this,'move')">Swim</div>
-      <div class="pill" data-val="climb" onclick="togglePill(this,'move')">Climb</div>
-      <div class="pill" data-val="burrow" onclick="togglePill(this,'move')">Burrow</div>
+      <button type="button" class="pill active" data-val="all" onclick="togglePill(this,'move')" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-val="fly" onclick="togglePill(this,'move')">Fly</button>
+      <button type="button" class="pill" data-val="swim" onclick="togglePill(this,'move')">Swim</button>
+      <button type="button" class="pill" data-val="climb" onclick="togglePill(this,'move')">Climb</button>
+      <button type="button" class="pill" data-val="burrow" onclick="togglePill(this,'move')">Burrow</button>
     </div>
     <button class="btn-reset" onclick="resetFilters()" style="margin-left:8px;">Reset</button>
   </div>
@@ -478,12 +497,26 @@ input[type="text"]::placeholder { color: #6a6a80; }
 <div id="results-bar"></div>
 <div id="card-grid"></div>
 <div id="empty-state" style="display:none;">
-  <svg class="rune" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+  <svg class="rune" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M32 14v36M14 32h36M20 20l24 24M44 20L20 44"/></svg>
   <h2>No Forms Found</h2>
   <p>Adjust your druid level or filters.</p>
 </div>
 <div id="modal-overlay" onclick="handleOverlayClick(event)">
   <div id="modal-box"></div>
+</div>
+<!-- PRINT PREVIEW OVERLAY -->
+<div id="print-preview-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:600;flex-direction:column;align-items:center;backdrop-filter:blur(4px);">
+  <div style="width:100%;max-width:700px;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;flex-shrink:0;border-bottom:1px solid var(--border);">
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">Print Preview</div>
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;" id="preview-page-count"></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-ghost" onclick="closePrintPreview()">Cancel</button>
+      <button class="btn btn-print" onclick="executePrint()">&#128424; Open Print Dialog</button>
+    </div>
+  </div>
+  <div id="print-pages-container" style="flex:1;overflow-y:auto;padding:24px;width:100%;max-width:700px;display:flex;flex-direction:column;gap:20px;"></div>
 </div>
 <div id="print-output"></div>
 
@@ -491,483 +524,468 @@ input[type="text"]::placeholder { color: #6a6a80; }
 function cr(n) { if(n===0.125)return'1/8'; if(n===0.25)return'1/4'; if(n===0.5)return'1/2'; return String(n); }
 function mod(n) { const m=Math.floor((n-10)/2); return (m>=0?'+':'')+m; }
 
-// Thematic SVG icon sets for beast cards
-const ICO = {
-  bird:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M22 4L12 14.01l-3-3L1 18"/><path d="M16 4h6v6"/></svg>`,
-  raptor:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M12 2C6.5 2 3 6 3 10c0 3 2 5.5 5 7l4 3 4-3c3-1.5 5-4 5-7 0-4-3.5-8-9-8z"/><path d="M8 12l4-4 4 4"/></svg>`,
-  feline:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="12" r="4"/><path d="M12 8V4"/><path d="M8 12H4"/><path d="M12 16v4"/><path d="M16 12h4"/><path d="M9 9L6 6"/><path d="M15 9l3-3"/><path d="M9 15l-3 3"/><path d="M15 15l3 3"/></svg>`,
-  canine:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2 .352-3.5 2-3.5 4 0 3.552 5.25 4.051 9 8 3.75-3.949 9-4.448 9-8 0-2-1.5-3.648-3.5-4-1.923-.321-3.5.782-3.5 2.172"/><path d="M20 12c0 4.418-3.582 8-8 8s-8-3.582-8-8"/></svg>`,
-  reptile: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M2 12s3-8 10-8 10 8 10 8-3 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/><path d="M17 7l3-3"/><path d="M7 7L4 4"/></svg>`,
-  ursine:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="11" r="5"/><circle cx="8.5" cy="7" r="1.5"/><circle cx="15.5" cy="7" r="1.5"/><path d="M5 20c0-3 3-5 7-5s7 2 7 5"/></svg>`,
-  aquatic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M2 12c0-5.5 4.5-9 10-9s10 3.5 10 9"/><path d="M2 12c0 5.5 4.5 9 10 9s10-3.5 10-9"/><path d="M12 3v18"/><path d="M7 12H2"/><path d="M22 12h-5"/></svg>`,
-  dino:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M4 19V9a2 2 0 0 1 2-2h4l3-4h5l-2 4h2l2 3-4 1v8H4z"/><line x1="4" y1="19" x2="12" y2="19"/></svg>`,
-  insect:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><ellipse cx="12" cy="14" rx="3" ry="5"/><path d="M9 9a3 3 0 1 1 6 0"/><path d="M6 14l-3-2"/><path d="M18 14l3-2"/><path d="M6 18l-2 2"/><path d="M18 18l2 2"/><path d="M9 7l-2-3"/><path d="M15 7l2-3"/></svg>`,
-  ungulate:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M6 20V10a6 6 0 0 1 12 0v10"/><path d="M6 10h12"/><path d="M4 14h16"/><path d="M9 20v2"/><path d="M15 20v2"/></svg>`,
-  ceph:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="9" r="4"/><path d="M8 13c0 0-2 2-2 5"/><path d="M16 13c0 0 2 2 2 5"/><path d="M10 14c0 0-1 3-1 6"/><path d="M14 14c0 0 1 3 1 6"/><path d="M12 13v7"/></svg>`,
-  beast:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="10" r="5"/><path d="M5 20c0-3 3-5 7-5s7 2 7 5"/><path d="M8 6l-2-2"/><path d="M16 6l2-2"/></svg>`,
-};
 
 // Wildshape beasts — SRD 5.1 beasts eligible for Wild Shape, organised by CR
 const BEASTS = [
   // ── CR 0 ──────────────────────────────────────────────────────────────────
-  {name:'Baboon',cr:0,size:'Small',icon:ICO.beast,terrain:['forest','grassland','hill'],
+  {name:'Baboon',cr:0,size:'Small',terrain:['forest','grassland','hill'],
     ac:12,hp:3,speed:'30 ft, climb 30 ft',str:8,dex:14,con:11,int:4,wis:12,cha:6,
     passive:11,climb:true,
     abilities:[{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent to target.'}],
     actions:[{n:'Bite',t:'+1 to hit, 1d4-1 piercing.'}],
     note:'Pack Tactics on a CR 0 creature is surprisingly useful in swarms. Climb 30 ft for arboreal scouting.'},
-  {name:'Cat',cr:0,size:'Tiny',icon:ICO.feline,terrain:['any'],
+  {name:'Cat',cr:0,size:'Tiny',terrain:['any'],
     ac:12,hp:2,speed:'40 ft, climb 30 ft',str:3,dex:15,con:10,int:3,wis:12,cha:7,
     darkvision:30,passive:13,climb:true,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Claws',t:'+0 to hit, 1 slashing.'}],
     note:'Tiny size, climb 30 ft, darkvision 30 ft. Excellent for urban infiltration and scouting.'},
-  {name:'Crab',cr:0,size:'Tiny',icon:ICO.aquatic,terrain:['coast','aquatic','underwater'],swim:true,
+  {name:'Crab',cr:0,size:'Tiny',terrain:['coast','aquatic','underwater'],swim:true,
     ac:11,hp:2,speed:'20 ft, swim 20 ft',str:2,dex:11,con:10,int:1,wis:8,cha:2,
     blindsight:30,passive:9,
     abilities:[{n:'Amphibious',t:'Can breathe air and water.'}],
     actions:[{n:'Claw',t:'+0 to hit, 1 bludgeoning.'}],
     note:'Blindsight 30 ft. Amphibious. Tiny size for coastal infiltration.'},
-  {name:'Deer',cr:0,size:'Medium',icon:ICO.ungulate,terrain:['forest','grassland'],
+  {name:'Deer',cr:0,size:'Medium',terrain:['forest','grassland'],
     ac:13,hp:4,speed:'50 ft',str:11,dex:16,con:11,int:2,wis:14,cha:5,
     passive:12,
     abilities:[],
     actions:[{n:'Bite',t:'+2 to hit, 1d4 piercing.'}],
     note:'50 ft speed is highest of any CR 0 form. Passive Perception 12. Useful for rapid scouting or escape.'},
-  {name:'Eagle',cr:0,size:'Small',icon:ICO.raptor,terrain:['grassland','mountain','coast'],fly:true,
+  {name:'Eagle',cr:0,size:'Small',terrain:['grassland','mountain','coast'],fly:true,
     ac:12,hp:3,speed:'10 ft, fly 60 ft',str:6,dex:15,con:10,int:2,wis:14,cha:7,
     passive:14,
     abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'}],
     actions:[{n:'Talons',t:'+4 to hit, 1d4+2 slashing.'}],
     note:'Passive Perception 14 — tied for highest of any CR 0 beast. Fly 60 ft. Requires level 8+.'},
-  {name:'Frog',cr:0,size:'Tiny',icon:ICO.reptile,terrain:['swamp','coast','aquatic'],swim:true,
+  {name:'Frog',cr:0,size:'Tiny',terrain:['swamp','coast','aquatic'],swim:true,
     ac:11,hp:1,speed:'20 ft, swim 20 ft',str:1,dex:13,con:8,int:1,wis:8,cha:3,
     passive:10,
     abilities:[{n:'Amphibious',t:'Can breathe air and water.'},{n:'Standing Leap',t:'Long jump up to 10 ft, high jump up to 5 ft with or without a running start.'}],
     actions:[{n:'Bite',t:'+1 to hit, 1 piercing.'}],
     note:'Amphibious. Tiny size ideal for infiltration. Standing Leap useful for navigating terrain.'},
-  {name:'Giant Fire Beetle',cr:0,size:'Small',icon:ICO.insect,terrain:['underdark','forest'],burrow:true,
+  {name:'Giant Fire Beetle',cr:0,size:'Small',terrain:['underdark','forest'],burrow:true,
     ac:13,hp:4,speed:'30 ft',str:8,dex:10,con:12,int:1,wis:7,cha:3,
     passive:8,
     abilities:[{n:'Illumination',t:'Sheds bright light in a 10 ft radius and dim light for another 10 ft.'}],
     actions:[{n:'Bite',t:'+1 to hit, 1d6-1 fire.'}],
     note:'The Illumination trait is the reason to use this form — provides 10 ft bright light without using an action or item. Useful for Underdark exploration.'},
-  {name:'Goat',cr:0,size:'Medium',icon:ICO.ungulate,terrain:['mountain','hill','grassland'],
+  {name:'Goat',cr:0,size:'Medium',terrain:['mountain','hill','grassland'],
     ac:10,hp:4,speed:'40 ft',str:12,dex:10,con:11,int:2,wis:10,cha:5,
     passive:10,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Ram, target DC 10 Str or knocked prone.'},{n:'Sure-Footed',t:'Advantage on Str and Dex saves against being knocked prone.'}],
     actions:[{n:'Ram',t:'+3 to hit, 1d4+1 bludgeoning.'}],
     note:'Charge prone at CR 0. Sure-Footed excellent for mountain terrain. Underrated utility form.'},
-  {name:'Hawk',cr:0,size:'Tiny',icon:ICO.raptor,terrain:['grassland','forest','hill','coast'],fly:true,
+  {name:'Hawk',cr:0,size:'Tiny',terrain:['grassland','forest','hill','coast'],fly:true,
     ac:13,hp:1,speed:'10 ft, fly 60 ft',str:5,dex:16,con:8,int:2,wis:14,cha:6,
     passive:14,
     abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'}],
     actions:[{n:'Talons',t:'+5 to hit, 1 slashing.'}],
     note:'Passive Perception 14 — tied for highest of any CR 0 form. Best Tiny aerial scout. Requires level 8+.'},
-  {name:'Hyena',cr:0,size:'Medium',icon:ICO.canine,terrain:['desert','grassland'],
+  {name:'Hyena',cr:0,size:'Medium',terrain:['desert','grassland'],
     ac:11,hp:5,speed:'50 ft',str:11,dex:13,con:12,int:2,wis:12,cha:5,
     passive:13,
     abilities:[{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent to target.'}],
     actions:[{n:'Bite',t:'+2 to hit, 1d6 piercing.'}],
     note:'50 ft speed and Pack Tactics at CR 0 make this a standout early scout form.'},
-  {name:'Jackal',cr:0,size:'Small',icon:ICO.canine,terrain:['desert','grassland'],
+  {name:'Jackal',cr:0,size:'Small',terrain:['desert','grassland'],
     ac:12,hp:3,speed:'40 ft',str:8,dex:15,con:11,int:3,wis:12,cha:6,
     passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Bite',t:'+1 to hit, 1d4-1 piercing.'}],
     note:'Pack Tactics plus Keen Hearing and Smell. Small size, desert/grassland. Useful for group scouting.'},
-  {name:'Lizard',cr:0,size:'Tiny',icon:ICO.reptile,terrain:['forest','desert','swamp'],climb:true,
+  {name:'Lizard',cr:0,size:'Tiny',terrain:['forest','desert','swamp'],climb:true,
     ac:10,hp:2,speed:'20 ft, climb 20 ft',str:2,dex:11,con:10,int:1,wis:8,cha:3,
     darkvision:30,passive:9,
     abilities:[],
     actions:[{n:'Bite',t:'+0 to hit, 1 piercing.'}],
     note:'Darkvision 30 ft, climb 20 ft. Tiny size for ceiling/wall traversal. Very low profile for indoor infiltration.'},
-  {name:'Octopus',cr:0,size:'Small',icon:ICO.ceph,terrain:['aquatic','underwater','coast'],swim:true,
+  {name:'Octopus',cr:0,size:'Small',terrain:['aquatic','underwater','coast'],swim:true,
     ac:12,hp:3,speed:'5 ft, swim 30 ft',str:4,dex:15,con:11,int:3,wis:10,cha:4,
     darkvision:30,passive:12,
     abilities:[{n:'Hold Breath',t:'Out of water for up to 30 minutes.'},{n:'Underwater Camouflage',t:'Advantage on Stealth in water.'},{n:'Water Breathing',t:'Breathes only underwater.'}],
     actions:[{n:'Tentacles',t:'+4 to hit, 1 bludgeoning. Grappled (DC 10).'},{n:'Ink Cloud (Recharge 6)',t:'5 ft radius heavily obscured for 1 min.'}],
     note:'Darkvision 30 ft, Ink Cloud, underwater camouflage. Best Tiny aquatic scouting form.'},
-  {name:'Owl',cr:0,size:'Tiny',icon:ICO.bird,terrain:['forest','grassland','hill'],fly:true,
+  {name:'Owl',cr:0,size:'Tiny',terrain:['forest','grassland','hill'],fly:true,
     ac:11,hp:1,speed:'5 ft, fly 60 ft',str:3,dex:13,con:8,int:2,wis:12,cha:7,
     darkvision:120,passive:13,
     abilities:[{n:'Flyby',t:'No opportunity attacks when flying out of reach.'},{n:'Keen Hearing and Sight',t:'Advantage on Perception checks.'}],
     actions:[{n:'Talons',t:'+3 to hit, 1 slashing.'}],
     note:'Darkvision 120 ft. Flyby prevents opportunity attacks. Excellent night scout at level 8+.'},
-  {name:'Quipper',cr:0,size:'Tiny',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Quipper',cr:0,size:'Tiny',terrain:['aquatic','underwater'],swim:true,
     ac:13,hp:1,speed:'0 ft, swim 40 ft',darkvision:60,passive:13,
     str:2,dex:16,con:9,int:1,wis:7,cha:2,
     abilities:[{n:'Blood Frenzy',t:'Advantage on attack rolls against creatures that have taken damage.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1 piercing.'}],
     note:'Darkvision 60 ft, swim 40 ft. Blood Frenzy advantage vs injured creatures. Tiny aquatic.'},
-  {name:'Rat',cr:0,size:'Tiny',icon:ICO.beast,terrain:['any'],
+  {name:'Rat',cr:0,size:'Tiny',terrain:['any'],
     ac:10,hp:1,speed:'20 ft',str:2,dex:11,con:9,int:2,wis:10,cha:4,
     darkvision:30,passive:10,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Bite',t:'+0 to hit, 1 piercing.'}],
     note:'Tiny, any terrain, darkvision 30 ft. Low-profile city infiltration form. Easily overlooked.'},
-  {name:'Raven',cr:0,size:'Tiny',icon:ICO.bird,terrain:['forest','grassland','hill','any'],fly:true,
+  {name:'Raven',cr:0,size:'Tiny',terrain:['forest','grassland','hill','any'],fly:true,
     ac:12,hp:1,speed:'10 ft, fly 50 ft',str:2,dex:14,con:8,int:2,wis:12,cha:6,
     passive:13,
     abilities:[{n:'Mimicry',t:'Can mimic simple sounds it has heard. DC 10 Insight to recognise as imitation.'}],
     actions:[{n:'Beak',t:'+4 to hit, 1 piercing.'}],
     note:'Mimicry trait provides unique utility for communication. Fly 50 ft. Popular familiar choice.'},
-  {name:'Scorpion',cr:0,size:'Tiny',icon:ICO.insect,terrain:['desert','underdark'],
+  {name:'Scorpion',cr:0,size:'Tiny',terrain:['desert','underdark'],
     ac:11,hp:1,speed:'10 ft',str:2,dex:11,con:8,int:1,wis:8,cha:2,
     blindsight:10,passive:9,
     abilities:[],
     actions:[{n:'Sting',t:'+2 to hit, 1 piercing + 1d4 poison. DC 9 Con or poisoned for 1 min.'}],
     note:'Blindsight 10 ft. Tiny for desert/underdark infiltration. Poison sting is niche but unique at CR 0.'},
-  {name:'Sea Horse',cr:0,size:'Tiny',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Sea Horse',cr:0,size:'Tiny',terrain:['aquatic','underwater'],swim:true,
     ac:11,hp:1,speed:'0 ft, swim 20 ft',str:1,dex:12,con:8,int:1,wis:10,cha:2,
     passive:10,
     abilities:[{n:'Water Breathing',t:'Breathes only underwater.'}],
     actions:[],
     note:'Aquatic-only. No attacks. Purely a scouting/infiltration form in fully underwater environments.'},
-  {name:'Spider',cr:0,size:'Tiny',icon:ICO.insect,terrain:['forest','underdark','any'],climb:true,
+  {name:'Spider',cr:0,size:'Tiny',terrain:['forest','underdark','any'],climb:true,
     ac:12,hp:1,speed:'20 ft, climb 20 ft',str:2,dex:14,con:8,int:1,wis:10,cha:2,
     darkvision:30,passive:10,
     abilities:[{n:'Spider Climb',t:'Can climb difficult surfaces including ceilings without checks.'},{n:'Web Sense',t:'While in contact with a web, knows location of any creature touching the web.'},{n:'Web Walker',t:'Movement unaffected by webs.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1 piercing + 1d4 poison. DC 9 Con or poisoned for 1 min.'}],
     note:'Spider Climb (ceilings, walls with no check), Web Sense, darkvision 30 ft. Best ceiling traversal form.'},
-  {name:'Vulture',cr:0,size:'Medium',icon:ICO.raptor,terrain:['desert','grassland','mountain'],fly:true,
+  {name:'Vulture',cr:0,size:'Medium',terrain:['desert','grassland','mountain'],fly:true,
     ac:10,hp:5,speed:'10 ft, fly 50 ft',str:7,dex:10,con:13,int:2,wis:12,cha:4,
     passive:13,
     abilities:[{n:'Keen Sight and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Beak',t:'+2 to hit, 1d6+2 piercing.'}],
     note:'Pack Tactics plus Keen Sight and Smell. Fly 50 ft. Desert/grassland scout at level 8+.'},
-  {name:'Weasel',cr:0,size:'Tiny',icon:ICO.beast,terrain:['forest','grassland','hill'],
+  {name:'Weasel',cr:0,size:'Tiny',terrain:['forest','grassland','hill'],
     ac:13,hp:1,speed:'30 ft',str:3,dex:16,con:8,int:2,wis:12,cha:3,
     passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1 piercing.'}],
     note:'AC 13 — highest of any Tiny beast. Passive Perception 13. Excellent light stealth scouting form.'},
   // ── CR 1/8 ────────────────────────────────────────────────────────────────
-  {name:'Blood Hawk',cr:0.125,size:'Small',icon:ICO.raptor,terrain:['mountain','grassland','hill'],fly:true,
+  {name:'Blood Hawk',cr:0.125,size:'Small',terrain:['mountain','grassland','hill'],fly:true,
     ac:12,hp:7,speed:'10 ft, fly 60 ft',str:6,dex:14,con:10,int:3,wis:14,cha:5,
     passive:14,
     abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Beak',t:'+4 to hit, 1d4+2 piercing.'}],
     note:'Pack Tactics plus Keen Sight. Passive Perception 14. Flying form requiring level 8+. Useful in groups.'},
-  {name:'Camel',cr:0.125,size:'Large',icon:ICO.ungulate,terrain:['desert'],
+  {name:'Camel',cr:0.125,size:'Large',terrain:['desert'],
     ac:9,hp:15,speed:'50 ft',str:16,dex:8,con:14,int:2,wis:8,cha:5,
     passive:9,
     abilities:[],
     actions:[{n:'Bite',t:'+5 to hit, 1d4+3 piercing.'}],
     note:'Str 16 and 15 HP at CR 1/8. Large size. Rapid desert traversal with 50 ft speed. Surprisingly beefy for its CR.'},
-  {name:'Flying Snake',cr:0.125,size:'Tiny',icon:ICO.reptile,terrain:['forest','desert','swamp','coast'],fly:true,swim:true,
+  {name:'Flying Snake',cr:0.125,size:'Tiny',terrain:['forest','desert','swamp','coast'],fly:true,swim:true,
     ac:14,hp:5,speed:'30 ft, fly 60 ft, swim 30 ft',str:4,dex:18,con:11,int:2,wis:12,cha:5,
     blindsight:10,passive:11,
     abilities:[{n:'Flyby',t:'No opportunity attacks when flying out of reach.'}],
     actions:[{n:'Bite',t:'+6 to hit, 1 piercing + 3d4 poison. DC 11 Con or poisoned for 1 hr.'}],
     note:'AC 14 and Dex 18 at CR 1/8 make this a surprisingly capable form. Flyby plus fly/swim. Poison bite. Requires level 8+ for flight.'},
-  {name:'Giant Crab',cr:0.125,size:'Medium',icon:ICO.aquatic,terrain:['coast','aquatic','underwater'],swim:true,
+  {name:'Giant Crab',cr:0.125,size:'Medium',terrain:['coast','aquatic','underwater'],swim:true,
     ac:15,hp:13,speed:'30 ft, swim 30 ft',str:13,dex:15,con:11,int:1,wis:9,cha:3,
     blindsight:30,passive:9,
     abilities:[{n:'Amphibious',t:'Can breathe air and water.'}],
     actions:[{n:'Claw',t:'+3 to hit, 1d6+1 bludgeoning. Grappled (DC 11).'}],
     note:'AC 15 — tied for highest AC wildshape form. Blindsight 30 ft. Grapple claw. Excellent coastal tank.'},
-  {name:'Giant Rat',cr:0.125,size:'Small',icon:ICO.beast,terrain:['any'],
+  {name:'Giant Rat',cr:0.125,size:'Small',terrain:['any'],
     ac:12,hp:7,speed:'30 ft',str:7,dex:15,con:11,int:2,wis:10,cha:4,
     darkvision:60,passive:10,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1d4+2 piercing.'}],
     note:'Darkvision 60 ft. Pack Tactics. Small size for infiltration. Better senses than the standard Rat.'},
-  {name:'Giant Weasel',cr:0.125,size:'Medium',icon:ICO.beast,terrain:['forest','grassland','hill'],
+  {name:'Giant Weasel',cr:0.125,size:'Medium',terrain:['forest','grassland','hill'],
     ac:13,hp:9,speed:'40 ft',str:11,dex:16,con:10,int:4,wis:12,cha:5,
     darkvision:60,passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1d4+3 piercing.'}],
     note:'Darkvision 60 ft, AC 13, Passive Perception 13. Medium-sized high-perception scout.'},
-  {name:'Mastiff',cr:0.125,size:'Medium',icon:ICO.canine,terrain:['any'],
+  {name:'Mastiff',cr:0.125,size:'Medium',terrain:['any'],
     ac:12,hp:5,speed:'40 ft',str:13,dex:14,con:12,int:3,wis:12,cha:7,
     passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'}],
     actions:[{n:'Bite',t:'+3 to hit, 1d6+1 piercing. DC 11 Str or knocked prone.'}],
     note:'Prone on bite. Passive Perception 13. Reliable early-game utility form. Medium size.'},
-  {name:'Mule',cr:0.125,size:'Medium',icon:ICO.ungulate,terrain:['any'],
+  {name:'Mule',cr:0.125,size:'Medium',terrain:['any'],
     ac:10,hp:11,speed:'40 ft',str:14,dex:10,con:13,int:2,wis:10,cha:5,
     passive:10,
     abilities:[{n:'Beast of Burden',t:'Counts as Large when determining carrying capacity.'},{n:'Sure-Footed',t:'Advantage on Str and Dex saves to avoid being knocked prone.'}],
     actions:[{n:'Hooves',t:'+4 to hit, 1d4+2 bludgeoning.'}],
     note:'Beast of Burden: carries as a Large creature. Sure-Footed. Solid pack animal form for overland travel roleplay.'},
-  {name:'Poisonous Snake',cr:0.125,size:'Tiny',icon:ICO.reptile,terrain:['forest','grassland','swamp'],swim:true,
+  {name:'Poisonous Snake',cr:0.125,size:'Tiny',terrain:['forest','grassland','swamp'],swim:true,
     ac:13,hp:2,speed:'30 ft, swim 30 ft',str:2,dex:16,con:11,int:1,wis:10,cha:3,
     blindsight:10,passive:10,
     abilities:[],
     actions:[{n:'Bite',t:'+5 to hit, 1 piercing + 2d4 poison. DC 10 Con or poisoned for 1 minute.'}],
     note:'Blindsight 10 ft. High +5 to hit for CR 1/8. Poison delivery useful in some situations.'},
-  {name:'Stirge',cr:0.125,size:'Tiny',icon:ICO.insect,terrain:['forest','swamp','underdark'],fly:true,
+  {name:'Stirge',cr:0.125,size:'Tiny',terrain:['forest','swamp','underdark'],fly:true,
     ac:14,hp:2,speed:'10 ft, fly 40 ft',str:4,dex:16,con:11,int:2,wis:8,cha:6,
     darkvision:60,passive:9,
     abilities:[],
     actions:[{n:'Blood Drain',t:'+5 to hit, 1d4+3 piercing. Attaches to target; end of each turn deals 1d4+3 piercing.'}],
     note:'AC 14 — among the highest for CR 1/8. Darkvision 60 ft. Blood Drain attachment is tactically unique. Requires level 8+ for flight.'},
   // ── CR 1/4 ────────────────────────────────────────────────────────────────
-  {name:'Axe Beak',cr:0.25,size:'Large',icon:ICO.raptor,terrain:['grassland'],
+  {name:'Axe Beak',cr:0.25,size:'Large',terrain:['grassland'],
     ac:11,hp:19,speed:'50 ft',str:14,dex:12,con:12,int:2,wis:10,cha:5,
     passive:10,
     abilities:[],
     actions:[{n:'Beak',t:'+4 to hit, 1d8+2 slashing.'}],
     note:'50 ft speed — fast for a CR 1/4 Large form. Simple but effective for terrain coverage.'},
-  {name:'Boar',cr:0.25,size:'Medium',icon:ICO.ungulate,terrain:['forest','grassland','swamp'],
+  {name:'Boar',cr:0.25,size:'Medium',terrain:['forest','grassland','swamp'],
     ac:11,hp:11,speed:'40 ft',str:13,dex:11,con:12,int:2,wis:9,cha:5,
     passive:9,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Tusks, target DC 11 Str or knocked prone.'},{n:'Relentless (Recharge 5-6)',t:'Drops to 1 HP instead of 0 HP (once per recharge).'}],
     actions:[{n:'Tusks',t:'+3 to hit, 1d6+1 slashing.'}],
     note:'Relentless: once per recharge, survives a killing blow at 1 HP. Charge prone. Surprisingly tough early form.'},
-  {name:'Constrictor Snake',cr:0.25,size:'Large',icon:ICO.reptile,terrain:['forest','swamp','coast','aquatic'],swim:true,
+  {name:'Constrictor Snake',cr:0.25,size:'Large',terrain:['forest','swamp','coast','aquatic'],swim:true,
     ac:12,hp:13,speed:'30 ft, swim 30 ft',str:15,dex:14,con:12,int:1,wis:10,cha:3,
     blindsight:10,passive:10,
     abilities:[],
     actions:[{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Constrict',t:'+4 to hit, 1d8+2 bludgeoning. Target grappled (DC 14 Str); restrained while grappled.'}],
     note:'Restraining Constrict is excellent utility. Large size. Blindsight 10 ft. Swim 30 ft.'},
-  {name:'Elk',cr:0.25,size:'Large',icon:ICO.ungulate,terrain:['forest','grassland','hill'],
+  {name:'Elk',cr:0.25,size:'Large',terrain:['forest','grassland','hill'],
     ac:10,hp:13,speed:'50 ft',str:16,dex:10,con:12,int:2,wis:10,cha:6,
     passive:12,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Ram, target DC 13 Str or knocked prone.'}],
     actions:[{n:'Ram',t:'+5 to hit, 1d6+3 bludgeoning.'},{n:'Hooves',t:'+5 to hit, 2d4+3 bludgeoning (prone targets only).'}],
     note:'50 ft speed; Str 16. Charge prone; Hooves bonus vs prone. Effective runner and charger.'},
-  {name:'Giant Badger',cr:0.25,size:'Medium',icon:ICO.beast,terrain:['forest','hill','grassland'],burrow:true,
+  {name:'Giant Badger',cr:0.25,size:'Medium',terrain:['forest','hill','grassland'],burrow:true,
     ac:10,hp:13,speed:'30 ft, burrow 10 ft',str:13,dex:10,con:15,int:2,wis:12,cha:5,
     darkvision:30,passive:11,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Multiattack',t:'One Bite and one Claws.'},{n:'Bite',t:'+3 to hit, 1d6+1 piercing.'},{n:'Claws',t:'+3 to hit, 2d4+1 slashing.'}],
     note:'Multiattack at CR 1/4 is unusual and valuable. Burrow 10 ft for tunnelling. Darkvision 30 ft.'},
-  {name:'Giant Lizard',cr:0.25,size:'Large',icon:ICO.reptile,terrain:['desert','forest','swamp'],climb:true,
+  {name:'Giant Lizard',cr:0.25,size:'Large',terrain:['desert','forest','swamp'],climb:true,
     ac:12,hp:19,speed:'30 ft, climb 30 ft',str:15,dex:12,con:13,int:2,wis:10,cha:5,
     darkvision:30,passive:10,climb:true,
     abilities:[],
     actions:[{n:'Bite',t:'+4 to hit, 1d8+2 piercing.'},{n:'Tail',t:'+4 to hit, 1d6+2 bludgeoning.'}],
     note:'Darkvision 30 ft, climb 30 ft, Large size. Useful in desert/forest/swamp with vertical terrain.'},
-  {name:'Giant Poisonous Snake',cr:0.25,size:'Medium',icon:ICO.reptile,terrain:['forest','swamp','grassland'],swim:true,
+  {name:'Giant Poisonous Snake',cr:0.25,size:'Medium',terrain:['forest','swamp','grassland'],swim:true,
     ac:14,hp:11,speed:'30 ft, swim 30 ft',str:10,dex:18,con:13,int:2,wis:10,cha:3,
     blindsight:10,passive:10,
     abilities:[],
     actions:[{n:'Bite',t:'+6 to hit, 1d4 piercing + 3d6 poison. DC 11 Con or poisoned for 1 hour.'}],
     note:'AC 14 and +6 to hit at CR 1/4 are impressive. 3d6 poison damage. Blindsight 10 ft. Strong early gish form.'},
-  {name:'Giant Wolf Spider',cr:0.25,size:'Medium',icon:ICO.insect,terrain:['forest','grassland','underdark'],climb:true,
+  {name:'Giant Wolf Spider',cr:0.25,size:'Medium',terrain:['forest','grassland','underdark'],climb:true,
     ac:13,hp:11,speed:'40 ft, climb 40 ft',str:12,dex:16,con:13,int:3,wis:12,cha:4,
     darkvision:60,blindsight:10,passive:13,
     abilities:[{n:'Spider Climb',t:'Climb difficult surfaces including ceilings.'},{n:'Web Sense',t:'Knows location of web-touching creatures.'},{n:'Web Walker',t:'Movement unaffected by webs.'}],
     actions:[{n:'Bite',t:'+3 to hit, 1d6+1 piercing + 2d6 poison. DC 11 Con or paralyzed for 1 min.'}],
     note:'Spider Climb, darkvision 60 ft, blindsight 10 ft. Paralysis poison is potent. Strong early-game ambush form.'},
-  {name:'Panther',cr:0.25,size:'Medium',icon:ICO.feline,terrain:['forest','grassland'],climb:true,
+  {name:'Panther',cr:0.25,size:'Medium',terrain:['forest','grassland'],climb:true,
     ac:12,hp:13,speed:'50 ft, climb 40 ft',str:14,dex:15,con:10,int:3,wis:14,cha:7,
     passive:14,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception relying on smell.'},{n:'Pounce',t:'If moves 20+ ft toward target and hits with Claws, target DC 12 Str or knocked prone; bonus Bite attack.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Claws',t:'+4 to hit, 1d4+2 slashing.'}],
     note:'Pounce combo highly effective in early combat. 50 ft speed is excellent. Best mobility of CR 1/4 forms.'},
-  {name:'Pteranodon',cr:0.25,size:'Medium',icon:ICO.raptor,terrain:['coast','mountain','grassland'],fly:true,
+  {name:'Pteranodon',cr:0.25,size:'Medium',terrain:['coast','mountain','grassland'],fly:true,
     ac:13,hp:13,speed:'10 ft, fly 60 ft',str:12,dex:15,con:10,int:2,wis:9,cha:5,
     passive:9,
     abilities:[{n:'Flyby',t:'No opportunity attacks when flying out of reach.'}],
     actions:[{n:'Bite',t:'+3 to hit, 2d4+1 piercing.'}],
     note:'Flyby means no opportunity attacks in flight. Fly 60 ft. Requires Druid level 8+. Useful for dive-bombing.'},
-  {name:'Riding Horse',cr:0.25,size:'Large',icon:ICO.ungulate,terrain:['grassland','any'],
+  {name:'Riding Horse',cr:0.25,size:'Large',terrain:['grassland','any'],
     ac:10,hp:13,speed:'60 ft',str:16,dex:10,con:12,int:2,wis:11,cha:7,
     passive:11,
     abilities:[],
     actions:[{n:'Hooves',t:'+5 to hit, 2d4+3 bludgeoning.'}],
     note:'60 ft speed — fastest Large form at CR 1/4. Great for overland scouting or quick battlefield repositioning.'},
-  {name:'Wolf',cr:0.25,size:'Medium',icon:ICO.canine,terrain:['forest','grassland','hill','arctic'],
+  {name:'Wolf',cr:0.25,size:'Medium',terrain:['forest','grassland','hill','arctic'],
     ac:13,hp:11,speed:'40 ft',str:12,dex:15,con:12,int:3,wis:12,cha:6,
     passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent to target.'}],
     actions:[{n:'Bite',t:'+4 to hit, 2d4+2 piercing. DC 11 Str or knocked prone.'}],
     note:'Pack Tactics + prone-on-hit. Reliable early game form. Synergises strongly with melee party members.'},
   // ── CR 1/2 ────────────────────────────────────────────────────────────────
-  {name:'Ape',cr:0.5,size:'Medium',icon:ICO.beast,terrain:['forest'],climb:true,
+  {name:'Ape',cr:0.5,size:'Medium',terrain:['forest'],climb:true,
     ac:12,hp:19,speed:'30 ft, climb 30 ft',str:16,dex:14,con:14,int:6,wis:12,cha:7,
     passive:13,
     abilities:[],
     actions:[{n:'Multiattack',t:'Two Fist attacks.'},{n:'Fist',t:'+5 to hit, 1d6+3 bludgeoning.'},{n:'Rock',t:'+5 to hit (20/60), 1d6+3 bludgeoning.'}],
     note:'Str 16. Multiattack plus ranged Rock throw. Climb 30 ft. Underrated combat form for CR 1/2.'},
-  {name:'Black Bear',cr:0.5,size:'Medium',icon:ICO.ursine,terrain:['forest','swamp','hill'],climb:true,
+  {name:'Black Bear',cr:0.5,size:'Medium',terrain:['forest','swamp','hill'],climb:true,
     ac:11,hp:19,speed:'40 ft, climb 30 ft',str:15,dex:10,con:14,int:2,wis:12,cha:7,
     passive:13,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Multiattack',t:'Two attacks: one Bite and one Claws.'},{n:'Bite',t:'+4 to hit, 1d6+2 piercing.'},{n:'Claws',t:'+4 to hit, 2d4+2 slashing.'}],
     note:'First form with Multiattack accessible at level 4 (CR 1/2 = max CR at druid level 2; level 4 gives max CR 1). Excellent general-purpose combat form at levels 4–5.'},
-  {name:'Crocodile',cr:0.5,size:'Large',icon:ICO.reptile,terrain:['swamp','coast','aquatic'],swim:true,
+  {name:'Crocodile',cr:0.5,size:'Large',terrain:['swamp','coast','aquatic'],swim:true,
     ac:12,hp:19,speed:'20 ft, swim 30 ft',str:15,dex:10,con:13,int:2,wis:10,cha:5,
     passive:10,
     abilities:[{n:'Hold Breath',t:'Can hold breath for 15 minutes.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1d10+2 piercing. Target grappled (DC 12 Str); restrained while grappled.'}],
     note:'Aquatic grappler. Restrained-while-grappled via bite. Large size. Useful whenever water is involved.'},
-  {name:'Giant Goat',cr:0.5,size:'Large',icon:ICO.ungulate,terrain:['mountain','hill'],
+  {name:'Giant Goat',cr:0.5,size:'Large',terrain:['mountain','hill'],
     ac:11,hp:19,speed:'40 ft',str:17,dex:11,con:12,int:3,wis:12,cha:6,
     passive:13,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Horns, target DC 13 Str or knocked prone.'},{n:'Sure-Footed',t:'Advantage on Str and Dex saves to avoid being knocked prone.'}],
     actions:[{n:'Ram',t:'+5 to hit, 2d4+3 bludgeoning.'}],
     note:'Str 17. Charge prone. Sure-Footed for mountain terrain. Solid mid-early wildshape.'},
-  {name:'Giant Sea Horse',cr:0.5,size:'Large',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Giant Sea Horse',cr:0.5,size:'Large',terrain:['aquatic','underwater'],swim:true,
     ac:13,hp:16,speed:'0 ft, swim 40 ft',str:12,dex:15,con:11,int:2,wis:12,cha:5,
     passive:11,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Ram, target DC 11 Str or knocked prone.'},{n:'Water Breathing',t:'Breathes only underwater.'}],
     actions:[{n:'Ram',t:'+3 to hit, 2d8+1 bludgeoning.'}],
     note:'AC 13. Swim 40 ft. Charge prone in water. Large underwater form with reasonable AC.'},
-  {name:'Giant Wasp',cr:0.5,size:'Medium',icon:ICO.insect,terrain:['forest','grassland'],fly:true,
+  {name:'Giant Wasp',cr:0.5,size:'Medium',terrain:['forest','grassland'],fly:true,
     ac:12,hp:13,speed:'10 ft, fly 50 ft',str:10,dex:14,con:10,int:1,wis:10,cha:3,
     passive:10,
     abilities:[],
     actions:[{n:'Sting',t:'+4 to hit, 1d6+2 piercing + 2d6 poison. DC 11 Con or poisoned and incapacitated for 1 min.'}],
     note:'Fly 50 ft. Poison Sting: DC 11 Con or Poisoned AND Incapacitated — one of the best debuffs at this CR. Requires Druid level 8+.'},
-  {name:'Reef Shark',cr:0.5,size:'Medium',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Reef Shark',cr:0.5,size:'Medium',terrain:['aquatic','underwater'],swim:true,
     ac:12,hp:22,speed:'0 ft, swim 40 ft',str:14,dex:13,con:13,int:1,wis:10,cha:4,
     blindsight:30,passive:10,
     abilities:[{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent to target.'},{n:'Water Breathing',t:'Breathes only underwater.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1d8+2 piercing.'}],
     note:'Pack Tactics. Blindsight 30 ft. Solid aquatic combat form with 22 HP. Good in groups.'},
-  {name:'Warhorse',cr:0.5,size:'Large',icon:ICO.ungulate,terrain:['grassland','any'],
+  {name:'Warhorse',cr:0.5,size:'Large',terrain:['grassland','any'],
     ac:11,hp:19,speed:'60 ft',str:18,dex:12,con:13,int:2,wis:12,cha:7,
     passive:11,
     abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Hooves, target DC 14 Str or knocked prone; bonus Hooves attack.'}],
     actions:[{n:'Hooves',t:'+6 to hit, 2d6+4 bludgeoning.'}],
     note:'Str 18. 60 ft speed — fastest form at CR 1/2. Trampling Charge prone plus bonus Hooves. Excellent cavalry-style form.'},
   // ── CR 1 ──────────────────────────────────────────────────────────────────
-  {name:'Brown Bear',cr:1,size:'Large',icon:ICO.ursine,terrain:['forest','hill','arctic'],climb:true,
+  {name:'Brown Bear',cr:1,size:'Large',terrain:['forest','hill','arctic'],climb:true,
     ac:11,hp:34,speed:'40 ft, climb 30 ft',str:19,dex:10,con:16,int:2,wis:13,cha:7,
     passive:13,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Multiattack',t:'Two attacks: one Bite and one Claws.'},{n:'Bite',t:'+6 to hit, 1d8+4 piercing.'},{n:'Claws',t:'+6 to hit, 2d6+4 slashing.'}],
     note:'Str 19, Multiattack. Best all-round combat wildshape for levels 6–8. First form really to threaten frontline enemies.'},
-  {name:'Dire Wolf',cr:1,size:'Large',icon:ICO.canine,terrain:['forest','grassland','arctic','hill'],
+  {name:'Dire Wolf',cr:1,size:'Large',terrain:['forest','grassland','arctic','hill'],
     ac:14,hp:37,speed:'50 ft',str:17,dex:15,con:15,int:3,wis:12,cha:7,
     passive:13,
     abilities:[{n:'Keen Hearing and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Bite',t:'+5 to hit, 2d6+3 piercing. DC 13 Str or knocked prone.'}],
     note:'AC 14 and Speed 50 ft. Pack Tactics plus prone-on-hit. Highly effective in a party — one of the best CR 1 forms.'},
-  {name:'Giant Eagle',cr:1,size:'Large',icon:ICO.raptor,terrain:['mountain','grassland','hill'],fly:true,
+  {name:'Giant Eagle',cr:1,size:'Large',terrain:['mountain','grassland','hill'],fly:true,
     ac:13,hp:26,speed:'10 ft, fly 80 ft',str:16,dex:17,con:13,int:8,wis:14,cha:10,
     passive:14,
     abilities:[{n:'Keen Sight',t:'Advantage on Perception checks relying on sight.'}],
     actions:[{n:'Multiattack',t:'Two attacks: one Beak and one Talons.'},{n:'Beak',t:'+5 to hit, 1d6+3 piercing.'},{n:'Talons',t:'+5 to hit, 2d6+3 slashing.'}],
     note:'Fly 80 ft — exceptional speed. Multiattack. Requires Druid level 8+. One of the premier flying forms.'},
-  {name:'Giant Hyena',cr:1,size:'Large',icon:ICO.canine,terrain:['desert','grassland'],
+  {name:'Giant Hyena',cr:1,size:'Large',terrain:['desert','grassland'],
     ac:12,hp:45,speed:'50 ft',str:16,dex:14,con:14,int:2,wis:10,cha:7,
     passive:10,
     abilities:[{n:'Rampage',t:'When reduces a creature to 0 HP with a melee attack on its turn, moves up to half its speed and makes a Bite as a bonus action.'}],
     actions:[{n:'Bite',t:'+5 to hit, 2d6+3 piercing.'}],
     note:'Most HP of any CR 1 beast (45). Rampage bonus Bite — excellent action economy when enemies are dropping.'},
-  {name:'Giant Spider',cr:1,size:'Large',icon:ICO.insect,terrain:['forest','underdark','swamp'],climb:true,
+  {name:'Giant Spider',cr:1,size:'Large',terrain:['forest','underdark','swamp'],climb:true,
     ac:14,hp:26,speed:'30 ft, climb 30 ft',str:14,dex:16,con:12,int:2,wis:11,cha:4,
     darkvision:60,blindsight:10,passive:10,
     abilities:[{n:'Spider Climb',t:'Climb difficult surfaces including ceilings.'},{n:'Web Sense',t:'Knows location of web-touching creatures.'},{n:'Web Walker',t:'Movement unaffected by webs.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1d8+3 piercing + 2d8 poison. DC 11 Con or poisoned for 1 hr and paralyzed while poisoned.'},{n:'Web (Recharge 5-6)',t:'+5 to hit (30/60 ft), restrained until DC 12 Str check (action).'}],
     note:'AC 14, darkvision 60 ft, blindsight 10 ft, Spider Climb. Paralysis-poison and Web are exceptional utility. Strong choice at Druid level 6+.'},
-  {name:'Giant Toad',cr:1,size:'Large',icon:ICO.reptile,terrain:['swamp','grassland','coast'],swim:true,
+  {name:'Giant Toad',cr:1,size:'Large',terrain:['swamp','grassland','coast'],swim:true,
     ac:11,hp:39,speed:'20 ft, swim 40 ft',str:15,dex:13,con:13,int:2,wis:10,cha:3,
     darkvision:30,passive:10,
     abilities:[{n:'Amphibious',t:'Can breathe air and water.'},{n:'Standing Leap',t:'Long jump up to 20 ft, high jump up to 10 ft.'}],
     actions:[{n:'Bite',t:'+4 to hit, 1d10+2 piercing + 1d10 poison. Swallowed if Huge or smaller: DC 13 Str or restrained, blinded, 3d6 acid/turn.'},{n:'Swallow',t:'Used after hitting with Bite on grappled target.'}],
     note:'39 HP. Amphibious, swim 40 ft. Swallow (restrain + blinded + acid damage) on grappled creatures is uniquely powerful.'},
-  {name:'Giant Vulture',cr:1,size:'Large',icon:ICO.raptor,terrain:['desert','grassland','mountain'],fly:true,
+  {name:'Giant Vulture',cr:1,size:'Large',terrain:['desert','grassland','mountain'],fly:true,
     ac:10,hp:22,speed:'10 ft, fly 60 ft',str:15,dex:10,con:15,int:6,wis:12,cha:7,
     passive:13,
     abilities:[{n:'Keen Sight and Smell',t:'Advantage on Perception checks.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'}],
     actions:[{n:'Multiattack',t:'Two attacks: one Beak and one Talons.'},{n:'Beak',t:'+4 to hit, 2d6+2 piercing.'},{n:'Talons',t:'+4 to hit, 2d6+2 slashing.'}],
     note:'Fly 60 ft, Multiattack, Pack Tactics. Passive Perception 13. Requires level 8+. Solid aerial attacker in a group.'},
-  {name:'Lion',cr:1,size:'Large',icon:ICO.feline,terrain:['grassland','desert'],
+  {name:'Lion',cr:1,size:'Large',terrain:['grassland','desert'],
     ac:12,hp:26,speed:'50 ft',str:17,dex:15,con:13,int:3,wis:12,cha:8,
     passive:13,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'},{n:'Pack Tactics',t:'Advantage on attacks if ally is adjacent.'},{n:'Pounce',t:'If moves 20+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack.'},{n:'Running Leap',t:'Running long jump up to 25 ft.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1d8+3 piercing.'},{n:'Claws',t:'+5 to hit, 1d6+3 slashing.'}],
     note:'Pack Tactics + Pounce prone + bonus Bite. Str 17, 50 ft speed. One of the best-rounded CR 1 combat forms.'},
-  {name:'Giant Octopus',cr:1,size:'Large',icon:ICO.ceph,terrain:['aquatic','coast','underwater'],swim:true,
+  {name:'Giant Octopus',cr:1,size:'Large',terrain:['aquatic','coast','underwater'],swim:true,
     ac:11,hp:52,speed:'10 ft, swim 60 ft',str:17,dex:13,con:13,int:4,wis:10,cha:4,
     darkvision:60,passive:12,
     abilities:[{n:'Hold Breath',t:'Out of water for up to 1 hour.'},{n:'Underwater Camouflage',t:'Advantage on Stealth checks in water.'},{n:'Water Breathing',t:'Breathes only underwater.'}],
     actions:[{n:'Tentacles',t:'+5 to hit, 2d6+3 bludgeoning. Grappled (DC 16) and restrained until grapple ends.'},{n:'Ink Cloud (Recharge 6)',t:'20 ft radius heavily obscured cloud for 1 minute.'}],
     note:'52 HP — highest HP of any CR 1 beast. DC 16 Restrain grapple. Ink Cloud utility. Best overall aquatic form.'},
-  {name:'Tiger',cr:1,size:'Large',icon:ICO.feline,terrain:['forest','grassland','swamp'],swim:true,
+  {name:'Tiger',cr:1,size:'Large',terrain:['forest','grassland','swamp'],swim:true,
     ac:12,hp:37,speed:'40 ft',str:17,dex:15,con:14,int:3,wis:12,cha:8,
     darkvision:60,passive:13,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'},{n:'Pounce',t:'If moves 20+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack.'}],
     actions:[{n:'Bite',t:'+5 to hit, 1d10+3 piercing.'},{n:'Claws',t:'+5 to hit, 1d8+3 slashing.'}],
     note:'Darkvision 60 ft. Pounce prone + bonus Bite. 37 HP. Str 17. Strong in forest/grassland. Can swim.'},
   // ── CR 2 ──────────────────────────────────────────────────────────────────
-  {name:'Allosaurus',cr:2,size:'Large',icon:ICO.dino,terrain:['grassland','forest'],
+  {name:'Allosaurus',cr:2,size:'Large',terrain:['grassland','forest'],
     ac:13,hp:51,speed:'60 ft',str:19,dex:13,con:17,int:2,wis:12,cha:5,
     passive:11,
     abilities:[{n:'Pounce',t:'If moves 30+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack.'}],
     actions:[{n:'Bite',t:'+6 to hit, 2d8+4 piercing.'},{n:'Claw',t:'+6 to hit, 1d8+4 slashing.'}],
     note:'60 ft speed — fastest Large form. Str 19, Pounce combo. Excellent combat form for level 6+ druids.'},
-  {name:'Aurochs',cr:2,size:'Large',icon:ICO.ungulate,terrain:['grassland','hill'],
+  {name:'Aurochs',cr:2,size:'Large',terrain:['grassland','hill'],
     ac:11,hp:38,speed:'50 ft',str:20,dex:10,con:15,int:2,wis:12,cha:5,
     passive:11,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Gore, target DC 14 Str or knocked prone; bonus Gore attack as bonus action.'}],
     actions:[{n:'Gore',t:'+7 to hit, 2d8+5 piercing.'}],
     note:'Str 20. Double Gore potential on charge. 50 ft speed. Excellent striker form for Druid level 6+.'},
-  {name:'Giant Boar',cr:2,size:'Large',icon:ICO.ungulate,terrain:['forest','grassland','swamp'],
+  {name:'Giant Boar',cr:2,size:'Large',terrain:['forest','grassland','swamp'],
     ac:12,hp:42,speed:'40 ft',str:17,dex:10,con:16,int:2,wis:7,cha:5,
     passive:8,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Tusks, target DC 13 Str or knocked prone.'},{n:'Relentless (Recharge 5-6)',t:'Drops to 1 HP instead of 0 HP once.'}],
     actions:[{n:'Tusks',t:'+5 to hit, 2d6+3 slashing.'}],
     note:'Relentless: survives a killing blow at 1 HP (once per recharge). Charge prone. Durable frontliner.'},
-  {name:'Giant Constrictor Snake',cr:2,size:'Huge',icon:ICO.reptile,terrain:['forest','swamp','aquatic'],swim:true,
+  {name:'Giant Constrictor Snake',cr:2,size:'Huge',terrain:['forest','swamp','aquatic'],swim:true,
     ac:12,hp:60,speed:'30 ft, swim 30 ft',str:19,dex:14,con:12,int:1,wis:10,cha:3,
     blindsight:10,passive:12,
     abilities:[],
     actions:[{n:'Bite',t:'+6 to hit, 2d6+4 piercing.'},{n:'Constrict',t:'+6 to hit, 2d8+4 bludgeoning. Grappled (DC 16); restrained while grappled.'}],
     note:'Huge size. 60 HP. DC 16 Constrict is very hard to escape. Blindsight 10 ft. Significant tactical footprint from Huge size.'},
-  {name:'Plesiosaurus',cr:2,size:'Large',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Plesiosaurus',cr:2,size:'Large',terrain:['aquatic','underwater'],swim:true,
     ac:13,hp:68,speed:'20 ft, swim 40 ft',str:18,dex:15,con:16,int:2,wis:12,cha:5,
     passive:11,
     abilities:[{n:'Hold Breath',t:'Can hold breath for 1 hour.'}],
     actions:[{n:'Bite',t:'+6 to hit, 2d8+4 piercing.'}],
     note:'68 HP — most HP of any CR 2 form. Str 18, AC 13. Holds breath for 1 hour. Excellent sustained aquatic tank.'},
-  {name:'Polar Bear',cr:2,size:'Large',icon:ICO.ursine,terrain:['arctic','coast'],swim:true,
+  {name:'Polar Bear',cr:2,size:'Large',terrain:['arctic','coast'],swim:true,
     ac:12,hp:42,speed:'40 ft, swim 30 ft',str:20,dex:10,con:16,int:2,wis:13,cha:7,
     passive:13,
     abilities:[{n:'Keen Smell',t:'Advantage on Perception checks relying on smell.'}],
     actions:[{n:'Multiattack',t:'One Bite and one Claws.'},{n:'Bite',t:'+7 to hit, 1d8+5 piercing.'},{n:'Claws',t:'+7 to hit, 2d6+5 slashing.'}],
     note:'Str 20 — highest of any CR 2 beast. Exceptional grappler. Multiattack. Arctic and aquatic versatility.'},
-  {name:'Rhinoceros',cr:2,size:'Large',icon:ICO.ungulate,terrain:['grassland'],
+  {name:'Rhinoceros',cr:2,size:'Large',terrain:['grassland'],
     ac:11,hp:45,speed:'40 ft',str:21,dex:8,con:15,int:2,wis:12,cha:6,
     passive:11,
     abilities:[{n:'Charge',t:'If moves 20+ ft and hits with Gore, target DC 15 Str or knocked prone.'}],
     actions:[{n:'Gore',t:'+7 to hit, 2d8+5 bludgeoning.'}],
     note:'Str 21 — highest Strength of any CR 2 form. DC 15 prone on Charge. 45 HP. Exceptional grappling capability.'},
   // ── CR 3 ──────────────────────────────────────────────────────────────────
-  {name:'Ankylosaurus',cr:3,size:'Huge',icon:ICO.dino,terrain:['grassland','forest'],
+  {name:'Ankylosaurus',cr:3,size:'Huge',terrain:['grassland','forest'],
     ac:15,hp:68,speed:'30 ft',str:19,dex:11,con:15,int:2,wis:12,cha:5,
     passive:11,
     abilities:[],
     actions:[{n:'Tail',t:'+7 to hit, 4d6+4 bludgeoning. DC 14 Str or knocked prone.'}],
     note:'AC 15 — highest AC of any Wildshape form. Huge size, 68 HP. Tail prone DC 14. Available from Druid level 9.'},
-  {name:'Giant Scorpion',cr:3,size:'Large',icon:ICO.insect,terrain:['desert','underdark'],burrow:true,
+  {name:'Giant Scorpion',cr:3,size:'Large',terrain:['desert','underdark'],burrow:true,
     ac:15,hp:52,speed:'40 ft',str:15,dex:13,con:15,int:1,wis:9,cha:3,
     blindsight:60,passive:9,
     abilities:[],
     actions:[{n:'Multiattack',t:'Two Claws and one Sting.'},{n:'Claw',t:'+4 to hit, 1d8+2 bludgeoning. Grappled (DC 12).'},{n:'Sting',t:'+4 to hit, 1d10+2 piercing + 4d10 poison. DC 12 Con or poisoned for 1 hour.'}],
     note:'AC 15. Blindsight 60 ft. Triple-attack Multiattack. Grapple + Sting combo. Available Druid level 9.'},
-  {name:'Killer Whale',cr:3,size:'Huge',icon:ICO.aquatic,terrain:['aquatic','underwater'],swim:true,
+  {name:'Killer Whale',cr:3,size:'Huge',terrain:['aquatic','underwater'],swim:true,
     ac:12,hp:90,speed:'0 ft, swim 60 ft',str:19,dex:10,con:13,int:3,wis:12,cha:7,
     blindsight:120,passive:13,
     abilities:[{n:'Echolocation',t:'Blindsight only works while not deafened.'},{n:'Hold Breath',t:'Can hold breath for 30 minutes.'},{n:'Keen Hearing',t:'Advantage on Perception checks relying on hearing.'}],
     actions:[{n:'Bite',t:'+6 to hit, 5d6+4 piercing.'}],
     note:'90 HP. Blindsight 120 ft. 5d6+4 damage per bite. The definitive Huge aquatic wildshape form.'},
   // ── CR 4–6 (Moon Druid higher forms) ─────────────────────────────────────
-  {name:'Elephant',cr:4,size:'Huge',icon:ICO.ungulate,terrain:['grassland','desert'],
+  {name:'Elephant',cr:4,size:'Huge',terrain:['grassland','desert'],
     ac:12,hp:76,speed:'40 ft',str:22,dex:9,con:17,int:3,wis:11,cha:6,
     passive:10,
     abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Tusks, target DC 12 Str or knocked prone; bonus Stomp attack.'}],
     actions:[{n:'Tusks',t:'+8 to hit, 3d6+6 piercing.'},{n:'Stomp',t:'+8 to hit, 3d10+6 bludgeoning (prone targets only).'}],
     note:'Str 22. Stomp deals 3d10+6 vs prone targets. Huge size. Moon Druid level 12+ required.'},
-  {name:'Giant Crocodile',cr:5,size:'Huge',icon:ICO.reptile,terrain:['swamp','coast','aquatic'],swim:true,
+  {name:'Giant Crocodile',cr:5,size:'Huge',terrain:['swamp','coast','aquatic'],swim:true,
     ac:14,hp:114,speed:'30 ft, swim 50 ft',str:21,dex:9,con:17,int:2,wis:10,cha:7,
     passive:10,
     abilities:[{n:'Hold Breath',t:'Can hold breath for 30 minutes.'}],
     actions:[{n:'Multiattack',t:'One Bite and one Tail.'},{n:'Bite',t:'+8 to hit, 3d10+5 piercing. Grappled (DC 16); restrained while grappled.'},{n:'Tail',t:'+8 to hit, 2d8+5 bludgeoning. DC 16 Str or knocked prone. Only vs non-grappled targets.'}],
     note:'Huge size, AC 14, 114 HP. DC 16 Restrain grapple plus Tail prone. Moon Druid level 15+. Exceptional aquatic tank and controller.'},
-  {name:'Triceratops',cr:5,size:'Huge',icon:ICO.dino,terrain:['grassland'],
+  {name:'Triceratops',cr:5,size:'Huge',terrain:['grassland'],
     ac:13,hp:114,speed:'50 ft',str:22,dex:9,con:17,int:2,wis:11,cha:5,
     passive:10,
     abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Gore, DC 13 Str or knocked prone; bonus Stomp attack.'}],
     actions:[{n:'Gore',t:'+9 to hit, 4d8+6 piercing.'},{n:'Stomp',t:'+9 to hit, 3d10+6 bludgeoning (prone targets only).'}],
     note:'114 HP, Str 22. Trampling Charge prone + bonus Stomp. Moon Druid level 15+. Exceptional tank and damage form.'},
-  {name:'Mammoth',cr:6,size:'Huge',icon:ICO.ungulate,terrain:['arctic','grassland'],
+  {name:'Mammoth',cr:6,size:'Huge',terrain:['arctic','grassland'],
     ac:13,hp:126,speed:'40 ft',str:24,dex:9,con:21,int:3,wis:11,cha:6,
     passive:10,
     abilities:[{n:'Trampling Charge',t:'If moves 20+ ft and hits with Gore, DC 18 Str or knocked prone; bonus Stomp.'}],
@@ -977,77 +995,77 @@ const BEASTS = [
 
 // Familiars — standard Find Familiar spell options (any class with access to the 1st-level ritual)
 const FAMILIARS = [
-  {name:'Bat',icon:ICO.bird,ac:12,hp:1,speed:'5 ft, fly 30 ft',blindsight:60,passive:11,
+  {name:'Bat',ac:12,hp:1,speed:'5 ft, fly 30 ft',blindsight:60,passive:11,
     note:'Blindsight 60 ft lets it perceive in total darkness without light. Cannot use sight, so immune to darkness and invisible creature complications in its range.',
     str:2,dex:15,con:8,int:2,wis:12,cha:4,
     traits:['Blindsight 60 ft','Echolocation','Fly 30 ft','Keen Hearing'],
     use:'Scouting in total or magical darkness. 60 ft blindsight extends your senses into areas you cannot see.'},
-  {name:'Cat',icon:ICO.feline,ac:12,hp:2,speed:'40 ft, climb 30 ft',darkvision:30,passive:13,
+  {name:'Cat',ac:12,hp:2,speed:'40 ft, climb 30 ft',darkvision:30,passive:13,
     note:'40 ft movement and Climb 30 ft. Keen Smell advantage. Common and mundane in appearance — ideal for city missions.',
     str:3,dex:15,con:10,int:3,wis:12,cha:7,
     traits:['Darkvision 30 ft','Keen Smell','Climb 30 ft'],
     use:'Urban scouting and infiltration. Easily overlooked. Good Passive Perception (13).'},
-  {name:'Crab',icon:ICO.aquatic,ac:11,hp:2,speed:'20 ft, swim 20 ft',blindsight:30,passive:9,
+  {name:'Crab',ac:11,hp:2,speed:'20 ft, swim 20 ft',blindsight:30,passive:9,
     note:'Blindsight 30 ft. Amphibious — survives on land and underwater. Niche but effective for coastal and underwater tasks.',
     str:2,dex:11,con:10,int:1,wis:8,cha:2,
     traits:['Blindsight 30 ft','Amphibious','Tiny'],
     use:'Coastal and underwater scouting. Blindsight compensates for murky or dark water.'},
-  {name:'Frog',icon:ICO.reptile,ac:11,hp:1,speed:'20 ft, swim 20 ft',passive:10,
+  {name:'Frog',ac:11,hp:1,speed:'20 ft, swim 20 ft',passive:10,
     note:'Amphibious. Tiny size. Standing Leap: long jump 10 ft, high jump 5 ft without a running start. Mostly a scouting form for swamp and coastal settings.',
     str:1,dex:13,con:8,int:1,wis:8,cha:3,
     traits:['Amphibious','Standing Leap','Tiny'],
     use:'Aquatic and swamp infiltration. Tiny size makes it easy to hide and navigate tight spaces.'},
-  {name:'Hawk',icon:ICO.raptor,ac:13,hp:1,speed:'10 ft, fly 60 ft',passive:14,
+  {name:'Hawk',ac:13,hp:1,speed:'10 ft, fly 60 ft',passive:14,
     note:'Passive Perception 14 — highest of any standard familiar option. Fly 60 ft. Keen Sight: advantage on sight-based Perception.',
     str:5,dex:16,con:8,int:2,wis:14,cha:6,
     traits:['Fly 60 ft','Keen Sight','Passive Perception 14'],
     use:'Daytime aerial scouting. Best raw Perception of any familiar. Delivers touch spells with ease from altitude.'},
-  {name:'Lizard',icon:ICO.reptile,ac:10,hp:2,speed:'20 ft, climb 20 ft',darkvision:30,passive:9,
+  {name:'Lizard',ac:10,hp:2,speed:'20 ft, climb 20 ft',darkvision:30,passive:9,
     note:'Darkvision 30 ft, Climb 20 ft. Tiny and easily disguised as an ordinary lizard. Very low profile for indoor and dungeon infiltration.',
     str:2,dex:11,con:10,int:1,wis:8,cha:3,
     traits:['Darkvision 30 ft','Climb 20 ft','Tiny'],
     use:'Wall and ceiling traversal. Low-profile infiltration in natural or dungeon environments.'},
-  {name:'Octopus',icon:ICO.ceph,ac:12,hp:3,speed:'5 ft, swim 30 ft',darkvision:30,passive:12,
+  {name:'Octopus',ac:12,hp:3,speed:'5 ft, swim 30 ft',darkvision:30,passive:12,
     note:'Darkvision 30 ft. Underwater Camouflage (advantage on Stealth in water). Ink Cloud (Recharge 6) creates a 5 ft obscurement sphere. Hold Breath 30 min.',
     str:4,dex:15,con:11,int:3,wis:10,cha:4,
     traits:['Darkvision 30 ft','Underwater Camouflage','Ink Cloud (Recharge 6)','Swim 30 ft'],
     use:'Best standard aquatic familiar. Ink Cloud obscures pursuit. Camouflage for aquatic ambush reconnaissance.'},
-  {name:'Owl',icon:ICO.bird,ac:11,hp:1,speed:'5 ft, fly 60 ft',darkvision:120,passive:13,
+  {name:'Owl',ac:11,hp:1,speed:'5 ft, fly 60 ft',darkvision:120,passive:13,
     note:'Darkvision 120 ft — far superior to any other familiar. Flyby: no opportunity attacks when it flies out of enemy reach. Ideal for safely delivering touch spells.',
     str:3,dex:13,con:8,int:2,wis:12,cha:7,
     traits:['Darkvision 120 ft','Flyby','Fly 60 ft','Keen Hearing & Sight'],
     use:'The gold standard familiar. Night scouting with 120 ft darkvision. Flyby enables safe touch spell delivery with zero risk.'},
-  {name:'Poisonous Snake',icon:ICO.reptile,ac:13,hp:2,speed:'30 ft, swim 30 ft',blindsight:10,passive:10,
+  {name:'Poisonous Snake',ac:13,hp:2,speed:'30 ft, swim 30 ft',blindsight:10,passive:10,
     note:'AC 13 — highest AC of any standard familiar. Blindsight 10 ft. Swim 30 ft. Poison bite (DC 10 Con) deals 2d4 extra damage.',
     str:2,dex:16,con:11,int:1,wis:10,cha:3,
     traits:['Blindsight 10 ft','AC 13','Swim 30 ft','Poison Bite'],
     use:'Tankiest standard familiar by AC. Can deliver touch spells at melee range. Poison bite adds minor but real offensive threat.'},
-  {name:'Quipper',icon:ICO.aquatic,ac:13,hp:1,speed:'0 ft, swim 40 ft',darkvision:60,passive:13,
+  {name:'Quipper',ac:13,hp:1,speed:'0 ft, swim 40 ft',darkvision:60,passive:13,
     note:'Darkvision 60 ft. Swim 40 ft. Blood Frenzy: advantage on attacks against creatures that have taken damage this combat. Entirely aquatic.',
     str:2,dex:16,con:9,int:1,wis:7,cha:2,
     traits:['Darkvision 60 ft','Swim 40 ft','Blood Frenzy','Tiny'],
     use:'Underwater scouting with good darkvision and speed. Blood Frenzy is situationally useful in aquatic combat.'},
-  {name:'Rat',icon:ICO.beast,ac:10,hp:1,speed:'20 ft',darkvision:30,passive:10,
+  {name:'Rat',ac:10,hp:1,speed:'20 ft',darkvision:30,passive:10,
     note:'Darkvision 30 ft. Keen Smell advantage. Tiny size. The most overlooked and most disguisable familiar — ignored in almost any city or dungeon.',
     str:2,dex:11,con:9,int:2,wis:10,cha:4,
     traits:['Darkvision 30 ft','Keen Smell','Tiny'],
     use:'Urban infiltration and passive observation. Rats are ignored almost everywhere — ideal for long-term placement.'},
-  {name:'Raven',icon:ICO.bird,ac:12,hp:1,speed:'10 ft, fly 50 ft',passive:13,
+  {name:'Raven',ac:12,hp:1,speed:'10 ft, fly 50 ft',passive:13,
     note:'Mimicry: can reproduce simple sounds or up to a few words heard recently. DC 10 Insight to identify as imitation. Fly 50 ft. Popular for message relay.',
     str:2,dex:14,con:8,int:2,wis:12,cha:6,
     traits:['Fly 50 ft','Mimicry','Tiny'],
     use:'Communication familiar. Mimicry lets it audibly relay short messages. Social encounters and messaging across the 100 ft telepathic link.'},
-  {name:'Sea Horse',icon:ICO.aquatic,ac:11,hp:1,speed:'0 ft, swim 20 ft',passive:10,
+  {name:'Sea Horse',ac:11,hp:1,speed:'0 ft, swim 20 ft',passive:10,
     note:'Entirely aquatic. No land speed at all. Water Breathing only. Very niche — only useful in fully underwater campaigns or encounters.',
     str:1,dex:12,con:8,int:1,wis:10,cha:2,
     traits:['Swim 20 ft','Water Breathing only','Tiny'],
     use:'Aquatic-only environments. Niche utility for underwater campaigns.'},
-  {name:'Spider',icon:ICO.insect,ac:12,hp:1,speed:'20 ft, climb 20 ft',darkvision:30,passive:10,
+  {name:'Spider',ac:12,hp:1,speed:'20 ft, climb 20 ft',darkvision:30,passive:10,
     note:'Spider Climb: climbs walls and ceilings with no check required. Web Sense: knows the exact location of any creature touching the same web. Web Walker: unimpeded by webs.',
     str:2,dex:14,con:8,int:1,wis:10,cha:2,
     traits:['Spider Climb','Darkvision 30 ft','Web Sense','Web Walker'],
     use:'Ceiling and wall traversal. Web Sense is uniquely useful in dungeon environments where webs are present.'},
-  {name:'Weasel',icon:ICO.beast,ac:13,hp:1,speed:'30 ft',passive:13,
+  {name:'Weasel',ac:13,hp:1,speed:'30 ft',passive:13,
     note:'AC 13 — tied for highest AC of any standard familiar. Keen Hearing and Smell: advantage on Perception. Passive Perception 13. No darkvision.',
     str:3,dex:16,con:8,int:2,wis:12,cha:3,
     traits:['AC 13','Keen Hearing & Smell','Passive Perception 13'],
@@ -1061,6 +1079,7 @@ let searchQ = '';
 
 function setMode(m) {
   mode = m;
+  selectedCards.clear();
   document.getElementById('btn-druid').className = 'mode-btn druid' + (m==='druid'?' active':'');
   document.getElementById('btn-familiar').className = 'mode-btn familiar' + (m==='familiar'?' active':'');
   document.getElementById('druid-filters').style.display = m==='druid' ? 'contents' : 'none';
@@ -1123,20 +1142,53 @@ function filtered() {
   });
 }
 
-function buildBeastCard(b) {
-  const color = '#2a6a3a';
+// Derive tags consistently from any beast/familiar entry
+function deriveTags(item, isFamiliar) {
   const tags = [];
-  if (b.fly) tags.push(`<span class="tag fly">Fly ${b.speed.match(/fly (\d+ ft)/i)?.[1]||''}</span>`);
-  if (b.swim) tags.push(`<span class="tag swim">Swim</span>`);
-  if (b.climb) tags.push(`<span class="tag climb">Climb</span>`);
-  if (b.burrow) tags.push(`<span class="tag burrow">Burrow</span>`);
-  if (b.darkvision) tags.push(`<span class="tag darkvision">Darkvision ${b.darkvision} ft</span>`);
-  if (b.blindsight) tags.push(`<span class="tag blindsight">Blindsight ${b.blindsight} ft</span>`);
-  if (b.abilities?.some(a => a.n.includes('Pack Tactics'))) tags.push(`<span class="tag pack-tactics">Pack Tactics</span>`);
+  // Movement
+  const flyM = item.speed && item.speed.match(/fly (\d+)/i);
+  if (item.fly || flyM) tags.push(`<span class="tag fly">Fly ${flyM?flyM[1]+' ft':''}</span>`);
+  const swimM = item.speed && item.speed.match(/swim (\d+)/i);
+  if (item.swim || swimM) tags.push(`<span class="tag swim">Swim ${swimM?swimM[1]+' ft':''}</span>`);
+  const climbM = item.speed && item.speed.match(/climb (\d+)/i);
+  if (item.climb || climbM) tags.push(`<span class="tag climb">Climb ${climbM?climbM[1]+' ft':''}</span>`);
+  if (item.burrow) tags.push(`<span class="tag burrow">Burrow</span>`);
+  // Vision
+  if (item.darkvision) tags.push(`<span class="tag darkvision">Darkvision ${item.darkvision} ft</span>`);
+  if (item.blindsight) tags.push(`<span class="tag blindsight">Blindsight ${item.blindsight} ft</span>`);
+  // Key traits — drawn from abilities[] for beasts, or sniffed from traits[] for familiars
+  const abilityNames = [
+    ...(item.abilities||[]).map(a=>a.n),
+    ...(item.traits||[])
+  ].join('|');
+  if (/Pack Tactics/i.test(abilityNames))        tags.push(`<span class="tag pack-tactics">Pack Tactics</span>`);
+  if (/Keen Smell/i.test(abilityNames))           tags.push(`<span class="tag special">Keen Smell</span>`);
+  if (/Keen Sight/i.test(abilityNames))           tags.push(`<span class="tag special">Keen Sight</span>`);
+  if (/Keen Hearing/i.test(abilityNames))         tags.push(`<span class="tag special">Keen Hearing</span>`);
+  if (/Flyby/i.test(abilityNames))               tags.push(`<span class="tag special">Flyby</span>`);
+  if (/Pounce/i.test(abilityNames))              tags.push(`<span class="tag special">Pounce</span>`);
+  if (/Amphibious/i.test(abilityNames))          tags.push(`<span class="tag special">Amphibious</span>`);
+  if (/Spider Climb/i.test(abilityNames))        tags.push(`<span class="tag special">Spider Climb</span>`);
+  if (/Mimicry/i.test(abilityNames))             tags.push(`<span class="tag special">Mimicry</span>`);
+  if (/Blood Frenzy/i.test(abilityNames))        tags.push(`<span class="tag special">Blood Frenzy</span>`);
+  if (/Relentless/i.test(abilityNames))          tags.push(`<span class="tag special">Relentless</span>`);
+  if (/Trampling Charge|Charge/i.test(abilityNames)) tags.push(`<span class="tag special">Charge</span>`);
+  if (/Echolocation/i.test(abilityNames))        tags.push(`<span class="tag special">Echolocation</span>`);
+  if (/Underwater Camouflage/i.test(abilityNames)) tags.push(`<span class="tag special">Underwater Camo</span>`);
+  if (/Ink Cloud/i.test(abilityNames))           tags.push(`<span class="tag special">Ink Cloud</span>`);
+  if (/Poison Bite/i.test(abilityNames))         tags.push(`<span class="tag special">Poison Bite</span>`);
+  if (/Water Breathing/i.test(abilityNames))     tags.push(`<span class="tag special">Water Breathing</span>`);
+  return tags;
+}
+
+function buildBeastCard(b, forPreview) {
+  const color = '#2a6a3a';
+  const tags = deriveTags(b, false);
   const lvlRequired = b.cr > 3 ? `<span class="tag level-req">Level ${b.cr*3}+ Druid</span>` : '';
-  return `<div class="beast-card wildshape">
+  const indicator = forPreview ? '' : `<div class="select-indicator"></div>`;
+  return `<div class="beast-card wildshape${selectedCards.has(b.name)?' selected':''}">
+    ${indicator}
     <div class="card-header" style="background:${color}">
-      <span class="beast-icon">${b.icon}</span>
       <div class="card-name-block">
         <div class="card-name">${b.name}</div>
         <div class="card-subline">${b.size} Beast</div>
@@ -1154,12 +1206,13 @@ function buildBeastCard(b) {
   </div>`;
 }
 
-function buildFamiliarCard(f) {
+function buildFamiliarCard(f, forPreview) {
   const color = '#6a2a8a';
-  const tags = f.traits.map(t => `<span class="tag special">${t}</span>`).join('');
-  return `<div class="beast-card familiar">
+  const tags = deriveTags(f, true);
+  const indicator = forPreview ? '' : `<div class="select-indicator"></div>`;
+  return `<div class="beast-card familiar${selectedCards.has(f.name)?' selected':''}">
+    ${indicator}
     <div class="card-header" style="background:${color}">
-      <span class="beast-icon">${f.icon}</span>
       <div class="card-name-block">
         <div class="card-name">${f.name}</div>
         <div class="card-subline">Find Familiar</div>
@@ -1172,21 +1225,69 @@ function buildFamiliarCard(f) {
       <div class="core-stat"><span class="cs-label">Speed</span><span class="cs-val" style="font-size:0.62rem">${f.speed.split(',')[0]}</span></div>
       <div class="core-stat"><span class="cs-label">Percep.</span><span class="cs-val">${f.passive}</span></div>
     </div>
-    ${tags ? `<div class="card-tags">${tags}</div>` : ''}
+    ${tags.length ? `<div class="card-tags">${tags.join('')}</div>` : ''}
     ${f.use ? `<div class="card-note">${f.use}</div>` : ''}
   </div>`;
+}
+
+const selectedCards = new Set();
+
+function toggleSelect(item, cardEl) {
+  if (selectedCards.has(item.name)) {
+    selectedCards.delete(item.name);
+    cardEl.classList.remove('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '';
+  } else {
+    selectedCards.add(item.name);
+    cardEl.classList.add('selected');
+    cardEl.querySelector('.select-indicator').innerHTML = '&#10003;';
+  }
+  updateSelectionUI();
+}
+
+function selectAllVisible() {
+  filtered().forEach(item => selectedCards.add(item.name));
+  document.querySelectorAll('#card-grid .beast-card').forEach(el => {
+    el.classList.add('selected');
+    el.querySelector('.select-indicator').innerHTML = '&#10003;';
+  });
+  updateSelectionUI();
+}
+
+function clearSelection() {
+  selectedCards.clear();
+  document.querySelectorAll('#card-grid .beast-card.selected').forEach(el => {
+    el.classList.remove('selected');
+    el.querySelector('.select-indicator').innerHTML = '';
+  });
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = selectedCards.size;
+  const visibleCount = document.querySelectorAll('#card-grid .beast-card').length;
+  document.getElementById('selection-count').textContent = `${count} selected`;
+  document.getElementById('btn-print').disabled = count === 0;
+  document.getElementById('btn-clear').disabled = count === 0;
+  document.getElementById('btn-select-all').disabled = visibleCount === 0;
+  const lbl = mode === 'druid' ? 'form' : 'familiar';
+  document.getElementById('results-bar').textContent =
+    `${visibleCount} ${lbl}${visibleCount!==1?'s':''} shown${mode==='druid'?' (max CR '+cr(druidMaxCR())+' at this level)':''}${count>0?' · '+count+' selected':''}`;
 }
 
 function renderGrid() {
   const list = filtered();
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
-  const lbl = mode === 'druid' ? 'form' : 'familiar';
-  document.getElementById('results-bar').textContent = `${list.length} ${lbl}${list.length !== 1 ? 's' : ''} shown${mode==='druid'?' (max CR '+cr(druidMaxCR())+' at this level)':''}`;
-  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; updateSelectionUI(); return; }
   empty.style.display = 'none';
-  grid.innerHTML = (mode === 'druid' ? list.map(b => buildBeastCard(b)) : list.map(f => buildFamiliarCard(f))).join('');
-  grid.querySelectorAll('.beast-card').forEach((el, i) => el.addEventListener('click', () => openModal(list[i])));
+  grid.innerHTML = (mode === 'druid' ? list.map(b => buildBeastCard(b, false)) : list.map(f => buildFamiliarCard(f, false))).join('');
+  grid.querySelectorAll('.beast-card').forEach((el, i) => {
+    if (selectedCards.has(list[i].name)) el.querySelector('.select-indicator').innerHTML = '&#10003;';
+    el.addEventListener('click', () => toggleSelect(list[i], el));
+    el.addEventListener('dblclick', () => openModal(list[i]));
+  });
+  updateSelectionUI();
 }
 
 function openModal(item) {
@@ -1194,20 +1295,14 @@ function openModal(item) {
   const color = mode === 'druid' ? '#2a6a3a' : '#6a2a8a';
   if (mode === 'druid') {
     const b = item;
-    const tags = [];
-    if (b.fly) tags.push(`<span class="tag fly">Fly</span>`);
-    if (b.swim) tags.push(`<span class="tag swim">Swim</span>`);
-    if (b.climb) tags.push(`<span class="tag climb">Climb</span>`);
-    if (b.burrow) tags.push(`<span class="tag burrow">Burrow</span>`);
-    if (b.darkvision) tags.push(`<span class="tag darkvision">Darkvision ${b.darkvision} ft</span>`);
-    if (b.blindsight) tags.push(`<span class="tag blindsight">Blindsight ${b.blindsight} ft</span>`);
+    const tags = deriveTags(b, false);
     const maxCR = druidMaxCR();
     const eligible = b.cr <= maxCR;
     const flyOk = !b.fly || parseInt(document.getElementById('druid-level').value) >= 8;
     box.innerHTML = `
       <div class="modal-header" style="background:${color}">
         <div>
-          <div class="modal-title">${b.icon} ${b.name}</div>
+          <div class="modal-title">${b.name}</div>
           <div class="modal-subtitle">${b.size} Beast — CR ${cr(b.cr)}</div>
         </div>
         <button class="modal-close" onclick="closeModal()">Close</button>
@@ -1236,10 +1331,11 @@ function openModal(item) {
       </div>`;
   } else {
     const f = item;
+    const tags = deriveTags(f, true);
     box.innerHTML = `
       <div class="modal-header" style="background:${color}">
         <div>
-          <div class="modal-title">${f.icon} ${f.name}</div>
+          <div class="modal-title">${f.name}</div>
           <div class="modal-subtitle">Find Familiar — Celestial / Fey / Fiend form</div>
         </div>
         <button class="modal-close" onclick="closeModal()">Close</button>
@@ -1254,9 +1350,7 @@ function openModal(item) {
         <div class="ab-grid">
           ${['STR','DEX','CON','INT','WIS','CHA'].map((ab,i)=>{const v=[f.str,f.dex,f.con,f.int,f.wis,f.cha][i];return`<div class="ab-box"><div class="abl">${ab}</div><div class="abs">${v}</div><div class="abm">${mod(v)}</div></div>`}).join('')}
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
-          ${f.traits.map(t=>`<span class="tag special">${t}</span>`).join('')}
-        </div>
+        ${tags.length?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">${tags.join('')}</div>`:''}
         ${f.note?`<div class="msec"><div class="msec-label" style="color:${color}">Notes</div><p style="font-size:0.9rem;color:#333;line-height:1.5">${f.note}</p></div>`:''}
         ${f.use?`<div style="background:#f8f0ff;border-radius:5px;padding:10px 12px;margin-top:12px;border:1px solid #d0b0e8;"><div style="font-family:'Cinzel',serif;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;color:#6a2a8a;text-transform:uppercase;margin-bottom:5px;">Best Use</div><p style="font-size:0.9rem;color:#333;line-height:1.45">${f.use}</p></div>`:''}
       </div>`;
@@ -1266,7 +1360,7 @@ function openModal(item) {
 
 function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') { closeModal(); closePrintPreview(); } });
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');
@@ -1274,15 +1368,46 @@ function toggleFilters() {
   document.getElementById('toggle-arrow').textContent = bar.classList.contains('expanded') ? '▲' : '▼';
 }
 
-function printCards() {
-  const list = filtered();
-  const output = document.getElementById('print-output');
+function openPrintPreview() {
+  const allData = mode === 'druid' ? BEASTS : FAMILIARS;
+  const items = allData.filter(item => selectedCards.has(item.name));
   const pages = [];
-  for (let i=0; i<list.length; i+=8) pages.push(list.slice(i,i+8));
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const container = document.getElementById('print-pages-container');
+  container.innerHTML = '';
+  pages.forEach((page, idx) => {
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'font-family:\'Cinzel\',serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;';
+    lbl.textContent = `Page ${idx+1} of ${pages.length}`;
+    container.appendChild(lbl);
+    const pageEl = document.createElement('div');
+    pageEl.className = 'print-preview-page';
+    pageEl.innerHTML = page.map(item => mode==='druid' ? buildBeastCard(item, true) : buildFamiliarCard(item, true)).join('');
+    container.appendChild(pageEl);
+  });
+  document.getElementById('preview-page-count').textContent =
+    `${items.length} card${items.length!==1?'s':''} · ${pages.length} page${pages.length!==1?'s':''}`;
+  const overlay = document.getElementById('print-preview-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrintPreview() {
+  document.getElementById('print-preview-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function executePrint() {
+  const allData = mode === 'druid' ? BEASTS : FAMILIARS;
+  const items = allData.filter(item => selectedCards.has(item.name));
+  const pages = [];
+  for (let i=0; i<items.length; i+=8) pages.push(items.slice(i,i+8));
+  const output = document.getElementById('print-output');
   output.innerHTML = pages.map(page =>
-    `<div class="print-page">${page.map(item => mode==='druid' ? buildBeastCard(item) : buildFamiliarCard(item)).join('')}</div>`
+    `<div class="print-page">${page.map(item => mode==='druid' ? buildBeastCard(item, true) : buildFamiliarCard(item, true)).join('')}</div>`
   ).join('');
-  window.print();
+  closePrintPreview();
+  setTimeout(() => { window.print(); setTimeout(() => { output.innerHTML = ''; }, 1500); }, 100);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
