@@ -119,6 +119,16 @@ body::before {
 .hist-total{color:var(--gold);font-weight:600;}
 .hist-empty{font-size:0.9rem;color:var(--text-dim);font-style:italic;}
 
+/* SAVED EXPRESSIONS */
+.saved-grid{display:flex;flex-wrap:wrap;gap:8px;min-height:36px;}
+.saved-btn-wrap{position:relative;display:inline-flex;}
+.saved-btn{font-family:'Cinzel',serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;padding:10px 32px 10px 14px;border-radius:7px;border:1px solid rgba(201,168,76,0.3);background:rgba(201,168,76,0.08);color:var(--gold);cursor:pointer;transition:background 0.14s,border-color 0.14s,transform 0.06s;user-select:none;white-space:nowrap;}
+.saved-btn:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.55);}
+.saved-btn:active{transform:translateY(1px);}
+.saved-remove{position:absolute;top:50%;right:5px;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);font-size:0.75rem;cursor:pointer;padding:2px 4px;line-height:1;border-radius:3px;transition:color 0.12s;}
+.saved-remove:hover{color:#e07060;}
+.saved-empty{font-size:0.9rem;color:var(--text-dim);font-style:italic;}
+
 /* FOOTER */
 .site-footer{margin-top:auto;position:relative;z-index:1;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:0.78rem;color:var(--text-dim);font-style:italic;background:rgba(16,24,50,0.45);}
 
@@ -221,6 +231,16 @@ body::before {
       </div>
     </div>
 
+    <div class="panel" id="saved-panel">
+      <div class="panel-head">
+        <span class="panel-title">Saved Expressions</span>
+        <button class="hist-clear-btn" type="button" onclick="clearSaved()">Clear All</button>
+      </div>
+      <div class="panel-body">
+        <div class="saved-grid" id="saved-grid"></div>
+      </div>
+    </div>
+
     <div class="panel">
       <div class="panel-head">
         <span class="panel-title">Roll History</span>
@@ -239,6 +259,75 @@ body::before {
 </div>
 
 <script>
+// ---- SAVED EXPRESSIONS ----
+const SAVED_KEY = 'diceSaved_v1';
+
+function loadSaved(){
+  try{return JSON.parse(localStorage.getItem(SAVED_KEY))||[];}
+  catch(e){return [];}
+}
+
+function saveSaved(arr){
+  localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+}
+
+function renderSaved(){
+  const grid = document.getElementById('saved-grid');
+  const arr = loadSaved();
+  if(!arr.length){
+    grid.innerHTML = '<span class="saved-empty">Rolled expressions will appear here.</span>';
+    return;
+  }
+  grid.innerHTML = '';
+  arr.forEach(expr => {
+    const wrap = document.createElement('div');
+    wrap.className = 'saved-btn-wrap';
+    const btn = document.createElement('button');
+    btn.className = 'saved-btn';
+    btn.type = 'button';
+    btn.textContent = expr;
+    btn.title = 'Roll ' + expr;
+    btn.addEventListener('click', () => {
+      document.getElementById('expression').value = expr;
+      rollExpression();
+    });
+    const rm = document.createElement('button');
+    rm.className = 'saved-remove';
+    rm.type = 'button';
+    rm.innerHTML = '&#x2715;';
+    rm.title = 'Remove ' + expr;
+    rm.addEventListener('click', e => {
+      e.stopPropagation();
+      removeExpression(expr);
+    });
+    wrap.appendChild(btn);
+    wrap.appendChild(rm);
+    grid.appendChild(wrap);
+  });
+}
+
+function addExpression(expr){
+  const arr = loadSaved();
+  const normalised = expr.replace(/\s+/g,'').toLowerCase();
+  if(arr.includes(normalised)) return; // no duplicates
+  arr.push(normalised);
+  saveSaved(arr);
+  renderSaved();
+}
+
+function removeExpression(expr){
+  const arr = loadSaved().filter(e => e !== expr);
+  saveSaved(arr);
+  renderSaved();
+}
+
+function clearSaved(){
+  localStorage.removeItem(SAVED_KEY);
+  renderSaved();
+}
+
+// ---- END SAVED EXPRESSIONS ----
+
 function openNav(){document.getElementById('nav-drawer').classList.add('open');document.getElementById('nav-overlay').classList.add('open');document.body.style.overflow='hidden';}
 function closeNav(){document.getElementById('nav-drawer').classList.remove('open');document.getElementById('nav-overlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
@@ -268,7 +357,9 @@ function rollExpression(){
   const rolls=[];
   for(let i=0;i<count;i++)rolls.push(randomInt(1,sides));
   const total=rolls.reduce((a,b)=>a+b,0)+modifier;
-  displayResult({total,expr:exprRaw||expr,rolls,modifier});
+  const finalExpr=exprRaw||expr;
+  displayResult({total,expr:finalExpr,rolls,modifier});
+  addExpression(finalExpr);
 }
 
 function displayResult({total,expr,rolls,modifier}){
@@ -302,9 +393,10 @@ function clearHistory(){
 }
 
 window.addEventListener('load',()=>{
-  const saved=localStorage.getItem('diceHistory_v2');
+  renderSaved();
+  const saved2=localStorage.getItem('diceHistory_v2');
   const histDiv=document.getElementById('history');
-  if(saved){histDiv.innerHTML=saved;}
+  if(saved2){histDiv.innerHTML=saved2;}
   else{histDiv.innerHTML='<div class="hist-empty">No rolls yet.</div>';}
   document.getElementById('expression').addEventListener('keydown',e=>{if(e.key==='Enter')rollExpression();});
 });
