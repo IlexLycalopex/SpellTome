@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<title>Dice Roller — The Tome | D&D 5e</title>
+<title>Dice Roller — The Tome</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
@@ -11,43 +11,23 @@
   --bg-dark:#1a1a2e; --bg-panel:#16213e; --text-light:#e8e8e8;
   --text-muted:#9a9ab0; --text-dim:#6a6a80;
   --gold:#c9a84c; --gold-dim:#8a6a2c; --border:#2a2a4a;
-  --acc:#7b5ea7; --acc-dim:#4a2d7a; --acc-glow:rgba(123,94,167,0.25);
-  --acc-bg:rgba(123,94,167,0.08);
+  --acc:#7b5ea7; --acc-dim:#4a2d7a;
+  --green-hi:#6dcc88; --green-mid:#9dd08a;
+  --red-hi:#e07060; --red-deep:#c0392b;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body {
-  font-family:'EB Garamond',Georgia,serif;
-  background:var(--bg-dark); color:var(--text-light);
-  min-height:100vh; overflow-x:hidden;
-  background-image:
-    radial-gradient(ellipse at 15% 20%, rgba(74,0,120,0.2) 0%, transparent 52%),
-    radial-gradient(ellipse at 85% 75%, rgba(0,55,110,0.18) 0%, transparent 52%);
-}
-body::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.025;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px);
-}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--bg-dark);color:var(--text-light);min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 15% 20%,rgba(74,0,120,0.2) 0%,transparent 52%),radial-gradient(ellipse at 85% 75%,rgba(0,55,110,0.18) 0%,transparent 52%);}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.025;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,1) 59px,rgba(201,168,76,1) 60px),
+  repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(201,168,76,1) 59px,rgba(201,168,76,1) 60px);}
 
-/* NAV DRAWER */
-.nav-overlay {
-  position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;
-  opacity:0;pointer-events:none;transition:opacity 0.25s ease;
-}
+/* NAV */
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:998;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
 .nav-overlay.open{opacity:1;pointer-events:all;}
-.nav-drawer {
-  position:fixed;top:0;right:-310px;width:290px;height:100vh;
-  background:rgba(13,20,45,0.99);border-left:1px solid var(--border);
-  backdrop-filter:blur(16px);z-index:999;
-  transition:right 0.28s cubic-bezier(0.4,0,0.2,1);
-  display:flex;flex-direction:column;
-}
+.nav-drawer{position:fixed;top:0;right:-310px;width:290px;height:100vh;background:rgba(13,20,45,0.99);border-left:1px solid var(--border);backdrop-filter:blur(16px);z-index:999;transition:right 0.28s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
 .nav-drawer.open{right:0;}
-.nav-drawer-header {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
-}
+.nav-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
 .nav-drawer-title{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
 .nav-close-btn{background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;padding:4px 6px;line-height:1;border-radius:4px;transition:color 0.15s;}
 .nav-close-btn:hover{color:var(--text-light);}
@@ -62,35 +42,28 @@ body::before {
 .hamburger-btn span{display:block;width:20px;height:2px;background:var(--text-muted);border-radius:2px;transition:background 0.15s;}
 .hamburger-btn:hover span{background:var(--gold);}
 
-/* SITE HEADER */
-#site-header {
-  position:sticky;top:0;z-index:100;
-  background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);
-  backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 20px;
-}
+/* HEADER */
+#site-header{position:sticky;top:0;z-index:100;background:rgba(22,33,62,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
 .site-logo{display:flex;align-items:center;gap:9px;font-family:'Cinzel',serif;font-size:1rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-shadow:0 0 18px rgba(201,168,76,0.35);text-decoration:none;}
 .site-logo svg{width:1.2rem;height:1.2rem;flex-shrink:0;}
 .page-title{font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc);opacity:0.9;}
 
-/* PAGE */
+/* LAYOUT */
 .page-wrap{position:relative;z-index:1;min-height:calc(100vh - 52px);display:flex;flex-direction:column;}
 .content-wrap{max-width:760px;margin:0 auto;width:100%;padding:32px 20px 60px;}
-
-/* PAGE HEADING */
 .page-heading{font-family:'Cinzel',serif;font-size:clamp(1.5rem,4vw,2.4rem);font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);line-height:1.05;margin-bottom:6px;text-shadow:0 0 30px rgba(201,168,76,0.25),0 2px 6px rgba(0,0,0,0.7);}
 .page-sub{font-size:1rem;color:var(--text-muted);font-style:italic;letter-spacing:0.03em;margin-bottom:28px;}
 
 /* PANEL */
 .panel{background:rgba(22,33,62,0.65);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);backdrop-filter:blur(8px);margin-bottom:18px;}
+.panel.hidden{display:none;}
 .panel-head{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(22,33,62,0.5);}
 .panel-title{font-family:'Cinzel',serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
 .panel-body{padding:18px;}
 
-/* DICE GRID */
-.dice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.dice-btn{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:0.06em;padding:16px 10px;border-radius:8px;border:1px solid rgba(123,94,167,0.35);background:rgba(123,94,167,0.12);color:var(--text-light);cursor:pointer;transition:background 0.14s ease,border-color 0.14s ease,transform 0.06s ease,box-shadow 0.14s;user-select:none;}
+/* DICE */
+.dice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.dice-btn{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:0.06em;padding:16px 10px;border-radius:8px;border:1px solid rgba(123,94,167,0.35);background:rgba(123,94,167,0.12);color:var(--text-light);cursor:pointer;transition:background 0.14s,border-color 0.14s,transform 0.06s,box-shadow 0.14s;user-select:none;}
 .dice-btn:hover{background:rgba(123,94,167,0.28);border-color:rgba(123,94,167,0.65);box-shadow:0 0 14px rgba(123,94,167,0.2);}
 .dice-btn:active{transform:translateY(1px);}
 
@@ -99,6 +72,8 @@ body::before {
 .field-input{width:100%;padding:12px 14px;border-radius:7px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1rem;transition:border-color 0.15s;}
 .field-input:focus{outline:none;border-color:var(--acc);}
 .field-hint{font-size:0.82rem;color:var(--text-dim);font-style:italic;margin-top:6px;}
+.field-error{font-size:0.82rem;color:var(--red-hi);font-style:italic;margin-top:6px;display:none;}
+.field-error.show{display:block;}
 .roll-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:14px;}
 .roll-btn{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:12px 22px;border-radius:7px;border:1px solid var(--gold-dim);background:linear-gradient(135deg,rgba(138,106,44,0.5),rgba(201,168,76,0.2));color:var(--gold);cursor:pointer;transition:all 0.14s;white-space:nowrap;}
 .roll-btn:hover{background:linear-gradient(135deg,rgba(138,106,44,0.8),rgba(201,168,76,0.35));box-shadow:0 0 16px rgba(201,168,76,0.2);}
@@ -111,23 +86,75 @@ body::before {
 @keyframes flash-in{0%{transform:scale(1.12);opacity:0.6;}100%{transform:scale(1);opacity:1;}}
 .result-detail{margin-top:8px;font-size:0.9rem;color:var(--text-muted);font-style:italic;}
 
-/* HISTORY */
-.hist-clear-btn{font-family:'Cinzel',serif;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 14px;border-radius:6px;border:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.1);color:#e07060;cursor:pointer;transition:all 0.14s;}
-.hist-clear-btn:hover{background:rgba(192,57,43,0.25);border-color:rgba(192,57,43,0.65);}
-.history-item{font-size:0.9rem;padding:10px 13px;border:1px solid rgba(255,255,255,0.07);border-radius:7px;margin-bottom:8px;background:rgba(255,255,255,0.03);color:var(--text-muted);line-height:1.4;font-family:'EB Garamond',Georgia,serif;}
-.history-item:last-child{margin-bottom:0;}
-.hist-total{color:var(--gold);font-weight:600;}
-.hist-empty{font-size:0.9rem;color:var(--text-dim);font-style:italic;}
+/* CRIT */
+.crit-banner{display:none;align-items:center;justify-content:center;gap:10px;margin-top:14px;padding:10px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:0.8rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;animation:flash-in 0.3s ease;}
+.crit-banner.show{display:flex;}
+.crit-banner.nat20{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.45);color:var(--gold);}
+.crit-banner.nat1{background:rgba(192,57,43,0.12);border:1px solid rgba(192,57,43,0.4);color:var(--red-hi);}
+.crit-banner svg{width:1.3rem;height:1.3rem;flex-shrink:0;}
 
-/* SAVED EXPRESSIONS */
+/* SYSTEM SWITCHER */
+.sys-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+.sys-opt{font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:10px 6px;flex:1;border:none;background:transparent;color:var(--text-muted);cursor:pointer;transition:background 0.14s,color 0.14s;border-right:1px solid var(--border);}
+.sys-opt:last-child{border-right:none;}
+.sys-opt.active{background:rgba(123,94,167,0.22);color:var(--text-light);}
+.sys-opt:not(.active):hover{background:rgba(255,255,255,0.04);color:var(--text-light);}
+.sys-section{display:none;}
+.sys-section.show{display:block;}
+
+/* COC SKILL */
+.skill-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:16px;}
+.skill-thresholds{display:none;margin-top:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.skill-thresholds.show{display:block;}
+.thresh-row{display:grid;grid-template-columns:1fr auto;align-items:center;padding:8px 13px;border-bottom:1px solid rgba(255,255,255,0.05);border-left:3px solid transparent;font-family:'EB Garamond',Georgia,serif;font-size:0.88rem;transition:background 0.15s,border-left-color 0.15s;}
+.thresh-row:last-child{border-bottom:none;}
+.thresh-label{color:var(--text-muted);}
+.thresh-val{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;color:var(--text-dim);}
+.thresh-row.t-extreme .thresh-label,.thresh-row.t-extreme .thresh-val{color:var(--gold);}
+.thresh-row.t-hard    .thresh-label,.thresh-row.t-hard    .thresh-val{color:var(--green-mid);}
+.thresh-row.t-standard .thresh-label,.thresh-row.t-standard .thresh-val{color:var(--green-hi);}
+.thresh-row.t-fail    .thresh-label,.thresh-row.t-fail    .thresh-val{color:var(--red-hi);}
+.thresh-row.t-fumble  .thresh-label,.thresh-row.t-fumble  .thresh-val{color:var(--red-deep);}
+.thresh-row.active-thresh{background:rgba(255,255,255,0.05);}
+.thresh-row.t-extreme.active-thresh{border-left-color:var(--gold);}
+.thresh-row.t-hard.active-thresh{border-left-color:var(--green-mid);}
+.thresh-row.t-standard.active-thresh{border-left-color:var(--green-hi);}
+.thresh-row.t-fail.active-thresh{border-left-color:var(--red-hi);}
+.thresh-row.t-fumble.active-thresh{border-left-color:var(--red-deep);}
+.skill-result{margin-top:10px;padding:12px 14px;border-radius:7px;border:1px solid var(--border);background:rgba(0,0,0,0.2);font-family:'Cinzel',serif;font-size:0.82rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;display:none;}
+.skill-result.show{display:block;}
+.skill-result.pass   {border-color:rgba(80,180,100,0.5);color:var(--green-hi);background:rgba(80,180,100,0.08);}
+.skill-result.fail   {border-color:rgba(192,57,43,0.4);color:var(--red-hi);background:rgba(192,57,43,0.08);}
+.skill-result.extreme{border-color:rgba(201,168,76,0.5);color:var(--gold);background:rgba(201,168,76,0.1);}
+.skill-result.fumble {border-color:rgba(140,30,30,0.6);color:var(--red-deep);background:rgba(140,30,30,0.1);}
+
+/* ADVANTAGE */
+.adv-toggle{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.adv-opt{font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:12px 10px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;transition:background 0.14s,color 0.14s;}
+.adv-opt:first-child{border-right:1px solid var(--border);}
+.adv-opt.active{background:rgba(123,94,167,0.22);color:var(--text-light);}
+.adv-opt:not(.active):hover{background:rgba(255,255,255,0.04);color:var(--text-light);}
+.adv-mod-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:14px;}
+.mod-input{width:100%;padding:12px 14px;border-radius:7px;border:1px solid var(--border);background:rgba(0,0,0,0.3);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1rem;transition:border-color 0.15s;}
+.mod-input:focus{outline:none;border-color:var(--acc);}
+
+/* SAVED */
 .saved-grid{display:flex;flex-wrap:wrap;gap:8px;min-height:36px;}
 .saved-btn-wrap{position:relative;display:inline-flex;}
 .saved-btn{font-family:'Cinzel',serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;padding:10px 32px 10px 14px;border-radius:7px;border:1px solid rgba(201,168,76,0.3);background:rgba(201,168,76,0.08);color:var(--gold);cursor:pointer;transition:background 0.14s,border-color 0.14s,transform 0.06s;user-select:none;white-space:nowrap;}
 .saved-btn:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.55);}
 .saved-btn:active{transform:translateY(1px);}
 .saved-remove{position:absolute;top:50%;right:5px;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);font-size:0.75rem;cursor:pointer;padding:2px 4px;line-height:1;border-radius:3px;transition:color 0.12s;}
-.saved-remove:hover{color:#e07060;}
+.saved-remove:hover{color:var(--red-hi);}
 .saved-empty{font-size:0.9rem;color:var(--text-dim);font-style:italic;}
+
+/* HISTORY */
+.hist-clear-btn{font-family:'Cinzel',serif;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 14px;border-radius:6px;border:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.1);color:var(--red-hi);cursor:pointer;transition:all 0.14s;}
+.hist-clear-btn:hover{background:rgba(192,57,43,0.25);border-color:rgba(192,57,43,0.65);}
+.history-item{font-size:0.9rem;padding:10px 13px;border:1px solid rgba(255,255,255,0.07);border-radius:7px;margin-bottom:8px;background:rgba(255,255,255,0.03);color:var(--text-muted);line-height:1.4;font-family:'EB Garamond',Georgia,serif;}
+.history-item:last-child{margin-bottom:0;}
+.hist-total{color:var(--gold);font-weight:600;}
+.hist-empty{font-size:0.9rem;color:var(--text-dim);font-style:italic;}
 
 /* FOOTER */
 .site-footer{margin-top:auto;position:relative;z-index:1;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:0.78rem;color:var(--text-dim);font-style:italic;background:rgba(16,24,50,0.45);}
@@ -135,7 +162,7 @@ body::before {
 @media(max-width:640px){
   #site-header{padding:10px 16px;}
   .content-wrap{padding:22px 14px 48px;}
-  .dice-grid{grid-template-columns:repeat(3,1fr);}
+  .sys-opt{font-size:0.58rem;padding:10px 4px;}
 }
 </style>
 </head>
@@ -191,7 +218,7 @@ body::before {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
     The Tome
   </a>
-  <span class="page-title">Dice Roller</span>
+  <span class="page-title" id="page-title">Dice Roller</span>
   <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
     <span></span><span></span><span></span>
   </button>
@@ -201,36 +228,98 @@ body::before {
   <div class="content-wrap">
 
     <div class="page-heading">Dice Roller</div>
-    <div class="page-sub">Quick rolls and custom expressions for any system</div>
+    <div class="page-sub" id="page-sub">Quick rolls and custom expressions for any system</div>
 
+    <!-- QUICK ROLL -->
     <div class="panel">
       <div class="panel-head">
-        <span class="panel-title">Quick Roll</span>
+        <span class="panel-title" id="panel-roll-title">Quick Roll</span>
       </div>
       <div class="panel-body">
-        <div class="dice-grid" aria-label="Quick dice">
-          <button class="dice-btn" type="button" onclick="quickRoll(4)">d4</button>
-          <button class="dice-btn" type="button" onclick="quickRoll(6)">d6</button>
-          <button class="dice-btn" type="button" onclick="quickRoll(8)">d8</button>
-          <button class="dice-btn" type="button" onclick="quickRoll(10)">d10</button>
-          <button class="dice-btn" type="button" onclick="quickRoll(12)">d12</button>
-          <button class="dice-btn" type="button" onclick="quickRoll(20)">d20</button>
+
+        <div class="sys-toggle" role="group" aria-label="Game system">
+          <button class="sys-opt active" id="sys-dnd" type="button" onclick="setSystem('dnd')">D&amp;D 5e</button>
+          <button class="sys-opt" id="sys-coc" type="button" onclick="setSystem('coc')">Call of Cthulhu</button>
+          <button class="sys-opt" id="sys-gen" type="button" onclick="setSystem('generic')">Generic</button>
         </div>
 
-        <label class="field-label" for="expression">Custom expression</label>
-        <input class="field-input" id="expression" placeholder="e.g. 2d6+3, 1d20+5" autocomplete="off" spellcheck="false" />
-        <div class="roll-row">
-          <div class="field-hint">Format: NdS+M &mdash; examples: d20, 2d6+3, 4d8-2</div>
-          <button class="roll-btn" type="button" onclick="rollExpression()">Roll</button>
+        <!-- D&D 5e dice -->
+        <div class="sys-section show" id="sec-dnd">
+          <div class="dice-grid">
+            <button class="dice-btn" type="button" onclick="quickRoll(4)">d4</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(6)">d6</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(8)">d8</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(10)">d10</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(12)">d12</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(20)">d20</button>
+          </div>
+        </div>
+
+        <!-- CoC dice + skill check -->
+        <div class="sys-section" id="sec-coc">
+          <div class="dice-grid" style="margin-bottom:16px;">
+            <button class="dice-btn" type="button" onclick="quickRoll(3)">d3</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(6)">d6</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(8)">d8</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(10)">d10</button>
+            <button class="dice-btn" type="button" onclick="rollPercentile()">d100</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(20)">d20</button>
+          </div>
+          <label class="field-label" for="skill-target">Skill check</label>
+          <div class="skill-row">
+            <input class="field-input" id="skill-target" type="number" min="1" max="99" placeholder="Skill % (e.g. 55)" />
+            <button class="roll-btn" type="button" onclick="rollSkillCheck()">Check</button>
+          </div>
+          <div class="field-error" id="skill-error"></div>
+          <div class="skill-thresholds" id="skill-thresholds">
+            <div class="thresh-row t-extreme" id="thr-extreme"><span class="thresh-label">Extreme Success</span><span class="thresh-val" id="thr-extreme-val"></span></div>
+            <div class="thresh-row t-hard"     id="thr-hard">   <span class="thresh-label">Hard Success</span>   <span class="thresh-val" id="thr-hard-val"></span></div>
+            <div class="thresh-row t-standard" id="thr-standard"><span class="thresh-label">Regular Success</span><span class="thresh-val" id="thr-standard-val"></span></div>
+            <div class="thresh-row t-fail"     id="thr-fail">   <span class="thresh-label">Failure</span>        <span class="thresh-val" id="thr-fail-val"></span></div>
+            <div class="thresh-row t-fumble"   id="thr-fumble"> <span class="thresh-label">Fumble</span>         <span class="thresh-val" id="thr-fumble-val"></span></div>
+          </div>
+          <div class="skill-result" id="skill-result"></div>
+        </div>
+
+        <!-- Generic dice -->
+        <div class="sys-section" id="sec-gen">
+          <div class="dice-grid">
+            <button class="dice-btn" type="button" onclick="quickRoll(4)">d4</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(6)">d6</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(8)">d8</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(10)">d10</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(12)">d12</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(20)">d20</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(100)">d100</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(2)">d2</button>
+            <button class="dice-btn" type="button" onclick="quickRoll(3)">d3</button>
+          </div>
+        </div>
+
+        <!-- Custom expression (always shown) -->
+        <div style="margin-top:20px;">
+          <label class="field-label" for="expression">Custom expression</label>
+          <input class="field-input" id="expression" placeholder="e.g. 2d6+3, 1d20+5" autocomplete="off" spellcheck="false" />
+          <div class="roll-row">
+            <div>
+              <div class="field-hint">Format: NdS+M &mdash; e.g. d20, 2d6+3, 4d8-2</div>
+              <div class="field-error" id="expr-error"></div>
+            </div>
+            <button class="roll-btn" type="button" onclick="rollExpression()">Roll</button>
+          </div>
         </div>
 
         <div class="result-wrap" id="result-wrap" style="display:none;">
           <div class="result-total" id="result"></div>
           <div class="result-detail" id="result-detail"></div>
+          <div class="crit-banner nat20" id="crit-nat20"></div>
+          <div class="crit-banner nat1"  id="crit-nat1"></div>
         </div>
+
       </div>
     </div>
 
+    <!-- SAVED EXPRESSIONS -->
     <div class="panel" id="saved-panel">
       <div class="panel-head">
         <span class="panel-title">Saved Expressions</span>
@@ -241,6 +330,33 @@ body::before {
       </div>
     </div>
 
+    <!-- ADVANTAGE / DISADVANTAGE — hidden when CoC active -->
+    <div class="panel" id="adv-panel">
+      <div class="panel-head">
+        <span class="panel-title">Advantage / Disadvantage</span>
+      </div>
+      <div class="panel-body">
+        <div class="adv-toggle" role="group" aria-label="Roll mode">
+          <button class="adv-opt active" id="adv-btn" type="button" onclick="setAdvMode('advantage')">Advantage</button>
+          <button class="adv-opt" id="dis-btn" type="button" onclick="setAdvMode('disadvantage')">Disadvantage</button>
+        </div>
+        <div class="adv-mod-row">
+          <div>
+            <label class="field-label" for="adv-modifier">Modifier (optional)</label>
+            <input class="mod-input" id="adv-modifier" type="number" placeholder="+0" />
+          </div>
+          <button class="roll-btn" type="button" onclick="rollAdvantage()">Roll 2d20</button>
+        </div>
+        <div class="result-wrap" id="adv-result-wrap" style="display:none;">
+          <div class="result-total" id="adv-result"></div>
+          <div class="result-detail" id="adv-result-detail"></div>
+          <div class="crit-banner nat20" id="adv-crit-nat20"></div>
+          <div class="crit-banner nat1"  id="adv-crit-nat1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
     <div class="panel">
       <div class="panel-head">
         <span class="panel-title">Roll History</span>
@@ -248,157 +364,238 @@ body::before {
       </div>
       <div class="panel-body">
         <div id="history"></div>
-        <div class="field-hint" style="margin-top:10px;">History is stored locally in your browser.</div>
       </div>
     </div>
 
   </div>
-  <footer class="site-footer">
-    <p>All content derived from the D&amp;D 5e Systems Reference Document (SRD 5.1). For use by players and Dungeon Masters at the table.</p>
+  <footer class="site-footer" id="site-footer">
+    <p id="footer-dnd">All content derived from the D&amp;D 5e Systems Reference Document (SRD 5.1). For use by players and Dungeon Masters at the table.</p>
+    <p id="footer-coc" style="display:none;">Call of Cthulhu is a registered trademark of Chaosium Inc. Skill check thresholds per 7th Edition rules.</p>
+    <p id="footer-gen" style="display:none;">Generic dice roller. Compatible with any tabletop system.</p>
   </footer>
 </div>
 
 <script>
-// ---- SAVED EXPRESSIONS ----
-const SAVED_KEY = 'diceSaved_v1';
+const SKULL_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="9" r="6"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9.5 12.5c.8.6 4.2.6 5 0"/><path d="M10 15v3"/><path d="M14 15v3"/><path d="M8 21h8"/></svg>`;
+const SWORDS_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/><path d="M9.5 6.5L11 5l-2-2-7 7 2 2 1.5-1.5"/><path d="M15 5l-1 1"/><path d="M5 15l-1 1"/></svg>`;
 
-function loadSaved(){
-  try{return JSON.parse(localStorage.getItem(SAVED_KEY))||[];}
-  catch(e){return [];}
-}
+// ---- SYSTEM ----
+let currentSystem = 'dnd';
 
-function saveSaved(arr){
-  localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
-}
-
-function renderSaved(){
-  const grid = document.getElementById('saved-grid');
-  const arr = loadSaved();
-  if(!arr.length){
-    grid.innerHTML = '<span class="saved-empty">Rolled expressions will appear here.</span>';
-    return;
+function setSystem(sys){
+  currentSystem = sys;
+  // Toggle buttons
+  document.getElementById('sys-dnd').classList.toggle('active', sys==='dnd');
+  document.getElementById('sys-coc').classList.toggle('active', sys==='coc');
+  document.getElementById('sys-gen').classList.toggle('active', sys==='generic');
+  // Toggle sections
+  document.getElementById('sec-dnd').classList.toggle('show', sys==='dnd');
+  document.getElementById('sec-coc').classList.toggle('show', sys==='coc');
+  document.getElementById('sec-gen').classList.toggle('show', sys==='generic');
+  // Advantage panel: not relevant for CoC
+  document.getElementById('adv-panel').classList.toggle('hidden', sys==='coc');
+  // Footer
+  document.getElementById('footer-dnd').style.display = sys==='dnd'     ? '' : 'none';
+  document.getElementById('footer-coc').style.display = sys==='coc'     ? '' : 'none';
+  document.getElementById('footer-gen').style.display = sys==='generic' ? '' : 'none';
+  // Clear main results and crits on switch
+  showCrit(null,'main');
+  // Reset CoC state when leaving
+  if(sys!=='coc'){
+    document.getElementById('skill-thresholds').classList.remove('show');
+    document.getElementById('skill-result').className='skill-result';
+    document.getElementById('skill-error').classList.remove('show');
   }
-  grid.innerHTML = '';
-  arr.forEach(expr => {
-    const wrap = document.createElement('div');
-    wrap.className = 'saved-btn-wrap';
-    const btn = document.createElement('button');
-    btn.className = 'saved-btn';
-    btn.type = 'button';
-    btn.textContent = expr;
-    btn.title = 'Roll ' + expr;
-    btn.addEventListener('click', () => {
-      document.getElementById('expression').value = expr;
-      rollExpression();
-    });
-    const rm = document.createElement('button');
-    rm.className = 'saved-remove';
-    rm.type = 'button';
-    rm.innerHTML = '&#x2715;';
-    rm.title = 'Remove ' + expr;
-    rm.addEventListener('click', e => {
-      e.stopPropagation();
-      removeExpression(expr);
-    });
-    wrap.appendChild(btn);
-    wrap.appendChild(rm);
-    grid.appendChild(wrap);
+}
+
+// ---- CRIT ----
+function showCrit(type, panel){
+  const p  = panel==='adv' ? 'adv-' : '';
+  const b20 = document.getElementById(p+'crit-nat20');
+  const b1  = document.getElementById(p+'crit-nat1');
+  if(!b20||!b1) return;
+  b20.classList.remove('show'); b1.classList.remove('show');
+  if(type===20){ b20.innerHTML=SWORDS_SVG+' Natural 20'; b20.classList.add('show'); }
+  if(type===1) { b1.innerHTML =SKULL_SVG +' Natural 1';  b1.classList.add('show');  }
+}
+function checkD20Crit(rolls,sides,panel){
+  showCrit((sides===20&&rolls.length===1)?rolls[0]:null, panel);
+}
+
+// ---- ADVANTAGE ----
+let advMode='advantage';
+function setAdvMode(mode){
+  advMode=mode;
+  document.getElementById('adv-btn').classList.toggle('active',mode==='advantage');
+  document.getElementById('dis-btn').classList.toggle('active',mode==='disadvantage');
+}
+function rollAdvantage(){
+  const r1=randomInt(1,20), r2=randomInt(1,20);
+  const isAdv=advMode==='advantage';
+  const chosen=isAdv?Math.max(r1,r2):Math.min(r1,r2);
+  const mod=parseInt(document.getElementById('adv-modifier').value,10)||0;
+  const total=chosen+mod;
+  const label=isAdv?'Advantage':'Disadvantage';
+  const modTxt=mod?(' '+(mod>0?'+':'')+mod):'';
+  const wrap=document.getElementById('adv-result-wrap');
+  const res=document.getElementById('adv-result');
+  const det=document.getElementById('adv-result-detail');
+  wrap.style.display='block';
+  res.textContent=total; res.classList.remove('roll-flash'); void res.offsetWidth; res.classList.add('roll-flash');
+  det.textContent=label+modTxt+' \u2192 ['+r1+', '+r2+']';
+  showCrit(chosen,'adv');
+  pushHistory(stamp()+'&nbsp; &bull; &nbsp;'+label+' (2d20)'+modTxt+'&nbsp; &rarr; &nbsp;<span class="hist-total">'+total+'</span>&nbsp;&nbsp;<span style="color:var(--text-dim);font-size:0.8rem;">['+r1+', '+r2+']</span>');
+}
+
+// ---- COC ----
+function rollPercentile(){
+  const tens=randomInt(0,9)*10, units=randomInt(0,9);
+  const total=(tens+units===0)?100:tens+units;
+  displayResult({total,expr:'d100',rolls:[tens,units],modifier:0,forceSides:100});
+}
+
+const THRESH_IDS=['thr-extreme','thr-hard','thr-standard','thr-fail','thr-fumble'];
+
+function renderThresholds(target){
+  const half=Math.floor(target/2), fifth=Math.floor(target/5);
+  const tbl=document.getElementById('skill-thresholds');
+  if(!target||target<1||target>99){ tbl.classList.remove('show'); return; }
+  document.getElementById('thr-extreme-val').textContent ='01 \u2013 '+fifth;
+  document.getElementById('thr-hard-val').textContent    =(fifth+1)+' \u2013 '+half;
+  document.getElementById('thr-standard-val').textContent=(half+1)+' \u2013 '+target;
+  document.getElementById('thr-fail-val').textContent    =(target+1)+' \u2013 95';
+  document.getElementById('thr-fumble-val').textContent  ='96 \u2013 100';
+  tbl.classList.add('show');
+  THRESH_IDS.forEach(id=>document.getElementById(id).classList.remove('active-thresh'));
+}
+
+function rollSkillCheck(){
+  const errEl=document.getElementById('skill-error');
+  const target=parseInt(document.getElementById('skill-target').value.trim(),10);
+  if(isNaN(target)||target<1||target>99){
+    errEl.textContent='Enter a skill % between 1 and 99.'; errEl.classList.add('show'); return;
+  }
+  errEl.classList.remove('show');
+  renderThresholds(target);
+  const half=Math.floor(target/2), fifth=Math.floor(target/5);
+  const roll=randomInt(1,100);
+  const el=document.getElementById('skill-result');
+  el.className='skill-result';
+  let outcome,cls,activeRow;
+  if(roll===1)         {outcome='Critical Success \u2014 01';   cls='extreme';activeRow='thr-extreme';}
+  else if(roll>=96)    {outcome='Fumble \u2014 '+roll;          cls='fumble'; activeRow='thr-fumble'; }
+  else if(roll<=fifth) {outcome='Extreme Success \u2014 '+roll; cls='extreme';activeRow='thr-extreme';}
+  else if(roll<=half)  {outcome='Hard Success \u2014 '+roll;    cls='pass';   activeRow='thr-hard';  }
+  else if(roll<=target){outcome='Regular Success \u2014 '+roll; cls='pass';   activeRow='thr-standard';}
+  else                 {outcome='Failure \u2014 '+roll;         cls='fail';   activeRow='thr-fail';  }
+  document.getElementById(activeRow).classList.add('active-thresh');
+  el.classList.add(cls,'show');
+  el.textContent=outcome;
+  pushHistory(stamp()+'&nbsp; &bull; &nbsp;CoC Skill Check ('+target+'%)&nbsp; &rarr; &nbsp;<span class="hist-total">'+roll+'</span>&nbsp;&nbsp;<span style="color:var(--text-dim);font-size:0.8rem;">'+outcome+'</span>');
+}
+
+// ---- SAVED ----
+const SAVED_KEY='diceSaved_v1';
+function loadSaved(){ try{return JSON.parse(localStorage.getItem(SAVED_KEY))||[];}catch(e){return[];} }
+function saveSaved(arr){ localStorage.setItem(SAVED_KEY,JSON.stringify(arr)); }
+function renderSaved(){
+  const grid=document.getElementById('saved-grid');
+  const arr=loadSaved();
+  if(!arr.length){ grid.innerHTML='<span class="saved-empty">Rolled expressions will appear here.</span>'; return; }
+  grid.innerHTML='';
+  arr.forEach(expr=>{
+    const wrap=document.createElement('div'); wrap.className='saved-btn-wrap';
+    const btn=document.createElement('button'); btn.className='saved-btn'; btn.type='button'; btn.textContent=expr; btn.title='Roll '+expr;
+    btn.addEventListener('click',()=>{ document.getElementById('expression').value=expr; rollExpression(); });
+    const rm=document.createElement('button'); rm.className='saved-remove'; rm.type='button'; rm.innerHTML='&#x2715;'; rm.title='Remove '+expr;
+    rm.addEventListener('click',e=>{ e.stopPropagation(); removeExpression(expr); });
+    wrap.appendChild(btn); wrap.appendChild(rm); grid.appendChild(wrap);
   });
 }
-
 function addExpression(expr){
-  const arr = loadSaved();
-  const normalised = expr.replace(/\s+/g,'').toLowerCase();
-  if(arr.includes(normalised)) return; // no duplicates
-  arr.push(normalised);
-  saveSaved(arr);
-  renderSaved();
+  const arr=loadSaved(),n=expr.replace(/\s+/g,'').toLowerCase();
+  if(arr.includes(n)) return;
+  arr.push(n); saveSaved(arr); renderSaved();
 }
+function removeExpression(expr){ saveSaved(loadSaved().filter(e=>e!==expr)); renderSaved(); }
+function clearSaved(){ localStorage.removeItem(SAVED_KEY); renderSaved(); }
 
-function removeExpression(expr){
-  const arr = loadSaved().filter(e => e !== expr);
-  saveSaved(arr);
-  renderSaved();
-}
+// ---- CORE ----
+function openNav(){ document.getElementById('nav-drawer').classList.add('open'); document.getElementById('nav-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeNav(){ document.getElementById('nav-drawer').classList.remove('open'); document.getElementById('nav-overlay').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeNav(); });
 
-function clearSaved(){
-  localStorage.removeItem(SAVED_KEY);
-  renderSaved();
-}
+function randomInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function stamp(){ const d=new Date(); return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
 
-// ---- END SAVED EXPRESSIONS ----
-
-function openNav(){document.getElementById('nav-drawer').classList.add('open');document.getElementById('nav-overlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeNav(){document.getElementById('nav-drawer').classList.remove('open');document.getElementById('nav-overlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
-
-function randomInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-
-function stamp(){
-  const d=new Date();
-  return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-}
-
-function quickRoll(sides){
-  const roll=randomInt(1,sides);
-  displayResult({total:roll,expr:'1d'+sides,rolls:[roll],modifier:0});
-}
-
-function rollExpression(){
-  const exprRaw=document.getElementById('expression').value.trim().toLowerCase();
-  const expr=exprRaw.replace(/\s+/g,'');
-  const match=expr.match(/^(\d*)d(\d+)([+-]\d+)?$/);
-  if(!match){alert('Invalid expression. Example: 2d6+3');return;}
-  const count=match[1]?parseInt(match[1],10):1;
-  const sides=parseInt(match[2],10);
-  const modifier=match[3]?parseInt(match[3],10):0;
-  if(count<1||count>200){alert('Dice count must be between 1 and 200.');return;}
-  if(sides<2||sides>1000000){alert('Sides must be between 2 and 1,000,000.');return;}
-  const rolls=[];
-  for(let i=0;i<count;i++)rolls.push(randomInt(1,sides));
-  const total=rolls.reduce((a,b)=>a+b,0)+modifier;
-  const finalExpr=exprRaw||expr;
-  displayResult({total,expr:finalExpr,rolls,modifier});
-  addExpression(finalExpr);
-}
-
-function displayResult({total,expr,rolls,modifier}){
-  const wrap=document.getElementById('result-wrap');
-  const res=document.getElementById('result');
-  const det=document.getElementById('result-detail');
-  wrap.style.display='block';
-  res.textContent=total;
-  res.classList.remove('roll-flash');
-  void res.offsetWidth;
-  res.classList.add('roll-flash');
-  const modTxt=modifier?(' '+(modifier>0?'+':'')+modifier):'';
-  det.textContent=rolls.length>1?expr+modTxt+' \u2192 ['+rolls.join(', ')+']':expr;
-
+function pushHistory(html){
   const histDiv=document.getElementById('history');
-  // remove empty state
-  const empty=histDiv.querySelector('.hist-empty');
-  if(empty)empty.remove();
-
-  const item=document.createElement('div');
-  item.className='history-item';
-  item.innerHTML=stamp()+'&nbsp; &bull; &nbsp;'+expr+modTxt+'&nbsp; &rarr; &nbsp;<span class="hist-total">'+total+'</span>&nbsp;&nbsp;<span style="color:var(--text-dim);font-size:0.8rem;">['+rolls.join(', ')+']</span>';
+  const empty=histDiv.querySelector('.hist-empty'); if(empty) empty.remove();
+  const item=document.createElement('div'); item.className='history-item'; item.innerHTML=html;
   histDiv.prepend(item);
   localStorage.setItem('diceHistory_v2',histDiv.innerHTML);
 }
 
+function quickRoll(sides){
+  displayResult({total:randomInt(1,sides),expr:'1d'+sides,rolls:[randomInt(1,sides)],modifier:0,forceSides:sides});
+}
+
+function rollExpression(){
+  const errEl=document.getElementById('expr-error');
+  const exprRaw=document.getElementById('expression').value.trim().toLowerCase();
+  const expr=exprRaw.replace(/\s+/g,'');
+  const match=expr.match(/^(\d*)d(\d+)([+-]\d+)?$/);
+  if(!match){ errEl.textContent='Invalid expression. Example: 2d6+3'; errEl.classList.add('show'); return; }
+  const count=match[1]?parseInt(match[1],10):1;
+  const sides=parseInt(match[2],10);
+  const modifier=match[3]?parseInt(match[3],10):0;
+  if(count<1||count>200){ errEl.textContent='Dice count must be 1-200.'; errEl.classList.add('show'); return; }
+  if(sides<2||sides>1000000){ errEl.textContent='Sides must be 2-1,000,000.'; errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  const rolls=[]; for(let i=0;i<count;i++) rolls.push(randomInt(1,sides));
+  const total=rolls.reduce((a,b)=>a+b,0)+modifier;
+  const finalExpr=exprRaw||expr;
+  displayResult({total,expr:finalExpr,rolls,modifier,forceSides:sides});
+  addExpression(finalExpr);
+}
+
+function displayResult({total,expr,rolls,modifier,forceSides}){
+  const wrap=document.getElementById('result-wrap');
+  const res=document.getElementById('result');
+  const det=document.getElementById('result-detail');
+  wrap.style.display='block';
+  res.textContent=total; res.classList.remove('roll-flash'); void res.offsetWidth; res.classList.add('roll-flash');
+  const modTxt=modifier?(' '+(modifier>0?'+':'')+modifier):'';
+  det.textContent=rolls.length>1?expr+modTxt+' \u2192 ['+rolls.join(', ')+']':expr;
+  checkD20Crit(rolls,forceSides||null,'main');
+  pushHistory(stamp()+'&nbsp; &bull; &nbsp;'+expr+modTxt+'&nbsp; &rarr; &nbsp;<span class="hist-total">'+total+'</span>&nbsp;&nbsp;<span style="color:var(--text-dim);font-size:0.8rem;">['+rolls.join(', ')+']</span>');
+}
+
 function clearHistory(){
-  const histDiv=document.getElementById('history');
-  histDiv.innerHTML='<div class="hist-empty">No rolls yet.</div>';
+  document.getElementById('history').innerHTML='<div class="hist-empty">No rolls yet.</div>';
   localStorage.removeItem('diceHistory_v2');
 }
 
+// ---- INIT ----
 window.addEventListener('load',()=>{
   renderSaved();
-  const saved2=localStorage.getItem('diceHistory_v2');
-  const histDiv=document.getElementById('history');
-  if(saved2){histDiv.innerHTML=saved2;}
-  else{histDiv.innerHTML='<div class="hist-empty">No rolls yet.</div>';}
-  document.getElementById('expression').addEventListener('keydown',e=>{if(e.key==='Enter')rollExpression();});
+  const saved=localStorage.getItem('diceHistory_v2');
+  document.getElementById('history').innerHTML=saved||'<div class="hist-empty">No rolls yet.</div>';
+
+  document.getElementById('expression').addEventListener('keydown',e=>{ if(e.key==='Enter') rollExpression(); });
+  document.getElementById('expression').addEventListener('input',()=>document.getElementById('expr-error').classList.remove('show'));
+  document.getElementById('adv-modifier').addEventListener('keydown',e=>{ if(e.key==='Enter') rollAdvantage(); });
+
+  const skillEl=document.getElementById('skill-target');
+  skillEl.addEventListener('keydown',e=>{ if(e.key==='Enter') rollSkillCheck(); });
+  skillEl.addEventListener('input',e=>{
+    const v=parseInt(e.target.value,10);
+    document.getElementById('skill-error').classList.remove('show');
+    document.getElementById('skill-result').className='skill-result';
+    THRESH_IDS.forEach(id=>document.getElementById(id).classList.remove('active-thresh'));
+    if(v>=1&&v<=99) renderThresholds(v);
+    else document.getElementById('skill-thresholds').classList.remove('show');
+  });
 });
 </script>
 </body>
