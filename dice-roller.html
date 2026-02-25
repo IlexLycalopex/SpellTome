@@ -419,6 +419,7 @@ function showCrit(type, panel){
   if(type===1) { b1.innerHTML =SKULL_SVG +' Natural 1';  b1.classList.add('show');  }
 }
 function checkD20Crit(rolls,sides,panel){
+  if(currentSystem==='coc'){ showCrit(null,panel); return; }
   showCrit((sides===20&&rolls.length===1)?rolls[0]:null, panel);
 }
 
