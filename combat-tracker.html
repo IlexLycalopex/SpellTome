@@ -247,6 +247,7 @@ body.in-combat .phase-setup{display:none;}
 .unit-acts{display:flex;flex-direction:column;gap:.25rem;align-items:flex-end;flex-shrink:0;}
 .unit-acts-row{display:flex;gap:.22rem;}
 .ib{background:none;border:1px solid var(--border);color:var(--text-muted);width:27px;height:27px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .12s;flex-shrink:0;}
+.ib.ib-lg{width:36px;height:36px;font-size:1rem;border-radius:5px;}
 .ib:hover{border-color:var(--gold-dim);color:var(--gold);}
 .ib.red:hover{border-color:var(--acc);color:var(--en-a);}
 .ib.grn:hover{border-color:var(--npc-b);color:var(--npc-a);}
@@ -614,6 +615,11 @@ function removeUnit(id) {
   units = units.filter(u => u.id !== id);
   renderSetup(); if(phase==='combat') renderCombat();
 }
+function confirmRemove(id) {
+  const u = byId(id); if(!u) return;
+  if(!confirm(`Remove ${u.name} from combat?`)) return;
+  removeUnit(id);
+}
 
 // ═══════ SORT / CLEAR ═══════
 function sortByInit() {
@@ -661,6 +667,7 @@ function toggleDead(id) {
   const u = byId(id);
   if(u.dead) { u.dead=false; u.dying=false; u.hpCur=1; u.ds={s:0,f:0}; }
   else if(u.dying) { u.dying=false; u.dead=true; u.ds={s:0,f:0}; }
+  else if(u.type==='enemy') { u.dead=true; u.hpCur=0; }
   else { u.dying=true; u.hpCur=0; }
   renderCombat();
 }
@@ -688,7 +695,7 @@ function applyHp(mode) {
   const amt=parseInt(document.getElementById('hp-amount').value);
   if(isNaN(amt)||amt<0) return;
   const u=byId(hpTarget); if(!u) return;
-  if(mode==='damage') { u.hpCur=Math.max(0,u.hpCur-amt); if(u.hpCur===0&&!u.dead) u.dying=true; }
+  if(mode==='damage') { u.hpCur=Math.max(0,u.hpCur-amt); if(u.hpCur===0&&!u.dead) { u.type==='enemy' ? u.dead=true : u.dying=true; } }
   else { u.hpCur=Math.min(u.hpMax||99999,u.hpCur+amt); if(u.hpCur>0){u.dying=false;u.dead=false;u.ds={s:0,f:0};} }
   closeModal('hp-modal'); renderCombat();
 }
@@ -861,9 +868,9 @@ function renderCombat() {
     const stateBadge=u.dead
       ?`<span style="font-family:Cinzel,serif;font-size:.55rem;font-weight:700;letter-spacing:.06em;color:var(--en-a)">DEAD</span>`
       :isDying?`<span class="dying-badge">DYING</span>`:'';
-    const deadBtn=u.dead?`<button class="ib grn" onclick="toggleDead(${u.id})" title="Revive">↑</button>`
-      :isDying?`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dead">☠</button>`
-      :`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dying">☠</button>`;
+    const deadBtn=u.dead?`<button class="ib ib-lg grn" onclick="toggleDead(${u.id})" title="Revive">↑</button>`
+      :isDying?`<button class="ib ib-lg red" onclick="toggleDead(${u.id})" title="Mark Dead">☠</button>`
+      :`<button class="ib ib-lg red" onclick="toggleDead(${u.id})" title="Mark Dying">☠</button>`;
 
     return `<div class="unit type-${u.type}${isActive?' active-turn':''}${stateClass}" data-id="${u.id}" ${drag(u.id)} onclick="selectUnit(${u.id})" style="${selStyle}">
       <div class="unit-init">${u.initiative}</div>
@@ -884,7 +891,7 @@ function renderCombat() {
         ${mode==='full'?`<div class="unit-acts-row"><button class="ib" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
         <div class="unit-acts-row">
           ${deadBtn}
-          <button class="ib red" onclick="removeUnit(${u.id})" title="Remove">✕</button>
+          <button class="ib ib-lg red" onclick="confirmRemove(${u.id})" title="Remove">✕</button>
         </div>
       </div>
     </div>`;
