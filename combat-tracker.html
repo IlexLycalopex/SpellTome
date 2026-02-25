@@ -247,6 +247,7 @@ body.in-combat .phase-setup{display:none;}
 .unit-acts{display:flex;flex-direction:column;gap:.25rem;align-items:flex-end;flex-shrink:0;}
 .unit-acts-row{display:flex;gap:.22rem;}
 .ib{background:none;border:1px solid var(--border);color:var(--text-muted);width:27px;height:27px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .12s;flex-shrink:0;}
+.ib.ib-lg{width:36px;height:36px;font-size:1rem;border-radius:5px;}
 .ib:hover{border-color:var(--gold-dim);color:var(--gold);}
 .ib.red:hover{border-color:var(--acc);color:var(--en-a);}
 .ib.grn:hover{border-color:var(--npc-b);color:var(--npc-a);}
@@ -463,7 +464,7 @@ body.full-mode .full-only{display:revert;}
     </div>
     <div class="cb-right">
       <button class="btn btn-ghost btn-sm" onclick="endCombat()">✕ End</button>
-      <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+      <button class="btn btn-next" id="next-btn-top" onclick="nextTurn()">Start ▶</button>
     </div>
   </div>
 
@@ -476,8 +477,9 @@ body.full-mode .full-only{display:revert;}
       <button class="btn btn-ghost btn-sm" onclick="sortByInit()">⇅ Sort</button>
       <button class="btn btn-ghost btn-sm full-only" onclick="openCondPanel()">◈ Conditions</button>
       <button class="btn btn-ghost btn-sm" onclick="clearDead()">✕ Dead</button>
+      <button class="btn btn-ghost btn-sm" id="drag-toggle-btn" onclick="toggleDragging()">⠿ Drag</button>
     </div>
-    <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+    <button class="btn btn-next" id="next-btn" onclick="nextTurn()">Start ▶</button>
   </div>
 
 </div>
@@ -561,6 +563,7 @@ let round = 1;
 let selUnitId = null;
 let hpTarget = null;
 let dragSrcId = null;
+let dragEnabled = false;
 let touchId = null, touchClone = null;
 
 const CONDITIONS = ['Blinded','Charmed','Deafened','Exhausted','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified','Poisoned','Prone','Restrained','Stunned','Unconscious','Concentrating'];
@@ -614,6 +617,11 @@ function removeUnit(id) {
   units = units.filter(u => u.id !== id);
   renderSetup(); if(phase==='combat') renderCombat();
 }
+function confirmRemove(id) {
+  const u = byId(id); if(!u) return;
+  if(!confirm(`Remove ${u.name} from combat?`)) return;
+  removeUnit(id);
+}
 
 // ═══════ SORT / CLEAR ═══════
 function sortByInit() {
@@ -635,9 +643,25 @@ function startCombat() {
 }
 function endCombat() {
   phase='setup'; turnIdx=-1; round=1; selUnitId=null;
+  dragEnabled=false;
   closeCondPanel();
   document.body.classList.remove('in-combat');
+  ['next-btn','next-btn-top'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='Start ▶'; });
+  const dtb=document.getElementById('drag-toggle-btn');
+  if(dtb){dtb.textContent='⠿ Drag';dtb.style.borderColor='';dtb.style.color='';}
   renderSetup();
+}
+
+// ═══════ DRAG TOGGLE ═══════
+function toggleDragging() {
+  dragEnabled = !dragEnabled;
+  const btn = document.getElementById('drag-toggle-btn');
+  if(btn) {
+    btn.textContent = dragEnabled ? '⠿ Drag On' : '⠿ Drag';
+    btn.style.borderColor = dragEnabled ? 'var(--gold-dim)' : '';
+    btn.style.color = dragEnabled ? 'var(--gold)' : '';
+  }
+  renderCombat();
 }
 
 // ═══════ TURN ═══════
@@ -653,6 +677,10 @@ function nextTurn() {
     turnIdx = units.indexOf(active[ai]);
   }
   renderCombat();
+  // sync button labels to Next after first turn
+  ['next-btn','next-btn-top'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.textContent = 'Next ▶';
+  });
   document.querySelector('.active-turn')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -661,6 +689,7 @@ function toggleDead(id) {
   const u = byId(id);
   if(u.dead) { u.dead=false; u.dying=false; u.hpCur=1; u.ds={s:0,f:0}; }
   else if(u.dying) { u.dying=false; u.dead=true; u.ds={s:0,f:0}; }
+  else if(u.type==='enemy') { u.dead=true; u.hpCur=0; }
   else { u.dying=true; u.hpCur=0; }
   renderCombat();
 }
@@ -688,7 +717,7 @@ function applyHp(mode) {
   const amt=parseInt(document.getElementById('hp-amount').value);
   if(isNaN(amt)||amt<0) return;
   const u=byId(hpTarget); if(!u) return;
-  if(mode==='damage') { u.hpCur=Math.max(0,u.hpCur-amt); if(u.hpCur===0&&!u.dead) u.dying=true; }
+  if(mode==='damage') { u.hpCur=Math.max(0,u.hpCur-amt); if(u.hpCur===0&&!u.dead) { u.type==='enemy' ? u.dead=true : u.dying=true; } }
   else { u.hpCur=Math.min(u.hpMax||99999,u.hpCur+amt); if(u.hpCur>0){u.dying=false;u.dead=false;u.ds={s:0,f:0};} }
   closeModal('hp-modal'); renderCombat();
 }
@@ -797,10 +826,42 @@ function onDragOver(e,id){e.preventDefault();document.querySelectorAll('[data-id
 function onDrop(e,tid){e.preventDefault();if(dragSrcId===tid)return;reorder(dragSrcId,tid);dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));renderSetup();renderCombat();}
 function onDragEnd(){dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));}
 function reorder(si,ti){const sI=units.findIndex(u=>u.id===si),tI=units.findIndex(u=>u.id===ti);if(sI<0||tI<0)return;const[m]=units.splice(sI,1);units.splice(tI,0,m);}
-function onTouchStart(e,id){touchId=id;const touch=e.touches[0],card=e.currentTarget;touchClone=card.cloneNode(true);touchClone.style.cssText=`position:fixed;top:${touch.clientY-20}px;left:${touch.clientX-100}px;width:${card.offsetWidth}px;opacity:.7;pointer-events:none;z-index:999;border:2px solid var(--gold);border-radius:6px;`;document.body.appendChild(touchClone);}
-function onTouchMove(e){if(!touchClone)return;e.preventDefault();const t=e.touches[0];touchClone.style.top=(t.clientY-20)+'px';touchClone.style.left=(t.clientX-100)+'px';document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under&&parseInt(under.dataset.id)!==touchId)under.classList.add('drag-over');}
-function onTouchEnd(e){if(!touchClone)return;touchClone.remove();touchClone=null;const t=e.changedTouches[0];const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under){const tid=parseInt(under.dataset.id);if(tid!==touchId)reorder(touchId,tid);}touchId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));renderSetup();renderCombat();}
-const drag=id=>`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`;
+function cleanTouchDrag() {
+  if(touchClone) { touchClone.remove(); touchClone=null; }
+  document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over','dragging'));
+  touchId=null;
+}
+function onTouchStart(e,id) {
+  touchId=id;
+  const touch=e.touches[0], card=e.currentTarget;
+  card.classList.add('dragging');
+  touchClone=card.cloneNode(true);
+  touchClone.style.cssText=`position:fixed;top:${touch.clientY-20}px;left:${touch.clientX-100}px;width:${card.offsetWidth}px;opacity:.7;pointer-events:none;z-index:999;border:2px solid var(--gold);border-radius:6px;`;
+  document.body.appendChild(touchClone);
+}
+function onTouchMove(e) {
+  if(!touchClone) return;
+  e.preventDefault();
+  const t=e.touches[0];
+  touchClone.style.top=(t.clientY-20)+'px';
+  touchClone.style.left=(t.clientX-100)+'px';
+  document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));
+  const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');
+  if(under && parseInt(under.dataset.id)!==touchId) under.classList.add('drag-over');
+}
+function onTouchEnd(e) {
+  if(!touchClone) return;
+  const t=e.changedTouches[0];
+  const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');
+  const tid=under?parseInt(under.dataset.id):null;
+  const srcId=touchId;
+  cleanTouchDrag();
+  if(tid && tid!==srcId) reorder(srcId, tid);
+  renderSetup(); renderCombat();
+}
+// Cancel fires if the OS interrupts the gesture (incoming call, scroll lock, etc.)
+document.addEventListener('touchcancel', cleanTouchDrag);
+const drag=id=>dragEnabled?`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`:`ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})"`;
 
 // ═══════ RENDER SETUP ═══════
 function renderSetup() {
@@ -861,9 +922,9 @@ function renderCombat() {
     const stateBadge=u.dead
       ?`<span style="font-family:Cinzel,serif;font-size:.55rem;font-weight:700;letter-spacing:.06em;color:var(--en-a)">DEAD</span>`
       :isDying?`<span class="dying-badge">DYING</span>`:'';
-    const deadBtn=u.dead?`<button class="ib grn" onclick="toggleDead(${u.id})" title="Revive">↑</button>`
-      :isDying?`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dead">☠</button>`
-      :`<button class="ib red" onclick="toggleDead(${u.id})" title="Mark Dying">☠</button>`;
+    const deadBtn=u.dead?`<button class="ib ib-lg grn" onclick="toggleDead(${u.id})" title="Revive">↑</button>`
+      :isDying?`<button class="ib ib-lg red" onclick="toggleDead(${u.id})" title="Mark Dead">☠</button>`
+      :`<button class="ib ib-lg red" onclick="toggleDead(${u.id})" title="Mark Dying">☠</button>`;
 
     return `<div class="unit type-${u.type}${isActive?' active-turn':''}${stateClass}" data-id="${u.id}" ${drag(u.id)} onclick="selectUnit(${u.id})" style="${selStyle}">
       <div class="unit-init">${u.initiative}</div>
@@ -881,10 +942,10 @@ function renderCombat() {
         ${mode==='full'&&u.notes?`<div class="unit-notes-text">${esc(u.notes)}</div>`:''}
       </div>
       <div class="unit-acts" onclick="event.stopPropagation()">
-        ${mode==='full'?`<div class="unit-acts-row"><button class="ib" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
+        ${mode==='full'?`<div class="unit-acts-row"><button class="ib ib-lg" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib ib-lg" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
         <div class="unit-acts-row">
           ${deadBtn}
-          <button class="ib red" onclick="removeUnit(${u.id})" title="Remove">✕</button>
+          <button class="ib ib-lg red" onclick="confirmRemove(${u.id})" title="Remove">✕</button>
         </div>
       </div>
     </div>`;
