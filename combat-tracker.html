@@ -464,7 +464,7 @@ body.full-mode .full-only{display:revert;}
     </div>
     <div class="cb-right">
       <button class="btn btn-ghost btn-sm" onclick="endCombat()">✕ End</button>
-      <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+      <button class="btn btn-next" id="next-btn-top" onclick="nextTurn()">Start ▶</button>
     </div>
   </div>
 
@@ -477,8 +477,9 @@ body.full-mode .full-only{display:revert;}
       <button class="btn btn-ghost btn-sm" onclick="sortByInit()">⇅ Sort</button>
       <button class="btn btn-ghost btn-sm full-only" onclick="openCondPanel()">◈ Conditions</button>
       <button class="btn btn-ghost btn-sm" onclick="clearDead()">✕ Dead</button>
+      <button class="btn btn-ghost btn-sm" id="drag-toggle-btn" onclick="toggleDragging()">⠿ Drag</button>
     </div>
-    <button class="btn btn-next" onclick="nextTurn()">Next ▶</button>
+    <button class="btn btn-next" id="next-btn" onclick="nextTurn()">Start ▶</button>
   </div>
 
 </div>
@@ -562,6 +563,7 @@ let round = 1;
 let selUnitId = null;
 let hpTarget = null;
 let dragSrcId = null;
+let dragEnabled = false;
 let touchId = null, touchClone = null;
 
 const CONDITIONS = ['Blinded','Charmed','Deafened','Exhausted','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified','Poisoned','Prone','Restrained','Stunned','Unconscious','Concentrating'];
@@ -641,9 +643,25 @@ function startCombat() {
 }
 function endCombat() {
   phase='setup'; turnIdx=-1; round=1; selUnitId=null;
+  dragEnabled=false;
   closeCondPanel();
   document.body.classList.remove('in-combat');
+  ['next-btn','next-btn-top'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='Start ▶'; });
+  const dtb=document.getElementById('drag-toggle-btn');
+  if(dtb){dtb.textContent='⠿ Drag';dtb.style.borderColor='';dtb.style.color='';}
   renderSetup();
+}
+
+// ═══════ DRAG TOGGLE ═══════
+function toggleDragging() {
+  dragEnabled = !dragEnabled;
+  const btn = document.getElementById('drag-toggle-btn');
+  if(btn) {
+    btn.textContent = dragEnabled ? '⠿ Drag On' : '⠿ Drag';
+    btn.style.borderColor = dragEnabled ? 'var(--gold-dim)' : '';
+    btn.style.color = dragEnabled ? 'var(--gold)' : '';
+  }
+  renderCombat();
 }
 
 // ═══════ TURN ═══════
@@ -659,6 +677,10 @@ function nextTurn() {
     turnIdx = units.indexOf(active[ai]);
   }
   renderCombat();
+  // sync button labels to Next after first turn
+  ['next-btn','next-btn-top'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.textContent = 'Next ▶';
+  });
   document.querySelector('.active-turn')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -839,7 +861,7 @@ function onTouchEnd(e) {
 }
 // Cancel fires if the OS interrupts the gesture (incoming call, scroll lock, etc.)
 document.addEventListener('touchcancel', cleanTouchDrag);
-const drag=id=>`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`;
+const drag=id=>dragEnabled?`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`:`ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})"`;
 
 // ═══════ RENDER SETUP ═══════
 function renderSetup() {
@@ -920,7 +942,7 @@ function renderCombat() {
         ${mode==='full'&&u.notes?`<div class="unit-notes-text">${esc(u.notes)}</div>`:''}
       </div>
       <div class="unit-acts" onclick="event.stopPropagation()">
-        ${mode==='full'?`<div class="unit-acts-row"><button class="ib" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
+        ${mode==='full'?`<div class="unit-acts-row"><button class="ib ib-lg" onclick="openHpModal(${u.id})" title="HP">♥</button><button class="ib ib-lg" onclick="openEditModal(${u.id})" title="Edit">✎</button></div>`:''}
         <div class="unit-acts-row">
           ${deadBtn}
           <button class="ib ib-lg red" onclick="confirmRemove(${u.id})" title="Remove">✕</button>
