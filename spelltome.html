@@ -1076,9 +1076,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
   /* Card title in header — tighter clamp for 2-col mobile grid */
   .card-title { font-size: clamp(0.55rem, 3.2vw, 0.78rem); }
   .card-level { font-size: clamp(0.5rem, 2.5vw, 0.7rem); }
-  /* In modal, restore comfortable size */
-  #spell-modal-card .card-title { font-size: 0.95rem; }
-  #spell-modal-card .card-level { font-size: 0.85rem; }
+  /* In modal, restore comfortable size — see global rules below */
 
   .card-stats {
     padding: 4px 8px;
@@ -1112,13 +1110,14 @@ input[type="text"]::placeholder { color: #6a6a80; }
     cursor: default;
   }
 
+
   /* In the modal, restore full-width class column */
   #spell-modal-card .card-stats {
     grid-template-columns: 1fr minmax(0, 72px);
   }
   #spell-modal-card .class-item {
-    max-width: 72px;
-    font-size: 0.72rem;
+    max-width: 80px;
+    font-size: 0.86rem;
   }
   #spell-modal-card .stat-value {
     white-space: normal;
@@ -1186,6 +1185,20 @@ input[type="text"]::placeholder { color: #6a6a80; }
 /* ============================================================
    SPELL DETAIL MODAL (mobile card tap)
    ============================================================ */
+/* ============================================================
+   SPELL MODAL — font overrides (all screen sizes)
+   ============================================================ */
+#spell-modal-card .card-title      { font-size: 1.1rem; }
+#spell-modal-card .card-level      { font-size: 1.0rem; }
+#spell-modal-card .card-stats      { font-size: 0.82rem; }
+#spell-modal-card .stat-label      { font-size: 0.72rem; }
+#spell-modal-card .stat-value      { font-size: 0.82rem; white-space: normal; }
+#spell-modal-card .card-flavor     { font-size: 0.86rem; }
+#spell-modal-card .card-description{ font-size: 0.88rem; line-height: 1.55; }
+#spell-modal-card .higher-levels   { font-size: 0.82rem; }
+#spell-modal-card .card-source     { font-size: 0.76rem; }
+#spell-modal-card .class-item      { font-size: 0.86rem; }
+
 #spell-modal-overlay {
   display: none;
   position: fixed;
