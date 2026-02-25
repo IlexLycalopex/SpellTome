@@ -804,9 +804,41 @@ function onDragOver(e,id){e.preventDefault();document.querySelectorAll('[data-id
 function onDrop(e,tid){e.preventDefault();if(dragSrcId===tid)return;reorder(dragSrcId,tid);dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));renderSetup();renderCombat();}
 function onDragEnd(){dragSrcId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('dragging','drag-over'));}
 function reorder(si,ti){const sI=units.findIndex(u=>u.id===si),tI=units.findIndex(u=>u.id===ti);if(sI<0||tI<0)return;const[m]=units.splice(sI,1);units.splice(tI,0,m);}
-function onTouchStart(e,id){touchId=id;const touch=e.touches[0],card=e.currentTarget;touchClone=card.cloneNode(true);touchClone.style.cssText=`position:fixed;top:${touch.clientY-20}px;left:${touch.clientX-100}px;width:${card.offsetWidth}px;opacity:.7;pointer-events:none;z-index:999;border:2px solid var(--gold);border-radius:6px;`;document.body.appendChild(touchClone);}
-function onTouchMove(e){if(!touchClone)return;e.preventDefault();const t=e.touches[0];touchClone.style.top=(t.clientY-20)+'px';touchClone.style.left=(t.clientX-100)+'px';document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under&&parseInt(under.dataset.id)!==touchId)under.classList.add('drag-over');}
-function onTouchEnd(e){if(!touchClone)return;touchClone.remove();touchClone=null;const t=e.changedTouches[0];const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');if(under){const tid=parseInt(under.dataset.id);if(tid!==touchId)reorder(touchId,tid);}touchId=null;document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));renderSetup();renderCombat();}
+function cleanTouchDrag() {
+  if(touchClone) { touchClone.remove(); touchClone=null; }
+  document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over','dragging'));
+  touchId=null;
+}
+function onTouchStart(e,id) {
+  touchId=id;
+  const touch=e.touches[0], card=e.currentTarget;
+  card.classList.add('dragging');
+  touchClone=card.cloneNode(true);
+  touchClone.style.cssText=`position:fixed;top:${touch.clientY-20}px;left:${touch.clientX-100}px;width:${card.offsetWidth}px;opacity:.7;pointer-events:none;z-index:999;border:2px solid var(--gold);border-radius:6px;`;
+  document.body.appendChild(touchClone);
+}
+function onTouchMove(e) {
+  if(!touchClone) return;
+  e.preventDefault();
+  const t=e.touches[0];
+  touchClone.style.top=(t.clientY-20)+'px';
+  touchClone.style.left=(t.clientX-100)+'px';
+  document.querySelectorAll('[data-id]').forEach(el=>el.classList.remove('drag-over'));
+  const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');
+  if(under && parseInt(under.dataset.id)!==touchId) under.classList.add('drag-over');
+}
+function onTouchEnd(e) {
+  if(!touchClone) return;
+  const t=e.changedTouches[0];
+  const under=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-id]');
+  const tid=under?parseInt(under.dataset.id):null;
+  const srcId=touchId;
+  cleanTouchDrag();
+  if(tid && tid!==srcId) reorder(srcId, tid);
+  renderSetup(); renderCombat();
+}
+// Cancel fires if the OS interrupts the gesture (incoming call, scroll lock, etc.)
+document.addEventListener('touchcancel', cleanTouchDrag);
 const drag=id=>`draggable="true" ondragstart="onDragStart(event,${id})" ondragover="onDragOver(event,${id})" ondrop="onDrop(event,${id})" ondragend="onDragEnd()" ontouchstart="onTouchStart(event,${id})" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)"`;
 
 // ═══════ RENDER SETUP ═══════
