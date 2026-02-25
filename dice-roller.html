@@ -537,7 +537,8 @@ function pushHistory(html){
 }
 
 function quickRoll(sides){
-  displayResult({total:randomInt(1,sides),expr:'1d'+sides,rolls:[randomInt(1,sides)],modifier:0,forceSides:sides});
+  const roll=randomInt(1,sides);
+  displayResult({total:roll,expr:'1d'+sides,rolls:[roll],modifier:0,forceSides:sides});
 }
 
 function rollExpression(){
