@@ -855,9 +855,14 @@ function renderGrid() {
   if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
   empty.style.display = 'none';
   grid.innerHTML = list.map(m => buildCard(m)).join('');
+  const onMobile = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
   grid.querySelectorAll('.mon-card').forEach((el, i) => {
-    el.addEventListener('click', () => toggleSelect(list[i]));
-    el.addEventListener('dblclick', () => openModal(list[i]));
+    if (onMobile()) {
+      el.addEventListener('click', () => openModal(list[i]));
+    } else {
+      el.addEventListener('click', () => toggleSelect(list[i]));
+      el.addEventListener('dblclick', () => openModal(list[i]));
+    }
   });
 }
 

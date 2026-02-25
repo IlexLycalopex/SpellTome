@@ -15,6 +15,7 @@
   --find-purple:#6a2a8a; --find-purple-light:#8a4aaa;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
 body {
   font-family: 'EB Garamond', Georgia, serif;
   background: var(--bg-dark); color: var(--text-light); min-height: 100vh;
@@ -312,6 +313,15 @@ input[type="text"]::placeholder { color: #6a6a80; }
   .filter-bar { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 14px; }
   .filter-bar.expanded { max-height: 600px; padding: 10px 14px 12px; }
   .druid-info-bar, .familiar-info-bar { display: none; }
+  .mode-btn { font-size: 0.6rem; padding: 5px 9px; letter-spacing: 0.04em; }
+  .header-top { flex-wrap: wrap; gap: 6px; padding: 8px 12px; }
+  .header-top > div { gap: 6px; }
+  .app-title { font-size: clamp(0.75rem, 4vw, 1rem); white-space: nowrap; }
+  #app-header { overflow: hidden; }
+}
+@media (max-width: 420px) {
+  .mode-btn { font-size: 0.55rem; padding: 4px 7px; letter-spacing: 0; }
+  .app-title { font-size: 0.75rem; }
 }
 @media (max-width: 480px) { #card-grid { grid-template-columns: 1fr; } }
 #print-output { display: none; }
@@ -1282,10 +1292,15 @@ function renderGrid() {
   if (!list.length) { grid.innerHTML = ''; empty.style.display = 'flex'; updateSelectionUI(); return; }
   empty.style.display = 'none';
   grid.innerHTML = (mode === 'druid' ? list.map(b => buildBeastCard(b, false)) : list.map(f => buildFamiliarCard(f, false))).join('');
+  const onMobile = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
   grid.querySelectorAll('.beast-card').forEach((el, i) => {
     if (selectedCards.has(list[i].name)) el.querySelector('.select-indicator').innerHTML = '&#10003;';
-    el.addEventListener('click', () => toggleSelect(list[i], el));
-    el.addEventListener('dblclick', () => openModal(list[i]));
+    if (onMobile()) {
+      el.addEventListener('click', () => openModal(list[i]));
+    } else {
+      el.addEventListener('click', () => toggleSelect(list[i], el));
+      el.addEventListener('dblclick', () => openModal(list[i]));
+    }
   });
   updateSelectionUI();
 }

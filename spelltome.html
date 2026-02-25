@@ -1206,7 +1206,7 @@ input[type="text"]::placeholder { color: #6a6a80; }
 #spell-modal-inner {
   width: 100%;
   max-width: 480px;
-  max-height: 92vh;
+  max-height: 96vh;
   overflow-y: auto;
   overscroll-behavior: contain;
   background: #fff;
@@ -2964,24 +2964,25 @@ function closeMobileFilters() {
 let mobileExpandedId = null;
 
 function toggleMobileExpand(spellId, cardEl) {
-  const grid = document.getElementById('card-grid');
+  const spell = (currentEdition === '2024' ? SPELLS_2024 : SPELLS).find(s => s.id === spellId);
+  if (spell) openSpellModal(spell);
+}
 
-  // Collapse any currently expanded card
-  if (mobileExpandedId !== null) {
-    const prev = grid.querySelector('.mobile-expanded');
-    if (prev) prev.classList.remove('mobile-expanded');
-    if (mobileExpandedId === spellId) {
-      // Tapped the same card — just collapse
-      mobileExpandedId = null;
-      return;
-    }
-  }
+function openSpellModal(spell) {
+  const overlay = document.getElementById('spell-modal-overlay');
+  const cardContainer = document.getElementById('spell-modal-card');
+  const cardEl = buildCard(spell, state.selectedClass, false);
+  cardContainer.innerHTML = '';
+  cardContainer.appendChild(cardEl);
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
-  // Expand the tapped card
-  cardEl.classList.add('mobile-expanded');
-  mobileExpandedId = spellId;
-  // Scroll card into view smoothly
-  cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function closeSpellModal(e) {
+  const overlay = document.getElementById('spell-modal-overlay');
+  if (e && e.type === 'click' && e.target !== overlay && e.target.closest('#spell-modal-inner')) return;
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 // ============================================================

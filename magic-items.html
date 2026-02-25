@@ -117,9 +117,9 @@ input[type="text"]::placeholder{color:#6a6a80;}
 .tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:4px;}
 .tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;border:1px solid var(--text-dim);color:var(--text-dim);font-size:0.6rem;font-family:sans-serif;font-style:normal;font-weight:700;cursor:default;line-height:1;flex-shrink:0;transition:border-color 0.15s,color 0.15s;}
 .tooltip-wrap:hover .tooltip-icon{border-color:var(--gold);color:var(--gold);}
-.tooltip-bubble{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:230px;background:#0d1427;border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-family:'EB Garamond',serif;font-size:0.8rem;font-style:normal;font-weight:400;color:var(--text-light);line-height:1.45;letter-spacing:0;text-transform:none;box-shadow:0 6px 24px rgba(0,0,0,0.6);z-index:200;pointer-events:none;}
-.tooltip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0d1427;}
-.tooltip-bubble::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--border);margin-top:1px;}
+.tooltip-bubble{display:none;position:fixed;width:min(260px,80vw);background:#1e2d50;border:1px solid rgba(201,168,76,0.5);border-radius:8px;padding:10px 13px;font-family:'EB Garamond',serif;font-size:0.88rem;font-style:normal;font-weight:400;color:#f0f0f0;line-height:1.55;letter-spacing:0;text-transform:none;box-shadow:0 8px 32px rgba(0,0,0,0.7);z-index:500;pointer-events:none;white-space:normal;word-wrap:break-word;}
+.tooltip-bubble::after{content:'';position:absolute;top:100%;left:var(--arrow-x,50%);transform:translateX(-50%);border:6px solid transparent;border-top-color:#1e2d50;}
+.tooltip-bubble::before{content:'';position:absolute;top:100%;left:var(--arrow-x,50%);transform:translateX(-50%);border:7px solid transparent;border-top-color:rgba(201,168,76,0.5);margin-top:1px;}
 .tooltip-wrap:hover .tooltip-bubble{display:block;}
 @media(max-width:768px){
   #card-grid{grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
@@ -675,15 +675,15 @@ function renderGrid() {
   empty.style.display = 'none';
   grid.innerHTML = list.map(item => buildCard(item, false)).join('');
   // Restore tick on already-selected cards
+  const onMobile = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
   grid.querySelectorAll('.item-card').forEach((el, i) => {
     if (selectedItems.has(list[i].name)) el.querySelector('.select-indicator').innerHTML = '&#10003;';
-    el.addEventListener('click', e => {
-      // Click on indicator area or the card itself toggles selection
-      toggleSelect(list[i], el);
-    });
-    el.addEventListener('dblclick', e => {
-      openModal(list[i]);
-    });
+    if (onMobile()) {
+      el.addEventListener('click', e => { openModal(list[i]); });
+    } else {
+      el.addEventListener('click', e => { toggleSelect(list[i], el); });
+      el.addEventListener('dblclick', e => { openModal(list[i]); });
+    }
   });
   updateSelectionUI();
 }
@@ -714,6 +714,38 @@ function openModal(item) {
 
 function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+
+// Smart tooltip positioning — keeps bubble within viewport
+document.querySelectorAll('.tooltip-wrap').forEach(wrap => {
+  const bubble = wrap.querySelector('.tooltip-bubble');
+  if (!bubble) return;
+  wrap.addEventListener('mouseenter', () => {
+    bubble.style.display = 'block';
+    const icon = wrap.querySelector('.tooltip-icon') || wrap;
+    const ir = icon.getBoundingClientRect();
+    const bw = bubble.offsetWidth;
+    const bh = bubble.offsetHeight;
+    const margin = 10;
+    // Default: centred above icon
+    let left = ir.left + ir.width / 2 - bw / 2;
+    let top  = ir.top - bh - 10;
+    // Clamp horizontally
+    if (left < margin) left = margin;
+    if (left + bw > window.innerWidth - margin) left = window.innerWidth - bw - margin;
+    // If no room above, flip below
+    if (top < margin) {
+      top = ir.bottom + 10;
+      bubble.style.setProperty('--arrow-top', 'auto');
+    }
+    bubble.style.left = left + 'px';
+    bubble.style.top  = top  + 'px';
+    // Reposition ::after arrow to match actual horizontal centre of icon
+    const arrowLeft = (ir.left + ir.width / 2 - left);
+    bubble.style.setProperty('--arrow-x', arrowLeft + 'px');
+  });
+  wrap.addEventListener('mouseleave', () => { bubble.style.display = 'none'; });
+});
+
 document.addEventListener('keydown', e => {
   if(e.key==='Escape') { closeModal(); closePrintPreview(); }
 });
