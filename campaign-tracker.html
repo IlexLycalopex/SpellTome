@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Campaign Chronicle — The Tome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark:    #1a1a2e;
+      --bg-panel:   #16213e;
+      --text-light: #e8e8e8;
+      --text-muted: #9a9ab0;
+      --text-dim:   #6a6a80;
+      --gold:       #c9a84c;
+      --gold-dim:   #8a6a2c;
+      --border:     #2a2a4a;
+      --shadow:     0 4px 24px rgba(0,0,0,0.5);
+      --accent2:    #7b6caa;
+      --danger:     #c0504d;
+      --info:       #4a9eca;
+      --success:    #6aaa6a;
+      --warn:       #d4924a;
+      --question:   #9a7fca;
+      --radius:     6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(60,0,100,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,40,100,0.10) 0%, transparent 60%);
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────────── */
+    #app-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(22,33,62,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .header-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .app-title {
+      font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900;
+      letter-spacing: 0.08em; color: var(--gold);
+      text-shadow: 0 0 20px rgba(201,168,76,0.4);
+      text-transform: uppercase;
+    }
+    .app-title span {
+      color: var(--text-muted); font-weight: 400; font-size: 0.9rem;
+      margin-left: 8px; letter-spacing: 0.2em;
+    }
+
+    /* ── HAMBURGER ───────────────────────────────────────────────── */
+    .hamburger-btn {
+      background: none; border: 1px solid var(--border); border-radius: 6px;
+      padding: 7px 10px; cursor: pointer; display: flex; flex-direction: column;
+      gap: 5px; transition: border-color 0.15s; flex-shrink: 0;
+    }
+    .hamburger-btn:hover { border-color: var(--gold-dim); }
+    .hamburger-btn span {
+      display: block; width: 20px; height: 2px; background: var(--text-muted);
+      border-radius: 2px; transition: background 0.15s;
+    }
+    .hamburger-btn:hover span { background: var(--gold); }
+
+    /* ── NAV DRAWER ──────────────────────────────────────────────── */
+    .nav-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 998;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+    .nav-drawer {
+      position: fixed; top: 0; right: -310px; width: 290px; height: 100vh;
+      background: rgba(13,20,45,0.99); border-left: 1px solid var(--border);
+      backdrop-filter: blur(16px); z-index: 999;
+      transition: right 0.28s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .nav-drawer.open { right: 0; }
+    .nav-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .nav-drawer-title {
+      font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    }
+    .nav-close-btn {
+      background: none; border: none; color: var(--text-muted); font-size: 1.3rem;
+      cursor: pointer; padding: 4px 6px; line-height: 1; border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .nav-close-btn:hover { color: var(--text-light); }
+    .nav-scroll { flex: 1; overflow-y: auto; padding: 8px 0 24px; }
+    .nav-section-label {
+      font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim);
+      padding: 16px 20px 6px; display: block;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 11px 20px;
+      text-decoration: none; color: var(--text-muted);
+      font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border-left: 3px solid transparent; transition: all 0.14s;
+    }
+    .nav-item:hover, .nav-item.active {
+      color: var(--gold); background: rgba(201,168,76,0.07);
+      border-left-color: var(--gold-dim);
+    }
+    .nav-item .ni { width: 1.1rem; height: 1.1rem; flex-shrink: 0; opacity: 0.75; }
+    .nav-item:hover .ni, .nav-item.active .ni { opacity: 1; }
+
+    /* ── FILTER BAR ──────────────────────────────────────────────── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 24px 12px; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-dim); white-space: nowrap;
+    }
+    .filter-bar select, .filter-bar input[type="text"] {
+      font-family: 'EB Garamond', serif; font-size: 0.95rem;
+      background: #0d1a30; color: var(--text-light);
+      border: 1px solid #3a3a5a; border-radius: 4px;
+      padding: 5px 10px; outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .filter-bar select {
+      padding-right: 28px; appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+      background-color: #0d1a30; cursor: pointer;
+    }
+    .filter-bar select:focus, .filter-bar input[type="text"]:focus {
+      border-color: var(--gold-dim); background: #111f38;
+      box-shadow: 0 0 0 2px rgba(201,168,76,0.15);
+    }
+    .filter-bar select option { background: #0d1a30; }
+    .filter-bar input[type="text"]::placeholder { color: var(--text-dim); }
+    .search-input { min-width: 180px; flex: 1; max-width: 300px; }
+    .session-count {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; color: var(--text-dim); font-style: italic;
+    }
+
+    /* ── RESULTS BAR ─────────────────────────────────────────────── */
+    #results-bar {
+      padding: 7px 24px; font-size: 0.85rem; color: var(--text-dim);
+      border-bottom: 1px solid var(--border); font-style: italic;
+      background: rgba(15,52,96,0.2);
+    }
+
+    /* ── MAIN ────────────────────────────────────────────────────── */
+    #chronicle-root { padding: 24px; max-width: 900px; }
+
+    /* ── LOADING ─────────────────────────────────────────────────── */
+    .state-msg {
+      text-align: center; padding: 80px 24px;
+      color: var(--text-dim); font-style: italic;
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 2px solid var(--border); border-top-color: var(--gold);
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── CAMPAIGN GROUP ──────────────────────────────────────────── */
+    .campaign-group { margin-bottom: 3rem; }
+    .campaign-heading {
+      display: flex; align-items: baseline; gap: 0.75rem;
+      margin-bottom: 1.1rem; padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .campaign-heading h2 {
+      font-family: 'Cinzel', serif; font-size: 1.05rem;
+      color: var(--gold); font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .ruleset-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+      color: var(--text-dim); border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem; border-radius: 999px;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .session-tally {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; color: var(--text-dim);
+    }
+
+    /* ── SESSION CARDS ───────────────────────────────────────────── */
+    .session-grid { display: grid; gap: 0.75rem; }
+
+    .session-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .session-card:hover { border-color: rgba(201,168,76,0.35); }
+
+    .session-card-header {
+      padding: 0.9rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      cursor: pointer; user-select: none;
+    }
+    .session-num {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+      color: var(--text-dim); min-width: 3rem; letter-spacing: 0.05em;
+    }
+    .session-title {
+      font-family: 'Cinzel', serif; font-size: 0.88rem;
+      color: var(--text-light); font-weight: 600; flex: 1; letter-spacing: 0.03em;
+    }
+    .session-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; color: var(--text-dim);
+    }
+    .session-chevron {
+      color: var(--text-dim); font-size: 0.7rem;
+      transition: transform 0.22s; margin-left: 0.4rem;
+    }
+    .session-card.open .session-chevron { transform: rotate(180deg); }
+
+    .session-synopsis {
+      font-style: italic; font-size: 0.9rem; color: var(--text-muted);
+      padding: 0.65rem 1.25rem 0.9rem;
+      border-top: 1px solid rgba(42,42,74,0.6);
+      display: none;
+    }
+    .session-card.open .session-synopsis { display: block; }
+
+    .session-tags {
+      display: flex; gap: 0.35rem; flex-wrap: wrap;
+      padding: 0 1.25rem 0.75rem;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.05em; color: var(--accent2);
+      background: rgba(123,108,170,0.1); border: 1px solid rgba(123,108,170,0.22);
+      padding: 0.1rem 0.4rem; border-radius: 999px; text-transform: lowercase;
+    }
+
+    /* ── EXPANDED BODY ───────────────────────────────────────────── */
+    .session-body {
+      display: none;
+      padding: 1.4rem 1.25rem;
+      border-top: 1px solid var(--border);
+      background: rgba(13,20,45,0.6);
+    }
+    .session-card.open .session-body { display: block; }
+
+    .players-list { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .player-chip {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+      color: var(--text-dim); border: 1px solid var(--border);
+      padding: 0.1rem 0.5rem; border-radius: 999px; letter-spacing: 0.03em;
+    }
+
+    .session-body h2 {
+      font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold);
+      font-weight: 700; margin: 1.4rem 0 0.5rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .session-body h2:first-child { margin-top: 0; }
+    .session-body h3 {
+      font-family: 'Cinzel', serif; font-size: 0.78rem; color: var(--text-light);
+      margin: 1rem 0 0.35rem; letter-spacing: 0.04em;
+    }
+    .session-body p { margin: 0.45rem 0; font-size: 0.95rem; line-height: 1.65; }
+    .session-body ul, .session-body ol { padding-left: 1.4rem; margin: 0.45rem 0; }
+    .session-body li { margin: 0.22rem 0; font-size: 0.95rem; line-height: 1.55; }
+    .session-body hr { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+    .session-body strong { color: var(--text-light); font-weight: 600; }
+    .session-body em { color: var(--text-muted); }
+    .session-body code {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      background: #0d1a30; padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--gold);
+    }
+    .session-body table {
+      width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.9rem;
+    }
+    .session-body th {
+      font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-dim);
+      text-align: left; padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.07em; text-transform: uppercase;
+    }
+    .session-body td { padding: 0.4rem 0.75rem; border-bottom: 1px solid rgba(42,42,74,0.4); }
+
+    /* ── CALLOUTS ────────────────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--gold-dim);
+      background: rgba(201,168,76,0.06);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.7rem 1rem; margin: 0.7rem 0;
+    }
+    .callout-title {
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem;
+      color: var(--gold);
+    }
+    .callout p { margin: 0; font-size: 0.9rem; line-height: 1.55; }
+
+    .callout.important { border-color: var(--danger); background: rgba(192,80,77,0.07); }
+    .callout.important .callout-title { color: var(--danger); }
+    .callout.info      { border-color: var(--info);    background: rgba(74,158,202,0.07); }
+    .callout.info      .callout-title { color: var(--info); }
+    .callout.warning   { border-color: var(--warn);    background: rgba(212,146,74,0.07); }
+    .callout.warning   .callout-title { color: var(--warn); }
+    .callout.question  { border-color: var(--question);background: rgba(154,127,202,0.07); }
+    .callout.question  .callout-title { color: var(--question); }
+    .callout.success   { border-color: var(--success); background: rgba(106,170,106,0.07); }
+    .callout.success   .callout-title { color: var(--success); }
+    .callout.note      { display: none; } /* GM-only */
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    #page-footer {
+      padding: 20px 24px; max-width: 900px;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text-dim); font-style: italic;
+      margin-top: 1rem;
+    }
+
+    /* ── MOBILE ──────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .header-top { padding: 8px 14px; }
+      .app-title { font-size: clamp(0.75rem, 3.5vw, 1.1rem); }
+      .app-title span { display: none; }
+      .filter-bar { padding: 8px 14px 10px; }
+      #chronicle-root { padding: 14px; }
+      #page-footer { padding: 14px; }
+    }
+    @media (max-width: 480px) {
+      .session-date { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+
+  <!-- NAV DRAWER -->
+  <nav class="nav-drawer" id="nav-drawer">
+    <div class="nav-drawer-header">
+      <span class="nav-drawer-title">The Tome</span>
+      <button class="nav-close-btn" onclick="closeNav()">&#x2715;</button>
+    </div>
+    <div class="nav-scroll">
+      <span class="nav-section-label">Home</span>
+      <a href="index.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        &nbsp;Hub
+      </a>
+      <span class="nav-section-label">Reference</span>
+      <a href="spelltome.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        &nbsp;Spell Tome
+      </a>
+      <a href="conditions.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        &nbsp;Condition Codex
+      </a>
+      <a href="wildshape.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        &nbsp;Wildshape &amp; Familiar
+      </a>
+      <a href="monsters.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+        &nbsp;Monster Codex
+      </a>
+      <a href="magic-items.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+        &nbsp;Magic Item Compendium
+      </a>
+      <span class="nav-section-label">Table Tools</span>
+      <a href="combat-tracker.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+        &nbsp;Combat Tracker
+      </a>
+      <a href="dice-roller.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+        &nbsp;Dice Roller
+      </a>
+      <span class="nav-section-label">Campaigns</span>
+      <a href="campaign-tracker.html" class="nav-item active">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        &nbsp;Campaign Chronicle
+      </a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div id="app-header">
+    <div class="header-top">
+      <div class="app-title">Campaign Chronicle <span>Session Log</span></div>
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="filter-bar">
+      <label for="campaign-filter" class="filter-label">Campaign</label>
+      <select id="campaign-filter"><option value="">All</option></select>
+      <label for="ruleset-filter" class="filter-label" style="margin-left:6px;">Ruleset</label>
+      <select id="ruleset-filter"><option value="">All</option></select>
+      <label for="search-input" class="filter-label" style="margin-left:6px;">Search</label>
+      <input type="text" class="search-input" id="search-input" placeholder="Search sessions…" aria-label="Search sessions" />
+      <span class="session-count" id="session-count"></span>
+    </div>
+  </div>
+
+  <div id="results-bar"></div>
+
+  <div id="chronicle-root">
+    <div class="state-msg">
+      <div class="spinner"></div>
+      <p>Loading the chronicle&hellip;</p>
+    </div>
+  </div>
+
+  <div id="page-footer">
+    Sessions loaded from the campaign vault. GM notes are excluded from this view.
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────────────────────────────────
+       CONFIGURATION
+    ──────────────────────────────────────────────────────────────────── */
+    const GITHUB_USER   = 'IlexLycalopex';
+    const GITHUB_REPO   = 'SpellTome';
+    const GITHUB_BRANCH = 'main';
+    const SESSIONS_PATH = 'playlog';
+
+    const API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
+    const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+
+    async function fetchJSON(url) {
+      const r = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' } });
+      if (!r.ok) throw new Error(`GitHub API ${r.status}`);
+      return r.json();
+    }
+    async function fetchText(url) {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Fetch ${r.status}`);
+      return r.text();
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       YAML frontmatter parser
+    ──────────────────────────────────────────────────────────────────── */
+    function parseFrontmatter(raw) {
+      const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+      if (!m) return { meta: {}, body: raw };
+      const meta = {};
+      let currentKey = null;
+      for (const line of m[1].split('\n')) {
+        if (currentKey && /^\s{2,}-\s+/.test(line)) {
+          const v = line.replace(/^\s+-\s+/,'').replace(/^["']|["']$/g,'').trim();
+          if (!Array.isArray(meta[currentKey])) meta[currentKey] = [];
+          meta[currentKey].push(v); continue;
+        }
+        const kv = line.match(/^(\w[\w_-]*):\s*(.*)?$/);
+        if (!kv) { currentKey = null; continue; }
+        const key = kv[1].trim(), val = (kv[2]||'').trim();
+        currentKey = key;
+        if (!val) { meta[key] = []; continue; }
+        if (val.startsWith('[')) { meta[key] = val.slice(1,-1).split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); currentKey=null; continue; }
+        const q = val.match(/^["'](.*?)["']$/);
+        if (q) { meta[key] = q[1]; currentKey=null; continue; }
+        if (val==='true')  { meta[key]=true;  currentKey=null; continue; }
+        if (val==='false') { meta[key]=false; currentKey=null; continue; }
+        const n = Number(val);
+        if (!isNaN(n) && val!=='') { meta[key]=n; currentKey=null; continue; }
+        meta[key]=val; currentKey=null;
+      }
+      return { meta, body: m[2] };
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Markdown renderer
+    ──────────────────────────────────────────────────────────────────── */
+    const CALLOUT_ICONS = { important:'⚠',info:'ℹ',warning:'⚡',question:'❓',success:'✓',note:'📋',tip:'💡',example:'📖' };
+
+    function renderMarkdown(md) {
+      const lines = md.split('\n');
+      let html='', inUL=false, inOL=false, inTable=false, tableHead=true, callout=null;
+
+      function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+      function inline(s){
+        s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+        s=s.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
+        s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        s=s.replace(/__(.+?)__/g,'<strong>$1</strong>');
+        s=s.replace(/\*(.+?)\*/g,'<em>$1</em>');
+        s=s.replace(/_(.+?)_/g,'<em>$1</em>');
+        s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+        return s;
+      }
+      function closeLists(){
+        if(inUL){html+='</ul>';inUL=false;}
+        if(inOL){html+='</ol>';inOL=false;}
+        if(inTable){html+='</tbody></table>';inTable=false;tableHead=true;}
+      }
+      function flushCallout(){
+        if(!callout)return;
+        const type=callout.type, title=callout.title||(type.charAt(0).toUpperCase()+type.slice(1));
+        const icon=CALLOUT_ICONS[type]||'●';
+        html+=`<div class="callout ${esc(type)}"><div class="callout-title"><span>${esc(icon)}</span> ${esc(title)}</div><p>${inline(callout.lines.join(' ').trim())}</p></div>`;
+        callout=null;
+      }
+
+      for(const raw of lines){
+        const line=raw.trimEnd();
+        const cs=line.match(/^>\s*\[!(\w+)\]\s*(.*)?$/);
+        if(cs){flushCallout();closeLists();callout={type:cs[1].toLowerCase(),title:cs[2]||'',lines:[]};continue;}
+        if(callout&&/^>\s?/.test(line)){callout.lines.push(line.replace(/^>\s?/,''));continue;}
+        if(callout)flushCallout();
+        if(/^---+$/.test(line.trim())){closeLists();html+='<hr>';continue;}
+        const hm=line.match(/^(#{1,6})\s+(.+)$/);
+        if(hm){closeLists();const lv=Math.min(hm[1].length+1,4);html+=`<h${lv}>${inline(esc(hm[2]))}</h${lv}>`;continue;}
+        if(/^\|/.test(line)){
+          const cells=line.split('|').filter((_,i,a)=>i>0&&i<a.length-1).map(c=>c.trim());
+          if(!inTable){closeLists();html+='<table><thead>';inTable=true;tableHead=true;}
+          if(cells.every(c=>/^[-:]+$/.test(c))){html+='</thead><tbody>';tableHead=false;continue;}
+          const tag=tableHead?'th':'td';
+          html+='<tr>'+cells.map(c=>`<${tag}>${inline(esc(c))}</${tag}>`).join('')+'</tr>';
+          continue;
+        }
+        const ul=line.match(/^[-*]\s+(.+)$/);
+        if(ul){if(inTable){html+='</tbody></table>';inTable=false;}if(inOL){html+='</ol>';inOL=false;}if(!inUL){html+='<ul>';inUL=true;}html+=`<li>${inline(esc(ul[1]))}</li>`;continue;}
+        const ol=line.match(/^\d+\.\s+(.+)$/);
+        if(ol){if(inTable){html+='</tbody></table>';inTable=false;}if(inUL){html+='</ul>';inUL=false;}if(!inOL){html+='<ol>';inOL=true;}html+=`<li>${inline(esc(ol[1]))}</li>`;continue;}
+        if(!line.trim()){closeLists();continue;}
+        closeLists();html+=`<p>${inline(esc(line))}</p>`;
+      }
+      flushCallout();closeLists();
+      return html;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Load
+    ──────────────────────────────────────────────────────────────────── */
+    let allSessions = [];
+
+    async function loadChronicle() {
+      const root = document.getElementById('chronicle-root');
+      try {
+        const tree = await fetchJSON(`${API_BASE}/git/trees/${GITHUB_BRANCH}?recursive=1`);
+        const mdFiles = tree.tree.filter(f=>f.type==='blob'&&f.path.startsWith(SESSIONS_PATH+'/')&&f.path.endsWith('.md'));
+
+        if (!mdFiles.length) {
+          root.innerHTML='<div class="state-msg"><p>No session files found in <code>/'+SESSIONS_PATH+'</code> yet.</p></div>';
+          setBar(0); return;
+        }
+
+        const fetched = await Promise.all(mdFiles.map(async f=>{
+          const raw=await fetchText(`${RAW_BASE}/${f.path}`);
+          const {meta,body}=parseFrontmatter(raw);
+          return {meta,body,filename:f.path.split('/').pop()};
+        }));
+
+        allSessions = fetched
+          .filter(s=>String(s.meta.web_status).toLowerCase()==='published')
+          .sort((a,b)=>{
+            const ca=(a.meta.campaign||'').toLowerCase(), cb=(b.meta.campaign||'').toLowerCase();
+            if(ca!==cb)return ca<cb?-1:1;
+            return (a.meta.session||0)-(b.meta.session||0);
+          });
+
+        if (!allSessions.length) {
+          root.innerHTML='<div class="state-msg"><p>No published sessions yet. Set <code>web_status: published</code> in frontmatter to surface a session here.</p></div>';
+          setBar(0); return;
+        }
+
+        buildFilters();
+        renderSessions(allSessions);
+
+      } catch(err) {
+        console.error(err);
+        root.innerHTML=`<div class="state-msg"><p>Could not load sessions.</p><p style="font-size:0.8rem;margin-top:0.5rem;color:var(--danger)">${err.message}</p></div>`;
+        setBar(0);
+      }
+    }
+
+    /* ── Filters ─────────────────────────────────────────────────── */
+    function buildFilters() {
+      const camps=[...new Set(allSessions.map(s=>s.meta.campaign).filter(Boolean))].sort();
+      const rules=[...new Set(allSessions.map(s=>s.meta.ruleset).filter(Boolean))].sort();
+      const cf=document.getElementById('campaign-filter');
+      const rf=document.getElementById('ruleset-filter');
+      camps.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;cf.appendChild(o);});
+      rules.forEach(r=>{const o=document.createElement('option');o.value=o.textContent=r;rf.appendChild(o);});
+      cf.addEventListener('change',applyFilters);
+      rf.addEventListener('change',applyFilters);
+      document.getElementById('search-input').addEventListener('input',applyFilters);
+    }
+
+    function applyFilters() {
+      const camp=document.getElementById('campaign-filter').value.toLowerCase();
+      const rule=document.getElementById('ruleset-filter').value.toLowerCase();
+      const q=document.getElementById('search-input').value.toLowerCase();
+      renderSessions(allSessions.filter(s=>{
+        if(camp&&(s.meta.campaign||'').toLowerCase()!==camp)return false;
+        if(rule&&(s.meta.ruleset||'').toLowerCase()!==rule)return false;
+        if(q){const blob=[s.meta.campaign,s.meta.synopsis,s.meta.ruleset,...(s.meta.tags||[]),s.body].join(' ').toLowerCase();if(!blob.includes(q))return false;}
+        return true;
+      }));
+    }
+
+    /* ── Render ──────────────────────────────────────────────────── */
+    function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    function fmtDate(d){if(!d)return'';const dt=new Date(d);return isNaN(dt)?String(d):dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+    function setBar(n){
+      document.getElementById('results-bar').textContent=`${n} session${n!==1?'s':''} shown`;
+      document.getElementById('session-count').textContent=n?`${n} result${n!==1?'s':''}`:'' ;
+    }
+
+    function renderSessions(sessions) {
+      const root=document.getElementById('chronicle-root');
+      setBar(sessions.length);
+      if(!sessions.length){root.innerHTML='<div class="state-msg"><p>No sessions match the current filters.</p></div>';return;}
+
+      const groups={};
+      sessions.forEach(s=>{
+        const k=s.meta.campaign||'Uncategorised';
+        if(!groups[k])groups[k]={ruleset:s.meta.ruleset,sessions:[]};
+        groups[k].sessions.push(s);
+      });
+
+      let html='';
+      for(const [campaign,data] of Object.entries(groups)){
+        html+=`<div class="campaign-group">
+          <div class="campaign-heading">
+            <h2>${esc(campaign)}</h2>
+            ${data.ruleset?`<span class="ruleset-badge">${esc(data.ruleset)}</span>`:''}
+            <span class="session-tally">${data.sessions.length} session${data.sessions.length!==1?'s':''}</span>
+          </div>
+          <div class="session-grid">`;
+
+        data.sessions.forEach(s=>{
+          const num=s.meta.session!==undefined?String(s.meta.session).padStart(3,'0'):'—';
+          const tags=Array.isArray(s.meta.tags)?s.meta.tags:[];
+          const players=Array.isArray(s.meta.players_present)?s.meta.players_present:[];
+          html+=`<div class="session-card">
+            <div class="session-card-header">
+              <span class="session-num">#${num}</span>
+              <span class="session-title">Session ${esc(String(s.meta.session||'?'))}</span>
+              <span class="session-date">${esc(fmtDate(s.meta.date))}</span>
+              <span class="session-chevron">▾</span>
+            </div>`;
+          if(s.meta.synopsis) html+=`<div class="session-synopsis">${esc(s.meta.synopsis)}</div>`;
+          if(tags.length)      html+=`<div class="session-tags">${tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`;
+          html+=`<div class="session-body">`;
+          if(players.length)   html+=`<div class="players-list">${players.map(p=>`<span class="player-chip">${esc(p)}</span>`).join('')}</div>`;
+          html+=renderMarkdown(s.body);
+          html+=`</div></div>`;
+        });
+        html+=`</div></div>`;
+      }
+
+      root.innerHTML=html;
+      root.querySelectorAll('.session-card-header').forEach(h=>{
+        h.addEventListener('click',()=>h.closest('.session-card').classList.toggle('open'));
+      });
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    function openNav(){
+      document.getElementById('nav-drawer').classList.add('open');
+      document.getElementById('nav-overlay').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeNav(){
+      document.getElementById('nav-drawer').classList.remove('open');
+      document.getElementById('nav-overlay').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
+
+    loadChronicle();
+  </script>
+</body>
+</html>
