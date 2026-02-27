@@ -531,6 +531,7 @@
 
       function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
       function inline(s){
+        s=s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g,'$2').replace(/\[\[([^\]]+)\]\]/g,'$1');
         s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
         s=s.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
         s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
