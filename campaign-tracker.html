@@ -566,10 +566,17 @@
       const root = document.getElementById('chronicle-root');
       try {
         const tree = await fetchJSON(`${API_BASE}/git/trees/${GITHUB_BRANCH}?recursive=1`);
-        const mdFiles = tree.tree.filter(f=>f.type==='blob'&&f.path.startsWith(SESSIONS_PATH+'/')&&f.path.endsWith('.md'));
+
+        const allMd = tree.tree.filter(f=>f.type==='blob'&&f.path.endsWith('.md'));
+        const mdFiles = allMd.filter(f=>f.path.startsWith(SESSIONS_PATH+'/'));
 
         if (!mdFiles.length) {
-          root.innerHTML='<div class="state-msg"><p>No session files found in <code>/'+SESSIONS_PATH+'</code> yet.</p></div>';
+          const pathList = allMd.map(f=>`<li><code>${f.path}</code></li>`).join('');
+          root.innerHTML=`<div class="state-msg">
+            <p>No <code>.md</code> files found under <code>${SESSIONS_PATH}/</code>.</p>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted)">All <code>.md</code> files found in repo:</p>
+            <ul style="text-align:left;display:inline-block;margin-top:0.5rem;font-size:0.8rem;line-height:1.8">${pathList||'<li>none</li>'}</ul>
+          </div>`;
           setBar(0); return;
         }
 
@@ -578,6 +585,15 @@
           const {meta,body}=parseFrontmatter(raw);
           return {meta,body,filename:f.path.split('/').pop()};
         }));
+
+        if (fetched.every(s=>String(s.meta.web_status).toLowerCase()!=='published')) {
+          const statusList = fetched.map(s=>`<li><code>${s.filename}</code> &mdash; web_status: <code>${JSON.stringify(s.meta.web_status)}</code></li>`).join('');
+          root.innerHTML=`<div class="state-msg">
+            <p>Files found but none have <code>web_status: published</code>.</p>
+            <ul style="text-align:left;display:inline-block;margin-top:0.75rem;font-size:0.8rem;line-height:1.8">${statusList}</ul>
+          </div>`;
+          setBar(0); return;
+        }
 
         allSessions = fetched
           .filter(s=>String(s.meta.web_status).toLowerCase()==='published')
