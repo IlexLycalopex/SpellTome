@@ -472,6 +472,16 @@
     }
 
     /* ─────────────────────────────────────────────────────────────────
+       Wikilink stripper — used on both frontmatter values and body
+    ──────────────────────────────────────────────────────────────────── */
+    function stripWikilinks(s) {
+      if (typeof s !== 'string') return s;
+      s = s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2'); // [[target|alias]] -> alias
+      s = s.replace(/\[\[([^\]]+)\]\]/g, '$1');             // [[wikilink]] -> text
+      return s;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
        YAML frontmatter parser
     ──────────────────────────────────────────────────────────────────── */
     function parseFrontmatter(raw) {
@@ -499,6 +509,14 @@
         if (!isNaN(n) && val!=='') { meta[key]=n; currentKey=null; continue; }
         meta[key]=val; currentKey=null;
       }
+      // Strip wikilinks from all string values and string arrays in meta
+      for (const key of Object.keys(meta)) {
+        if (typeof meta[key] === 'string') {
+          meta[key] = stripWikilinks(meta[key]);
+        } else if (Array.isArray(meta[key])) {
+          meta[key] = meta[key].map(v => typeof v === 'string' ? stripWikilinks(v) : v);
+        }
+      }
       return { meta, body: m[2] };
     }
 
@@ -513,8 +531,6 @@
 
       function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
       function inline(s){
-        s=s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g,'$2');  // [[target|alias]] -> alias
-        s=s.replace(/\[\[([^\]]+)\]\]/g,'$1');               // [[wikilink]] -> text
         s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
         s=s.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
         s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
@@ -531,9 +547,9 @@
       }
       function flushCallout(){
         if(!callout)return;
-        const type=callout.type, title=callout.title||(type.charAt(0).toUpperCase()+type.slice(1));
+        const type=callout.type, title=stripWikilinks(callout.title||(type.charAt(0).toUpperCase()+type.slice(1)));
         const icon=CALLOUT_ICONS[type]||'●';
-        html+=`<div class="callout ${esc(type)}"><div class="callout-title"><span>${esc(icon)}</span> ${esc(title)}</div><p>${inline(callout.lines.join(' ').trim())}</p></div>`;
+        html+=`<div class="callout ${esc(type)}"><div class="callout-title"><span>${esc(icon)}</span> ${esc(title)}</div><p>${inline(stripWikilinks(callout.lines.join(' ').trim()))}</p></div>`;
         callout=null;
       }
 
