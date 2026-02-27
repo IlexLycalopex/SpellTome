@@ -244,9 +244,7 @@
       font-style: italic; font-size: 0.9rem; color: var(--text-muted);
       padding: 0.65rem 1.25rem 0.9rem;
       border-top: 1px solid rgba(42,42,74,0.6);
-      display: none;
     }
-    .session-card.open .session-synopsis { display: block; }
 
     .session-tags {
       display: flex; gap: 0.35rem; flex-wrap: wrap;
@@ -332,6 +330,14 @@
     .callout.success   { border-color: var(--success); background: rgba(106,170,106,0.07); }
     .callout.success   .callout-title { color: var(--success); }
     .callout.note      { display: none; } /* GM-only */
+
+    /* ── RULESET ICONS ──────────────────────────────────────────── */
+    .ruleset-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5rem; height: 1.5rem; flex-shrink: 0;
+      color: var(--gold); opacity: 0.85;
+    }
+    .ruleset-icon svg { width: 100%; height: 100%; }
 
     /* ── FOOTER ──────────────────────────────────────────────────── */
     #page-footer {
@@ -507,6 +513,8 @@
 
       function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
       function inline(s){
+        s=s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g,'$2');  // [[target|alias]] -> alias
+        s=s.replace(/\[\[([^\]]+)\]\]/g,'$1');               // [[wikilink]] -> text
         s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
         s=s.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
         s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
@@ -571,12 +579,7 @@
         const mdFiles = allMd.filter(f=>f.path.startsWith(SESSIONS_PATH+'/'));
 
         if (!mdFiles.length) {
-          const pathList = allMd.map(f=>`<li><code>${f.path}</code></li>`).join('');
-          root.innerHTML=`<div class="state-msg">
-            <p>No <code>.md</code> files found under <code>${SESSIONS_PATH}/</code>.</p>
-            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted)">All <code>.md</code> files found in repo:</p>
-            <ul style="text-align:left;display:inline-block;margin-top:0.5rem;font-size:0.8rem;line-height:1.8">${pathList||'<li>none</li>'}</ul>
-          </div>`;
+          root.innerHTML='<div class="state-msg"><p>No session files found in <code>/'+SESSIONS_PATH+'</code> yet.</p></div>';
           setBar(0); return;
         }
 
@@ -585,15 +588,6 @@
           const {meta,body}=parseFrontmatter(raw);
           return {meta,body,filename:f.path.split('/').pop()};
         }));
-
-        if (fetched.every(s=>String(s.meta.web_status).toLowerCase()!=='published')) {
-          const statusList = fetched.map(s=>`<li><code>${s.filename}</code> &mdash; web_status: <code>${JSON.stringify(s.meta.web_status)}</code></li>`).join('');
-          root.innerHTML=`<div class="state-msg">
-            <p>Files found but none have <code>web_status: published</code>.</p>
-            <ul style="text-align:left;display:inline-block;margin-top:0.75rem;font-size:0.8rem;line-height:1.8">${statusList}</ul>
-          </div>`;
-          setBar(0); return;
-        }
 
         allSessions = fetched
           .filter(s=>String(s.meta.web_status).toLowerCase()==='published')
@@ -616,6 +610,62 @@
         root.innerHTML=`<div class="state-msg"><p>Could not load sessions.</p><p style="font-size:0.8rem;margin-top:0.5rem;color:var(--danger)">${err.message}</p></div>`;
         setBar(0);
       }
+    }
+
+    /* ── Ruleset icons ──────────────────────────────────────────────── */
+    function getRulesetIcon(ruleset) {
+      const r = (ruleset||'').toLowerCase();
+      // D&D / 5e / OSR — crossed swords
+      if (/d&d|dnd|5e|pathfinder|osr|fantasy|dungeon/i.test(r)) {
+        return `<span class="ruleset-icon" title="${ruleset}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="21" x2="21" y2="3"/>
+          <path d="M15 3l6 0 0 6"/>
+          <path d="M3 21l-3 0 0-6"/>
+          <line x1="6.5" y1="17.5" x2="17.5" y2="6.5"/>
+          <line x1="3" y1="3" x2="21" y2="21"/>
+          <path d="M3 9l0-6 6 0"/>
+          <path d="M21 15l0 6-6 0"/>
+        </svg></span>`;
+      }
+      // Call of Cthulhu / horror / Lovecraft — tentacle eye
+      if (/cthulhu|coc|call of|horror|lovecraft|delta green|trails/i.test(r)) {
+        return `<span class="ruleset-icon" title="${ruleset}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="12" rx="9" ry="5.5"/>
+          <circle cx="12" cy="12" r="2.5"/>
+          <path d="M12 6.5 Q10 4 8 5.5"/>
+          <path d="M12 6.5 Q14 4 16 5.5"/>
+          <path d="M12 17.5 Q10 20 8 18.5"/>
+          <path d="M12 17.5 Q14 20 16 18.5"/>
+          <path d="M3 12 Q1 10 2 8"/>
+          <path d="M21 12 Q23 10 22 8"/>
+        </svg></span>`;
+      }
+      // Shadowrun / cyberpunk / sci-fi — circuit/chip
+      if (/shadowrun|cyberpunk|scifi|sci-fi|starfinder|traveller|stars without/i.test(r)) {
+        return `<span class="ruleset-icon" title="${ruleset}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="7" width="10" height="10" rx="1"/>
+          <line x1="7" y1="10" x2="4" y2="10"/><line x1="7" y1="14" x2="4" y2="14"/>
+          <line x1="17" y1="10" x2="20" y2="10"/><line x1="17" y1="14" x2="20" y2="14"/>
+          <line x1="10" y1="7" x2="10" y2="4"/><line x1="14" y1="7" x2="14" y2="4"/>
+          <line x1="10" y1="17" x2="10" y2="20"/><line x1="14" y1="17" x2="14" y2="20"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        </svg></span>`;
+      }
+      // Vampire / WoD / narrative — moon/fang
+      if (/vampire|world of darkness|wod|werewolf|mage|hunter|chronicle/i.test(r)) {
+        return `<span class="ruleset-icon" title="${ruleset}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/>
+          <path d="M10 13l2-5 2 5"/>
+          <line x1="10.8" y1="11.5" x2="13.2" y2="11.5"/>
+        </svg></span>`;
+      }
+      // Generic fallback — d20
+      return `<span class="ruleset-icon" title="${ruleset||'Unknown'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 19.5 7 22 15 12 22 2 15 4.5 7"/>
+        <polygon points="12 2 12 22 4.5 7 19.5 7"/>
+        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
+        <text x="12" y="16" text-anchor="middle" font-size="5" fill="currentColor" stroke="none" font-family="serif">20</text>
+      </svg></span>`;
     }
 
     /* ── Filters ─────────────────────────────────────────────────── */
@@ -667,6 +717,7 @@
       for(const [campaign,data] of Object.entries(groups)){
         html+=`<div class="campaign-group">
           <div class="campaign-heading">
+            ${data.ruleset?getRulesetIcon(data.ruleset):''}
             <h2>${esc(campaign)}</h2>
             ${data.ruleset?`<span class="ruleset-badge">${esc(data.ruleset)}</span>`:''}
             <span class="session-tally">${data.sessions.length} session${data.sessions.length!==1?'s':''}</span>
