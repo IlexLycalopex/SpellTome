@@ -1,0 +1,409 @@
+/* ============================================================
+   SPELLTOME.CSS — Spell Tome page unique styles
+   ============================================================ */
+
+/* ── SPELL SCHOOL COLOUR PALETTE ─────────────────────────────── */
+:root {
+  --school-Abjuration:    #4DC8D0;
+  --school-Enchantment:   #C4306A;
+  --school-Conjuration:   #6A3A8A;
+  --school-Illusion:      #3A4A8A;
+  --school-Transmutation: #6AAA2A;
+  --school-Divination:    #BCAA20;
+  --school-Necromancy:    #7A3A2A;
+  --school-Evocation:     #2A8A6A;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(74,0,120,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,80,120,0.15) 0%, transparent 60%);
+}
+
+/* ── HEADER ACTIONS ──────────────────────────────────────────── */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── FILTER GROUPS (spelltome two-row filter layout) ─────────── */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-group-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Search sits above secondary filters as its own full-width row */
+.search-primary {
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.search-primary .search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Secondary filter row: class/level + pills */
+.filter-bar-secondary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Select extended hover */
+select:hover:not(:disabled),
+input[type="text"]:hover {
+  border-color: #5a5a7a;
+  background: #111f38;
+}
+
+select:disabled { opacity: 0.4; cursor: not-allowed; }
+
+select option:checked,
+select option:hover {
+  background: #1e3a5f;
+  color: #c9a84c;
+}
+
+/* ── SCHOOL PILL — ACTIVE COLOURS ────────────────────────────── */
+.school-pill.active {
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ── SPELL CARD ──────────────────────────────────────────────── */
+.spell-card {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
+  color: #222;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  border: 2.5px solid transparent;
+  user-select: none;
+}
+
+.spell-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
+}
+
+.spell-card.selected {
+  border-color: var(--school-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--school-color) 35%, transparent),
+              0 8px 28px rgba(0,0,0,0.5);
+}
+
+.spell-card.selected .select-indicator {
+  background: var(--school-color);
+  border-color: #fff;
+}
+
+/* ── CARD HEADER BAND ────────────────────────────────────────── */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  min-height: 50px;
+  position: relative;
+}
+
+.card-school-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.9);
+}
+
+.card-school-icon svg { width: 100%; height: 100%; display: block; }
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: clamp(0.62rem, 1.8vw, 0.88rem);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  flex: 1;
+  line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.card-level {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── STATS BLOCK ─────────────────────────────────────────────── */
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 52px);
+  gap: 0 6px;
+  padding: 7px 10px 4px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.stats-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #666;
+  min-width: 70px;
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: #111;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── COMPONENTS STRIP ────────────────────────────────────────── */
+.card-components {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: #f9f7f2;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+}
+
+.component-icon {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.component-icon svg { width: 15px; height: 15px; }
+
+/* ── BADGE ───────────────────────────────────────────────────── */
+.badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  padding: 2px 5px;
+  background: rgba(0,0,0,0.08);
+  color: #555;
+}
+
+/* ── CLASSES ROW ─────────────────────────────────────────────── */
+.card-classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 3px 10px 5px;
+  background: #f4f2ed;
+  border-top: 1px solid #ece9e0;
+}
+
+.class-item {
+  font-family: 'Cinzel', serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666;
+  background: rgba(0,0,0,0.05);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+/* ── FLAVOR TEXT ─────────────────────────────────────────────── */
+.card-flavor {
+  padding: 3px 10px 2px;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: #666;
+  background: #fff;
+  border-top: 1px solid #f0ece4;
+  line-height: 1.4;
+}
+
+/* ── DESCRIPTION ─────────────────────────────────────────────── */
+.card-description {
+  padding: 4px 10px 6px;
+  font-size: 0.8rem;
+  color: #333;
+  background: #fff;
+  border-top: 1px solid #f0ece4;
+  line-height: 1.42;
+}
+
+.higher-levels {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed #ddd;
+  font-style: italic;
+  font-size: 0.76rem;
+  color: #555;
+}
+
+/* ── SOURCE LINE ─────────────────────────────────────────────── */
+.card-source {
+  padding: 2px 10px 6px;
+  font-size: 0.7rem;
+  color: #999;
+  background: #fff;
+  font-style: italic;
+}
+
+/* ── STATS COLUMN (right — ritual/concentration icons) ───────── */
+.stats-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding-top: 2px;
+}
+
+/* ── PRINT PREVIEW (spelltome specific layout) ───────────────── */
+#print-preview-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 1000;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+}
+
+#print-preview-overlay.active { display: block; }
+
+.preview-header {
+  position: sticky;
+  top: 0;
+  background: #1a1a2e;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.preview-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.preview-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-left: 16px;
+}
+
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-warning {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 6px;
+  padding: 10px 24px;
+  margin: 16px 24px 0;
+  font-size: 0.9rem;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-warning::before { content: '⚠'; font-size: 1.1rem; }
+
+#print-pages-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.print-page-preview {
+  background: #fff;
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 16px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.6);
+  border-radius: 3px;
+}
+
+.page-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.1em;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ── CARD GRID (spelltome uses smaller minmax) ───────────────── */
+#card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; }
+}

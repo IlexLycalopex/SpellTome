@@ -1,0 +1,217 @@
+/* ============================================================
+   CAMPAIGN-TRACKER.CSS — Campaign Chronicle page unique styles
+   ============================================================ */
+
+/* ── ADDITIONAL COLOUR VARS ──────────────────────────────── */
+:root {
+  --accent2:  #7b6caa;
+  --danger:   #c0504d;
+  --info:     #4a9eca;
+  --success:  #6aaa6a;
+  --warn:     #d4924a;
+  --question: #9a7fca;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(60,0,100,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,40,100,0.10) 0%, transparent 60%);
+}
+
+/* ── FILTER BAR EXTRAS ───────────────────────────────────── */
+.session-count {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; color: var(--text-dim); font-style: italic;
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────────── */
+#chronicle-root { padding: 24px; max-width: 900px; }
+
+/* ── LOADING STATE ───────────────────────────────────────── */
+.state-msg {
+  text-align: center; padding: 80px 24px;
+  color: var(--text-dim); font-style: italic;
+}
+.spinner {
+  width: 32px; height: 32px;
+  border: 2px solid var(--border); border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── CAMPAIGN GROUP ──────────────────────────────────────── */
+.campaign-group { margin-bottom: 3rem; }
+.campaign-heading {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  margin-bottom: 1.1rem; padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.campaign-heading h2 {
+  font-family: 'Cinzel', serif; font-size: 1.05rem;
+  color: var(--gold); font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ruleset-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: var(--text-dim); border: 1px solid var(--border);
+  padding: 0.15rem 0.5rem; border-radius: 999px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.session-tally {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--text-dim);
+}
+
+/* ── SESSION CARDS ───────────────────────────────────────── */
+.session-grid { display: grid; gap: 0.75rem; }
+
+.session-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color 0.15s;
+}
+.session-card:hover { border-color: rgba(201,168,76,0.35); }
+
+.session-card-header {
+  padding: 0.9rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+  cursor: pointer; user-select: none;
+}
+.session-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  color: var(--text-dim); min-width: 3rem; letter-spacing: 0.05em;
+}
+.session-title {
+  font-family: 'Cinzel', serif; font-size: 0.88rem;
+  color: var(--text-light); font-weight: 600; flex: 1; letter-spacing: 0.03em;
+}
+.session-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text-dim);
+}
+.session-chevron {
+  color: var(--text-dim); font-size: 0.7rem;
+  transition: transform 0.22s; margin-left: 0.4rem;
+}
+.session-card.open .session-chevron { transform: rotate(180deg); }
+
+.session-synopsis {
+  font-style: italic; font-size: 0.9rem; color: var(--text-muted);
+  padding: 0.65rem 1.25rem 0.9rem;
+  border-top: 1px solid rgba(42,42,74,0.6);
+}
+
+.session-tags {
+  display: flex; gap: 0.35rem; flex-wrap: wrap;
+  padding: 0 1.25rem 0.75rem;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.05em; color: var(--accent2);
+  background: rgba(123,108,170,0.1); border: 1px solid rgba(123,108,170,0.22);
+  padding: 0.1rem 0.4rem; border-radius: 999px; text-transform: lowercase;
+}
+
+/* ── EXPANDED SESSION BODY ───────────────────────────────── */
+.session-body {
+  display: none;
+  padding: 1.4rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: rgba(13,20,45,0.6);
+}
+.session-card.open .session-body { display: block; }
+
+.players-list { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.player-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+  color: var(--text-dim); border: 1px solid var(--border);
+  padding: 0.1rem 0.5rem; border-radius: 999px; letter-spacing: 0.03em;
+}
+
+.session-body h2 {
+  font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold);
+  font-weight: 700; margin: 1.4rem 0 0.5rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.session-body h2:first-child { margin-top: 0; }
+.session-body h3 {
+  font-family: 'Cinzel', serif; font-size: 0.78rem; color: var(--text-light);
+  margin: 1rem 0 0.35rem; letter-spacing: 0.04em;
+}
+.session-body p { margin: 0.45rem 0; font-size: 0.95rem; line-height: 1.65; }
+.session-body ul, .session-body ol { padding-left: 1.4rem; margin: 0.45rem 0; }
+.session-body li { margin: 0.22rem 0; font-size: 0.95rem; line-height: 1.55; }
+.session-body hr { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+.session-body strong { color: var(--text-light); font-weight: 600; }
+.session-body em { color: var(--text-muted); }
+.session-body code {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  background: #0d1a30; padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--gold);
+}
+.session-body table {
+  width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.9rem;
+}
+.session-body th {
+  font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-dim);
+  text-align: left; padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+.session-body td { padding: 0.4rem 0.75rem; border-bottom: 1px solid rgba(42,42,74,0.4); }
+
+/* ── CALLOUTS ────────────────────────────────────────────── */
+.callout {
+  border-left: 3px solid var(--gold-dim);
+  background: rgba(201,168,76,0.06);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.7rem 1rem; margin: 0.7rem 0;
+}
+.callout-title {
+  font-family: 'Cinzel', serif; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem;
+  color: var(--gold);
+}
+.callout p { margin: 0; font-size: 0.9rem; line-height: 1.55; }
+
+.callout.important { border-color: var(--danger); background: rgba(192,80,77,0.07); }
+.callout.important .callout-title { color: var(--danger); }
+.callout.info      { border-color: var(--info);    background: rgba(74,158,202,0.07); }
+.callout.info      .callout-title { color: var(--info); }
+.callout.warning   { border-color: var(--warn);    background: rgba(212,146,74,0.07); }
+.callout.warning   .callout-title { color: var(--warn); }
+.callout.question  { border-color: var(--question);background: rgba(154,127,202,0.07); }
+.callout.question  .callout-title { color: var(--question); }
+.callout.success   { border-color: var(--success); background: rgba(106,170,106,0.07); }
+.callout.success   .callout-title { color: var(--success); }
+.callout.note      { display: none; } /* GM-only */
+
+/* ── RULESET ICON ────────────────────────────────────────── */
+.ruleset-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5rem; height: 1.5rem; flex-shrink: 0;
+  color: var(--gold); opacity: 0.85;
+}
+.ruleset-icon svg { width: 100%; height: 100%; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+#page-footer {
+  padding: 20px 24px; max-width: 900px;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--text-dim); font-style: italic;
+  margin-top: 1rem;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #chronicle-root { padding: 14px; }
+  #page-footer { padding: 14px; }
+}
+@media (max-width: 480px) {
+  .session-date { display: none; }
+}

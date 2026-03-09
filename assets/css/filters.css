@@ -1,0 +1,88 @@
+/* ============================================================
+   FILTERS.CSS — Filter bar, search input, pill buttons, divider
+   Used by: spelltome, monsters, wildshape, magic-items,
+            conditions, campaign-tracker
+   ============================================================ */
+
+/* ── FILTER BAR ──────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px 12px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ── SEARCH INPUT ────────────────────────────────────────────── */
+.search-input {
+  min-width: 180px;
+  flex: 1;
+  max-width: 340px;
+}
+
+/* ── FILTER DIVIDER ──────────────────────────────────────────── */
+.filter-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* ── PILL FILTERS ────────────────────────────────────────────── */
+.pill-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 3px 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.pill:hover {
+  border-color: var(--text-dim);
+  color: var(--text-light);
+}
+
+.pill.active {
+  background: rgba(201,168,76,0.18);
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
+
+/* ── MOBILE: COLLAPSIBLE FILTER BAR ─────────────────────────── */
+@media (max-width: 768px) {
+  .filter-bar {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .filter-bar.expanded {
+    max-height: 700px;
+    padding: 10px 14px 12px;
+  }
+}

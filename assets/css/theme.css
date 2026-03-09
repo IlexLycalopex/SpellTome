@@ -1,0 +1,50 @@
+/* ============================================================
+   THEME.CSS — CSS variables, fonts, base reset, body background
+   Shared across all pages. Edit here to change the global palette.
+   ============================================================ */
+
+/* ── FONTS ───────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── GLOBAL DESIGN TOKENS ────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-dark:    #1a1a2e;
+  --bg-panel:   #16213e;
+
+  /* Text */
+  --text-light: #e8e8e8;
+  --text-muted: #9a9ab0;
+  --text-dim:   #6a6a80;
+
+  /* Gold accent */
+  --gold:       #c9a84c;
+  --gold-dim:   #8a6a2c;
+
+  /* Borders & shadows */
+  --border:     #2a2a4a;
+  --shadow:     0 4px 24px rgba(0,0,0,0.5);
+
+  /* Utility */
+  --radius:     6px;
+}
+
+/* ── BASE RESET ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* ── BODY ────────────────────────────────────────────────────── */
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+}

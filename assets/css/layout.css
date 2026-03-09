@@ -1,0 +1,138 @@
+/* ============================================================
+   LAYOUT.CSS — Sticky header, page title, app-title branding
+   Used by: all pages with #app-header or #site-header
+   ============================================================ */
+
+/* ── STICKY APP HEADER (standard pages) ─────────────────────── */
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(22,33,62,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+/* ── HEADER TOP ROW ──────────────────────────────────────────── */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ── APP TITLE / BRANDING ────────────────────────────────────── */
+.app-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  text-transform: uppercase;
+}
+
+.app-title span {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin-left: 8px;
+  letter-spacing: 0.2em;
+}
+
+/* ── SITE HEADER (dice-roller style — logo + page title) ─────── */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(22,33,62,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(201,168,76,0.35);
+  text-decoration: none;
+}
+
+.site-logo svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--acc, var(--text-muted));
+  opacity: 0.9;
+}
+
+/* ── PAGE WRAPPER (dice-roller inner layout) ─────────────────── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 52px);
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 32px 20px 60px;
+}
+
+/* ── RESULTS BAR ─────────────────────────────────────────────── */
+#results-bar {
+  padding: 7px 24px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  font-style: italic;
+  background: rgba(15,52,96,0.2);
+}
+
+/* ── SITE FOOTER ─────────────────────────────────────────────── */
+.site-footer {
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+  padding: 24px 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+  background: rgba(16,24,50,0.45);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header-top { padding: 8px 14px; }
+  .app-title { font-size: clamp(0.75rem, 3.5vw, 1.1rem); }
+  .app-title span { display: none; }
+}
+
+@media (max-width: 640px) {
+  #site-header { padding: 10px 16px; }
+  .content-wrap { padding: 22px 14px 48px; }
+}

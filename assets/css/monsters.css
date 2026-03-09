@@ -1,0 +1,79 @@
+/* ============================================================
+   MONSTERS.CSS — Monster Codex page unique styles
+   ============================================================ */
+
+/* ── MONSTER TYPE COLOUR PALETTE ─────────────────────────────── */
+:root {
+  --t-aberration: #6a3a8a;
+  --t-beast:      #4a7a2a;
+  --t-celestial:  #b8902a;
+  --t-construct:  #5a6a7a;
+  --t-dragon:     #8a2a2a;
+  --t-elemental:  #3a6a8a;
+  --t-fey:        #c4306a;
+  --t-fiend:      #7a1a1a;
+  --t-giant:      #7a5a2a;
+  --t-humanoid:   #4a5a6a;
+  --t-monstrosity:#5a3a6a;
+  --t-ooze:       #3a7a3a;
+  --t-plant:      #2a6a3a;
+  --t-undead:     #3a3a5a;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(80,0,0,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,60,80,0.15) 0%, transparent 60%);
+}
+
+/* ── MONSTER CARD ────────────────────────────────────────────── */
+.mon-card {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  border: 2.5px solid transparent;
+}
+
+.mon-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.6); }
+
+/* ── CARD HEADER ─────────────────────────────────────────────── */
+.card-header     { padding: 9px 11px; display: flex; align-items: flex-start; gap: 8px; position: relative; }
+.card-name       { font-family: 'Cinzel', serif; font-weight: 700; font-size: clamp(0.7rem, 2vw, 0.9rem); letter-spacing: 0.03em; text-transform: uppercase; color: #fff; flex: 1; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,0.35); overflow-wrap: break-word; }
+.cr-badge        { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.75rem; background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.95); border-radius: 3px; padding: 2px 7px; flex-shrink: 0; white-space: nowrap; }
+.card-subtype    { font-size: 0.72rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 1px; display: block; }
+
+/* ── STATS BLOCK ─────────────────────────────────────────────── */
+.card-stats-block { padding: 7px 11px 5px; background: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 1px 8px; }
+.stat-row         { display: flex; align-items: baseline; gap: 4px; min-width: 0; }
+.stat-label       { font-size: 0.68rem; color: #777; flex-shrink: 0; min-width: 26px; }
+.stat-val         { font-weight: 600; font-size: 0.8rem; color: #111; white-space: nowrap; }
+
+/* ── TRAIT TAGS ──────────────────────────────────────────────── */
+.card-traits     { padding: 4px 11px 5px; background: #f7f5f0; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 3px; }
+.trait-tag       { font-family: 'Cinzel', serif; font-size: 0.52rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 3px; padding: 2px 6px; background: #eee; color: #555; }
+.trait-tag.dmg-immune   { background: #fee; color: #933; }
+.trait-tag.dmg-resist   { background: #fff0e0; color: #a63; }
+.trait-tag.cond-immune  { background: #e8eeff; color: #338; }
+.trait-tag.legendary    { background: #fdf0c0; color: #7a5500; }
+.trait-tag.spellcaster  { background: #f0e8ff; color: #553; }
+
+/* ── ABILITIES ───────────────────────────────────────────────── */
+.card-abilities  { padding: 5px 11px 7px; background: #fff; border-top: 1px solid #eee; font-size: 0.75rem; color: #333; line-height: 1.4; }
+.ability-line    { margin-bottom: 3px; }
+.ability-name    { font-weight: 700; }
+
+/* ── MODAL (monsters) ────────────────────────────────────────── */
+#modal-box           { max-width: 600px; max-height: 85vh; }
+.modal-header        { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 14px 16px; position: sticky; top: 0; }
+.modal-title-block   { flex: 1; }
+.modal-title         { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+.modal-subtitle      { font-size: 0.85rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 2px; }

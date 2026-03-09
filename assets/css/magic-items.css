@@ -1,0 +1,96 @@
+/* ============================================================
+   MAGIC-ITEMS.CSS — Magic Item Compendium page unique styles
+   ============================================================ */
+
+/* ── RARITY COLOUR PALETTE ───────────────────────────────────── */
+:root {
+  --r-common:    #7a7a8a;
+  --r-uncommon:  #2a7a3a;
+  --r-rare:      #2a3a8a;
+  --r-very-rare: #6a2a8a;
+  --r-legendary: #8a3a1a;
+  --r-artifact:  #8a6a0a;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(80,50,0,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,20,80,0.15) 0%, transparent 60%);
+}
+
+/* ── ITEM CARD ───────────────────────────────────────────────── */
+.item-card {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  border: 2.5px solid transparent;
+}
+
+.item-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.6); }
+
+.item-card.selected {
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.5), 0 8px 28px rgba(0,0,0,0.5) !important;
+  transform: translateY(-4px);
+}
+
+.item-card.selected .select-indicator { background: var(--gold); border-color: #fff; }
+
+/* ── CARD INNER ──────────────────────────────────────────────── */
+.card-header      { padding: 9px 11px 7px; display: flex; align-items: flex-start; gap: 8px; }
+.item-icon        { font-size: 1.6rem; flex-shrink: 0; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
+.card-name-block  { flex: 1; min-width: 0; }
+.card-name        { font-family: 'Cinzel', serif; font-weight: 700; font-size: clamp(0.62rem, 1.9vw, 0.84rem); letter-spacing: 0.03em; text-transform: uppercase; color: #fff; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,0.35); overflow-wrap: break-word; }
+.card-subline     { font-size: 0.68rem; color: rgba(255,255,255,0.72); font-style: italic; margin-top: 2px; display: block; }
+.rarity-badge     { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.52rem; letter-spacing: 0.07em; text-transform: uppercase; background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.9); border-radius: 3px; padding: 2px 5px; flex-shrink: 0; white-space: nowrap; margin-top: 2px; }
+
+/* ── CARD TAGS ───────────────────────────────────────────────── */
+.card-tags        { padding: 4px 11px 5px; background: #f7f5f0; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 3px; }
+.tag              { font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 3px; padding: 2px 5px; }
+
+.tag.attune       { background: #fff0e0; color: #a63; }
+.tag.attune-class { background: #ffe8f0; color: #933; }
+.tag.charges      { background: #e8f0ff; color: #336; }
+.tag.consumable   { background: #f0ffe8; color: #363; }
+.tag.cursed       { background: #fee; color: #933; }
+
+/* ── CARD DESCRIPTION ────────────────────────────────────────── */
+.card-desc        { padding: 6px 11px 8px; background: #fff; font-size: 0.75rem; color: #333; line-height: 1.42; }
+
+/* ── RARITY PILL ACTIVE STATES ───────────────────────────────── */
+.rarity-pill.active[data-val="Common"]    { background: var(--r-common);    color: #fff; border-color: transparent; }
+.rarity-pill.active[data-val="Uncommon"]  { background: var(--r-uncommon);  color: #fff; border-color: transparent; }
+.rarity-pill.active[data-val="Rare"]      { background: var(--r-rare);      color: #fff; border-color: transparent; }
+.rarity-pill.active[data-val="Very Rare"] { background: var(--r-very-rare); color: #fff; border-color: transparent; }
+.rarity-pill.active[data-val="Legendary"] { background: var(--r-legendary); color: #fff; border-color: transparent; }
+.rarity-pill.active[data-val="Artifact"]  { background: var(--r-artifact);  color: #fff; border-color: transparent; }
+
+/* ── MODAL (magic items) ─────────────────────────────────────── */
+#modal-box        { max-width: 560px; max-height: 85vh; }
+.modal-header     { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 14px 16px; position: sticky; top: 0; }
+.modal-title      { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+.modal-subtitle   { font-size: 0.82rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 2px; }
+.modal-desc       { font-size: 0.9rem; color: #333; line-height: 1.55; margin-bottom: 14px; }
+.modal-tags       { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+.modal-note       { background: #fdf8ee; border-radius: 5px; padding: 10px 12px; margin-top: 12px; font-style: italic; font-size: 0.88rem; color: #555; line-height: 1.45; border-left: 3px solid #c9a84c; }
+
+/* ── PRINT PREVIEW (items) ───────────────────────────────────── */
+.print-preview-page .item-card          { font-size: 0.48rem !important; cursor: default !important; }
+.print-preview-page .item-card:hover    { transform: none !important; }
+.print-preview-page .card-name         { font-size: 0.52rem !important; }
+.print-preview-page .card-header       { padding: 5px 7px !important; }
+.print-preview-page .item-icon         { font-size: 0.9rem !important; }
+.print-preview-page .tag               { font-size: 0.38rem !important; }
+.print-preview-page .card-desc         { font-size: 0.44rem !important; padding: 3px 7px 5px !important; line-height: 1.28 !important; }
+.print-preview-page .select-indicator  { display: none !important; }
+
+/* ── CARD GRID ───────────────────────────────────────────────── */
+#card-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }

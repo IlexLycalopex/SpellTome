@@ -1,0 +1,100 @@
+/* ============================================================
+   CONDITIONS.CSS — Condition Codex page unique styles
+   ============================================================ */
+
+/* ── CONDITION COLOUR PALETTE ────────────────────────────────── */
+:root {
+  --c-blinded:       #5a5a7a;
+  --c-charmed:       #c4306a;
+  --c-deafened:      #7a5a2a;
+  --c-exhaustion:    #8a2a2a;
+  --c-frightened:    #6a2a8a;
+  --c-grappled:      #4a6a2a;
+  --c-incapacitated: #3a6a8a;
+  --c-invisible:     #2a7a6a;
+  --c-paralyzed:     #7a4a2a;
+  --c-petrified:     #5a6a4a;
+  --c-poisoned:      #3a7a3a;
+  --c-prone:         #8a6a2a;
+  --c-restrained:    #6a4a8a;
+  --c-stunned:       #3a5a8a;
+  --c-unconscious:   #2a2a5a;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(100,0,60,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,40,100,0.12) 0%, transparent 60%);
+}
+
+/* ── CONDITION CARD ──────────────────────────────────────────── */
+.cond-card {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  border: 2.5px solid transparent;
+}
+
+.cond-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.6); }
+
+/* ── CARD HEADER ─────────────────────────────────────────────── */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  min-height: 54px;
+  position: relative;
+  background: var(--cond-color, #444);
+}
+
+.card-icon          { width: 2rem; height: 2rem; flex-shrink: 0; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4)); display: flex; align-items: center; justify-content: center; }
+.card-icon svg      { width: 1.9rem; height: 1.9rem; stroke: rgba(255,255,255,0.92); }
+.card-title         { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; flex: 1; text-shadow: 0 1px 3px rgba(0,0,0,0.35); }
+.card-type-badge    { font-family: 'Cinzel', serif; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.85); border-radius: 3px; padding: 2px 6px; flex-shrink: 0; }
+
+/* ── CARD EFFECTS ────────────────────────────────────────────── */
+.card-effects       { padding: 8px 12px 6px; background: #fff; }
+.effect-item        { display: flex; gap: 7px; align-items: flex-start; padding: 3px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.8rem; color: #333; line-height: 1.4; }
+.effect-item:last-child { border-bottom: none; }
+.effect-bullet      { width: 6px; height: 6px; border-radius: 50%; background: var(--cond-color, #666); flex-shrink: 0; margin-top: 5px; }
+
+/* ── CARD NOTES ──────────────────────────────────────────────── */
+.card-notes         { padding: 5px 12px 8px; background: #f9f7f2; border-top: 1px solid #eee; font-size: 0.76rem; color: #555; font-style: italic; line-height: 1.4; }
+
+/* ── EXHAUSTION (special multi-level card) ───────────────────── */
+.exhaustion-levels  { padding: 6px 12px 8px; background: #fff; }
+.exhaustion-level   { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.8rem; color: #333; }
+.exhaustion-level:last-child { border-bottom: none; }
+.level-num          { font-family: 'Cinzel', serif; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; background: var(--cond-color, #666); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; }
+
+/* ── MODAL (conditions-specific) ────────────────────────────── */
+.modal-header       { display: flex; align-items: center; gap: 12px; padding: 14px 16px; position: sticky; top: 0; background: var(--cond-color, #444); }
+.modal-icon         { width: 2.4rem; height: 2.4rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.modal-icon svg     { width: 2.2rem; height: 2.2rem; stroke: rgba(255,255,255,0.92); }
+.modal-title        { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.35); flex: 1; }
+.modal-section-label { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cond-color, #444); margin-bottom: 8px; margin-top: 14px; }
+.modal-section-label:first-child { margin-top: 0; }
+.modal-effect-item  { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; color: #333; line-height: 1.45; }
+.modal-effect-item:last-child { border-bottom: none; }
+.modal-bullet       { width: 7px; height: 7px; border-radius: 50%; background: var(--cond-color, #666); flex-shrink: 0; margin-top: 6px; }
+.modal-exh-row      { display: flex; align-items: center; gap: 10px; padding: 5px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; color: #333; }
+.modal-exh-row:last-child { border-bottom: none; }
+.modal-level-num    { font-family: 'Cinzel', serif; font-weight: 700; width: 26px; height: 26px; border-radius: 50%; background: var(--cond-color, #666); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.72rem; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  #card-grid { grid-template-columns: 1fr; }
+}
