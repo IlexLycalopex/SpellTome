@@ -164,7 +164,7 @@ select option:hover {
 /* ── STATS BLOCK ─────────────────────────────────────────────── */
 .card-stats {
   display: grid;
-  grid-template-columns: 1fr minmax(0, 52px);
+  grid-template-columns: 1fr minmax(0, 80px);
   gap: 0 6px;
   padding: 7px 10px 4px;
   background: #fff;
@@ -238,7 +238,42 @@ select option:hover {
   color: #555;
 }
 
-/* ── CLASSES ROW ─────────────────────────────────────────────── */
+/* ── CLASS LIST (right column of stats block) ────────────────── */
+.class-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 1px;
+  overflow: hidden;
+}
+
+.class-item {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #bbb;                     /* dim = no access */
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.class-item.has-access {
+  color: #444;                     /* darker = has access */
+  background: rgba(0,0,0,0.05);
+  border-radius: 2px;
+  padding: 1px 4px;
+}
+
+.class-item.is-current {
+  color: var(--school-color, #444);
+  background: color-mix(in srgb, var(--school-color, #666) 15%, transparent);
+  font-weight: 900;
+}
+
+/* ── CLASSES ROW (legacy — kept for print layout) ────────────── */
 .card-classes {
   display: flex;
   flex-wrap: wrap;
@@ -246,18 +281,6 @@ select option:hover {
   padding: 3px 10px 5px;
   background: #f4f2ed;
   border-top: 1px solid #ece9e0;
-}
-
-.class-item {
-  font-family: 'Cinzel', serif;
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #666;
-  background: rgba(0,0,0,0.05);
-  border-radius: 3px;
-  padding: 1px 5px;
 }
 
 /* ── FLAVOR TEXT ─────────────────────────────────────────────── */

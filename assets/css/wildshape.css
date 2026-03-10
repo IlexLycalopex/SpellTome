@@ -153,11 +153,84 @@ body {
 /* ── CARD NOTE ───────────────────────────────────────────────── */
 .card-note { padding: 4px 11px 7px; background: #fff; font-size: 0.75rem; color: #444; font-style: italic; border-top: 1px solid #f0f0f0; line-height: 1.35; }
 
-/* ── MODAL STAT GRID ─────────────────────────────────────────── */
+/* ── MODAL STAT GRID (AC / HP / Speed / Percep.) ─────────────── */
 .stat-row-grid  { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
 .stat-box       { background: #f7f5f0; border-radius: 5px; padding: 7px 8px; text-align: center; }
-.stat-box .lb   { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; }
+.stat-box .lb   { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; display: block; }
 .stat-box .vl   { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95rem; color: #222; }
+
+/* ── ABILITY SCORE GRID (STR / DEX / CON / INT / WIS / CHA) ─── */
+.ab-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.ab-box {
+  background: #f7f5f0;
+  border-radius: 5px;
+  padding: 6px 4px;
+  text-align: center;
+}
+.ab-box .abl {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+}
+.ab-box .abs {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #222;
+  display: block;
+}
+.ab-box .abm { font-size: 0.7rem; color: #555; display: block; }
+
+/* ── MODAL TRAIT / ACTION SECTIONS ──────────────────────────── */
+.msec { margin-top: 12px; }
+.msec-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #eee;
+  display: block;
+}
+.mabil { margin-bottom: 5px; font-size: 0.88rem; color: #333; line-height: 1.45; }
+.mabil strong { font-weight: 700; }
+
+/* ── ELIGIBILITY PANEL ───────────────────────────────────────── */
+.eligibility-panel {
+  background: #f0faf4;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border: 1px solid #c0e0c8;
+}
+.eligibility-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #2a6a3a;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.eligibility-row { font-size: 0.85rem; color: #333; margin-bottom: 3px; }
+.eligibility-row .ok { color: #2a6a3a; font-weight: 600; }
+.eligibility-row .no { color: #8a2a2a; font-weight: 600; }
+
+/* ── RESPONSIVE: 3-col ability grid on small screens ─────────── */
+@media (max-width: 480px) {
+  .ab-grid { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
