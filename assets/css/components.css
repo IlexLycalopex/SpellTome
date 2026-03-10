@@ -402,4 +402,21 @@ input[type="number"]::placeholder {
 @media (max-width: 768px) {
   #btn-filter-toggle { display: flex; }
   .btn-print, .btn-ghost, .selection-badge, .select-indicator { display: none !important; }
+
+  /* Modal: reduce overlay padding so box gets full width */
+  #modal-overlay { padding: 12px; }
+
+  /* Modal box: allow taller on mobile, reduce padding inside body */
+  #modal-box { max-height: 92vh; border-radius: 8px; }
+  .modal-body { padding: 12px; }
+}
+
+@media (max-width: 480px) {
+  /* Modal: full-screen sheet on very small phones */
+  #modal-overlay { padding: 0; align-items: flex-end; }
+  #modal-box {
+    border-radius: 16px 16px 0 0;
+    max-height: 96vh;
+    max-width: 100%;
+  }
 }

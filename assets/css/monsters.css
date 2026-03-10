@@ -77,3 +77,83 @@ body {
 .modal-title-block   { flex: 1; }
 .modal-title         { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
 .modal-subtitle      { font-size: 0.85rem; color: rgba(255,255,255,0.75); font-style: italic; margin-top: 2px; }
+
+/* ── MODAL STAT GRID (AC / HP / Speed / CR) ─────────────────── */
+.modal-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.modal-stat-box {
+  background: #f7f5f0;
+  border-radius: 5px;
+  padding: 7px 8px;
+  text-align: center;
+}
+.modal-stat-box .label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  display: block;
+}
+.modal-stat-box .val {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #222;
+}
+
+/* ── ABILITY SCORE GRID (STR / DEX / CON / INT / WIS / CHA) ─── */
+.ability-scores {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.ability-score-box {
+  background: #f7f5f0;
+  border-radius: 5px;
+  padding: 6px 4px;
+  text-align: center;
+}
+.ability-score-box .ab-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #888;
+  text-transform: uppercase;
+  display: block;
+}
+.ability-score-box .ab-score {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #222;
+}
+.ability-score-box .ab-mod { font-size: 0.72rem; color: #555; }
+
+/* ── MODAL SECTIONS (Traits / Actions / Legendary) ───────────── */
+.modal-section { margin-top: 12px; }
+.modal-section .modal-section-label {
+  padding-bottom: 3px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 6px;
+}
+.modal-ability { margin-bottom: 5px; font-size: 0.9rem; color: #333; line-height: 1.45; }
+.modal-ability-name { font-weight: 700; }
+
+/* ── MODAL TAGS ──────────────────────────────────────────────── */
+.modal-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+  /* Ability score grid: 3 columns on small screens */
+  .ability-scores { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 480px) { #card-grid { grid-template-columns: 1fr; } }

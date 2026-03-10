@@ -403,7 +403,153 @@ select option:hover {
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 }
 
+/* ── EDITION TOGGLE ──────────────────────────────────────────── */
+.edition-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.edition-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.edition-btn:hover { color: var(--text-light); }
+
+.edition-btn.active {
+  background: linear-gradient(135deg, #c9a84c, #8a6a2c);
+  color: #1a1a2e;
+  box-shadow: 0 1px 6px rgba(201,168,76,0.35);
+}
+
+@keyframes editionFlash {
+  0%   { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+.edition-flash { animation: editionFlash 0.25s ease-out; }
+
+/* ── SPELL DETAIL MODAL (mobile tap — slides up from bottom) ─── */
+#spell-modal-card .card-title       { font-size: 1.1rem; }
+#spell-modal-card .card-level       { font-size: 1.0rem; }
+#spell-modal-card .card-stats       { font-size: 0.82rem; }
+#spell-modal-card .stat-label       { font-size: 0.72rem; }
+#spell-modal-card .stat-value       { font-size: 0.82rem; white-space: normal; }
+#spell-modal-card .card-flavor      { font-size: 0.86rem; }
+#spell-modal-card .card-description { font-size: 0.88rem; line-height: 1.55; }
+#spell-modal-card .higher-levels    { font-size: 0.82rem; }
+#spell-modal-card .card-source      { font-size: 0.76rem; }
+#spell-modal-card .class-item       { font-size: 0.86rem; }
+
+#spell-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  overscroll-behavior: contain;
+}
+
+#spell-modal-overlay.active {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#spell-modal-inner {
+  width: 100%;
+  max-width: 480px;
+  max-height: 96vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  animation: modalSlideUp 0.22s ease;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+#spell-modal-inner .spell-card {
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+}
+
+#spell-modal-close {
+  position: sticky;
+  top: 0;
+  left: 100%;
+  float: right;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  margin: 8px 8px -40px auto;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+#spell-modal-close:active { background: rgba(0,0,0,0.8); }
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  #card-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
 @media (max-width: 768px) {
   #card-grid { grid-template-columns: 1fr 1fr; }
+
+  .edition-toggle { padding: 2px; }
+  .edition-btn { font-size: 0.62rem; padding: 4px 8px; }
+
+  /* Clamp card descriptions on mobile; un-clamp inside the modal */
+  .card-description {
+    font-size: 0.72rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  #spell-modal-card .card-description {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+  #spell-modal-card .spell-card { cursor: default; }
+  #spell-modal-card .card-stats { grid-template-columns: 1fr minmax(0, 72px); }
+  #spell-modal-card .class-item { max-width: 80px; font-size: 0.86rem; }
+  #spell-modal-card .stat-value { white-space: normal; }
+}
+
+@media (max-width: 420px) {
+  #card-grid { grid-template-columns: 1fr !important; }
 }

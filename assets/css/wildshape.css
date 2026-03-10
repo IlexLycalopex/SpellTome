@@ -158,3 +158,26 @@ body {
 .stat-box       { background: #f7f5f0; border-radius: 5px; padding: 7px 8px; text-align: center; }
 .stat-box .lb   { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; }
 .stat-box .vl   { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95rem; color: #222; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+
+  /* Header: allow wrapping so mode-toggle + hamburger both fit */
+  #app-header { overflow: hidden; }
+  .header-top { flex-wrap: wrap; gap: 4px; padding: 8px 12px; }
+  .header-top > div { gap: 6px; }
+
+  /* Smaller mode buttons on mobile */
+  .mode-btn { font-size: 0.6rem; padding: 5px 9px; letter-spacing: 0.04em; }
+
+  /* Hide info bars on mobile */
+  .druid-info-bar,
+  .familiar-info-bar { display: none; }
+}
+
+@media (max-width: 420px) {
+  .mode-btn { font-size: 0.55rem; padding: 4px 7px; letter-spacing: 0; }
+}
+
+@media (max-width: 480px) { #card-grid { grid-template-columns: 1fr; } }
