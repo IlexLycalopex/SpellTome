@@ -396,9 +396,22 @@ body.full-mode .full-only { display: revert; }
 @keyframes activeGlow { 0%, 100% { box-shadow: 0 0 0 1px var(--gold-dim), 0 2px 8px rgba(0,0,0,0.4); } 50% { box-shadow: 0 0 0 1px var(--gold-dim), 0 0 18px rgba(201,168,76,0.35); } }
 @keyframes flicker  { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+/* ── INITIATIVE INPUTS — larger font so values are clearly legible */
+#a-init,
+#edit-init {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.4rem 0.3rem;
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (min-width: 500px) { .cond-grid { grid-template-columns: repeat(6,1fr); } }
 @media (max-width: 640px) {
   #site-header { padding: 10px 14px; }
   .setup-body, .combat-list { padding: 0.75rem; }
+
+  /* Keep the party Edit button visible on mobile
+     (components.css hides all .btn-ghost; this overrides that) */
+  #party-edit-btn { display: inline-flex !important; }
 }

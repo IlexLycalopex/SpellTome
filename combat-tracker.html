@@ -107,7 +107,7 @@
       <div class="party-bar-names" id="party-bar-names">No party saved</div>
       <div class="party-bar-actions">
         <button class="btn btn-gold btn-sm" id="load-party-btn" onclick="loadParty()" disabled>⚔ Load</button>
-        <button class="btn btn-ghost btn-sm" onclick="openSavePartyModal()">💾 Edit</button>
+        <button class="btn btn-ghost btn-sm" id="party-edit-btn" onclick="openSavePartyModal()">💾 Edit</button>
       </div>
     </div>
 
@@ -242,7 +242,10 @@
     <h3>Save Party</h3>
     <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;margin-bottom:.85rem">Names and initiative bonuses are stored. Fresh rolls each time you load.</p>
     <div id="party-slots"></div>
-    <div style="margin-bottom:.7rem"><button class="btn btn-ghost btn-sm" onclick="addPartySlot()">+ Add Member</button></div>
+    <div style="margin-bottom:.7rem;display:flex;gap:.5rem;flex-wrap:wrap;">
+      <button class="btn btn-ghost btn-sm" onclick="addPartySlot()">+ Add Member</button>
+      <button class="btn btn-ghost btn-sm" id="clear-party-slots-btn" onclick="clearPartySlots()" style="color:#c0392b;border-color:rgba(192,57,43,0.4);">✕ Clear Party</button>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('party-modal')">Cancel</button>
       <button class="btn btn-gold" onclick="saveParty()">Save Party</button>
@@ -497,9 +500,11 @@ function saveParty() {
     const name=ins[0].value.trim(); const bonus=parseInt(ins[1].value)||0;
     if(name) party.push({name,bonus});
   });
-  if(!party.length){alert('Add at least one character.');return;}
   try{localStorage.setItem('dnd-party',JSON.stringify(party));}catch(e){}
   closeModal('party-modal'); renderSavedParty();
+}
+function clearPartySlots() {
+  document.getElementById('party-slots').innerHTML='';
 }
 function getSavedParty(){try{return JSON.parse(localStorage.getItem('dnd-party')||'[]');}catch(e){return[];}}
 function renderSavedParty() {
