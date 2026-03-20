@@ -1,55 +1,13 @@
 const STORAGE_KEY = 'spelltome-campaign-log-builder-v1';
-
-const sampleState = {
-  campaign: "Storm King's Thunder",
-  ruleset: 'D&D 5e',
-  session: '15',
-  date: '2026-02-13',
-  gm: 'Matthew Rogers',
-  synopsis: 'Battle at the north walls of Goldenfields. Gimbletrump got thrown by a tree, then by an ogre-trebuchet. The team won. Got a pendant to take to Waterdeep.',
-  webStatus: 'Published',
-  players: ['Jamie Watts', 'Alex Stratford', 'Paul Schofield', 'Nick Johnson'],
-  recap: [
-    '[[Lob the giant]], defeated by [[Leeferlas]], was locked in the stables.',
-    'Noise of battle at the North walls summons the party',
-    '[[Leeferlas]] throws [[Gimbletrump]] into battle, takes huge damage but survives. [[Gimbletrump]] now dressed as a goblin - kills and maims. Tinkering with equipment he decapitates an ogre with the internal clockwork of a launcher.',
-    '[[Gwithian]] moves a moonbeam around the battlefield',
-    '[[Kelvar]] mostly shoots arrows',
-    '[[Leeferlas]] thows a chunk of palisade wall into battle - does 79 damage!',
-    'an Ogre launches [[Gimbletrump]] back into the fields.',
-    'Player-NPCs all take part, and survive.',
-    'Team wins battle. [[Gimbletrump]] survives.',
-    'The launchers are not Ogre technology - but something else.',
-    'All go to tavern to celebrate.',
-    '[[Caulder Marskyl]] - head butler of [[House of Thann]] gives party a pendant and tells them to take it to [[Waterdeep]] and swap it for a reward.'
-  ],
-  events: [
-    { type: 'important', title: 'Milestone', body: 'BATTLE was won!' }
-  ],
-  npcs: [
-    { mode: 'New NPC', type: 'info', name: 'Caulder Marskyl', status: 'Allied', notes: 'Head Butler of [[House of Thann]]' },
-    { mode: 'NPC Update', type: 'warning', name: 'Leeferlas', status: 'Allied', notes: 'Is an absolute tank and can do massive throwing damage!' }
-  ],
-  locations: ['Goldenfields'],
-  threads: [
-    {
-      title: 'The Nightstone is Missing',
-      body: 'Nightstone was stolen from the town of [[Nightstone]]. Is part of a magical rod - made by [[Miska]] (a wolf spider?). The rod broke into 7 parts with Miska inside.\nThe Nighstone appears to ward off dragons. When near bits of the rod they shimmer.\nIt appears to be part of "The Sundering" - where [[Tiamat]] rose up. Now there is disorder in the giant hierarchy and the giants are "egohurt".',
-      aside: 'The giants appear to want to get the bit together.'
-    },
-    {
-      title: 'Pendant to return to the [[House of Thann]] in [[Waterdeep]]',
-      body: 'Not sure why...',
-      aside: ''
-    }
-  ],
-  milestones: ['Level up to level 4!']
-};
+const GITHUB_USER = 'IlexLycalopex';
+const GITHUB_REPO = 'SpellTome';
+const SESSIONS_PATH = 'playlog';
+const API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
 
 const emptyState = () => ({
   campaign: "Storm King's Thunder",
   ruleset: 'D&D 5e',
-  session: '16',
+  session: '',
   date: new Date().toISOString().slice(0, 10),
   gm: 'Matthew Rogers',
   synopsis: '',
@@ -63,7 +21,16 @@ const emptyState = () => ({
   milestones: ['']
 });
 
+const hasStoredDraft = (() => {
+  try {
+    return Boolean(localStorage.getItem(STORAGE_KEY));
+  } catch (error) {
+    return false;
+  }
+})();
+
 let state = loadState();
+let sessionManuallyEdited = hasStoredDraft && Boolean(String(state.session || '').trim());
 
 const listConfig = {
   players: {
@@ -222,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindToolbar();
   bindPreviewTabs();
   render();
+  void initializeSuggestedSessionNumber();
 });
 
 function bindScalarFields() {
@@ -239,10 +207,12 @@ function bindScalarFields() {
     const el = document.getElementById(id);
     el.addEventListener('input', () => {
       state[key] = el.value;
+      if (key === 'session') sessionManuallyEdited = true;
       render();
     });
     el.addEventListener('change', () => {
       state[key] = el.value;
+      if (key === 'session') sessionManuallyEdited = true;
       render();
     });
   });
@@ -272,14 +242,10 @@ function bindToolbar() {
 
   document.getElementById('reset-btn').addEventListener('click', () => {
     state = emptyState();
+    sessionManuallyEdited = false;
     render();
+    void initializeSuggestedSessionNumber(true);
     setStatus('Draft reset');
-  });
-
-  document.getElementById('load-example-btn').addEventListener('click', () => {
-    state = deepClone(sampleState);
-    render();
-    setStatus('Example session loaded');
   });
 }
 
@@ -597,7 +563,7 @@ function hasText(value) {
 }
 
 function getFilename() {
-  const session = String(state.session || '').padStart(3, '0');
+  const session = String(state.session || '000').padStart(3, '0');
   return `SKT - ${session}.md`;
 }
 
@@ -628,12 +594,50 @@ function loadState() {
   }
 }
 
-function setStatus(message) {
-  document.getElementById('status-text').textContent = message;
+async function fetchJSON(url) {
+  const response = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' } });
+  if (!response.ok) throw new Error(`GitHub API ${response.status}`);
+  return response.json();
 }
 
-function deepClone(value) {
-  return JSON.parse(JSON.stringify(value));
+async function fetchDefaultBranch() {
+  const repo = await fetchJSON(API_BASE);
+  return repo.default_branch || 'main';
+}
+
+async function fetchNextSessionNumber() {
+  const branch = await fetchDefaultBranch();
+  const tree = await fetchJSON(`${API_BASE}/git/trees/${branch}?recursive=1`);
+  const maxSession = tree.tree
+    .filter(item => item.type === 'blob' && item.path.startsWith(`${SESSIONS_PATH}/`) && item.path.endsWith('.md'))
+    .map(item => {
+      const filename = item.path.split('/').pop();
+      const match = filename.match(/(\d+)(?=\.md$)/);
+      return match ? Number(match[1]) : null;
+    })
+    .filter(Number.isFinite)
+    .reduce((max, value) => Math.max(max, value), 0);
+  return String(maxSession + 1);
+}
+
+async function initializeSuggestedSessionNumber(force = false) {
+  try {
+    const nextSession = await fetchNextSessionNumber();
+    const shouldApply = force || (!sessionManuallyEdited && !hasStoredDraft);
+    if (!shouldApply) return;
+    state.session = nextSession;
+    render();
+    setStatus(`Next session suggested: ${nextSession}`);
+  } catch (error) {
+    if (!String(state.session || '').trim()) {
+      state.session = '1';
+      render();
+    }
+  }
+}
+
+function setStatus(message) {
+  document.getElementById('status-text').textContent = message;
 }
 
 function setAtPath(target, path, value) {

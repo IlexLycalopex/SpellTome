@@ -78,7 +78,6 @@
         <strong>Storm King's Thunder session note</strong>
       </div>
       <div class="toolbar-actions">
-        <button type="button" class="toolbar-btn subtle" id="load-example-btn">Load Session 015 Shape</button>
         <button type="button" class="toolbar-btn subtle" id="reset-btn">Reset</button>
         <button type="button" class="toolbar-btn" id="save-btn">Save Draft</button>
         <button type="button" class="toolbar-btn primary" id="download-btn">Download .md</button>
@@ -94,42 +93,42 @@
   <main class="builder-shell">
     <section class="builder-hero">
       <div class="hero-copy">
-        <p class="hero-kicker">Campaign Log Builder</p>
-        <h1>Write the session once. Export it in the exact vault format every time.</h1>
-        <p class="hero-body">This builder follows your current note structure: YAML frontmatter, Obsidian callouts, wiki links, and the same section ordering used by the published playlog.</p>
+        <div class="hero-copy-top">
+          <div>
+            <p class="hero-kicker">Campaign Log Builder</p>
+            <h1>Structured session logging for your vault format.</h1>
+          </div>
+          <div class="hero-meta-inline">
+            <div class="meta-chip">
+              <span class="meta-label">Filename</span>
+              <span class="meta-value" id="filename-preview">SKT - 016.md</span>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-label">Output</span>
+              <span class="meta-value">Template-safe Markdown</span>
+            </div>
+          </div>
+        </div>
+        <p class="hero-body">YAML frontmatter, Obsidian callouts, wiki links, and the same section order used by the published playlog.</p>
+        <div class="hero-pills section-nav">
+          <a href="#metadata-card">Metadata</a>
+          <a href="#recap-card">Recap</a>
+          <a href="#events-card">Events</a>
+          <a href="#npcs-card">NPCs</a>
+          <a href="#locations-card">Locations</a>
+          <a href="#threads-card">Threads</a>
+          <a href="#milestones-card">Milestones</a>
+          <a href="#preview-card">Preview</a>
+        </div>
         <div class="hero-pills">
           <span>Repeatable NPC and hook cards</span>
           <span>Live markdown preview</span>
           <span>Local draft save</span>
         </div>
       </div>
-      <aside class="hero-meta">
-        <div class="meta-card">
-          <span class="meta-label">Filename</span>
-          <div class="meta-value" id="filename-preview">SKT - 016.md</div>
-        </div>
-        <div class="meta-card">
-          <span class="meta-label">Output</span>
-          <div class="meta-value">Template-safe Markdown</div>
-        </div>
-      </aside>
     </section>
 
     <div class="builder-grid">
-      <aside class="section-nav-card">
-        <p class="section-nav-label">Sections</p>
-        <nav class="section-nav">
-          <a href="#metadata-card">Metadata</a>
-          <a href="#recap-card">Session Recap</a>
-          <a href="#events-card">Key Events</a>
-          <a href="#npcs-card">NPCs Encountered</a>
-          <a href="#locations-card">Locations Visited</a>
-          <a href="#threads-card">Open Threads</a>
-          <a href="#milestones-card">Milestones</a>
-          <a href="#preview-card">Preview</a>
-        </nav>
-      </aside>
-
       <section class="editor-column">
         <article class="builder-card" id="metadata-card">
           <div class="card-heading">
@@ -249,9 +248,7 @@
           </div>
           <div id="milestones-list" class="stack-list"></div>
         </article>
-      </section>
 
-      <aside class="preview-column">
         <article class="builder-card preview-card" id="preview-card">
           <div class="card-heading">
             <div>
@@ -267,7 +264,7 @@
           <div id="rendered-preview" class="rendered-preview"></div>
           <textarea id="markdown-preview" class="markdown-preview" readonly></textarea>
         </article>
-      </aside>
+      </section>
     </div>
   </main>
 
