@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Campaign Log Builder - The Tome</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/campaign-log-builder.css">
+</head>
+<body>
+  <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+
+  <nav class="nav-drawer" id="nav-drawer">
+    <div class="nav-drawer-header">
+      <span class="nav-drawer-title">The Tome</span>
+      <button class="nav-close-btn" onclick="closeNav()">&#x2715;</button>
+    </div>
+    <div class="nav-scroll">
+      <span class="nav-section-label">Home</span>
+      <a href="index.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        &nbsp;Hub
+      </a>
+      <span class="nav-section-label">Reference</span>
+      <a href="spelltome.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        &nbsp;Spell Tome
+      </a>
+      <a href="conditions.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        &nbsp;Condition Codex
+      </a>
+      <a href="wildshape.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        &nbsp;Wildshape &amp; Familiar
+      </a>
+      <a href="monsters.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+        &nbsp;Monster Codex
+      </a>
+      <a href="magic-items.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+        &nbsp;Magic Item Compendium
+      </a>
+      <span class="nav-section-label">Table Tools</span>
+      <a href="combat-tracker.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+        &nbsp;Combat Tracker
+      </a>
+      <a href="dice-roller.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+        &nbsp;Dice Roller
+      </a>
+      <span class="nav-section-label">Campaigns</span>
+      <a href="campaign-tracker.html" class="nav-item">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        &nbsp;Campaign Chronicle
+      </a>
+      <a href="campaign-log-builder.html" class="nav-item active">
+        <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        &nbsp;Log Builder
+      </a>
+    </div>
+  </nav>
+
+  <div id="app-header">
+    <div class="header-top">
+      <div class="app-title">Campaign Chronicle <span>Log Builder</span></div>
+      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="builder-toolbar">
+      <div class="toolbar-copy">
+        <span class="toolbar-label">Template</span>
+        <strong>Storm King's Thunder session note</strong>
+      </div>
+      <div class="toolbar-actions">
+        <button type="button" class="toolbar-btn subtle" id="load-example-btn">Load Session 015 Shape</button>
+        <button type="button" class="toolbar-btn subtle" id="reset-btn">Reset</button>
+        <button type="button" class="toolbar-btn" id="save-btn">Save Draft</button>
+        <button type="button" class="toolbar-btn primary" id="download-btn">Download .md</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-bar">
+    <span id="status-text">Draft ready</span>
+    <span id="completion-text">0 of 6 sections complete</span>
+  </div>
+
+  <main class="builder-shell">
+    <section class="builder-hero">
+      <div class="hero-copy">
+        <p class="hero-kicker">Campaign Log Builder</p>
+        <h1>Write the session once. Export it in the exact vault format every time.</h1>
+        <p class="hero-body">This builder follows your current note structure: YAML frontmatter, Obsidian callouts, wiki links, and the same section ordering used by the published playlog.</p>
+        <div class="hero-pills">
+          <span>Repeatable NPC and hook cards</span>
+          <span>Live markdown preview</span>
+          <span>Local draft save</span>
+        </div>
+      </div>
+      <aside class="hero-meta">
+        <div class="meta-card">
+          <span class="meta-label">Filename</span>
+          <div class="meta-value" id="filename-preview">SKT - 016.md</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Output</span>
+          <div class="meta-value">Template-safe Markdown</div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="builder-grid">
+      <aside class="section-nav-card">
+        <p class="section-nav-label">Sections</p>
+        <nav class="section-nav">
+          <a href="#metadata-card">Metadata</a>
+          <a href="#recap-card">Session Recap</a>
+          <a href="#events-card">Key Events</a>
+          <a href="#npcs-card">NPCs Encountered</a>
+          <a href="#locations-card">Locations Visited</a>
+          <a href="#threads-card">Open Threads</a>
+          <a href="#milestones-card">Milestones</a>
+          <a href="#preview-card">Preview</a>
+        </nav>
+      </aside>
+
+      <section class="editor-column">
+        <article class="builder-card" id="metadata-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Frontmatter</p>
+              <h2>Session Metadata</h2>
+            </div>
+          </div>
+          <div class="fields-grid two-up">
+            <label class="field">
+              <span>Campaign</span>
+              <input id="campaign" type="text" placeholder="Storm King's Thunder">
+            </label>
+            <label class="field">
+              <span>Ruleset</span>
+              <input id="ruleset" type="text" placeholder="D&D 5e">
+            </label>
+            <label class="field">
+              <span>Session Number</span>
+              <input id="session" type="number" min="0" step="1" placeholder="16">
+            </label>
+            <label class="field">
+              <span>Date</span>
+              <input id="date" type="date">
+            </label>
+            <label class="field">
+              <span>GM</span>
+              <input id="gm" type="text" placeholder="Matthew Rogers">
+            </label>
+            <label class="field">
+              <span>Web Status</span>
+              <select id="web-status">
+                <option>Published</option>
+                <option>Draft</option>
+                <option>Hidden</option>
+              </select>
+            </label>
+          </div>
+          <label class="field">
+            <span>Synopsis</span>
+            <textarea id="synopsis" rows="3" placeholder="One-sentence summary for the top of the note."></textarea>
+          </label>
+          <div class="list-section">
+            <div class="list-header">
+              <div>
+                <h3>Players Present</h3>
+                <p>These are automatically written as wiki links in the frontmatter list.</p>
+              </div>
+              <button type="button" class="mini-btn" data-add="players">+ Add Player</button>
+            </div>
+            <div id="players-list" class="stack-list"></div>
+          </div>
+        </article>
+
+        <article class="builder-card" id="recap-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Body</p>
+              <h2>Session Recap</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="recap">+ Add Recap Note</button>
+          </div>
+          <div id="recap-list" class="stack-list"></div>
+        </article>
+
+        <article class="builder-card" id="events-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Callouts</p>
+              <h2>Key Events</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="events">+ Add Event</button>
+          </div>
+          <div id="events-list" class="stack-list"></div>
+        </article>
+
+        <article class="builder-card" id="npcs-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Callouts</p>
+              <h2>NPCs Encountered</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="npcs">+ Add NPC</button>
+          </div>
+          <div id="npcs-list" class="stack-list"></div>
+        </article>
+
+        <article class="builder-card" id="locations-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">List</p>
+              <h2>Locations Visited</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="locations">+ Add Location</button>
+          </div>
+          <div id="locations-list" class="stack-list"></div>
+        </article>
+
+        <article class="builder-card" id="threads-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Hooks</p>
+              <h2>Open Threads</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="threads">+ Add Thread</button>
+          </div>
+          <div id="threads-list" class="stack-list"></div>
+        </article>
+
+        <article class="builder-card" id="milestones-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Progress</p>
+              <h2>Milestones</h2>
+            </div>
+            <button type="button" class="mini-btn" data-add="milestones">+ Add Milestone</button>
+          </div>
+          <div id="milestones-list" class="stack-list"></div>
+        </article>
+      </section>
+
+      <aside class="preview-column">
+        <article class="builder-card preview-card" id="preview-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-eyebrow">Output</p>
+              <h2>Live Preview</h2>
+            </div>
+            <button type="button" class="mini-btn" id="copy-btn">Copy Markdown</button>
+          </div>
+          <div class="preview-tabs">
+            <button type="button" class="preview-tab active" data-preview-tab="rendered">Rendered</button>
+            <button type="button" class="preview-tab" data-preview-tab="markdown">Markdown</button>
+          </div>
+          <div id="rendered-preview" class="rendered-preview"></div>
+          <textarea id="markdown-preview" class="markdown-preview" readonly></textarea>
+        </article>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/js/nav.js"></script>
+  <script src="assets/js/campaign-log-builder.js"></script>
+</body>
+</html>

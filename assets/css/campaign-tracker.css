@@ -26,6 +26,25 @@ body {
   font-size: 0.7rem; color: var(--text-dim); font-style: italic;
 }
 
+.new-log-link {
+  margin-left: auto;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  color: #fff6e3;
+  background: linear-gradient(135deg, rgba(58, 122, 189, 0.92), rgba(30, 71, 112, 0.92));
+  border: 1px solid rgba(122, 176, 230, 0.5);
+  box-shadow: 0 8px 24px rgba(14, 39, 66, 0.25);
+}
+
+.new-log-link:hover {
+  filter: brightness(1.08);
+}
+
 /* ── MAIN CONTENT ────────────────────────────────────────── */
 #chronicle-root { padding: 24px; max-width: 900px; }
 
@@ -215,3 +234,5 @@ body {
 @media (max-width: 480px) {
   .session-date { display: none; }
 }
+
+

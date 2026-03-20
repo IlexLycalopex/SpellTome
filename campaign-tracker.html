@@ -81,6 +81,7 @@
       <select id="ruleset-filter"><option value="">All</option></select>
       <label for="search-input" class="filter-label" style="margin-left:6px;">Search</label>
       <input type="text" class="search-input" id="search-input" placeholder="Search sessions…" aria-label="Search sessions" />
+      <a href="campaign-log-builder.html" class="new-log-link">New Log</a>
       <span class="session-count" id="session-count"></span>
     </div>
   </div>
@@ -104,11 +105,9 @@
     ──────────────────────────────────────────────────────────────────── */
     const GITHUB_USER   = 'IlexLycalopex';
     const GITHUB_REPO   = 'SpellTome';
-    const GITHUB_BRANCH = 'EnhancedV3';
     const SESSIONS_PATH = 'playlog';
 
     const API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
-    const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 
     async function fetchJSON(url) {
       const r = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' } });
@@ -237,10 +236,17 @@
     ──────────────────────────────────────────────────────────────────── */
     let allSessions = [];
 
+    async function fetchDefaultBranch() {
+      const repo = await fetchJSON(API_BASE);
+      return repo.default_branch || 'main';
+    }
+
     async function loadChronicle() {
       const root = document.getElementById('chronicle-root');
       try {
-        const tree = await fetchJSON(`${API_BASE}/git/trees/${GITHUB_BRANCH}?recursive=1`);
+        const branch = await fetchDefaultBranch();
+        const rawBase = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${branch}`;
+        const tree = await fetchJSON(`${API_BASE}/git/trees/${branch}?recursive=1`);
 
         const allMd = tree.tree.filter(f=>f.type==='blob'&&f.path.endsWith('.md'));
         const mdFiles = allMd.filter(f=>f.path.startsWith(SESSIONS_PATH+'/'));
@@ -251,7 +257,7 @@
         }
 
         const fetched = await Promise.all(mdFiles.map(async f=>{
-          const raw=await fetchText(`${RAW_BASE}/${f.path}`);
+          const raw=await fetchText(`${rawBase}/${f.path}`);
           const {meta,body}=parseFrontmatter(raw);
           return {meta,body,filename:f.path.split('/').pop()};
         }));
@@ -418,3 +424,9 @@
 <script src="assets/js/nav.js"></script>
 </body>
 </html>
+
+
+
+
+
+
