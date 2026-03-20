@@ -3,6 +3,7 @@ const GITHUB_USER = 'IlexLycalopex';
 const GITHUB_REPO = 'SpellTome';
 const SESSIONS_PATH = 'playlog';
 const API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
+const DEFAULT_PLAYERS = ['Jamie Watts', 'Alex Stratford', 'Paul Schofield', 'Nick Johnson'];
 
 const emptyState = () => ({
   campaign: "Storm King's Thunder",
@@ -12,7 +13,7 @@ const emptyState = () => ({
   gm: 'Matthew Rogers',
   synopsis: '',
   webStatus: 'Published',
-  players: ['Jamie Watts'],
+  players: [...DEFAULT_PLAYERS],
   recap: [''],
   events: [{ type: 'important', title: 'Milestone', body: '' }],
   npcs: [{ mode: 'New NPC', type: 'info', name: '', status: '', notes: '' }],
