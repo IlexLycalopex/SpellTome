@@ -15,14 +15,14 @@
 /* ── WHITE CARD SHELL ────────────────────────────────────────── */
 /* Base for any white content card (conditions, monsters, items, beasts) */
 .content-card {
-  background: #fff;
+  background: var(--bg-elevated);
   border-radius: 7px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  box-shadow: var(--card-shadow);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  color: #222;
+  color: var(--text-light);
   font-family: 'EB Garamond', Georgia, serif;
   font-size: 0.83rem;
   line-height: 1.4;
@@ -31,7 +31,7 @@
 
 .content-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--gold-dim) 10%, rgba(0,0,0,0.28));
 }
 
 /* Selected state (used by pages with print selection) */
@@ -92,8 +92,8 @@
 /* ── CARD TAGS STRIP ─────────────────────────────────────────── */
 .card-tags {
   padding: 4px 11px 5px;
-  background: #f7f5f0;
-  border-top: 1px solid #eee;
+  background: color-mix(in srgb, var(--bg-panel) 20%, #f7f5f0);
+  border-top: 1px solid color-mix(in srgb, var(--border) 45%, transparent);
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
@@ -117,7 +117,7 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.88);
+  background: color-mix(in srgb, var(--overlay) 92%, rgba(0,0,0,0.88));
   z-index: 1000;
   align-items: flex-start;
   justify-content: center;
@@ -141,7 +141,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-  background: #e8e4dc;
+  background: color-mix(in srgb, var(--bg-panel) 24%, #e8e4dc);
   padding: 10px;
   border-radius: 6px;
 }

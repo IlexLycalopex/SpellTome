@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(22,33,62,0.97);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
 }
@@ -19,7 +19,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
+  gap: 10px;
 }
 
 /* ── APP TITLE / BRANDING ────────────────────────────────────── */
@@ -29,7 +30,7 @@
   font-weight: 900;
   letter-spacing: 0.08em;
   color: var(--gold);
-  text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--gold) 30%, transparent);
   text-transform: uppercase;
 }
 
@@ -46,7 +47,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(22,33,62,0.97);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
   display: flex;
@@ -65,7 +66,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
-  text-shadow: 0 0 18px rgba(201,168,76,0.35);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--gold) 28%, transparent);
   text-decoration: none;
 }
 
@@ -108,7 +109,7 @@
   color: var(--text-dim);
   border-bottom: 1px solid var(--border);
   font-style: italic;
-  background: rgba(15,52,96,0.2);
+  background: var(--results-bg);
 }
 
 /* ── SITE FOOTER ─────────────────────────────────────────────── */
@@ -122,7 +123,7 @@
   font-size: 0.78rem;
   color: var(--text-dim);
   font-style: italic;
-  background: rgba(16,24,50,0.45);
+  background: var(--footer-bg);
 }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */

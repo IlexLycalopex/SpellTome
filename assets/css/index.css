@@ -9,6 +9,12 @@ body {
     radial-gradient(ellipse at 85% 75%, rgba(0,55,110,0.18) 0%, transparent 52%);
 }
 
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(180,132,58,0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 75%, rgba(104,126,168,0.16) 0%, transparent 52%);
+}
+
 /* Gold grid texture overlay */
 body::before {
   content: '';
@@ -18,8 +24,8 @@ body::before {
   z-index: 0;
   opacity: 0.025;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,1) 59px, rgba(201,168,76,1) 60px);
+    repeating-linear-gradient(0deg, transparent, transparent 59px, var(--grid-line) 59px, var(--grid-line) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, var(--grid-line) 59px, var(--grid-line) 60px);
 }
 
 /* ── PAGE WRAPPER ────────────────────────────────────────────── */
@@ -64,7 +70,7 @@ body::before {
   color: var(--gold);
   line-height: 1.05;
   margin-bottom: 14px;
-  text-shadow: 0 0 40px rgba(201,168,76,0.3), 0 2px 6px rgba(0,0,0,0.7);
+  text-shadow: 0 0 40px color-mix(in srgb, var(--gold) 28%, transparent), 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .hero-sub {
@@ -112,11 +118,11 @@ body::before {
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  background: rgba(22,33,62,0.65);
+  background: var(--card-shell);
   border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  box-shadow: var(--card-shadow);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   position: relative;
   backdrop-filter: blur(8px);
@@ -124,7 +130,7 @@ body::before {
 
 .tool-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 44px rgba(0,0,0,0.65), 0 0 0 1px var(--accent, var(--gold-dim));
+  box-shadow: 0 14px 44px rgba(0,0,0,0.22), 0 0 0 1px var(--accent, var(--gold-dim));
   border-color: var(--accent, var(--gold-dim));
 }
 

@@ -4,12 +4,12 @@
 
 /* ── ADDITIONAL COLOUR VARS ──────────────────────────────── */
 :root {
-  --accent2:  #7b6caa;
+  --accent2:  #8a5e33;
   --danger:   #c0504d;
-  --info:     #4a9eca;
+  --info:     #3d6f92;
   --success:  #6aaa6a;
   --warn:     #d4924a;
-  --question: #9a7fca;
+  --question: #7a618f;
 }
 
 /* ── BACKGROUND ──────────────────────────────────────────── */
@@ -17,6 +17,12 @@ body {
   background-image:
     radial-gradient(ellipse at 20% 50%, rgba(60,0,100,0.10) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(0,40,100,0.10) 0%, transparent 60%);
+}
+
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(142,102,193,0.10) 0%, transparent 58%),
+    radial-gradient(ellipse at 80% 20%, rgba(109,144,201,0.10) 0%, transparent 58%);
 }
 
 /* ── FILTER BAR EXTRAS ───────────────────────────────────── */
@@ -35,10 +41,10 @@ body {
   text-transform: uppercase;
   padding: 0.55rem 0.9rem;
   border-radius: 999px;
-  color: #fff6e3;
-  background: linear-gradient(135deg, rgba(58, 122, 189, 0.92), rgba(30, 71, 112, 0.92));
-  border: 1px solid rgba(122, 176, 230, 0.5);
-  box-shadow: 0 8px 24px rgba(14, 39, 66, 0.25);
+  color: var(--text-on-gold);
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  border: 1px solid color-mix(in srgb, var(--gold) 62%, var(--border));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--gold-dim) 22%, transparent);
 }
 
 .new-log-link:hover {
@@ -89,12 +95,16 @@ body {
 .session-grid { display: grid; gap: 0.75rem; }
 
 .session-card {
-  background: var(--bg-panel);
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius); overflow: hidden;
-  transition: border-color 0.15s;
+  box-shadow: var(--card-shadow);
+  transition: border-color 0.15s, transform 0.15s;
 }
-.session-card:hover { border-color: rgba(201,168,76,0.35); }
+.session-card:hover {
+  border-color: color-mix(in srgb, var(--gold) 35%, var(--border));
+  transform: translateY(-1px);
+}
 
 .session-card-header {
   padding: 0.9rem 1.25rem;
@@ -122,7 +132,7 @@ body {
 .session-synopsis {
   font-style: italic; font-size: 0.9rem; color: var(--text-muted);
   padding: 0.65rem 1.25rem 0.9rem;
-  border-top: 1px solid rgba(42,42,74,0.6);
+  border-top: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
 }
 
 .session-tags {
@@ -132,7 +142,8 @@ body {
 .tag {
   font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
   letter-spacing: 0.05em; color: var(--accent2);
-  background: rgba(123,108,170,0.1); border: 1px solid rgba(123,108,170,0.22);
+  background: color-mix(in srgb, var(--gold) 10%, var(--bg-elevated));
+  border: 1px solid color-mix(in srgb, var(--gold) 22%, var(--border));
   padding: 0.1rem 0.4rem; border-radius: 999px; text-transform: lowercase;
 }
 
@@ -141,7 +152,7 @@ body {
   display: none;
   padding: 1.4rem 1.25rem;
   border-top: 1px solid var(--border);
-  background: rgba(13,20,45,0.6);
+  background: color-mix(in srgb, var(--bg-elevated) 74%, transparent);
 }
 .session-card.open .session-body { display: block; }
 
@@ -170,7 +181,7 @@ body {
 .session-body em { color: var(--text-muted); }
 .session-body code {
   font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
-  background: #0d1a30; padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--gold);
+  background: var(--input-bg); padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--gold);
 }
 .session-body table {
   width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.9rem;
@@ -182,11 +193,12 @@ body {
   letter-spacing: 0.07em; text-transform: uppercase;
 }
 .session-body td { padding: 0.4rem 0.75rem; border-bottom: 1px solid rgba(42,42,74,0.4); }
+.session-body td { border-bottom-color: color-mix(in srgb, var(--border) 60%, transparent); }
 
 /* ── CALLOUTS ────────────────────────────────────────────── */
 .callout {
   border-left: 3px solid var(--gold-dim);
-  background: rgba(201,168,76,0.06);
+  background: color-mix(in srgb, var(--gold) 10%, var(--bg-elevated));
   border-radius: 0 var(--radius) var(--radius) 0;
   padding: 0.7rem 1rem; margin: 0.7rem 0;
 }
@@ -198,15 +210,15 @@ body {
 }
 .callout p { margin: 0; font-size: 0.9rem; line-height: 1.55; }
 
-.callout.important { border-color: var(--danger); background: rgba(192,80,77,0.07); }
+.callout.important { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, var(--bg-elevated)); }
 .callout.important .callout-title { color: var(--danger); }
-.callout.info      { border-color: var(--info);    background: rgba(74,158,202,0.07); }
+.callout.info      { border-color: var(--info);    background: color-mix(in srgb, var(--info) 10%, var(--bg-elevated)); }
 .callout.info      .callout-title { color: var(--info); }
-.callout.warning   { border-color: var(--warn);    background: rgba(212,146,74,0.07); }
+.callout.warning   { border-color: var(--warn);    background: color-mix(in srgb, var(--warn) 10%, var(--bg-elevated)); }
 .callout.warning   .callout-title { color: var(--warn); }
-.callout.question  { border-color: var(--question);background: rgba(154,127,202,0.07); }
+.callout.question  { border-color: var(--question);background: color-mix(in srgb, var(--question) 10%, var(--bg-elevated)); }
 .callout.question  .callout-title { color: var(--question); }
-.callout.success   { border-color: var(--success); background: rgba(106,170,106,0.07); }
+.callout.success   { border-color: var(--success); background: color-mix(in srgb, var(--success) 10%, var(--bg-elevated)); }
 .callout.success   .callout-title { color: var(--success); }
 .callout.note      { display: none; } /* GM-only */
 

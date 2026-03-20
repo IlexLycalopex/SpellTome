@@ -8,11 +8,25 @@
   --builder-danger: #bf6a5a;
 }
 
+html[data-theme="light"] {
+  --builder-panel: rgba(255, 250, 240, 0.86);
+  --builder-panel-strong: rgba(247, 240, 223, 0.96);
+  --builder-ink: #3b2c1a;
+  --builder-moss: #6e7c57;
+}
+
 body {
   background-image:
     radial-gradient(circle at top left, rgba(180, 79, 45, 0.18), transparent 34%),
     radial-gradient(circle at top right, rgba(142, 167, 122, 0.14), transparent 32%),
     linear-gradient(180deg, rgba(9, 12, 23, 1) 0%, rgba(22, 33, 62, 1) 100%);
+}
+
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle at top left, rgba(180, 124, 73, 0.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(142, 167, 122, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(247, 240, 223, 1) 0%, rgba(239, 229, 209, 1) 100%);
 }
 
 .builder-toolbar {
@@ -21,7 +35,7 @@ body {
   justify-content: space-between;
   gap: 1rem;
   padding: 14px 24px;
-  background: rgba(9, 12, 23, 0.78);
+  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
 }
 
 .toolbar-copy {
@@ -56,7 +70,7 @@ body {
 .mini-btn,
 .preview-tab {
   border: 1px solid rgba(201, 168, 76, 0.18);
-  background: rgba(255, 255, 255, 0.03);
+  background: color-mix(in srgb, var(--bg-elevated) 78%, transparent);
   color: var(--text-light);
   border-radius: 999px;
   cursor: pointer;
@@ -148,7 +162,7 @@ body {
 .hero-body {
   margin-top: 0.65rem;
   max-width: 74ch;
-  color: #cfc9b6;
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.45;
 }
@@ -171,8 +185,8 @@ body {
   padding: 0.42rem 0.72rem;
   border-radius: 999px;
   color: var(--builder-ink);
-  background: rgba(255, 248, 224, 0.05);
-  border: 1px solid rgba(255, 248, 224, 0.08);
+  background: color-mix(in srgb, var(--bg-elevated) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 18%, var(--border));
 }
 
 .hero-meta-inline {
@@ -186,8 +200,8 @@ body {
   min-width: 170px;
   padding: 0.6rem 0.75rem;
   border-radius: 14px;
-  background: rgba(8, 12, 23, 0.64);
-  border: 1px solid rgba(201, 168, 76, 0.08);
+  background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 12%, var(--border));
 }
 
 .meta-label {
@@ -220,15 +234,15 @@ body {
   padding: 0.45rem 0.7rem;
   border-radius: 12px;
   text-decoration: none;
-  color: #d2ccb8;
+  color: var(--text-muted);
   font-size: 0.68rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 248, 224, 0.06);
+  background: color-mix(in srgb, var(--bg-elevated) 68%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 12%, var(--border));
 }
 
 .section-nav a:hover {
-  background: rgba(180, 79, 45, 0.14);
-  color: #fff5e5;
+  background: color-mix(in srgb, var(--builder-accent) 14%, var(--bg-elevated));
+  color: var(--text-light);
 }
 
 .editor-column {
@@ -292,8 +306,8 @@ body {
 .stack-item textarea,
 .stack-item select {
   width: 100%;
-  border: 1px solid rgba(201, 168, 76, 0.14);
-  background: rgba(6, 9, 19, 0.62);
+  border: 1px solid color-mix(in srgb, var(--gold) 16%, var(--input-border));
+  background: color-mix(in srgb, var(--input-bg) 88%, transparent);
   color: var(--text-light);
   border-radius: 14px;
   padding: 0.82rem 0.95rem;
@@ -343,7 +357,7 @@ body {
 
 .stack-item {
   border: 1px solid rgba(201, 168, 76, 0.12);
-  background: rgba(5, 8, 17, 0.46);
+  background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
   border-radius: 18px;
   padding: 0.9rem;
 }
@@ -360,7 +374,7 @@ body {
   font-family: 'Cinzel', serif;
   font-size: 0.9rem;
   letter-spacing: 0.04em;
-  color: #f6ebc8;
+  color: var(--builder-ink);
 }
 
 .stack-item-actions {
@@ -373,7 +387,7 @@ body {
   height: 30px;
   border-radius: 999px;
   border: 1px solid rgba(201, 168, 76, 0.14);
-  background: rgba(255, 255, 255, 0.02);
+  background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
   color: var(--text-muted);
   cursor: pointer;
 }
@@ -403,7 +417,7 @@ body {
   margin-bottom: 0.9rem;
   padding: 0.22rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
 }
 
 .preview-tab {
@@ -413,9 +427,9 @@ body {
 }
 
 .preview-tab.active {
-  background: rgba(180, 79, 45, 0.2);
+  background: color-mix(in srgb, var(--builder-accent) 18%, var(--bg-elevated));
   border-color: rgba(216, 124, 88, 0.32);
-  color: #fff8ef;
+  color: var(--text-light);
 }
 
 .rendered-preview,
@@ -427,7 +441,7 @@ body {
   border: 1px solid rgba(201, 168, 76, 0.1);
   background:
     linear-gradient(180deg, rgba(255, 249, 232, 0.05), rgba(255, 249, 232, 0.02)),
-    rgba(10, 12, 22, 0.92);
+    color-mix(in srgb, var(--bg-elevated) 94%, rgba(10, 12, 22, 0.92));
 }
 
 .rendered-preview {
@@ -437,7 +451,7 @@ body {
 .markdown-preview {
   display: none;
   padding: 1rem;
-  color: #f0ead8;
+  color: var(--text-light);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.74rem;
   line-height: 1.6;
@@ -446,7 +460,7 @@ body {
 .rendered-preview h1,
 .rendered-preview h2 {
   font-family: 'Cinzel', serif;
-  color: #f3e3b2;
+  color: var(--builder-ink);
 }
 
 .rendered-preview h1 {
@@ -465,7 +479,7 @@ body {
 .rendered-preview li {
   font-size: 0.96rem;
   line-height: 1.65;
-  color: #ede5d2;
+  color: var(--text-light);
 }
 
 .rendered-preview ul {
@@ -481,7 +495,7 @@ body {
 .rendered-preview code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
-  color: #f5d58c;
+  color: var(--gold);
 }
 
 .callout {
@@ -498,7 +512,7 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #f3e3b2;
+  color: var(--builder-ink);
 }
 
 .callout.important {
@@ -526,7 +540,25 @@ body {
   border-radius: 14px;
   padding: 0.95rem 1rem;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.02);
+  background: color-mix(in srgb, var(--bg-elevated) 68%, transparent);
+}
+
+html[data-theme="light"] .toolbar-btn,
+html[data-theme="light"] .mini-btn,
+html[data-theme="light"] .preview-tab,
+html[data-theme="light"] .section-nav a,
+html[data-theme="light"] .icon-btn,
+html[data-theme="light"] .preview-tabs,
+html[data-theme="light"] .empty-state {
+  box-shadow: 0 6px 18px rgba(123, 89, 45, 0.08);
+}
+
+html[data-theme="light"] .hero-copy,
+html[data-theme="light"] .builder-card,
+html[data-theme="light"] .stack-item,
+html[data-theme="light"] .rendered-preview,
+html[data-theme="light"] .markdown-preview {
+  box-shadow: 0 14px 34px rgba(123, 89, 45, 0.10);
 }
 
 .is-hidden {

@@ -23,6 +23,12 @@ body {
     radial-gradient(ellipse at 85% 75%, rgba(0,55,110,0.18) 0%, transparent 52%);
 }
 
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(181,130,84,0.16) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 75%, rgba(126,145,92,0.12) 0%, transparent 52%);
+}
+
 html, body { height: 100%; overflow: hidden; }
 
 /* Gold grid texture */
@@ -61,7 +67,7 @@ body.in-combat .phase-setup { display: none; }
 /* ── SETUP PHASE ─────────────────────────────────────────────── */
 .setup-topbar {
   padding: 0.65rem 1.1rem;
-  background: rgba(22,33,62,0.9);
+  background: color-mix(in srgb, var(--bg-panel) 88%, transparent);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   display: flex;
@@ -109,7 +115,7 @@ body.in-combat .phase-setup { display: none; }
 
 /* ── PARTY BAR ───────────────────────────────────────────────── */
 .party-bar {
-  background: rgba(22,33,62,0.7);
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.7rem 1rem;
@@ -138,14 +144,14 @@ body.in-combat .phase-setup { display: none; }
   border-radius: 6px;
   border-left: 3px solid;
   cursor: grab;
-  background: rgba(22,33,62,0.6);
+  background: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
   border-top: 1px solid var(--border);
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   transition: background 0.15s;
 }
 
-.roster-card:hover         { background: rgba(22,33,62,0.9); }
+.roster-card:hover         { background: color-mix(in srgb, var(--bg-panel) 88%, transparent); }
 .roster-card.type-pc       { border-left-color: var(--pc-b); }
 .roster-card.type-npc      { border-left-color: var(--npc-b); }
 .roster-card.type-enemy    { border-left-color: var(--en-b); }
@@ -159,7 +165,7 @@ body.in-combat .phase-setup { display: none; }
 
 /* ── ADD PANEL ───────────────────────────────────────────────── */
 .add-panel {
-  background: rgba(22,33,62,0.7);
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem;
@@ -198,7 +204,7 @@ body.in-combat .phase-setup { display: none; }
 .form-row.trio             { grid-template-columns: 1fr 1fr 1fr; }
 .fg                        { display: flex; flex-direction: column; gap: 0.2rem; }
 .fg label                  { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
-.fg input, .fg select      { background: rgba(13,20,45,0.8); border: 1px solid var(--border); color: var(--text-light); padding: 0.38rem 0.55rem; border-radius: 5px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; width: 100%; transition: border-color 0.15s; }
+.fg input, .fg select      { background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-light); padding: 0.38rem 0.55rem; border-radius: 5px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; width: 100%; transition: border-color 0.15s, background 0.15s; }
 .fg input:focus, .fg select:focus { outline: none; border-color: var(--gold-dim); }
 .fg input::placeholder     { color: var(--text-dim); }
 .form-gap                  { margin-top: 0.4rem; }
@@ -208,7 +214,7 @@ body.in-combat .phase-setup { display: none; }
   flex-shrink: 0;
   position: relative;
   z-index: 1;
-  background: rgba(22,33,62,0.97);
+  background: color-mix(in srgb, var(--bg-panel) 94%, transparent);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
   padding: 0.65rem 1.1rem;
@@ -243,7 +249,7 @@ body.in-combat .phase-setup { display: none; }
   padding: 0.65rem 0.85rem;
   cursor: grab;
   user-select: none;
-  background: rgba(22,33,62,0.65);
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
   border-top: 1px solid var(--border);
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -253,7 +259,7 @@ body.in-combat .phase-setup { display: none; }
 }
 
 .unit:active             { cursor: grabbing; }
-.unit:hover              { background: rgba(22,33,62,0.85); }
+.unit:hover              { background: color-mix(in srgb, var(--bg-panel) 90%, transparent); }
 .unit.type-pc            { border-left-color: var(--pc-b); }
 .unit.type-npc           { border-left-color: var(--npc-b); }
 .unit.type-enemy         { border-left-color: var(--en-b); }
@@ -293,7 +299,7 @@ body.in-combat .phase-setup { display: none; }
 
 /* HP bar */
 .unit-hp               { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; }
-.hp-track              { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.hp-track              { flex: 1; height: 4px; background: color-mix(in srgb, var(--text-light) 12%, transparent); border-radius: 2px; overflow: hidden; }
 .hp-fill               { height: 100%; border-radius: 2px; transition: width 0.25s, background 0.25s; }
 .hp-label              { font-family: 'Cinzel', serif; font-size: 0.62rem; color: var(--text-muted); white-space: nowrap; }
 
@@ -328,7 +334,7 @@ body.in-combat .phase-setup { display: none; }
 .cond-panel {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  background: rgba(13,20,45,0.99);
+  background: color-mix(in srgb, var(--bg-panel) 96%, transparent);
   border-top: 1px solid var(--border);
   backdrop-filter: blur(16px);
   padding: 0.85rem 1.1rem;
@@ -345,7 +351,7 @@ body.in-combat .phase-setup { display: none; }
 .cond-btn:hover           { border-color: var(--gold-dim); color: var(--gold); background: rgba(201,168,76,0.06); }
 
 /* ── BOTTOM STRIP ────────────────────────────────────────────── */
-.combat-strip             { background: rgba(22,33,62,0.97); border-top: 1px solid var(--border); padding: 0.6rem 1.1rem; display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; position: relative; z-index: 1; }
+.combat-strip             { background: color-mix(in srgb, var(--bg-panel) 94%, transparent); border-top: 1px solid var(--border); padding: 0.6rem 1.1rem; display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; position: relative; z-index: 1; }
 .combat-strip-left        { display: flex; gap: 0.4rem; flex: 1; flex-wrap: wrap; }
 
 /* ── BUTTONS (combat-specific) ───────────────────────────────── */
@@ -366,21 +372,21 @@ body.in-combat .phase-setup { display: none; }
 /* ── MODAL (combat uses dark-themed modals) ──────────────────── */
 .overlay                  { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 300; align-items: center; justify-content: center; padding: 1rem; }
 .overlay.open             { display: flex; }
-.modal                    { background: rgba(13,20,45,0.99); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.9); max-height: 85vh; overflow-y: auto; backdrop-filter: blur(16px); }
+.modal                    { background: color-mix(in srgb, var(--bg-panel) 96%, transparent); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.9); max-height: 85vh; overflow-y: auto; backdrop-filter: blur(16px); }
 .modal h3                 { font-family: 'Cinzel', serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
 .modal-actions            { display: flex; gap: 0.4rem; justify-content: flex-end; margin-top: 0.9rem; flex-wrap: wrap; }
 .modal .fg                { margin-bottom: 0.5rem; }
 .modal .form-row          { margin-bottom: 0.5rem; }
-.hp-input-big             { font-size: 1.8rem; font-family: 'Cinzel', serif; text-align: center; padding: 0.5rem; width: 100%; background: rgba(13,20,45,0.8); border: 1px solid var(--border); color: var(--gold); border-radius: 6px; margin-bottom: 0.75rem; }
+.hp-input-big             { font-size: 1.8rem; font-family: 'Cinzel', serif; text-align: center; padding: 0.5rem; width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--gold); border-radius: 6px; margin-bottom: 0.75rem; }
 .hp-input-big:focus       { outline: none; border-color: var(--gold-dim); }
 
 /* ── PARTY MODAL ─────────────────────────────────────────────── */
 .party-slot               { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.38rem; }
 .party-slot-icon          { font-size: 0.65rem; color: var(--pc-a); width: 12px; flex-shrink: 0; }
-.party-slot input[type=text] { flex: 1; background: rgba(13,20,45,0.8); border: 1px solid var(--border); color: var(--text-light); padding: 0.35rem 0.5rem; border-radius: 5px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.88rem; }
+.party-slot input[type=text] { flex: 1; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-light); padding: 0.35rem 0.5rem; border-radius: 5px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.88rem; }
 .party-slot input[type=text]:focus { outline: none; border-color: var(--gold-dim); }
 .party-slot input[type=text]::placeholder { color: var(--text-dim); }
-.party-slot-bonus         { width: 64px; background: rgba(13,20,45,0.8); border: 1px solid var(--border); color: var(--text-light); padding: 0.38rem 0.3rem; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; text-align: center; flex-shrink: 0; }
+.party-slot-bonus         { width: 64px; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-light); padding: 0.38rem 0.3rem; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; text-align: center; flex-shrink: 0; }
 .party-slot-bonus:focus   { outline: none; border-color: var(--gold-dim); }
 
 /* Column labels above the party slots */

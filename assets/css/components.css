@@ -9,9 +9,9 @@ input[type="text"],
 input[type="number"] {
   font-family: 'EB Garamond', serif;
   font-size: 0.95rem;
-  background: #0d1a30;
-  color: #e8e8e8;
-  border: 1px solid #3a3a5a;
+  background: var(--input-bg);
+  color: var(--text-light);
+  border: 1px solid var(--input-border);
   border-radius: 4px;
   padding: 5px 10px;
   outline: none;
@@ -22,20 +22,20 @@ select {
   padding-right: 28px;
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238f612d'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 8px center;
-  background-color: #0d1a30;
+  background-color: var(--input-bg);
   cursor: pointer;
 }
 
-select option { background: #0d1a30; color: #e8e8e8; }
+select option { background: var(--input-bg); color: var(--text-light); }
 
 select:focus,
 input[type="text"]:focus,
 input[type="number"]:focus {
   border-color: var(--gold-dim);
-  background: #111f38;
+  background: var(--input-bg-focus);
   box-shadow: 0 0 0 2px rgba(201,168,76,0.15);
 }
 
@@ -286,13 +286,13 @@ input[type="number"]::placeholder {
 .modal-section-label:first-child { margin-top: 0; }
 
 .modal-notes {
-  background: #f9f7f2;
+  background: color-mix(in srgb, var(--bg-panel) 22%, #f9f7f2);
   border-radius: 5px;
   padding: 10px 12px;
   margin-top: 12px;
   font-style: italic;
   font-size: 0.88rem;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.45;
 }
 
@@ -356,7 +356,7 @@ input[type="number"]::placeholder {
   display: none;
   position: fixed;
   width: min(260px, 80vw);
-  background: #1e2d50;
+  background: color-mix(in srgb, var(--bg-elevated) 86%, #1e2d50);
   border: 1px solid rgba(201,168,76,0.5);
   border-radius: 8px;
   padding: 10px 13px;
@@ -364,7 +364,7 @@ input[type="number"]::placeholder {
   font-size: 0.88rem;
   font-style: normal;
   font-weight: 400;
-  color: #f0f0f0;
+  color: var(--text-light);
   line-height: 1.55;
   letter-spacing: 0;
   text-transform: none;
@@ -382,7 +382,7 @@ input[type="number"]::placeholder {
   left: var(--arrow-x, 50%);
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: #1e2d50;
+  border-top-color: color-mix(in srgb, var(--bg-elevated) 86%, #1e2d50);
 }
 
 .tooltip-bubble::before {
