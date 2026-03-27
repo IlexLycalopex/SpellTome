@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Skills & Feats Browser | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/filters.css">
+<link rel="stylesheet" href="assets/css/cards.css">
+<link rel="stylesheet" href="assets/css/spelltome.css">
+</head>
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="skills-feats.html" class="nav-item active">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="quick-reference.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+    <span class="nav-section-label">Table Tools</span>
+    <a href="combat-tracker.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="dice-roller.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="encounter.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+      &nbsp;Encounter Difficulty
+    </a>
+    <a href="level-up-guide.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <header id="app-header">
+    <div class="header-top">
+      <div class="app-title">Skills &amp; Feats</div>
+      <div class="header-actions">
+        <button id="btn-filter-toggle" onclick="toggleMobileFilters()" aria-expanded="true" class="open">
+          Filters <span class="toggle-arrow">&#9660;</span>
+        </button>
+        <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="filter-bar expanded">
+      <div class="filter-group filter-group-search search-primary">
+        <label for="search-input" class="sr-only">Search skills and feats</label>
+        <input type="text" class="search-input" id="search-input" placeholder="Search skills & feats by name..." oninput="state.searchText=this.value.toLowerCase();renderGrid()" aria-label="Search skills and feats">
+        <button class="btn btn-reset" id="btn-reset-filters" onclick="resetFilters()" title="Reset filters" aria-label="Reset all filters">&#8635; Reset</button>
+      </div>
+      <div class="filter-bar-secondary">
+        <div class="filter-group">
+          <label for="type-select" class="filter-label">Type</label>
+          <select id="type-select" onchange="renderGrid()" aria-label="Filter by type">
+            <option value="">All Types</option>
+            <option value="skill">Skills</option>
+            <option value="feat">Feats</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="empty-state">
+      <div class="rune">&#10022;</div>
+      <h2>Search Skills &amp; Feats</h2>
+      <p>Browse all D&D 5e skills and feats available to your character.</p>
+    </div>
+    <div id="card-grid" style="display:none"></div>
+  </main>
+</div>
+
+<script>
+// STATE
+const state = {
+  searchText: '',
+  typeFilter: '',
+  allItems: []
+};
+
+// NAV
+function openNav(){document.getElementById('nav-drawer').classList.add('open');document.getElementById('nav-overlay').classList.add('show');}
+function closeNav(){document.getElementById('nav-drawer').classList.remove('open');document.getElementById('nav-overlay').classList.remove('show');}
+function toggleMobileFilters(){const btn=document.getElementById('btn-filter-toggle');const bar=document.querySelector('.filter-bar');if(bar.classList.contains('expanded')){bar.classList.remove('expanded');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}else{bar.classList.add('expanded');btn.classList.add('open');btn.setAttribute('aria-expanded','true');}}
+
+// SKILLS
+const SKILLS = [
+  { id: 'acrobatics', name: 'Acrobatics', type: 'skill', ability: 'Dexterity', description: 'Your Dexterity check covers your attempt to stay on your feet in a tricky situation, such as when you\'re trying to run across a sheet of ice, balance on a tightrope, or stay upright on a rocking ship\'s deck. The GM might also decide that a DEX check other than Acrobatics is appropriate when you try to accomplish a task that relies heavily on balance.' },
+  { id: 'animal-handling', name: 'Animal Handling', type: 'skill', ability: 'Wisdom', description: 'When there is any question whether you can calm down a domesticated animal, keep a mount from getting spooked, or intuit an animal\'s intentions, the GM might ask for a Wisdom (Animal Handling) check. You also make a Wisdom (Animal Handling) check to control your mount when you attempt a risky maneuver.' },
+  { id: 'arcana', name: 'Arcana', type: 'skill', ability: 'Intelligence', description: 'Your Intelligence check measures your ability to recall lore about spells, magic items, eldritch symbols, magical traditions, the planes of existence, and the inhabitants of those planes. These checks represent knowledge gleaned through study and memorization of various things relating to magic.' },
+  { id: 'athletics', name: 'Athletics', type: 'skill', ability: 'Strength', description: 'Your Strength check covers difficult situations you encounter while climbing, jumping, or swimming. Each of these activities can also involve a Constitution check, at the GM\'s option, if the task involves extended physical exertion.' },
+  { id: 'deception', name: 'Deception', type: 'skill', ability: 'Charisma', description: 'Your Charisma check determines whether you can convincingly hide the truth, either verbally or through your actions. This deception can encompass everything from misleading others through ambiguity to telling outright lies.' },
+  { id: 'history', name: 'History', type: 'skill', ability: 'Intelligence', description: 'Your Intelligence check measures your ability to recall lore about historical events, legendary people, ancient kingdoms, past disputes, recent wars, and lost civilizations.' },
+  { id: 'insight', name: 'Insight', type: 'skill', ability: 'Wisdom', description: 'Your Wisdom check decides whether you can discern true intentions from a creature\'s behavior, speech, and mannerisms. You attempt to determine if someone is lying when they\'re really trying to seem honest.' },
+  { id: 'intimidation', name: 'Intimidation', type: 'skill', ability: 'Charisma', description: 'When you attempt to influence someone through overt threats, hostile actions, and physical violence, the GM might ask you to make a Charisma (Intimidation) check. Examples include trying to pry information out of a prisoner, convincing street thugs to back down, or using the edge of a broken bottle to convince an uncooperative tavern owner to lend you some coin.' },
+  { id: 'investigation', name: 'Investigation', type: 'skill', ability: 'Intelligence', description: 'When you look around for clues and make deductions based on those clues, you make an Intelligence (Investigation) check. You might deduce the location of a hidden object, discern from the appearance of a wound what kind of weapon dealt it, or determine the weakest point in a tunnel that could cause it to collapse.' },
+  { id: 'medicine', name: 'Medicine', type: 'skill', ability: 'Wisdom', description: 'A Wisdom (Medicine) check lets you try to stabilize a dying companion or diagnose an illness. You attempt to diagnose an illness when someone can spend more than just a few minutes with the patient.' },
+  { id: 'nature', name: 'Nature', type: 'skill', ability: 'Intelligence', description: 'Your Intelligence check measures your ability to recall lore about terrain, plants and animals, the weather, and natural cycles.' },
+  { id: 'perception', name: 'Perception', type: 'skill', ability: 'Wisdom', description: 'Your Wisdom (Perception) check lets you spot, hear, or otherwise detect the presence of something. It measures your awareness of your surroundings by the use of your senses.' },
+  { id: 'performance', name: 'Performance', type: 'skill', ability: 'Charisma', description: 'Your Charisma (Performance) check determines how well you can delight an audience with music, dance, acting, storytelling, or some other form of entertainment.' },
+  { id: 'persuasion', name: 'Persuasion', type: 'skill', ability: 'Charisma', description: 'When you attempt to influence someone or a group of people with tact, social graces, or good nature, the GM might ask you to make a Charisma (Persuasion) check. Typically, you\'re trying to persuade someone to do something or to agree with your point of view.' },
+  { id: 'religion', name: 'Religion', type: 'skill', ability: 'Intelligence', description: 'Your Intelligence check measures your ability to recall lore about deities, rites and prayers, religious hierarchies, holy symbols, and the practices of secret cults.' },
+  { id: 'sleight-of-hand', name: 'Sleight of Hand', type: 'skill', ability: 'Dexterity', description: 'Whenever you attempt an act of legerdemain or manual trickery, such as planting something on someone else or concealing an object on your person, make a Dexterity (Sleight of Hand) check. The GM might also call for a Dexterity (Sleight of Hand) check to determine whether you successfully lift a coin purse off another person or slip something out of another person\'s pocket.' },
+  { id: 'stealth', name: 'Stealth', type: 'skill', ability: 'Dexterity', description: 'Make a Dexterity (Stealth) check when you attempt to hide from an enemy, slink past guards, slip away without being noticed, or sneak up on someone. You might try to hide in shadows or among tall grass with a cloak that is mottled with colors to match the environment.' },
+  { id: 'survival', name: 'Survival', type: 'skill', ability: 'Wisdom', description: 'The GM might ask you to make a Wisdom (Survival) check to follow tracks, hunt wild game, guide your group through frozen wastelands, identify signs that owlbears are nearby, predict the weather, or avoid quicksand and other natural hazards.' }
+];
+
+// FEATS (selected common 5e feats)
+const FEATS = [
+  { id: 'alert', name: 'Alert', type: 'feat', prereq: 'None', benefit: '+5 to initiative. You can\'t be surprised while conscious. Other creatures don\'t gain advantage on attack rolls against you as a result of being hidden from you.' },
+  { id: 'athlete', name: 'Athlete', type: 'feat', prereq: 'None', benefit: 'Increase STR or DEX by 1. Climbing costs you only 1 foot per 1 foot climbed. You can make standing high/long jumps without needing to move first.' },
+  { id: 'charger', name: 'Charger', type: 'feat', prereq: 'None', benefit: 'When you use your action to Dash, you can use your bonus action to make one melee weapon attack. When you move at least 10 feet before making a melee attack, you gain +5 damage.' },
+  { id: 'crossbow-expert', name: 'Crossbow Expert', type: 'feat', prereq: 'None', benefit: 'Ignore the loading quality of crossbows. You can use a melee weapon that has the light property and a crossbow. You don\'t have disadvantage on ranged attack rolls when within 5 feet of an enemy.' },
+  { id: 'defensive-duelist', name: 'Defensive Duelist', type: 'feat', prereq: 'Dexterity 13+', benefit: 'When another creature you can see hits you with a melee attack, you can use your reaction to add your proficiency bonus to your AC.' },
+  { id: 'durable', name: 'Durable', type: 'feat', prereq: 'None', benefit: 'Increase CON by 1. When you spend Hit Dice to regain HP, minimum gain 1 + CON modifier per Hit Die (instead of taking the roll).' },
+  { id: 'eldritch-sight', name: 'Eldritch Sight', type: 'feat', prereq: 'Spellcasting', benefit: 'You can cast Detect Magic at will without expending spell slots or requiring components.' },
+  { id: 'grappler', name: 'Grappler', type: 'feat', prereq: 'Strength 13+', benefit: 'Advantage on melee attack rolls against creature you\'re grappling. You can use action to try pinning a grappled creature. Creatures have disadvantage escaping your grapple.' },
+  { id: 'great-weapon-master', name: 'Great Weapon Master', type: 'feat', prereq: 'None', benefit: 'Before making attack with heavy melee weapon, reduce hit roll by 5. If you hit, gain +10 damage. When you score a critical hit or reduce a creature to 0 HP, you can use bonus action for melee attack.' },
+  { id: 'healer', name: 'Healer', type: 'feat', prereq: 'None', benefit: 'You gain proficiency in Medicine. Use healer\'s kit to stabilize a creature as action instead of bonus action. Restore 1d6+WIS modifier HP (costs 1 healer\'s kit use).' },
+  { id: 'inspiring-leader', name: 'Inspiring Leader', type: 'feat', prereq: 'Charisma 13+', benefit: 'Spend 10 minutes inspiring allies. Up to 6 creatures gain 5+CHA+level temp HP.' },
+  { id: 'keen-mind', name: 'Keen Mind', type: 'feat', prereq: 'None', benefit: 'Increase INT by 1. You always know which direction is north. You accurately recall anything you\'ve seen/heard in past month.' },
+  { id: 'lightly-armored', name: 'Lightly Armored', type: 'feat', prereq: 'None', benefit: 'Increase STR or DEX by 1. You gain proficiency with light armor.' },
+  { id: 'magic-initiate', name: 'Magic Initiate', type: 'feat', prereq: 'None', benefit: 'Choose a class. Learn two cantrips and one 1st-level spell from that class. Cast spell 1x per day without spell slot (or spell slot if you have class ability).' },
+  { id: 'polearm-master', name: 'Polearm Master', type: 'feat', prereq: 'None', benefit: 'Bonus action attack with opposite end of a polearm. When creature enters reach, you can reaction attack with polearm (not if you\'re incapacitated).' },
+  { id: 'resilient', name: 'Resilient', type: 'feat', prereq: 'None', benefit: 'Increase ability score by 1. Gain proficiency in saving throws using that ability.' },
+  { id: 'sentinel', name: 'Sentinel', type: 'feat', prereq: 'None', benefit: 'Creatures provoke opportunity attacks when attacking allies. Use reaction to make melee attack when creature takes action. Target has 0 speed this turn if you hit.' },
+  { id: 'sharpshooter', name: 'Sharpshooter', type: 'feat', prereq: 'None', benefit: 'Ignore cover for ranged attacks beyond normal range. Ignore disadvantage from long range. Reduce hit roll by 5 for +10 damage.' },
+  { id: 'tavern-brawler', name: 'Tavern Brawler', type: 'feat', prereq: 'None', benefit: 'Increase STR or CON by 1. Unarmed strike uses d4 damage die. Bonus action grapple after hitting with melee weapon.' },
+  { id: 'tough', name: 'Tough', type: 'feat', prereq: 'None', benefit: 'Increase your hit point maximum by 2 for each level you have.' }
+];
+
+state.allItems = [...SKILLS, ...FEATS];
+
+// FILTERS & RENDER
+function resetFilters(){
+  state.searchText = '';
+  state.typeFilter = '';
+  document.getElementById('search-input').value = '';
+  document.getElementById('type-select').value = '';
+  renderGrid();
+}
+
+function renderGrid(){
+  const filtered = state.allItems.filter(item => {
+    const matchesSearch = item.name.toLowerCase().includes(state.searchText) ||
+                          item.description.toLowerCase().includes(state.searchText);
+    const matchesType = !state.typeFilter || item.type === state.typeFilter;
+    return matchesSearch && matchesType;
+  });
+
+  const grid = document.getElementById('card-grid');
+  const emptyState = document.getElementById('empty-state');
+
+  if(filtered.length === 0){
+    grid.style.display = 'none';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  emptyState.style.display = 'none';
+  grid.innerHTML = filtered.map(item => `
+    <article class="card" data-id="${item.id}">
+      <div class="card-header" style="border-left-color: ${item.type === 'skill' ? '#7c6ba8' : '#c9a84c'}">
+        <h3>${item.name}</h3>
+        <span class="card-badge">${item.type === 'skill' ? item.ability : item.prereq}</span>
+      </div>
+      <div class="card-body">
+        <p>${item.description}</p>
+      </div>
+    </article>
+  `).join('');
+}
+
+// TYPE FILTER HANDLER
+document.getElementById('type-select').addEventListener('change', (e) => {
+  state.typeFilter = e.target.value;
+  renderGrid();
+});
+
+// INIT
+renderGrid();
+</script>
+
+<style>
+#card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  padding: 12px 16px;
+  border-left: 4px solid;
+  background: var(--card-header-bg);
+}
+
+.card-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-badge {
+  display: inline-block;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.card-body {
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card-body p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Level Up Guide | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+
+<!-- SHARED NAV DRAWER -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="skills-feats.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="quick-reference.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+    <span class="nav-section-label">Table Tools</span>
+    <a href="combat-tracker.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="dice-roller.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="encounter.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+      &nbsp;Encounter Difficulty
+    </a>
+    <a href="level-up-guide.html" class="nav-item active">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="guide-container">
+    <h1>Level Up Guide</h1>
+    <p class="subtitle">Select your class and level to see what changes.</p>
+
+    <div class="guide-controls">
+      <div class="control-group">
+        <label for="class-select">Class</label>
+        <select id="class-select" onchange="updateGuide()">
+          <option value="">Select a class...</option>
+          <option value="barbarian">Barbarian</option>
+          <option value="bard">Bard</option>
+          <option value="cleric">Cleric</option>
+          <option value="druid">Druid</option>
+          <option value="fighter">Fighter</option>
+          <option value="monk">Monk</option>
+          <option value="paladin">Paladin</option>
+          <option value="ranger">Ranger</option>
+          <option value="rogue">Rogue</option>
+          <option value="sorcerer">Sorcerer</option>
+          <option value="warlock">Warlock</option>
+          <option value="wizard">Wizard</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="level-select">Level Up To</label>
+        <select id="level-select" onchange="updateGuide()">
+          <option value="">Select level...</option>
+          <option value="1">Level 1</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+          <option value="5">Level 5</option>
+          <option value="6">Level 6</option>
+          <option value="7">Level 7</option>
+          <option value="8">Level 8</option>
+          <option value="9">Level 9</option>
+          <option value="10">Level 10</option>
+          <option value="11">Level 11</option>
+          <option value="12">Level 12</option>
+          <option value="13">Level 13</option>
+          <option value="14">Level 14</option>
+          <option value="15">Level 15</option>
+          <option value="16">Level 16</option>
+          <option value="17">Level 17</option>
+          <option value="18">Level 18</option>
+          <option value="19">Level 19</option>
+          <option value="20">Level 20</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="guide-content"></div>
+  </main>
+</div>
+
+<script>
+function openNav(){document.getElementById('nav-drawer').classList.add('open');document.getElementById('nav-overlay').classList.add('show');}
+function closeNav(){document.getElementById('nav-drawer').classList.remove('open');document.getElementById('nav-overlay').classList.remove('show');}
+
+const LEVEL_GUIDE = {
+  barbarian: {
+    1: ['Unarmored Defense', 'Reckless Attack', 'Damage Resistance'],
+    2: ['Reckless Attack improvement'],
+    3: ['Primal Path (subclass choice)', 'Choose Primal Path'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Extra Attack', 'Increased Unarmored Defense'],
+    7: ['Feral Instinct'],
+    9: ['Brutal Critical (1d6)'],
+    11: ['Relentless Rage'],
+    13: ['Brutal Critical (2d6)'],
+    15: ['Relentless Rage improvement'],
+    17: ['Primal Champion'],
+    20: ['Primal Champion (unlimited rages)']
+  },
+  bard: {
+    1: ['Bardic Inspiration', 'Spellcasting'],
+    2: ['Jack of All Trades'],
+    3: ['Bard College (subclass)', 'Expertise (4 skills)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Bardic Inspiration improvement', 'Font of Inspiration'],
+    6: ['Countercharm'],
+    7: ['Bard College feature'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Magical Secrets (choose 2 spells)'],
+    10: ['Magical Secrets improvement'],
+    11: ['Added Magical Secrets'],
+    20: ['Superior Inspiration']
+  },
+  cleric: {
+    1: ['Channel Divinity', 'Spellcasting', 'Divine Domain (subclass)'],
+    2: ['Channel Divinity option'],
+    3: ['Destroy Undead'],
+    5: ['Destroy Undead improvement', 'Potent Spellcasting'],
+    6: ['Channel Divinity improvement'],
+    8: ['Ability Score Improvement or Feat', 'Divine Strike'],
+    10: ['Divine Intervention'],
+    17: ['Divine Intervention improvement'],
+    20: ['Divine Intervention guaranteed']
+  },
+  druid: {
+    1: ['Druidic language', 'Spellcasting', 'Wild Shape'],
+    2: ['Wild Shape improvement', 'Wildfire Druid/Moon/Land (subclass)'],
+    3: ['Prepare spells upgrade'],
+    4: ['Ability Score Improvement or Feat', 'Wild Shape improvement'],
+    5: ['Higher CR Wild Shape forms'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Improved Spellcasting'],
+    18: ['Beast Spells or Timeless Body'],
+    20: ['Unlimited Wild Shape forms']
+  },
+  fighter: {
+    1: ['Fighting Style', 'Second Wind', 'Action Surge'],
+    2: ['Action Surge improvement'],
+    3: ['Martial Archetype (subclass)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Extra Attack'],
+    6: ['Ability Score Improvement or Feat'],
+    7: ['Martial Archetype feature'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Indomitable'],
+    10: ['Martial Archetype feature'],
+    11: ['Extra Attack (2)'],
+    13: ['Indomitable (2 uses)'],
+    15: ['Martial Archetype feature'],
+    17: ['Action Surge improvement'],
+    20: ['Extra Attack (3)']
+  },
+  monk: {
+    1: ['Martial Arts', 'Unarmored Defense'],
+    2: ['Ki Points', 'Unarmored Movement'],
+    3: ['Monastic Tradition (subclass)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Extra Attack', 'Stunning Strike'],
+    6: ['Monastic Tradition feature'],
+    7: ['Evasion'],
+    10: ['Purity of Body'],
+    13: ['Tongue of Sun and Moon'],
+    15: ['Diamond Soul'],
+    17: ['Timeless Body'],
+    20: ['Perfect Self']
+  },
+  paladin: {
+    1: ['Divine Sense', 'Lay on Hands', 'Spellcasting'],
+    2: ['Fighting Style', 'Spellcasting slot upgrade'],
+    3: ['Sacred Oath (subclass)', 'Channel Divinity'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Extra Attack', 'Divine Smite upgrade'],
+    6: ['Aura of Protection'],
+    7: ['Sacred Oath feature'],
+    8: ['Ability Score Improvement or Feat'],
+    10: ['Aura of Courage'],
+    11: ['Improved Divine Smite'],
+    14: ['Cleansing Touch'],
+    18: ['Aura improvements'],
+    20: ['Holy Nimbus']
+  },
+  ranger: {
+    1: ['Favored Enemy', 'Natural Explorer', 'Spellcasting'],
+    2: ['Fighting Style'],
+    3: ['Ranger Archetype (subclass)', 'Primeval Awareness'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Extra Attack'],
+    7: ['Ranger Archetype feature'],
+    8: ['Ability Score Improvement or Feat', 'Land Stride'],
+    11: ['Ranger Archetype feature'],
+    14: ['Vanish'],
+    15: ['Ranger Archetype feature'],
+    18: ['Feral Senses'],
+    20: ['Foe Slayer']
+  },
+  rogue: {
+    1: ['Expertise', 'Sneak Attack', 'Thieves\' Cant'],
+    2: ['Cunning Action'],
+    3: ['Roguish Archetype (subclass)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Uncanny Dodge', 'Sneak Attack increase'],
+    6: ['Expertise improvement'],
+    7: ['Evasion'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Roguish Archetype feature'],
+    11: ['Reliable Talent'],
+    14: ['Blindsense'],
+    15: ['Slippery Mind'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Roguish Archetype feature'],
+    20: ['Stroke of Luck']
+  },
+  sorcerer: {
+    1: ['Spellcasting', 'Sorcerous Origin (subclass)', 'Sorcery Points'],
+    3: ['Metamagic'],
+    4: ['Ability Score Improvement or Feat'],
+    6: ['Sorcerous Origin feature'],
+    9: ['Metamagic option 2'],
+    10: ['Sorcerous Origin feature'],
+    14: ['Sorcerous Resilience'],
+    17: ['Sorcerous Origin feature'],
+    18: ['Sorcerous Restoration'],
+    20: ['Sorcerous Apotheosis']
+  },
+  warlock: {
+    1: ['The Pact', 'Eldritch Invocations', 'Spellcasting (Pact Magic)'],
+    2: ['Eldritch Invocation option'],
+    3: ['Pact Boon (subclass)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Misty Visions invocation unlock'],
+    6: ['Pact Boon feature'],
+    7: ['Eldritch Invocation option'],
+    9: ['The One Ring theme'],
+    10: ['Pact Boon feature'],
+    11: ['Mystic Arcanum (6th level spell)'],
+    13: ['Mystic Arcanum (7th level spell)'],
+    14: ['Eldritch Master'],
+    15: ['Mystic Arcanum (8th level spell)'],
+    17: ['Mystic Arcanum (9th level spell)'],
+    20: ['Eldritch Master improvement']
+  },
+  wizard: {
+    1: ['Spellcasting', 'Arcane Recovery'],
+    2: ['Arcane Tradition (subclass)'],
+    4: ['Ability Score Improvement or Feat'],
+    6: ['Arcane Tradition feature'],
+    8: ['Ability Score Improvement or Feat'],
+    10: ['Arcane Tradition feature'],
+    12: ['Ability Score Improvement or Feat'],
+    14: ['Arcane Tradition feature'],
+    16: ['Ability Score Improvement or Feat'],
+    18: ['Spell Mastery (2 wizard spells)'],
+    20: ['Signature Spell']
+  }
+};
+
+function updateGuide(){
+  const klass = document.getElementById('class-select').value;
+  const level = document.getElementById('level-select').value;
+  const content = document.getElementById('guide-content');
+
+  if(!klass || !level){
+    content.innerHTML = '<div class="empty-prompt"><p>Select a class and level to begin.</p></div>';
+    return;
+  }
+
+  const guide = LEVEL_GUIDE[klass];
+  const features = guide[level] || [];
+
+  let html = `<div class="guide-result">
+    <h2>${klass.charAt(0).toUpperCase() + klass.slice(1)} reaches Level ${level}</h2>
+    <div class="features-list">`;
+
+  if(features.length > 0){
+    features.forEach(feature => {
+      html += `<div class="feature-item"><span class="feature-checkmark">✓</span><span>${feature}</span></div>`;
+    });
+  } else {
+    html += `<p class="no-features">Hit Points increase by 1d${getHitDie(klass)} + CON modifier</p>`;
+  }
+
+  html += `</div>
+    <div class="level-up-tips">
+      <h3>Leveling Up Checklist</h3>
+      <ul>
+        <li><input type="checkbox"> Add hit points (roll or use average)</li>
+        <li><input type="checkbox"> Update proficiency bonus (if applicable)</li>
+        <li><input type="checkbox"> Gain new abilities listed above</li>
+        <li><input type="checkbox"> Review subclass features</li>
+        <li><input type="checkbox"> Update spell lists (if applicable)</li>
+        <li><input type="checkbox"> Take Ability Score Increase or Feat (if applicable)</li>
+      </ul>
+    </div>
+  </div>`;
+
+  content.innerHTML = html;
+}
+
+function getHitDie(klass){
+  const hitDies = {
+    barbarian: 12, bard: 8, cleric: 8, druid: 8, fighter: 10, monk: 8,
+    paladin: 10, ranger: 10, rogue: 8, sorcerer: 6, warlock: 8, wizard: 6
+  };
+  return hitDies[klass] || 8;
+}
+</script>
+
+<style>
+.guide-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.guide-container h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 32px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.guide-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.control-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.control-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.guide-result h2 {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+}
+
+.features-list {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.feature-checkmark {
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.no-features {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.level-up-tips {
+  background: var(--card-header-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.level-up-tips h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+}
+
+.level-up-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.level-up-tips li {
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.level-up-tips input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.empty-prompt {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .guide-controls {
+    flex-direction: column;
+  }
+
+  .control-group {
+    min-width: auto;
+  }
+}
+</style>
+</body>
+</html>
