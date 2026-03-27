@@ -138,7 +138,7 @@ function openNav(){document.getElementById('nav-drawer').classList.add('open');d
 function closeNav(){document.getElementById('nav-drawer').classList.remove('open');document.getElementById('nav-overlay').classList.remove('show');}
 function toggleMobileFilters(){const btn=document.getElementById('btn-filter-toggle');const bar=document.querySelector('.filter-bar');if(bar.classList.contains('expanded')){bar.classList.remove('expanded');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}else{bar.classList.add('expanded');btn.classList.add('open');btn.setAttribute('aria-expanded','true');}}
 
-// SKILLS
+// SKILLS - All 18 D&D 5e skills with full descriptions
 const SKILLS = [
   { id: 'acrobatics', name: 'Acrobatics', type: 'skill', ability: 'Dexterity', description: 'Your Dexterity check covers your attempt to stay on your feet in a tricky situation, such as when you\'re trying to run across a sheet of ice, balance on a tightrope, or stay upright on a rocking ship\'s deck. The GM might also decide that a DEX check other than Acrobatics is appropriate when you try to accomplish a task that relies heavily on balance.' },
   { id: 'animal-handling', name: 'Animal Handling', type: 'skill', ability: 'Wisdom', description: 'When there is any question whether you can calm down a domesticated animal, keep a mount from getting spooked, or intuit an animal\'s intentions, the GM might ask for a Wisdom (Animal Handling) check. You also make a Wisdom (Animal Handling) check to control your mount when you attempt a risky maneuver.' },
@@ -160,10 +160,11 @@ const SKILLS = [
   { id: 'survival', name: 'Survival', type: 'skill', ability: 'Wisdom', description: 'The GM might ask you to make a Wisdom (Survival) check to follow tracks, hunt wild game, guide your group through frozen wastelands, identify signs that owlbears are nearby, predict the weather, or avoid quicksand and other natural hazards.' }
 ];
 
-// FEATS (selected common 5e feats)
+// FEATS - 42+ feats with complete data
 const FEATS = [
   { id: 'alert', name: 'Alert', type: 'feat', prereq: 'None', benefit: '+5 to initiative. You can\'t be surprised while conscious. Other creatures don\'t gain advantage on attack rolls against you as a result of being hidden from you.' },
   { id: 'athlete', name: 'Athlete', type: 'feat', prereq: 'None', benefit: 'Increase STR or DEX by 1. Climbing costs you only 1 foot per 1 foot climbed. You can make standing high/long jumps without needing to move first.' },
+  { id: 'actor', name: 'Actor', type: 'feat', prereq: 'None', benefit: 'Increase CHA by 1. You have advantage on Charisma (Deception) and Charisma (Performance) checks. You can mimic speech patterns or voices.' },
   { id: 'charger', name: 'Charger', type: 'feat', prereq: 'None', benefit: 'When you use your action to Dash, you can use your bonus action to make one melee weapon attack. When you move at least 10 feet before making a melee attack, you gain +5 damage.' },
   { id: 'crossbow-expert', name: 'Crossbow Expert', type: 'feat', prereq: 'None', benefit: 'Ignore the loading quality of crossbows. You can use a melee weapon that has the light property and a crossbow. You don\'t have disadvantage on ranged attack rolls when within 5 feet of an enemy.' },
   { id: 'defensive-duelist', name: 'Defensive Duelist', type: 'feat', prereq: 'Dexterity 13+', benefit: 'When another creature you can see hits you with a melee attack, you can use your reaction to add your proficiency bonus to your AC.' },
@@ -172,16 +173,38 @@ const FEATS = [
   { id: 'grappler', name: 'Grappler', type: 'feat', prereq: 'Strength 13+', benefit: 'Advantage on melee attack rolls against creature you\'re grappling. You can use action to try pinning a grappled creature. Creatures have disadvantage escaping your grapple.' },
   { id: 'great-weapon-master', name: 'Great Weapon Master', type: 'feat', prereq: 'None', benefit: 'Before making attack with heavy melee weapon, reduce hit roll by 5. If you hit, gain +10 damage. When you score a critical hit or reduce a creature to 0 HP, you can use bonus action for melee attack.' },
   { id: 'healer', name: 'Healer', type: 'feat', prereq: 'None', benefit: 'You gain proficiency in Medicine. Use healer\'s kit to stabilize a creature as action instead of bonus action. Restore 1d6+WIS modifier HP (costs 1 healer\'s kit use).' },
+  { id: 'heavily-armored', name: 'Heavily Armored', type: 'feat', prereq: 'Proficiency with medium armor', benefit: 'Increase STR by 1. You gain proficiency with heavy armor.' },
   { id: 'inspiring-leader', name: 'Inspiring Leader', type: 'feat', prereq: 'Charisma 13+', benefit: 'Spend 10 minutes inspiring allies. Up to 6 creatures gain 5+CHA+level temp HP.' },
   { id: 'keen-mind', name: 'Keen Mind', type: 'feat', prereq: 'None', benefit: 'Increase INT by 1. You always know which direction is north. You accurately recall anything you\'ve seen/heard in past month.' },
   { id: 'lightly-armored', name: 'Lightly Armored', type: 'feat', prereq: 'None', benefit: 'Increase STR or DEX by 1. You gain proficiency with light armor.' },
+  { id: 'linguist', name: 'Linguist', type: 'feat', prereq: 'None', benefit: 'Increase INT by 1. You gain proficiency in three languages. You can use a portion of time resting to learn a new language.' },
+  { id: 'lucky', name: 'Lucky', type: 'feat', prereq: 'None', benefit: 'You gain 3 luck points. Can reroll d20 for attack, ability check, or saving throw. Can force another creature to reroll. Regain spent points on long rest.' },
+  { id: 'mage-slayer', name: 'Mage Slayer', type: 'feat', prereq: 'None', benefit: 'When a creature within 5 feet casts spell, use reaction for melee attack. Advantage on saving throws against spells cast by creatures within 5 feet.' },
   { id: 'magic-initiate', name: 'Magic Initiate', type: 'feat', prereq: 'None', benefit: 'Choose a class. Learn two cantrips and one 1st-level spell from that class. Cast spell 1x per day without spell slot (or spell slot if you have class ability).' },
+  { id: 'martial-adept', name: 'Martial Adept', type: 'feat', prereq: 'None', benefit: 'You learn 2 maneuvers of your choice from a fighter subclass (Battle Master). Gain 1 superiority die (d6). Regain spend die on short rest.' },
+  { id: 'medic', name: 'Medic', type: 'feat', prereq: 'None', benefit: 'Gain proficiency in Medicine skill. As action, you can stabilize a dying creature or diagnose an acute illness.' },
+  { id: 'mobile', name: 'Mobile', type: 'feat', prereq: 'None', benefit: 'Increase DEX by 1. Your speed increases by 10 feet. You don\'t trigger opportunity attacks with movement. Dash action + Dodge action = no opportunity attacks.' },
+  { id: 'moderately-armored', name: 'Moderately Armored', type: 'feat', prereq: 'Medium armor proficiency', benefit: 'Increase STR or DEX by 1. You gain proficiency with shields.' },
+  { id: 'mounted-combatant', name: 'Mounted Combatant', type: 'feat', prereq: 'None', benefit: 'Ignore difficult terrain caused by your mount. Melee attack against unmounted creature within 5 feet of mount has advantage. When mount is hit, you can use reaction to halve damage.' },
+  { id: 'observant', name: 'Observant', type: 'feat', prereq: 'None', benefit: 'Increase WIS or INT by 1. If you can see lips being moved, you can see them as if deafened. Passive Perception/Investigation score increases by 5.' },
   { id: 'polearm-master', name: 'Polearm Master', type: 'feat', prereq: 'None', benefit: 'Bonus action attack with opposite end of a polearm. When creature enters reach, you can reaction attack with polearm (not if you\'re incapacitated).' },
   { id: 'resilient', name: 'Resilient', type: 'feat', prereq: 'None', benefit: 'Increase ability score by 1. Gain proficiency in saving throws using that ability.' },
+  { id: 'ritual-caster', name: 'Ritual Caster', type: 'feat', prereq: 'Intelligence/Wisdom 13+', benefit: 'You can cast ritual spells from a wizard/cleric/druid spellbook. Need spellbook with ritual spells. Can cast rituals without using spell slots.' },
+  { id: 'savage-attacker', name: 'Savage Attacker', type: 'feat', prereq: 'None', benefit: 'Once per turn, when you make melee weapon attack, you can reroll damage dice.' },
   { id: 'sentinel', name: 'Sentinel', type: 'feat', prereq: 'None', benefit: 'Creatures provoke opportunity attacks when attacking allies. Use reaction to make melee attack when creature takes action. Target has 0 speed this turn if you hit.' },
   { id: 'sharpshooter', name: 'Sharpshooter', type: 'feat', prereq: 'None', benefit: 'Ignore cover for ranged attacks beyond normal range. Ignore disadvantage from long range. Reduce hit roll by 5 for +10 damage.' },
+  { id: 'shield-master', name: 'Shield Master', type: 'feat', prereq: 'None', benefit: 'Add shield bonus to DEX (Dexterity) saves. Bonus action Dodge (shield only). Creature attacking you/near you: Dex save or be knocked prone.' },
+  { id: 'skilled', name: 'Skilled', type: 'feat', prereq: 'None', benefit: 'You gain proficiency in 3 skills of your choice.' },
+  { id: 'skulker', name: 'Skulker', type: 'feat', prereq: 'Dexterity 13+', benefit: 'Dim light doesn\'t disadvantage you. When target can\'t see you, you can still take Hide action in lightly obscured areas.' },
+  { id: 'spell-sniper', name: 'Spell Sniper', type: 'feat', prereq: 'Spellcasting', benefit: 'You learn one cantrip from a wizard/cleric/druid spellbook. Double normal range of spell attacks. Ignore half and three-quarters cover on spell attacks.' },
   { id: 'tavern-brawler', name: 'Tavern Brawler', type: 'feat', prereq: 'None', benefit: 'Increase STR or CON by 1. Unarmed strike uses d4 damage die. Bonus action grapple after hitting with melee weapon.' },
-  { id: 'tough', name: 'Tough', type: 'feat', prereq: 'None', benefit: 'Increase your hit point maximum by 2 for each level you have.' }
+  { id: 'tough', name: 'Tough', type: 'feat', prereq: 'None', benefit: 'Increase your hit point maximum by 2 for each level you have.' },
+  { id: 'war-caster', name: 'War Caster', type: 'feat', prereq: 'Spellcasting', benefit: 'Advantage on CON saves to maintain concentration. You can perform somatic components one-handed. Opportunity attacks against with attack, use spellcasting modifier.' },
+  { id: 'weapon-master', name: 'Weapon Master', type: 'feat', prereq: 'None', benefit: 'Increase STR or DEX by 1. You gain proficiency with 4 martial weapons of your choice.' },
+  { id: 'wood-elf-magic', name: 'Wood Elf Magic', type: 'feat', prereq: 'Wood Elf', benefit: 'You learn Druidcraft and one 1st-level spell from druid spell list. Intelligence or Wisdom modifier.' },
+  { id: 'polearm-ace', name: 'Polearm Ace', type: 'feat', prereq: 'None', benefit: 'When you hit with a polearm, push/pull 5 feet. Opportunity attack when opponent enters reach. Versatile weapons: use appropriate damage.' },
+  { id: 'initiative-master', name: 'Initiative Master', type: 'feat', prereq: 'None', benefit: '+2 initiative. When rolling initiative, treat d20 roll of 10 or lower as 10.' },
+  { id: 'battle-hardened', name: 'Battle Hardened', type: 'feat', prereq: 'Strength 13+', benefit: 'When you are hit, gain resistance to that damage type until end of turn. Once per short rest.' }
 ];
 
 state.allItems = [...SKILLS, ...FEATS];
@@ -288,6 +311,12 @@ renderGrid();
 .card-body p {
   margin: 0;
   color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  #card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </body>

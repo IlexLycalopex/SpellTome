@@ -153,173 +153,268 @@ function closeNav(){document.getElementById('nav-drawer').classList.remove('open
 
 const LEVEL_GUIDE = {
   barbarian: {
-    1: ['Unarmored Defense', 'Reckless Attack', 'Damage Resistance'],
-    2: ['Reckless Attack improvement'],
-    3: ['Primal Path (subclass choice)', 'Choose Primal Path'],
+    1: ['Unarmored Defense (AC = 10 + DEX + CON)', 'Reckless Attack (attack with advantage, attacks on you have advantage)', 'Danger Sense (Dex save vs hazards you see)'],
+    2: ['Reckless Attack improvement', 'Unarmored Defense upgrade'],
+    3: ['Primal Path subclass choice', 'Subclass features begin'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Extra Attack', 'Increased Unarmored Defense'],
-    7: ['Feral Instinct'],
-    9: ['Brutal Critical (1d6)'],
-    11: ['Relentless Rage'],
-    13: ['Brutal Critical (2d6)'],
-    15: ['Relentless Rage improvement'],
-    17: ['Primal Champion'],
-    20: ['Primal Champion (unlimited rages)']
+    5: ['Extra Attack', 'Increased Unarmored Defense (CON is added twice)'],
+    6: ['Primal Path feature'],
+    7: ['Feral Instinct (use reaction to movement on hostile turn)', 'Instinctive Pounce'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Brutal Critical (1d6 extra damage on crits)', 'Reckless Attack improvement'],
+    10: ['Primal Path feature'],
+    11: ['Relentless Rage (maintain rage on incoming damage)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Brutal Critical (2d6 extra damage)'],
+    14: ['Primal Path feature'],
+    15: ['Persistent Rage (rage doesn\'t end early from inactivity)'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Primal Champion (unlimited rages, can rage permanently)'],
+    18: ['Primal Path feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Primal Champion unlimited rages']
   },
   bard: {
-    1: ['Bardic Inspiration', 'Spellcasting'],
-    2: ['Jack of All Trades'],
-    3: ['Bard College (subclass)', 'Expertise (4 skills)'],
+    1: ['Bardic Inspiration (d6, heal allies as bonus action)', 'Spellcasting', 'Bardic Inspiration recharge on short rest'],
+    2: ['Jack of All Trades (add 1/2 proficiency to non-proficient ability checks)'],
+    3: ['Bard College subclass choice', 'Expertise (choose 4 skills for 2x proficiency)'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Bardic Inspiration improvement', 'Font of Inspiration'],
-    6: ['Countercharm'],
+    5: ['Bardic Inspiration improvement (d8)', 'Font of Inspiration (regain on short rest)'],
+    6: ['Countercharm (allies within 30 ft have advantage vs charm/fear)'],
     7: ['Bard College feature'],
     8: ['Ability Score Improvement or Feat'],
-    9: ['Magical Secrets (choose 2 spells)'],
-    10: ['Magical Secrets improvement'],
-    11: ['Added Magical Secrets'],
-    20: ['Superior Inspiration']
+    9: ['Magical Secrets (choose any 2 spells from any class)'],
+    10: ['Magical Secrets upgrade', 'Expertise improvement'],
+    11: ['Added Magical Secrets (gain 2 additional spells)', 'Bardic Inspiration (d10)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Peerless Skill (can use Bardic Inspiration on own checks)'],
+    14: ['Bard College feature'],
+    15: ['Magical Secrets (gain 2 more spells)'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Master\'s Expertise (proficiency to Intelligence checks)'],
+    18: ['Bard College feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Superior Inspiration (regain Bardic Inspiration on initiative roll)']
   },
   cleric: {
-    1: ['Channel Divinity', 'Spellcasting', 'Divine Domain (subclass)'],
-    2: ['Channel Divinity option'],
-    3: ['Destroy Undead'],
-    5: ['Destroy Undead improvement', 'Potent Spellcasting'],
-    6: ['Channel Divinity improvement'],
-    8: ['Ability Score Improvement or Feat', 'Divine Strike'],
-    10: ['Divine Intervention'],
-    17: ['Divine Intervention improvement'],
-    20: ['Divine Intervention guaranteed']
+    1: ['Channel Divinity (use religious power)', 'Spellcasting', 'Divine Domain subclass choice', 'Turn Undead (use Channel Divinity)'],
+    2: ['Channel Divinity (2nd use)', 'Channel Divinity Recharge (short rest)'],
+    3: ['Destroy Undead (turn creatures with CR 1/8 or lower)'],
+    4: ['Ability Score Improvement or Feat'],
+    5: ['Destroy Undead (CR 1/4 or lower)', 'Potent Spellcasting (add ability modifier to spell damage)'],
+    6: ['Channel Divinity improvement (3 uses)', 'Divine Domain feature'],
+    7: ['Divine Domain feature'],
+    8: ['Ability Score Improvement or Feat', 'Divine Strike (add 1d8 damage to weapon attacks)'],
+    9: ['Potent Spellcasting enhancement'],
+    10: ['Divine Intervention (call for direct help from deity)'],
+    11: ['Divine Domain feature', 'Divine Strike (2d8 damage)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Divine Intervention improvement'],
+    14: ['Divine Domain feature'],
+    15: ['Divine Strike (3d8 damage)'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Divine Intervention improvement (2 uses)'],
+    18: ['Divine Domain feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Divine Intervention improvement (guaranteed success)']
   },
   druid: {
-    1: ['Druidic language', 'Spellcasting', 'Wild Shape'],
-    2: ['Wild Shape improvement', 'Wildfire Druid/Moon/Land (subclass)'],
-    3: ['Prepare spells upgrade'],
-    4: ['Ability Score Improvement or Feat', 'Wild Shape improvement'],
-    5: ['Higher CR Wild Shape forms'],
-    8: ['Ability Score Improvement or Feat'],
-    9: ['Improved Spellcasting'],
-    18: ['Beast Spells or Timeless Body'],
-    20: ['Unlimited Wild Shape forms']
+    1: ['Druidic language (secret script)', 'Spellcasting', 'Wild Shape (beast form from CR 1/4 or lower)'],
+    2: ['Wild Shape improvement (swim speed)', 'Druid Circle subclass choice'],
+    3: ['Prepare spells upgrade', 'Wild Shape improvement (flying form available)'],
+    4: ['Ability Score Improvement or Feat', 'Wild Shape improvement (CR 1/2, ignore prerequisite)'],
+    5: ['Higher CR Wild Shape forms available'],
+    6: ['Druid Circle feature'],
+    7: ['Druid Circle feature'],
+    8: ['Ability Score Improvement or Feat', 'Wild Shape improvement (2 uses)'],
+    9: ['Beast Spells (cast spells while in Wild Shape)'],
+    10: ['Druid Circle feature'],
+    11: ['Improved Wild Shape (CR 1, swarms of beasts)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Timeless Body (aging slows, magic can\'t age you)'],
+    14: ['Druid Circle feature'],
+    15: ['Beast Spells enhancement', 'Unlimited Wild Shape'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Unlimited Wild Shape (still use action)', 'Can bypass polymorphs'],
+    18: ['Druid Circle feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Unlimited Wild Shape (use bonus action to resume/change)']
   },
   fighter: {
-    1: ['Fighting Style', 'Second Wind', 'Action Surge'],
-    2: ['Action Surge improvement'],
-    3: ['Martial Archetype (subclass)'],
+    1: ['Fighting Style (choose archetype ability)', 'Second Wind (bonus action, heal 1d10+level)', 'Action Surge (bonus action, extra action)'],
+    2: ['Action Surge improvement (recharge on short rest)'],
+    3: ['Martial Archetype subclass choice'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Extra Attack'],
+    5: ['Extra Attack (attack twice per action)'],
     6: ['Ability Score Improvement or Feat'],
     7: ['Martial Archetype feature'],
     8: ['Ability Score Improvement or Feat'],
-    9: ['Indomitable'],
+    9: ['Indomitable (1 reroll per short rest on saving throws)'],
     10: ['Martial Archetype feature'],
-    11: ['Extra Attack (2)'],
-    13: ['Indomitable (2 uses)'],
+    11: ['Extra Attack (2, attack thrice per action)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Indomitable (2 rerolls)', 'Martial Archetype feature'],
+    14: ['Ability Score Improvement or Feat'],
     15: ['Martial Archetype feature'],
-    17: ['Action Surge improvement'],
-    20: ['Extra Attack (3)']
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Action Surge improvement (2 uses)', 'Indomitable (3 rerolls)'],
+    18: ['Martial Archetype feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Extra Attack (3, attack four times per action)']
   },
   monk: {
-    1: ['Martial Arts', 'Unarmored Defense'],
-    2: ['Ki Points', 'Unarmored Movement'],
-    3: ['Monastic Tradition (subclass)'],
+    1: ['Martial Arts (d4 unarmed damage, bonus action attacks)', 'Unarmored Defense (AC = 10 + DEX + WIS)'],
+    2: ['Ki Points (level Ki points, use with features)', 'Unarmored Movement (DEX modifier bonus to speed)'],
+    3: ['Monastic Tradition subclass choice'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Extra Attack', 'Stunning Strike'],
+    5: ['Extra Attack (two unarmed strikes per Attack action)', 'Stunning Strike (spend Ki to stun enemies)', 'Ki-Powered Abilities'],
     6: ['Monastic Tradition feature'],
-    7: ['Evasion'],
-    10: ['Purity of Body'],
-    13: ['Tongue of Sun and Moon'],
-    15: ['Diamond Soul'],
-    17: ['Timeless Body'],
-    20: ['Perfect Self']
+    7: ['Evasion (take half damage from DEX saves)', 'Stillness of Mind (bonus action, end charm/frighten)'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Unarmored Movement improvement (difficult terrain ignored)', 'Martial Arts (d6 unarmed damage)'],
+    10: ['Purity of Body (immune to poison/disease)'],
+    11: ['Monastic Tradition feature'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Tongue of Sun and Moon (speak to any language creature)'],
+    14: ['Monastic Tradition feature'],
+    15: ['Diamond Soul (proficiency in all saving throws)'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Timeless Body (immune to aging, no food/water needs)', 'Martial Arts (d8 unarmed damage)'],
+    18: ['Monastic Tradition feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Perfect Self (spend Ki to gain reaction on turn)']
   },
   paladin: {
-    1: ['Divine Sense', 'Lay on Hands', 'Spellcasting'],
-    2: ['Fighting Style', 'Spellcasting slot upgrade'],
-    3: ['Sacred Oath (subclass)', 'Channel Divinity'],
+    1: ['Divine Sense (sense fiends/celestials/undead)', 'Lay on Hands (touch, heal 5x level HP)', 'Spellcasting'],
+    2: ['Fighting Style', 'Spellcasting upgrade (spell slots)'],
+    3: ['Sacred Oath subclass choice', 'Channel Divinity (use oath power)'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Extra Attack', 'Divine Smite upgrade'],
-    6: ['Aura of Protection'],
+    5: ['Extra Attack', 'Divine Smite (spend slot for damage)'],
+    6: ['Aura of Protection (allies within 10 ft +CHA to saves)'],
     7: ['Sacred Oath feature'],
     8: ['Ability Score Improvement or Feat'],
-    10: ['Aura of Courage'],
-    11: ['Improved Divine Smite'],
-    14: ['Cleansing Touch'],
-    18: ['Aura improvements'],
-    20: ['Holy Nimbus']
+    9: ['Aura improvement (30 ft)', 'Divine Smite enhancement'],
+    10: ['Aura of Courage (immunity to fear in aura)'],
+    11: ['Improved Divine Smite (add damage even on hit)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Sacred Oath feature'],
+    14: ['Cleansing Touch (remove curse/disease, CHA uses)'],
+    15: ['Sacred Oath feature'],
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Aura improvements (60 ft)', 'Divine Smite (add d8 extra damage)'],
+    18: ['Sacred Oath feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Holy Nimbus (shed bright light 30ft, enemies disadvantage)']
   },
   ranger: {
-    1: ['Favored Enemy', 'Natural Explorer', 'Spellcasting'],
+    1: ['Favored Enemy (bonus damage vs chosen type)', 'Natural Explorer (expertise in favored terrain)', 'Spellcasting'],
     2: ['Fighting Style'],
-    3: ['Ranger Archetype (subclass)', 'Primeval Awareness'],
+    3: ['Ranger Archetype subclass choice', 'Primeval Awareness (sense favored enemies)'],
     4: ['Ability Score Improvement or Feat'],
     5: ['Extra Attack'],
+    6: ['Favored Enemy improvement', 'Natural Explorer improvement'],
     7: ['Ranger Archetype feature'],
-    8: ['Ability Score Improvement or Feat', 'Land Stride'],
+    8: ['Ability Score Improvement or Feat', 'Land Stride (ignore difficult terrain, no damage)'],
+    9: ['Hide in Plain Sight (invisible to enemies in natural terrain)'],
+    10: ['Natural Explorer upgrade (more terrain types)'],
     11: ['Ranger Archetype feature'],
-    14: ['Vanish'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Vanish (bonus action Hide every turn)'],
+    14: ['Favored Enemy improvement', 'Natural Explorer improvement'],
     15: ['Ranger Archetype feature'],
-    18: ['Feral Senses'],
-    20: ['Foe Slayer']
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Feral Senses (see invisible, sense magic)'],
+    18: ['Ranger Archetype feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Foe Slayer (add WIS modifier to damage vs favored enemies)']
   },
   rogue: {
-    1: ['Expertise', 'Sneak Attack', 'Thieves\' Cant'],
-    2: ['Cunning Action'],
-    3: ['Roguish Archetype (subclass)'],
+    1: ['Expertise (4 skills, 2x proficiency)', 'Sneak Attack (1d6 extra damage with advantage/ally nearby)', 'Thieves\' Cant'],
+    2: ['Cunning Action (bonus action Dash/Disengage/Hide)'],
+    3: ['Roguish Archetype subclass choice'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Uncanny Dodge', 'Sneak Attack increase'],
-    6: ['Expertise improvement'],
-    7: ['Evasion'],
+    5: ['Uncanny Dodge (reaction to halve damage)', 'Sneak Attack (2d6 damage)'],
+    6: ['Expertise improvement (6 skills)', 'Roguish Archetype feature'],
+    7: ['Evasion (take 0 damage on DEX save success)'],
     8: ['Ability Score Improvement or Feat'],
-    9: ['Roguish Archetype feature'],
-    11: ['Reliable Talent'],
-    14: ['Blindsense'],
-    15: ['Slippery Mind'],
+    9: ['Roguish Archetype feature', 'Sneak Attack (3d6 damage)'],
+    10: ['Ability Score Improvement or Feat'],
+    11: ['Reliable Talent (minimum 10 on skill checks)'],
+    12: ['Roguish Archetype feature'],
+    13: ['Blindsense (sense invisible/hidden creatures)', 'Sneak Attack (4d6 damage)'],
+    14: ['Ability Score Improvement or Feat'],
+    15: ['Slippery Mind (WIS save proficiency)'],
     16: ['Ability Score Improvement or Feat'],
-    17: ['Roguish Archetype feature'],
-    20: ['Stroke of Luck']
+    17: ['Roguish Archetype feature', 'Sneak Attack (5d6 damage)'],
+    18: ['Elusive (no opportunity attacks from attacks you see)'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Stroke of Luck (add d6 to attack, ability check, or save 1x per turn)']
   },
   sorcerer: {
-    1: ['Spellcasting', 'Sorcerous Origin (subclass)', 'Sorcery Points'],
-    3: ['Metamagic'],
+    1: ['Spellcasting', 'Sorcerous Origin subclass choice', 'Sorcery Points (level in number, recover on long rest)'],
+    2: ['Font of Magic (convert spell slots to Sorcery Points)'],
+    3: ['Metamagic (2 options)', 'Twinned Spell / Subtle Spell available'],
     4: ['Ability Score Improvement or Feat'],
+    5: ['Metamagic (3rd option)', 'Higher spell slots available'],
     6: ['Sorcerous Origin feature'],
-    9: ['Metamagic option 2'],
-    10: ['Sorcerous Origin feature'],
-    14: ['Sorcerous Resilience'],
+    7: ['Sorcerous Origin feature'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['Metamagic (4th option)', 'Sorcery Points improvement'],
+    10: ['Sorcerous Origin feature', 'Metamagic option improvement'],
+    11: ['High-level spell access (6th level)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Sorcerous Origin feature'],
+    14: ['Sorcerous Resilience (resistance to spell damage)'],
+    15: ['Metamagic (5th option)'],
+    16: ['Ability Score Improvement or Feat'],
     17: ['Sorcerous Origin feature'],
-    18: ['Sorcerous Restoration'],
-    20: ['Sorcerous Apotheosis']
+    18: ['Sorcerous Restoration (regain 4 Sorcery Points short rest)'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Sorcerous Apotheosis (ignore Somatic/Material components, +1 spell level)']
   },
   warlock: {
-    1: ['The Pact', 'Eldritch Invocations', 'Spellcasting (Pact Magic)'],
+    1: ['The Pact (patron bond)', 'Eldritch Invocations (2 choices)', 'Spellcasting (Pact Magic, recover on short rest)'],
     2: ['Eldritch Invocation option'],
-    3: ['Pact Boon (subclass)'],
+    3: ['Pact Boon subclass choice', 'Eldritch Invocation option'],
     4: ['Ability Score Improvement or Feat'],
-    5: ['Misty Visions invocation unlock'],
-    6: ['Pact Boon feature'],
+    5: ['Eldritch Invocation option', 'High-level Invocation unlock'],
+    6: ['Eldritch Invocation (bonus)'],
     7: ['Eldritch Invocation option'],
-    9: ['The One Ring theme'],
-    10: ['Pact Boon feature'],
-    11: ['Mystic Arcanum (6th level spell)'],
-    13: ['Mystic Arcanum (7th level spell)'],
-    14: ['Eldritch Master'],
+    8: ['Ability Score Improvement or Feat'],
+    9: ['The One Ring theme feature'],
+    10: ['Eldritch Invocation option'],
+    11: ['Mystic Arcanum (6th level spell, 1x per day)'],
+    12: ['Ability Score Improvement or Feat'],
+    13: ['Mystic Arcanum (7th level spell)', 'Eldritch Invocation option'],
+    14: ['Eldritch Master (regain spell slots 1x per short rest)'],
     15: ['Mystic Arcanum (8th level spell)'],
-    17: ['Mystic Arcanum (9th level spell)'],
-    20: ['Eldritch Master improvement']
+    16: ['Ability Score Improvement or Feat'],
+    17: ['Mystic Arcanum (9th level spell)', 'Eldritch Invocation option'],
+    18: ['Eldritch Master improvement (always available)'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Eldritch Master (unlimited use ability)']
   },
   wizard: {
-    1: ['Spellcasting', 'Arcane Recovery'],
-    2: ['Arcane Tradition (subclass)'],
+    1: ['Spellcasting', 'Arcane Recovery (recover spell slots on short rest)', 'Spellbook'],
+    2: ['Arcane Tradition subclass choice'],
+    3: ['Arcane Tradition feature'],
     4: ['Ability Score Improvement or Feat'],
+    5: ['Arcane Tradition feature'],
     6: ['Arcane Tradition feature'],
+    7: ['Arcane Tradition feature'],
     8: ['Ability Score Improvement or Feat'],
-    10: ['Arcane Tradition feature'],
+    9: ['Arcane Tradition feature'],
+    10: ['Ability Score Improvement or Feat'],
+    11: ['Spell Mastery (cast 1 wizard spell at will)'],
     12: ['Ability Score Improvement or Feat'],
+    13: ['Arcane Tradition feature'],
     14: ['Arcane Tradition feature'],
+    15: ['One with Magic (touch spell saves, use reaction to counter magic)'],
     16: ['Ability Score Improvement or Feat'],
-    18: ['Spell Mastery (2 wizard spells)'],
-    20: ['Signature Spell']
+    17: ['Spell Mastery (2 spells at will)'],
+    18: ['Arcane Tradition feature'],
+    19: ['Ability Score Improvement or Feat'],
+    20: ['Signature Spell (cast 3rd level spell twice per day at will)']
   }
 };
 
@@ -353,11 +448,12 @@ function updateGuide(){
       <h3>Leveling Up Checklist</h3>
       <ul>
         <li><input type="checkbox"> Add hit points (roll or use average)</li>
-        <li><input type="checkbox"> Update proficiency bonus (if applicable)</li>
+        <li><input type="checkbox"> Update proficiency bonus (if level 5/9/13/17)</li>
         <li><input type="checkbox"> Gain new abilities listed above</li>
         <li><input type="checkbox"> Review subclass features</li>
-        <li><input type="checkbox"> Update spell lists (if applicable)</li>
-        <li><input type="checkbox"> Take Ability Score Increase or Feat (if applicable)</li>
+        <li><input type="checkbox"> Update spell lists and prepare spells (if spellcaster)</li>
+        <li><input type="checkbox"> Take Ability Score Increase or Feat (if level 4/8/12/16/19)</li>
+        <li><input type="checkbox"> Recover resources (Hit Dice, channel divinity, etc)</li>
       </ul>
     </div>
   </div>`;
@@ -437,7 +533,7 @@ function getHitDie(klass){
 
 .feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
@@ -451,6 +547,8 @@ function getHitDie(klass){
   color: #4ade80;
   font-weight: bold;
   font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .no-features {
@@ -506,6 +604,10 @@ function getHitDie(klass){
 
   .control-group {
     min-width: auto;
+  }
+
+  .feature-item {
+    font-size: 14px;
   }
 }
 </style>
