@@ -40,7 +40,6 @@ PAGES = [
     'quick-reference.html',
     'combat-tracker.html',
     'dice-roller.html',
-    'encounter.html',
     'level-up-guide.html',
     'campaign-tracker.html',
     'campaign-log-builder.html',

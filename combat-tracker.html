@@ -64,10 +64,6 @@
       <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
       &nbsp;Dice Roller
     </a>
-    <a href="encounter.html" class="nav-item" data-page="encounter.html">
-      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
-      &nbsp;Encounter Tracker
-    </a>
     <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
       <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
       &nbsp;Level Up Guide
@@ -85,6 +81,8 @@
 
   </div>
 </nav>
+
+
 
 
 
@@ -174,6 +172,7 @@
     <div class="combat-strip-left">
       <button class="btn btn-ghost btn-sm" onclick="sortByInit()">⇅ Sort</button>
       <button class="btn btn-ghost btn-sm" onclick="clearRoster()">↺ Clear</button>
+      <button class="btn btn-ghost btn-sm" onclick="openExportModal()">⇄ Export</button>
     </div>
     <button class="btn btn-next" onclick="startCombat()" id="start-btn" disabled>Start Combat ▶</button>
   </div>
@@ -194,6 +193,7 @@
     </div>
     <div class="cb-right">
       <button class="btn btn-ghost btn-sm" onclick="endCombat()">✕ End</button>
+      <button class="btn btn-ghost btn-sm" id="prev-btn-top" onclick="previousTurn()" disabled>◀ Prev</button>
       <button class="btn btn-next" id="next-btn-top" onclick="nextTurn()">Start ▶</button>
     </div>
   </div>
@@ -208,7 +208,9 @@
       <button class="btn btn-ghost btn-sm full-only" onclick="openCondPanel()">◈ Conditions</button>
       <button class="btn btn-ghost btn-sm" onclick="clearDead()">✕ Dead</button>
       <button class="btn btn-ghost btn-sm" id="drag-toggle-btn" onclick="toggleDragging()">⠿ Drag</button>
+      <button class="btn btn-ghost btn-sm" onclick="openExportModal()">⇄ Export</button>
     </div>
+    <button class="btn btn-ghost btn-sm" id="prev-btn" onclick="previousTurn()" disabled>◀ Prev</button>
     <button class="btn btn-next" id="next-btn" onclick="nextTurn()">Start ▶</button>
   </div>
 
@@ -267,6 +269,20 @@
   </div>
 </div>
 
+<!-- Export / Import Modal -->
+<div class="overlay" id="export-modal">
+  <div class="modal">
+    <h3>Export / Import</h3>
+    <div class="fg" style="margin-bottom:.5rem"><label>JSON</label><textarea id="export-json" style="width:100%;font-family:monospace;font-size:.72rem;min-height:130px;resize:vertical;" spellcheck="false"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('export-modal')">Cancel</button>
+      <button class="btn btn-ghost" onclick="copyExport()">Copy</button>
+      <button class="btn btn-gold" onclick="loadFromExport()">Import</button>
+    </div>
+    <p style="font-style:italic;color:var(--text-dim);font-size:.78rem;margin-top:.5rem;">Import overwrites the current encounter.</p>
+  </div>
+</div>
+
 <!-- Save Party Modal -->
 <div class="overlay" id="party-modal">
   <div class="modal">
@@ -306,10 +322,33 @@ let touchId = null, touchClone = null;
 
 const CONDITIONS = ['Blinded','Charmed','Deafened','Exhausted','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified','Poisoned','Prone','Restrained','Stunned','Unconscious','Concentrating'];
 
+const STORAGE_KEY = 'tome_combat_tracker_v1';
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({units,nextId,turnIdx,round,phase,mode})); } catch(e) {}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (!d || typeof d !== 'object') return;
+    units   = Array.isArray(d.units) ? d.units : [];
+    nextId  = Number(d.nextId) || 1;
+    turnIdx = Number.isInteger(d.turnIdx) ? d.turnIdx : -1;
+    round   = Number(d.round) || 1;
+    phase   = d.phase === 'combat' ? 'combat' : 'setup';
+    mode    = d.mode  === 'full'   ? 'full'   : 'simple';
+  } catch(e) {}
+}
+
 function init() {
   buildCondGrid();
   renderSavedParty();
-  renderSetup();
+  load();
+  if (phase === 'combat') document.body.classList.add('in-combat');
+  setMode(mode);
   bindEnter('a-name', () => focus('a-init'));
   bindEnter('a-init', addCombatant);
   bindEnter('hp-amount', () => applyHp('damage'));
@@ -382,6 +421,7 @@ function endCombat() {
   closeCondPanel();
   document.body.classList.remove('in-combat');
   ['next-btn','next-btn-top'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='Start ▶'; });
+  ['prev-btn','prev-btn-top'].forEach(id => { const el=document.getElementById(id); if(el) el.disabled=true; });
   const dtb=document.getElementById('drag-toggle-btn');
   if(dtb){dtb.textContent='⠿ Drag';dtb.style.borderColor='';dtb.style.color='';}
   renderSetup();
@@ -400,6 +440,18 @@ function toggleDragging() {
 }
 
 // ═══════ TURN ═══════
+function previousTurn() {
+  const active = units.filter(u => !u.dead);
+  if (!active.length || turnIdx === -1) return;
+  const cur = units[turnIdx];
+  let ai = active.findIndex(u => u.id === (cur ? cur.id : -1));
+  ai = (ai - 1 + active.length) % active.length;
+  if (ai === active.length - 1) round = Math.max(1, round - 1);
+  turnIdx = units.indexOf(active[ai]);
+  renderCombat();
+  document.querySelector('.active-turn')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
 function nextTurn() {
   const active = units.filter(u => !u.dead);
   if(!active.length) return;
@@ -621,6 +673,7 @@ function renderSetup() {
     </div>`;
   }).join('');
   document.getElementById('start-btn').disabled=units.length===0;
+  save();
 }
 
 // ═══════ RENDER COMBAT ═══════
@@ -635,8 +688,11 @@ function renderCombat() {
     turnEl.innerHTML=a?`<span class="cb-active-name">${esc(a.name)}</span>'s turn${dyingNote}`:'—';
   }
 
+  ['next-btn','next-btn-top'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=turnIdx>=0?'Next ▶':'Start ▶';});
+  ['prev-btn','prev-btn-top'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=turnIdx===-1;});
+
   const list=document.getElementById('combat-list');
-  if(!units.length){list.innerHTML='<div style="text-align:center;padding:2.5rem;color:var(--text-dim);font-style:italic;font-family:Cinzel,serif;font-size:.8rem">No combatants.</div>';return;}
+  if(!units.length){list.innerHTML='<div style="text-align:center;padding:2.5rem;color:var(--text-dim);font-style:italic;font-family:Cinzel,serif;font-size:.8rem">No combatants.</div>';save();return;}
 
   list.innerHTML=units.map((u,idx)=>{
     const isActive=idx===turnIdx;
@@ -687,12 +743,44 @@ function renderCombat() {
       </div>
     </div>`;
   }).join('');
+  save();
 }
 
 // ═══════ MODALS ═══════
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-['hp-modal','edit-modal','party-modal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});});
+['hp-modal','edit-modal','party-modal','export-modal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});});
+
+// ═══════ EXPORT / IMPORT ═══════
+function openExportModal() {
+  document.getElementById('export-json').value = JSON.stringify({units,nextId,turnIdx,round,phase,mode}, null, 2);
+  openModal('export-modal');
+}
+
+async function copyExport() {
+  const t = document.getElementById('export-json');
+  try { await navigator.clipboard.writeText(t.value); } catch(e) { t.select(); document.execCommand('copy'); }
+}
+
+function loadFromExport() {
+  if (!confirm('Import will overwrite the current encounter. Continue?')) return;
+  const raw = document.getElementById('export-json').value;
+  try {
+    const d = JSON.parse(raw);
+    if (!d || typeof d !== 'object') throw new Error('Invalid');
+    units   = Array.isArray(d.units) ? d.units : [];
+    nextId  = Number(d.nextId) || (units.length ? Math.max(...units.map(u=>u.id)) + 1 : 1);
+    turnIdx = Number.isInteger(d.turnIdx) ? d.turnIdx : -1;
+    round   = Number(d.round) || 1;
+    phase   = d.phase === 'combat' ? 'combat' : 'setup';
+    mode    = d.mode  === 'full'   ? 'full'   : 'simple';
+    dragEnabled = false;
+    if (phase === 'combat') document.body.classList.add('in-combat');
+    else document.body.classList.remove('in-combat');
+    closeModal('export-modal');
+    setMode(mode);
+  } catch(e) { alert('Could not import. Check the JSON is valid.'); }
+}
 
 // ═══════ UTILS ═══════
 function d20(){return Math.floor(Math.random()*20)+1;}
@@ -707,7 +795,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;',
 document.addEventListener('keydown',e=>{
   if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;
   if(e.key==='n'||e.key==='N'){if(phase==='combat')nextTurn();}
-  if(e.key==='Escape'){closeCondPanel();['hp-modal','edit-modal','party-modal'].forEach(closeModal);}
+  if(e.key==='Escape'){closeCondPanel();['hp-modal','edit-modal','party-modal','export-modal'].forEach(closeModal);}
 });
 
 init();
