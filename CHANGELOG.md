@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.4.0] — 2026-06-10
+
+### Fixed
+- **Nav drawer broken on three pages** — `quick-reference.html`, `level-up-guide.html`, and `skills-feats.html` carried inline `openNav()`/`closeNav()` copies that toggled a `show` class the CSS never styled (`nav.css` styles `.nav-overlay.open`), so the overlay never appeared and the theme toggle/persisted theme were missing. All three now load the shared `assets/js/nav.js`.
+- **Combat tracker zero-HP handling** — the edit modal displayed an empty field for a combatant at 0 HP and silently discarded an entered `0` on save (`||` falsy checks); both now treat 0 as a valid value.
+
+### Changed
+- **One HTML-escape implementation** — removed the four divergent inline `esc()`/`escapeHtml()` copies (two in `campaign-tracker.html`, one in `combat-tracker.html`, plus `escapeAttr()` in the log builder); pages now share the null-safe, full-entity `esc()` in `assets/js/utils.js`.
+- **Shared modal module wired in** — `conditions.html`, `magic-items.html`, `monsters.html`, and `wildshape.html` now use `assets/js/modal.js` for close/overlay-click/Escape handling instead of per-page copies; `magic-items.html` tooltip positioning now uses `initTooltips()` from `utils.js`. The combat tracker keeps its own multi-modal system (different mechanism by design).
+- **Per-page CSS extracted** — inline `<style>` blocks in `quick-reference.html`, `level-up-guide.html`, and `skills-feats.html` moved into their (previously orphaned, stale) files under `assets/css/`, matching the rest of the site.
+
+### Removed
+- **Stale spell-tome build layer** — `_src/build.py` regenerated `index.html` from `_src/scripts/app.js`, `_src/data/spells.js`/`spellSlots.js`, and `_src/styles/*`, all of which predate the current two-edition `spelltome.html`; running it would have overwritten the hub with an outdated single-edition build. The live root HTML files are the source of truth. `_src/build_nav.py` and `_src/components/nav.html` remain.
+- **Dead shared JS** — `assets/js/filters.js`, `selection.js`, and `print.js` were loaded by no page (every page has its own inline variants).
+- **Scratch/migration artifacts** — `test.txt`, `fix_spells.ps1`, `gen_fix.ps1`, `generate_fix.bat`, `spells2024_block.txt` (240 KB).
+
+---
+
 ## [1.3.0] — 2026-02-24
 
 ### Added

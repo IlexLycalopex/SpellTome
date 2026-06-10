@@ -173,6 +173,8 @@
 </div>
 <div id="print-output"></div>
 
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/modal.js"></script>
 <script>
 const RARITY_COLORS = {
   Common:'#7a7a8a', Uncommon:'#2a7a3a', Rare:'#2a3a8a',
@@ -592,42 +594,10 @@ function openModal(item) {
   document.getElementById('modal-overlay').classList.add('active');
 }
 
-function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-
-// Smart tooltip positioning — keeps bubble within viewport
-document.querySelectorAll('.tooltip-wrap').forEach(wrap => {
-  const bubble = wrap.querySelector('.tooltip-bubble');
-  if (!bubble) return;
-  wrap.addEventListener('mouseenter', () => {
-    bubble.style.display = 'block';
-    const icon = wrap.querySelector('.tooltip-icon') || wrap;
-    const ir = icon.getBoundingClientRect();
-    const bw = bubble.offsetWidth;
-    const bh = bubble.offsetHeight;
-    const margin = 10;
-    // Default: centred above icon
-    let left = ir.left + ir.width / 2 - bw / 2;
-    let top  = ir.top - bh - 10;
-    // Clamp horizontally
-    if (left < margin) left = margin;
-    if (left + bw > window.innerWidth - margin) left = window.innerWidth - bw - margin;
-    // If no room above, flip below
-    if (top < margin) {
-      top = ir.bottom + 10;
-      bubble.style.setProperty('--arrow-top', 'auto');
-    }
-    bubble.style.left = left + 'px';
-    bubble.style.top  = top  + 'px';
-    // Reposition ::after arrow to match actual horizontal centre of icon
-    const arrowLeft = (ir.left + ir.width / 2 - left);
-    bubble.style.setProperty('--arrow-x', arrowLeft + 'px');
-  });
-  wrap.addEventListener('mouseleave', () => { bubble.style.display = 'none'; });
-});
+initTooltips();
 
 document.addEventListener('keydown', e => {
-  if(e.key==='Escape') { closeModal(); closePrintPreview(); }
+  if(e.key==='Escape') closePrintPreview();
 });
 
 function toggleFilters() {

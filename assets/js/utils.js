@@ -4,7 +4,7 @@
 
 /** HTML-escape a string for safe insertion into innerHTML */
 function esc(str) {
-  return String(str)
+  return String(str ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

@@ -305,6 +305,7 @@
   </div>
 </div>
 
+<script src="assets/js/utils.js"></script>
 <script>
 // ═══════ STATE ═══════
 let units = [];
@@ -517,8 +518,8 @@ function openEditModal(id) {
   document.getElementById('edit-init').value=u.initiative;
   document.getElementById('edit-type').value=u.type;
   if(mode==='full') {
-    document.getElementById('edit-hp-cur').value=u.hpCur||'';
-    document.getElementById('edit-hp-max').value=u.hpMax||'';
+    document.getElementById('edit-hp-cur').value=u.hpCur??'';
+    document.getElementById('edit-hp-max').value=u.hpMax??'';
     document.getElementById('edit-ac').value=u.ac||'';
     document.getElementById('edit-notes').value=u.notes||'';
   }
@@ -531,8 +532,10 @@ function saveEdit() {
   u.initiative=parseInt(document.getElementById('edit-init').value)||u.initiative;
   u.type=document.getElementById('edit-type').value;
   if(mode==='full') {
-    u.hpCur=parseInt(document.getElementById('edit-hp-cur').value)||u.hpCur;
-    u.hpMax=parseInt(document.getElementById('edit-hp-max').value)||u.hpMax;
+    const hpCur=parseInt(document.getElementById('edit-hp-cur').value);
+    const hpMax=parseInt(document.getElementById('edit-hp-max').value);
+    if(!isNaN(hpCur))u.hpCur=hpCur;
+    if(!isNaN(hpMax))u.hpMax=hpMax;
     u.ac=parseInt(document.getElementById('edit-ac').value)||null;
     u.notes=document.getElementById('edit-notes').value.trim();
   }
@@ -789,7 +792,6 @@ function val(id){return(document.getElementById(id)?.value||'').trim();}
 function int(id,def){const v=parseInt(document.getElementById(id)?.value);return isNaN(v)?def:v;}
 function clear(id){const el=document.getElementById(id);if(el)el.value='';}
 function focus(id){document.getElementById(id)?.focus();}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
 // ═══════ KEYBOARD ═══════
 document.addEventListener('keydown',e=>{

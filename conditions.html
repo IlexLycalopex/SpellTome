@@ -123,10 +123,11 @@
   <p>Try adjusting your search or filters.</p>
 </div>
 
-<div id="modal-overlay" onclick="closeModal(event)">
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
   <div id="modal-box"></div>
 </div>
 
+<script src="assets/js/modal.js"></script>
 <script>
 // SVG icon strings used as card/modal icons for each condition
 const SVG = {
@@ -455,13 +456,6 @@ function openModal(c) {
   }
   document.getElementById('modal-overlay').classList.add('active');
 }
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modal-overlay') || e.type !== 'click' || !e.target.closest('#modal-box')) {
-    document.getElementById('modal-overlay').classList.remove('active');
-  }
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');

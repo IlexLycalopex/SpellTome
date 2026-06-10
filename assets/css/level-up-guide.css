@@ -1,115 +1,74 @@
 /* ============================================================
    LEVEL-UP-GUIDE.CSS — Level Up Guide tool styling
-   Inherits: theme.css, layout.css, nav.css, components.css
+   Inherits: theme.css, layout.css, nav.css
    ============================================================ */
 
 .guide-container {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 24px;
 }
 
-.guide-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.8rem, 5vw, 2.2rem);
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: var(--text-light);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.guide-container h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 32px;
 }
 
-.guide-subtitle {
-  color: var(--text-muted);
-  font-size: 0.95rem;
+.subtitle {
+  color: var(--text-secondary);
   margin-bottom: 32px;
-  font-style: italic;
 }
 
-/* Control panels */
 .guide-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 16px;
   margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 
 .control-group {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
 }
 
 .control-group label {
   display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
   margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--text-secondary);
 }
 
 .control-group select {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background: var(--input-bg);
-  color: var(--text-light);
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 0.95rem;
-  transition: all 0.15s ease;
-  cursor: pointer;
-}
-
-.control-group select:hover {
-  border-color: var(--gold);
-  background: var(--input-bg-focus);
-}
-
-.control-group select:focus {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
-}
-
-/* Guide result section */
-.guide-result {
-  display: none;
-}
-
-.guide-result.active {
-  display: block;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 14px;
 }
 
 .guide-result h2 {
-  font-family: 'Cinzel', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--gold);
   margin: 0 0 24px 0;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(201, 168, 76, 0.3);
+  font-size: 24px;
 }
 
-/* Features list */
 .features-list {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .feature-item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.95rem;
-  color: var(--text-light);
-  line-height: 1.5;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .feature-item:last-child {
@@ -119,39 +78,27 @@
 .feature-checkmark {
   color: #4ade80;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 16px;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.feature-item span {
-  flex: 1;
-}
-
 .no-features {
-  color: var(--text-muted);
-  font-style: italic;
-  text-align: center;
-  padding: 20px;
   margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
-/* Leveling checklist */
 .level-up-tips {
-  background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05));
-  border: 1px solid rgba(46, 204, 113, 0.3);
+  background: var(--card-header-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
 }
 
 .level-up-tips h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #4ade80;
   margin: 0 0 16px 0;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(46, 204, 113, 0.3);
+  font-size: 16px;
 }
 
 .level-up-tips ul {
@@ -161,121 +108,37 @@
 }
 
 .level-up-tips li {
+  padding: 8px 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-  color: var(--text-light);
-  font-size: 0.95rem;
+  gap: 10px;
 }
 
 .level-up-tips input[type="checkbox"] {
+  cursor: pointer;
   width: 18px;
   height: 18px;
-  cursor: pointer;
-  accent-color: #4ade80;
-  flex-shrink: 0;
 }
 
-/* Empty prompt */
 .empty-prompt {
-  background: var(--bg-elevated);
-  border: 1px dashed var(--border);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 60px 40px;
+  padding: 40px 24px;
   text-align: center;
-  color: var(--text-muted);
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--text-secondary);
 }
 
-.empty-prompt p {
-  font-size: 1.1rem;
-  margin: 0;
-  font-style: italic;
-}
-
-/* Mobile optimization */
-@media (max-width: 768px) {
-  .guide-container {
-    padding: 16px;
-  }
-
-  .guide-title {
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-  }
-
+@media (max-width: 600px) {
   .guide-controls {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    flex-direction: column;
   }
 
-  .guide-result h2 {
-    font-size: 1.3rem;
+  .control-group {
+    min-width: auto;
   }
 
-  .features-list,
-  .level-up-tips {
-    padding: 16px;
-  }
-
-  .feature-item,
-  .level-up-tips li {
-    padding: 10px 0;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .guide-container {
-    padding: 12px;
-  }
-
-  .guide-title {
-    font-size: 1.3rem;
-  }
-
-  .guide-subtitle {
-    font-size: 0.85rem;
-  }
-
-  .control-group label {
-    font-size: 0.75rem;
-  }
-
-  .control-group select {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-  }
-
-  .guide-result h2 {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-
-  .features-list,
-  .level-up-tips {
-    padding: 12px;
-    margin-bottom: 16px;
-  }
-
-  .level-up-tips h3,
-  .features-list {
-    font-size: 0.95rem;
-  }
-
-  .feature-checkmark {
-    font-size: 1rem;
-  }
-
-  .empty-prompt {
-    padding: 40px 20px;
-    min-height: 250px;
-  }
-
-  .empty-prompt p {
-    font-size: 1rem;
+  .feature-item {
+    font-size: 14px;
   }
 }
