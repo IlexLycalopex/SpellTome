@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.0] — 2026-06-10
+
+### Added
+- **Monster Codex → Combat Tracker handoff** — every monster's stat-block modal has an "⚔ Add to Combat" button, and the header gains a "⚔ To Combat" action for the current selection. Queued creatures (name, HP, AC, DEX modifier) are picked up by the Combat Tracker on load: initiative is auto-rolled (d20 + DEX mod), HP/AC pre-filled, and duplicate names auto-numbered (Goblin, Goblin 2, …). A header badge on the Monster Codex shows the pending queue and links to the tracker.
+- **Log Builder: edit existing sessions** — "Load Session…" lists the playlog vault via the GitHub API and loads any session note back into the form. The round-trip parser was verified stable against all 17 existing session files.
+- **Log Builder: Submit to GitHub** — submits without holding any credentials: the markdown is copied to the clipboard and a github.com page opens under the user's own GitHub session (prefilled new-file page for new sessions, edit page for updates; fork/PR flow applies automatically for non-collaborators). No tokens are embedded or stored — see the security note in `campaign-log-builder.js`.
+
+---
+
 ## [1.4.0] — 2026-06-10
 
 ### Fixed

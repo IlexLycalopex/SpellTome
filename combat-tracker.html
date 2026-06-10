@@ -348,6 +348,7 @@ function init() {
   buildCondGrid();
   renderSavedParty();
   load();
+  importCombatQueue();
   if (phase === 'combat') document.body.classList.add('in-combat');
   setMode(mode);
   bindEnter('a-name', () => focus('a-init'));
@@ -372,6 +373,37 @@ function pickType(t) {
   ['pc','npc','enemy'].forEach(x => {
     document.getElementById('tb-'+x).className = 'type-btn' + (x===t ? ' sel-'+x : '');
   });
+}
+
+// ═══════ MONSTER CODEX IMPORT ═══════
+// monsters.html queues creatures under this key; they are absorbed into
+// the roster on load (initiative auto-rolled from the monster's DEX mod).
+const COMBAT_QUEUE_KEY = 'tome_combat_queue_v1';
+
+function importCombatQueue() {
+  let queue;
+  try {
+    queue = JSON.parse(localStorage.getItem(COMBAT_QUEUE_KEY));
+    localStorage.removeItem(COMBAT_QUEUE_KEY);
+  } catch(e) { return; }
+  if (!Array.isArray(queue) || !queue.length) return;
+  queue.forEach(m => {
+    const bonus = Number(m.dexMod) || 0;
+    const hpMax = Number(m.hpMax) || 0;
+    units.push({
+      id:nextId++, name:uniqueName(String(m.name||'Monster')), type:'enemy',
+      initiative:d20()+bonus, bonus, hpMax, hpCur:hpMax,
+      ac:Number(m.ac)||null, notes:'', conditions:[], dead:false, dying:false, ds:{s:0,f:0}
+    });
+  });
+  save();
+}
+
+function uniqueName(base) {
+  if (!units.some(u => u.name === base)) return base;
+  let i = 2;
+  while (units.some(u => u.name === `${base} ${i}`)) i += 1;
+  return `${base} ${i}`;
 }
 
 // ═══════ ADD ═══════
