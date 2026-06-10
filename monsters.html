@@ -158,7 +158,7 @@
   <h2>No Monsters Found</h2>
   <p>Adjust your filters to find your quarry.</p>
 </div>
-<div id="modal-overlay" onclick="handleModalClick(event)">
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
   <div id="modal-box"></div>
 </div>
 <div id="print-preview-overlay">
@@ -171,6 +171,7 @@
 </div>
 <div id="print-output"></div>
 
+<script src="assets/js/modal.js"></script>
 <script>
 const TYPE_COLORS = {
   aberration:'#6a3a8a', beast:'#4a7a2a', celestial:'#b8902a', construct:'#5a6a7a',
@@ -634,10 +635,6 @@ function openModal(m) {
   document.getElementById('modal-overlay').classList.add('active');
 }
 
-function handleModalClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
-function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');
@@ -703,7 +700,7 @@ function executePrint() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closePrintPreview(); }
+  if (e.key === 'Escape') closePrintPreview();
 });
 
 document.addEventListener('DOMContentLoaded', () => {

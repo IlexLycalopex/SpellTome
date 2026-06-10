@@ -46,7 +46,7 @@ const listConfig = {
         <div class="stack-grid">
           <label class="field">
             <span>Player name</span>
-            <input type="text" data-bind="players.${index}" value="${escapeAttr(value)}" placeholder="Jamie Watts">
+            <input type="text" data-bind="players.${index}" value="${escapeHtml(value)}" placeholder="Jamie Watts">
           </label>
         </div>
       </div>`
@@ -84,7 +84,7 @@ const listConfig = {
           </label>
           <label class="field">
             <span>Callout title</span>
-            <input type="text" data-bind="events.${index}.title" value="${escapeAttr(value.title)}" placeholder="Milestone">
+            <input type="text" data-bind="events.${index}.title" value="${escapeHtml(value.title)}" placeholder="Milestone">
           </label>
         </div>
         <label class="field">
@@ -117,11 +117,11 @@ const listConfig = {
           </label>
           <label class="field">
             <span>Name</span>
-            <input type="text" data-bind="npcs.${index}.name" value="${escapeAttr(value.name)}" placeholder="Caulder Marskyl">
+            <input type="text" data-bind="npcs.${index}.name" value="${escapeHtml(value.name)}" placeholder="Caulder Marskyl">
           </label>
           <label class="field">
             <span>Status</span>
-            <input type="text" data-bind="npcs.${index}.status" value="${escapeAttr(value.status)}" placeholder="Allied">
+            <input type="text" data-bind="npcs.${index}.status" value="${escapeHtml(value.status)}" placeholder="Allied">
           </label>
         </div>
         <label class="field">
@@ -141,7 +141,7 @@ const listConfig = {
         </div>
         <label class="field">
           <span>Location</span>
-          <input type="text" data-bind="locations.${index}" value="${escapeAttr(value)}" placeholder="Goldenfields">
+          <input type="text" data-bind="locations.${index}" value="${escapeHtml(value)}" placeholder="Goldenfields">
         </label>
       </div>`
   },
@@ -156,7 +156,7 @@ const listConfig = {
         </div>
         <label class="field">
           <span>Hook title</span>
-          <input type="text" data-bind="threads.${index}.title" value="${escapeAttr(value.title)}" placeholder="Pendant to return to [[Waterdeep]]">
+          <input type="text" data-bind="threads.${index}.title" value="${escapeHtml(value.title)}" placeholder="Pendant to return to [[Waterdeep]]">
         </label>
         <label class="field">
           <span>Main body</span>
@@ -179,7 +179,7 @@ const listConfig = {
         </div>
         <label class="field">
           <span>Milestone text</span>
-          <input type="text" data-bind="milestones.${index}" value="${escapeAttr(value)}" placeholder="Level up to level 4!">
+          <input type="text" data-bind="milestones.${index}" value="${escapeHtml(value)}" placeholder="Level up to level 4!">
         </label>
       </div>`
   }
@@ -374,7 +374,7 @@ function renderItemActions(listName, index) {
 }
 
 function renderOptions(options, selected) {
-  return options.map(option => `<option value="${escapeAttr(option)}" ${option === selected ? 'selected' : ''}>${escapeHtml(option)}</option>`).join('');
+  return options.map(option => `<option value="${escapeHtml(option)}" ${option === selected ? 'selected' : ''}>${escapeHtml(option)}</option>`).join('');
 }
 
 function generateMarkdown(data) {
@@ -457,7 +457,7 @@ function renderMarkdown(markdown) {
 
   const flushCallout = () => {
     if (!callout) return;
-    html += `<div class="callout ${escapeAttr(callout.type)}"><div class="callout-title">${escapeHtml(callout.title)}</div>${callout.lines.map(line => `<p>${inlineMarkdown(line)}</p>`).join('')}</div>`;
+    html += `<div class="callout ${escapeHtml(callout.type)}"><div class="callout-title">${escapeHtml(callout.title)}</div>${callout.lines.map(line => `<p>${inlineMarkdown(line)}</p>`).join('')}</div>`;
     callout = null;
   };
 
@@ -645,20 +645,19 @@ function setAtPath(target, path, value) {
   const parts = path.split('.');
   let current = target;
   for (let i = 0; i < parts.length - 1; i += 1) {
+    if (current[parts[i]] == null) current[parts[i]] = {};
     current = current[parts[i]];
   }
   current[parts[parts.length - 1]] = value;
-}
-
-function escapeAttr(value) {
-  return escapeHtml(value).replace(/"/g, '&quot;');
 }
 
 function escapeHtml(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function escapeDoubleQuotes(value) {

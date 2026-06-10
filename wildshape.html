@@ -199,6 +199,7 @@
 </div>
 <div id="print-output"></div>
 
+<script src="assets/js/modal.js"></script>
 <script>
 function cr(n) { if(n===0.125)return'1/8'; if(n===0.25)return'1/4'; if(n===0.5)return'1/2'; return String(n); }
 function mod(n) { const m=Math.floor((n-10)/2); return (m>=0?'+':'')+m; }
@@ -1042,9 +1043,7 @@ function openModal(item) {
   document.getElementById('modal-overlay').classList.add('active');
 }
 
-function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') { closeModal(); closePrintPreview(); } });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closePrintPreview(); });
 
 function toggleFilters() {
   const bar = document.getElementById('filter-bar');
