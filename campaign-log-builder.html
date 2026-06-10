@@ -99,12 +99,15 @@
     <div class="builder-toolbar">
       <div class="toolbar-copy">
         <span class="toolbar-label">Template</span>
-        <strong>Storm King's Thunder session note</strong>
+        <strong id="template-label">Storm King's Thunder session note</strong>
       </div>
       <div class="toolbar-actions">
+        <select id="load-select" class="toolbar-btn subtle" style="display:none" aria-label="Choose a session to edit"></select>
+        <button type="button" class="toolbar-btn subtle" id="load-btn">Load Session&hellip;</button>
         <button type="button" class="toolbar-btn subtle" id="reset-btn">Reset</button>
         <button type="button" class="toolbar-btn" id="save-btn">Save Draft</button>
-        <button type="button" class="toolbar-btn primary" id="download-btn">Download .md</button>
+        <button type="button" class="toolbar-btn" id="download-btn">Download .md</button>
+        <button type="button" class="toolbar-btn primary" id="submit-btn">Submit to GitHub</button>
       </div>
     </div>
   </div>

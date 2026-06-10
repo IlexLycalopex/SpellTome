@@ -32,6 +32,8 @@ const hasStoredDraft = (() => {
 
 let state = loadState();
 let sessionManuallyEdited = hasStoredDraft && Boolean(String(state.session || '').trim());
+let editingFile = null;   // filename in playlog/ when editing an existing session
+let repoBranch = 'main';
 
 const listConfig = {
   players: {
@@ -244,9 +246,23 @@ function bindToolbar() {
   document.getElementById('reset-btn').addEventListener('click', () => {
     state = emptyState();
     sessionManuallyEdited = false;
+    editingFile = null;
+    updateEditingUI();
     render();
     void initializeSuggestedSessionNumber(true);
     setStatus('Draft reset');
+  });
+
+  document.getElementById('load-btn').addEventListener('click', () => {
+    void toggleSessionPicker();
+  });
+
+  document.getElementById('load-select').addEventListener('change', event => {
+    if (event.target.value) void loadSession(event.target.value);
+  });
+
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    void submitToGitHub();
   });
 }
 
@@ -564,8 +580,254 @@ function hasText(value) {
 }
 
 function getFilename() {
+  if (editingFile) return editingFile;
   const session = String(state.session || '000').padStart(3, '0');
   return `SKT - ${session}.md`;
+}
+
+// ═══════ EDIT EXISTING SESSIONS ═══════
+
+async function toggleSessionPicker() {
+  const select = document.getElementById('load-select');
+  if (select.style.display !== 'none') {
+    select.style.display = 'none';
+    return;
+  }
+  setStatus('Fetching session list…');
+  try {
+    const branch = await fetchDefaultBranch();
+    repoBranch = branch;
+    const tree = await fetchJSON(`${API_BASE}/git/trees/${branch}?recursive=1`);
+    const files = tree.tree
+      .filter(item => item.type === 'blob' && item.path.startsWith(`${SESSIONS_PATH}/`) && item.path.endsWith('.md'))
+      .map(item => item.path.split('/').pop())
+      .sort()
+      .reverse();
+    if (!files.length) {
+      setStatus('No sessions found in the vault');
+      return;
+    }
+    select.innerHTML = '<option value="">Select a session…</option>'
+      + files.map(file => `<option value="${escapeHtml(file)}">${escapeHtml(file)}</option>`).join('');
+    select.style.display = '';
+    setStatus(`${files.length} session${files.length === 1 ? '' : 's'} in the vault`);
+  } catch (error) {
+    setStatus('Could not reach GitHub — check your connection');
+  }
+}
+
+async function loadSession(filename) {
+  setStatus(`Loading ${filename}…`);
+  try {
+    const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${repoBranch}/${SESSIONS_PATH}/${encodeURIComponent(filename)}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const markdown = await response.text();
+    state = parseMarkdownToState(markdown);
+    editingFile = filename;
+    sessionManuallyEdited = true;
+    document.getElementById('load-select').style.display = 'none';
+    updateEditingUI();
+    render();
+    setStatus(`Editing ${filename} — Submit opens GitHub to commit the update`);
+  } catch (error) {
+    setStatus(`Could not load ${filename}`);
+  }
+}
+
+function updateEditingUI() {
+  document.getElementById('template-label').textContent =
+    editingFile ? `Editing ${editingFile}` : "Storm King's Thunder session note";
+  document.getElementById('submit-btn').textContent =
+    editingFile ? 'Submit Update' : 'Submit to GitHub';
+}
+
+/**
+ * Parse a session markdown file (as produced by generateMarkdown) back into
+ * builder state. Tolerant of hand-edited files: unknown lines are ignored,
+ * missing sections keep the template defaults.
+ */
+function parseMarkdownToState(markdown) {
+  const next = emptyState();
+  const fm = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  const body = fm ? fm[2] : markdown;
+
+  if (fm) {
+    const meta = {};
+    let listKey = null;
+    fm[1].split('\n').forEach(line => {
+      if (listKey && /^\s+-\s+/.test(line)) {
+        meta[listKey].push(stripWikiBrackets(yamlUnquote(line.replace(/^\s+-\s+/, '').trim())));
+        return;
+      }
+      const kv = line.match(/^(\w[\w_-]*):\s*(.*)$/);
+      if (!kv) { listKey = null; return; }
+      const key = kv[1];
+      const value = (kv[2] || '').trim();
+      if (!value) { meta[key] = []; listKey = key; return; }
+      meta[key] = yamlUnquote(value);
+      listKey = null;
+    });
+    if (meta.campaign) next.campaign = meta.campaign;
+    if (meta.ruleset) next.ruleset = meta.ruleset;
+    if (meta.session != null) next.session = String(meta.session);
+    if (meta.date) next.date = meta.date;
+    if (meta.gm) next.gm = stripWikiBrackets(meta.gm);
+    if (Array.isArray(meta.players_present) && meta.players_present.length) next.players = meta.players_present;
+    if (meta.synopsis) next.synopsis = meta.synopsis;
+    if (meta.web_status) next.webStatus = meta.web_status;
+  }
+
+  const sections = {};
+  let current = null;
+  body.split('\n').forEach(line => {
+    const heading = line.match(/^##\s+(.*)$/);
+    if (heading) { current = heading[1].trim().toLowerCase(); sections[current] = []; return; }
+    if (current) sections[current].push(line);
+  });
+
+  const recap = bulletItems(sections['session recap']);
+  if (recap.length) next.recap = recap;
+
+  const events = parseCallouts(sections['key events']).map(callout => ({
+    type: clampType(callout.type, 'important'),
+    title: callout.title,
+    body: callout.lines.join('\n')
+  }));
+  if (events.length) next.events = events;
+
+  const npcs = parseCallouts(sections['npcs encountered']).map(callout => {
+    const split = callout.title.match(/^(.*?):\s*(.*)$/);
+    const mode = split && split[1].trim() === 'NPC Update' ? 'NPC Update' : 'New NPC';
+    const name = stripWikiBrackets(split ? split[2] : callout.title);
+    let status = '';
+    const notes = [];
+    callout.lines.forEach(line => {
+      const statusMatch = line.match(/^\*\*Status:\*\*\s*(.*)$/);
+      if (statusMatch) status = statusMatch[1].trim();
+      else notes.push(line);
+    });
+    return { mode, type: clampType(callout.type, 'info'), name, status, notes: notes.join('\n') };
+  });
+  if (npcs.length) next.npcs = npcs;
+
+  const locations = bulletItems(sections['locations visited']).map(stripWikiBrackets);
+  if (locations.length) next.locations = locations;
+
+  const threads = parseCallouts(sections['open threads']).map(callout => {
+    const bodyLines = [];
+    const asideLines = [];
+    callout.lines.forEach(line => {
+      // Nested quotes (">  >  text" with one level stripped) are asides.
+      const aside = line.match(/^>\s*(.*)$/);
+      if (aside) asideLines.push(aside[1].trim());
+      else bodyLines.push(line);
+    });
+    return {
+      title: callout.title.replace(/^Hook:\s*/i, '').trim(),
+      body: bodyLines.join('\n'),
+      aside: asideLines.join('\n')
+    };
+  });
+  if (threads.length) next.threads = threads;
+
+  const milestones = bulletItems(sections['milestones'])
+    .map(item => item.replace(/^\*\*Milestone reached:\*\*\s*/i, '').trim());
+  if (milestones.length) next.milestones = milestones;
+
+  return next;
+}
+
+function parseCallouts(lines) {
+  if (!lines) return [];
+  const callouts = [];
+  let current = null;
+  lines.forEach(line => {
+    const start = line.match(/^>\s*\[!(\w+)\]\s*(.*)$/);
+    if (start) {
+      current = { type: start[1].toLowerCase(), title: start[2].trim(), lines: [] };
+      callouts.push(current);
+      return;
+    }
+    if (current && /^>/.test(line)) {
+      const text = line.replace(/^>\s*/, '').trimEnd();
+      if (text.trim()) current.lines.push(text);
+      return;
+    }
+    current = null;
+  });
+  return callouts;
+}
+
+function bulletItems(lines) {
+  return (lines || [])
+    .filter(line => /^-\s+/.test(line))
+    .map(line => line.replace(/^-\s+/, '').trim())
+    .filter(Boolean);
+}
+
+function yamlUnquote(value) {
+  const text = String(value || '');
+  if (text.startsWith('"') && text.endsWith('"') && text.length >= 2) {
+    return text.slice(1, -1).replace(/\\"/g, '"');
+  }
+  return text;
+}
+
+function clampType(type, fallback) {
+  return ['important', 'info', 'warning', 'question'].includes(type) ? type : fallback;
+}
+
+function stripWikiBrackets(value) {
+  const match = String(value || '').trim().match(/^\[\[([^\]|]+)(?:\|([^\]]+))?\]\]$/);
+  return match ? (match[2] || match[1]).trim() : String(value || '').trim();
+}
+
+// ═══════ SUBMIT ═══════
+
+/*
+ * Security: submission hands the markdown to github.com instead of
+ * committing from this page. A static public site cannot hold write
+ * credentials safely — an embedded token would be visible to every
+ * visitor, and a user-pasted token kept in localStorage could be
+ * exfiltrated by any future XSS bug. Delegating to GitHub's own web UI
+ * means the commit happens under the user's existing GitHub session:
+ * GitHub enforces authentication, authorisation (collaborators commit
+ * directly, anyone else is routed into a fork + pull request), and the
+ * commit is attributed and auditable. The markdown is also copied to the
+ * clipboard because the /edit page cannot be prefilled and very large
+ * files exceed the /new URL length limit.
+ */
+async function submitToGitHub() {
+  const markdown = generateMarkdown(state);
+  const filename = getFilename();
+  let copied = true;
+  try {
+    await navigator.clipboard.writeText(markdown);
+  } catch (error) {
+    copied = false;
+  }
+
+  let url;
+  if (editingFile) {
+    url = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/edit/${repoBranch}/${SESSIONS_PATH}/${encodeURIComponent(filename)}`;
+    setStatus(copied
+      ? 'Markdown copied — replace the file contents on GitHub and commit'
+      : 'Clipboard unavailable — use Copy Markdown, then paste on GitHub');
+  } else {
+    const base = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/new/${repoBranch}?filename=${encodeURIComponent(`${SESSIONS_PATH}/${filename}`)}`;
+    const prefilled = `${base}&value=${encodeURIComponent(markdown)}`;
+    if (prefilled.length <= 7500) {
+      url = prefilled;
+      setStatus('Review the prefilled file on GitHub and commit');
+    } else {
+      url = base;
+      setStatus(copied
+        ? 'Note too large to prefill — markdown copied, paste it on GitHub'
+        : 'Clipboard unavailable — use Copy Markdown, then paste on GitHub');
+    }
+  }
+  window.open(url, '_blank', 'noopener');
 }
 
 function downloadMarkdown() {

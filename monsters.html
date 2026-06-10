@@ -99,8 +99,10 @@
     <div class="app-title">Monster Codex <span>D&D 5e Quick Reference</span></div>
     <div style="display:flex;align-items:center;gap:8px;">
       <span class="selection-badge" id="selection-count">0 selected</span>
+      <a class="btn-ghost" id="combat-queue-badge" href="combat-tracker.html" style="display:none" title="Open Combat Tracker">&#9876; 0 queued</a>
       <button class="btn-ghost" id="btn-select-all" onclick="selectAllVisible()" disabled>Select All</button>
       <button class="btn-ghost" id="btn-clear" onclick="clearSelection()" disabled>Clear</button>
+      <button class="btn-ghost" id="btn-combat" onclick="sendSelectedToCombat()" disabled title="Queue selected monsters for the Combat Tracker">&#9876; To Combat</button>
       <button class="btn btn-print" id="btn-print" onclick="openPrintPreview()" disabled>&#128424; Print to PDF</button>
       <button id="btn-filter-toggle" onclick="toggleFilters()">Filters <span id="toggle-arrow">▼</span></button>
       <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation"><span></span><span></span><span></span></button>
@@ -582,6 +584,7 @@ function renderGrid() {
 }
 
 function openModal(m) {
+  modalMonster = m;
   const color = TYPE_COLORS[m.type] || '#555';
   const box = document.getElementById('modal-box');
   const tags = [];
@@ -597,6 +600,7 @@ function openModal(m) {
         <div class="modal-title">${m.name}</div>
         <div class="modal-subtitle">${m.size} ${m.type.charAt(0).toUpperCase()+m.type.slice(1)} — CR ${cr(m.cr)}</div>
       </div>
+      <button class="modal-close" id="modal-combat-btn" onclick="sendModalToCombat()">&#9876; Add to Combat</button>
       <button class="modal-close" onclick="closeModal()">Close</button>
     </div>
     <div class="modal-body">
@@ -669,7 +673,51 @@ function updateSelectionUI() {
   const hasSel = n > 0;
   document.getElementById('btn-print').disabled = !hasSel;
   document.getElementById('btn-clear').disabled = !hasSel;
+  document.getElementById('btn-combat').disabled = !hasSel;
   document.getElementById('btn-select-all').disabled = filtered().length === 0;
+}
+
+// ═══════ COMBAT TRACKER HANDOFF ═══════
+// Queued creatures are picked up (and the key cleared) by combat-tracker.html on load.
+const COMBAT_QUEUE_KEY = 'tome_combat_queue_v1';
+let modalMonster = null;
+
+function readCombatQueue() {
+  try {
+    const q = JSON.parse(localStorage.getItem(COMBAT_QUEUE_KEY));
+    return Array.isArray(q) ? q : [];
+  } catch(e) { return []; }
+}
+
+function queueForCombat(list) {
+  const queue = readCombatQueue();
+  list.forEach(m => queue.push({
+    name: m.name,
+    hpMax: m.hp,
+    ac: m.ac,
+    dexMod: Math.floor((m.dex - 10) / 2)
+  }));
+  try { localStorage.setItem(COMBAT_QUEUE_KEY, JSON.stringify(queue)); } catch(e) { return; }
+  updateCombatQueueBadge();
+}
+
+function updateCombatQueueBadge() {
+  const badge = document.getElementById('combat-queue-badge');
+  const n = readCombatQueue().length;
+  badge.style.display = n ? '' : 'none';
+  badge.innerHTML = `&#9876; ${n} queued`;
+}
+
+function sendModalToCombat() {
+  if (!modalMonster) return;
+  queueForCombat([modalMonster]);
+  const btn = document.getElementById('modal-combat-btn');
+  if (btn) btn.innerHTML = `&#10003; Queued (${readCombatQueue().length})`;
+}
+
+function sendSelectedToCombat() {
+  queueForCombat(MONSTERS.filter(m => selectedMonsters.has(m.name)));
+  clearSelection();
 }
 
 function openPrintPreview() {
@@ -709,6 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPills();
   renderGrid();
   updateSelectionUI();
+  updateCombatQueueBadge();
 });
 initPills();
 renderGrid();
