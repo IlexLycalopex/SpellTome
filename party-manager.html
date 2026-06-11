@@ -322,6 +322,7 @@
       : '—';
 
     empty.hidden = party.length > 0;
+    empty.style.display = party.length > 0 ? 'none' : '';
 
     grid.innerHTML = party.map(c => {
       const cls = c.klass ? ' style="--class-color: var(--cl-' + c.klass.toLowerCase() + ')"' : '';

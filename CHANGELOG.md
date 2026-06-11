@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.0.2] — 2026-06-11
+
+### Fixed
+- **Ghost buttons hidden on mobile** — a shared responsive rule meant to hide the desktop-only print/selection controls was hiding *every* `.btn-ghost` on screens under 768px. On phones this removed the Party Manager's Edit/Export/Import/Cancel buttons, the Combat Tracker's Sort/Clear/Export/End/Cancel/Manage controls, and the Encounter Builder's Save/Delete. The rule is now scoped to the actual selection/print controls (`#btn-select-all`, `#btn-clear`, `#btn-combat`, `.btn-print`, `.selection-badge`, `.select-indicator`).
+- **Party Manager empty state** — "No Adventurers Yet" could appear below an existing roster; its hiding is now enforced via inline style and a `[hidden]` CSS rule with `!important` on every render.
+
+---
+
 ## [2.0.1] — 2026-06-11
 
 ### Changed

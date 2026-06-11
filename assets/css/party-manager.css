@@ -238,6 +238,8 @@ html[data-theme="light"] body {
 }
 
 /* ── EMPTY STATE ─────────────────────────────────────────────── */
+.pm-empty[hidden] { display: none !important; }
+
 .pm-empty {
   text-align: center;
   border: 1px dashed var(--border);
