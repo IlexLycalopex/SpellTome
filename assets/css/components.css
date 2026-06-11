@@ -401,7 +401,9 @@ input[type="number"]::placeholder {
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   #btn-filter-toggle { display: flex; }
-  .btn-print, .btn-ghost, .selection-badge, .select-indicator { display: none !important; }
+  /* Card selection & print are desktop-only features: hide their controls,
+     not every ghost button — pages use .btn-ghost for Edit/Cancel/etc. */
+  .btn-print, #btn-select-all, #btn-clear, #btn-combat, .selection-badge, .select-indicator { display: none !important; }
 
   /* Modal: reduce overlay padding so box gets full width */
   #modal-overlay { padding: 12px; }
