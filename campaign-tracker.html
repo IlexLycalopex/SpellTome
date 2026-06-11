@@ -136,11 +136,14 @@
   <div id="app-header">
     <div class="header-top">
       <div class="app-title">Campaign Chronicle <span>Session Log</span></div>
-      <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
-        <span></span><span></span><span></span>
-      </button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button id="btn-filter-toggle" onclick="toggleFilters()" aria-expanded="false">Filters <span id="toggle-arrow">&#9660;</span></button>
+        <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <div class="filter-bar">
+    <div class="filter-bar" id="filter-bar">
       <label for="campaign-filter" class="filter-label">Campaign</label>
       <select id="campaign-filter"><option value="">All</option></select>
       <label for="ruleset-filter" class="filter-label" style="margin-left:6px;">Ruleset</label>
@@ -402,6 +405,14 @@
     }
 
     /* ── Filters ─────────────────────────────────────────────────── */
+    function toggleFilters() {
+      const bar = document.getElementById('filter-bar');
+      const btn = document.getElementById('btn-filter-toggle');
+      const open = bar.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', String(open));
+      document.getElementById('toggle-arrow').innerHTML = open ? '&#9650;' : '&#9660;';
+    }
+
     function buildFilters() {
       const camps=[...new Set(allSessions.map(s=>s.meta.campaign).filter(Boolean))].sort();
       const rules=[...new Set(allSessions.map(s=>s.meta.ruleset).filter(Boolean))].sort();

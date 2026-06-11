@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.5.0] — 2026-06-11
+
+### Added
+- **Character sheet modal** — clicking a Party Manager card now opens a full character view (all stats, player, campaign, notes) with status controls and an "✎ Edit Character" action. The card's ✎ Edit button remains and now uses a page-local style immune to shared responsive rules, so it can never be hidden on mobile again.
+
+### Fixed
+- **Campaign Chronicle filters unusable on mobile** — the campaign/ruleset/search filter bar collapses on small screens but the page had no Filters toggle button, leaving campaign selection unreachable on phones. Added the standard toggle.
+- **Encounter Builder filters unusable on mobile** — same collapse affected its monster browser (search/CR/type); the bar is mid-page rather than in a sticky header, so it is now permanently expanded.
+- Site-wide mobile audit: all remaining responsive `display:none` rules verified intentional (decorative hints and date stamps only — no functionality hidden).
+
+---
+
 ## [2.4.1] — 2026-06-11
 
 ### Fixed
