@@ -1,0 +1,263 @@
+/* ============================================================
+   PARTY-MANAGER.CSS — Party Manager page unique styles
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+/* ── CLASS ACCENT COLOURS (12 PHB classes) ───────────────────── */
+:root {
+  --cl-barbarian: #c0392b;
+  --cl-bard:      #c4306a;
+  --cl-cleric:    #c9a84c;
+  --cl-druid:     #27ae60;
+  --cl-fighter:   #7a5a2a;
+  --cl-monk:      #2a9d8f;
+  --cl-paladin:   #e8c97a;
+  --cl-ranger:    #4a7a2a;
+  --cl-rogue:     #5a5a7a;
+  --cl-sorcerer:  #e07a3a;
+  --cl-warlock:   #6a2a8a;
+  --cl-wizard:    #2980b9;
+}
+
+/* ── BACKGROUND ──────────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(0,55,110,0.18) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 75%, rgba(74,0,120,0.16) 0%, transparent 52%);
+}
+
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(126,145,92,0.12) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 75%, rgba(181,130,84,0.14) 0%, transparent 52%);
+}
+
+.tool-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── INTEGRATION BANNER ──────────────────────────────────────── */
+.pm-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.06);
+  border-radius: 6px;
+  padding: 0.55rem 0.9rem;
+  margin: 0.9rem 0 1rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.pm-banner svg { width: 1rem; height: 1rem; stroke: var(--gold); flex-shrink: 0; }
+
+/* ── SUMMARY BAR ─────────────────────────────────────────────── */
+.pm-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.pm-stats { display: flex; gap: 1.2rem; flex: 1; min-width: 0; }
+
+.pm-stat        { display: flex; flex-direction: column; line-height: 1.15; }
+.pm-stat-num    { font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+.pm-stat-label  { font-family: 'Cinzel', serif; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+
+.pm-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+/* ── BUTTONS ─────────────────────────────────────────────────── */
+.btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.42rem 0.9rem;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.btn-gold       { background: linear-gradient(135deg, var(--gold-dim), var(--gold)); border-color: var(--gold); color: #0d0b08; font-weight: 700; }
+.btn-gold:hover { background: linear-gradient(135deg, var(--gold), #e8c97a); }
+.btn-ghost      { background: transparent; border-color: var(--border); color: var(--text-muted); }
+.btn-ghost:hover{ border-color: var(--gold-dim); color: var(--gold); }
+.btn-danger     { background: transparent; border-color: rgba(192,57,43,0.4); color: #ec7063; }
+.btn-danger:hover { background: rgba(192,57,43,0.12); border-color: #c0392b; }
+.btn-danger.confirming { background: linear-gradient(135deg, #7a1a10, #c0392b); border-color: #c0392b; color: #fff; }
+.btn-sm         { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
+
+/* ── ADD / EDIT FORM PANEL ───────────────────────────────────── */
+.pm-form-panel {
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  animation: pmSlideIn 0.15s ease;
+}
+
+.pm-form-panel[hidden] { display: none; }
+
+.pm-form-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.form-row       { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.45rem; }
+.form-row.trio  { grid-template-columns: 1fr 1fr 1fr; }
+.form-row.penta { grid-template-columns: repeat(5, 1fr); }
+.form-row.solo  { grid-template-columns: 1fr; }
+
+.fg             { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.fg label       { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+.fg input, .fg select {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-light);
+  padding: 0.38rem 0.55rem;
+  border-radius: 5px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.92rem;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s;
+}
+.fg input:focus, .fg select:focus { outline: none; border-color: var(--gold-dim); background: var(--input-bg-focus); }
+.fg input::placeholder { color: var(--text-dim); }
+.fg input.invalid      { border-color: #c0392b; }
+
+.pm-form-actions { display: flex; gap: 0.4rem; justify-content: flex-end; margin-top: 0.7rem; }
+.pm-form-error   { color: #ec7063; font-size: 0.85rem; font-style: italic; flex: 1; align-self: center; }
+
+/* ── CHARACTER CARD GRID ─────────────────────────────────────── */
+.pm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 0.8rem;
+}
+
+.pm-card {
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--class-color, var(--gold-dim));
+  border-radius: 7px;
+  padding: 0.85rem 1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s;
+  animation: pmSlideIn 0.15s ease;
+}
+
+.pm-card:hover {
+  background: color-mix(in srgb, var(--bg-panel) 90%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+}
+
+.pm-card-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: 1.2;
+}
+
+.pm-card-player {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 0.05rem;
+}
+
+.pm-card-class {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--class-color, var(--gold));
+  margin-top: 0.35rem;
+}
+
+.pm-card-race { color: var(--text-muted); text-transform: none; letter-spacing: 0.02em; font-family: 'EB Garamond', Georgia, serif; font-size: 0.82rem; font-style: italic; }
+
+/* Stat chips */
+.pm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+
+.pm-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-soft);
+  line-height: 1.15;
+}
+
+.pm-chip-val   { font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 700; color: var(--text-light); }
+.pm-chip-label { font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+
+.pm-card-notes {
+  margin-top: 0.55rem;
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.45rem;
+  line-height: 1.35;
+}
+
+.pm-card-actions {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+  margin-top: 0.6rem;
+}
+
+/* ── EMPTY STATE ─────────────────────────────────────────────── */
+.pm-empty {
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 3rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.pm-empty svg     { width: 3rem; height: 3rem; stroke: var(--gold-dim); margin-bottom: 0.8rem; }
+.pm-empty h2      { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 0.4rem; }
+.pm-empty p       { font-style: italic; margin-bottom: 1.1rem; }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes pmSlideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .tool-container { padding: 16px; }
+  .form-row.penta { grid-template-columns: repeat(3, 1fr); }
+  .pm-summary     { flex-direction: column; align-items: stretch; }
+  .pm-stats       { justify-content: space-around; }
+  .pm-actions     { justify-content: center; }
+}

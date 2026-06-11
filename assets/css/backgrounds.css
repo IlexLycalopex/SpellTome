@@ -1,0 +1,240 @@
+/* ============================================================
+   BACKGROUNDS.CSS — Backgrounds & Races styling
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+:root {
+  --origin-bg:   #3a7a5a;  /* backgrounds — verdant green  */
+  --origin-race: #6a4a8a;  /* races — arcane violet        */
+}
+
+/* ── PAGE BACKGROUND ─────────────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 40%, rgba(20,80,50,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 15%, rgba(70,30,110,0.12) 0%, transparent 60%);
+}
+
+.tool-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.tool-container h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+
+.tool-container .subtitle {
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 4px 0 20px;
+}
+
+/* ── CONTROLS BAR ────────────────────────────────────────────── */
+.origin-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--card-shell);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.origin-controls .search-input {
+  flex: 1;
+  min-width: 180px;
+  max-width: 360px;
+}
+
+/* Pills (matching filters.css pattern used on Condition Codex) */
+.pill-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.pill:hover { border-color: var(--text-dim); color: var(--text-light); }
+
+.pill.active {
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
+
+.pill[data-type="background"].active {
+  background: color-mix(in srgb, var(--origin-bg) 24%, transparent);
+  border-color: var(--origin-bg);
+  color: color-mix(in srgb, var(--origin-bg) 45%, var(--text-strong));
+}
+
+.pill[data-type="race"].active {
+  background: color-mix(in srgb, var(--origin-race) 28%, transparent);
+  border-color: var(--origin-race);
+  color: color-mix(in srgb, var(--origin-race) 40%, var(--text-strong));
+}
+
+/* ── RESULTS COUNT BAR ───────────────────────────────────────── */
+#results-bar {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--results-bg);
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-bottom: 18px;
+}
+
+/* ── CARD GRID ───────────────────────────────────────────────── */
+#card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* ── ORIGIN CARD (Condition Codex card pattern) ──────────────── */
+.origin-card {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #222;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  border: 2.5px solid transparent;
+}
+
+.origin-card:hover,
+.origin-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
+  outline: none;
+}
+
+.origin-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  min-height: 50px;
+  background: var(--origin-color, #444);
+}
+
+.origin-card .card-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  flex: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+.origin-card .card-type-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.85);
+  border-radius: 3px;
+  padding: 2px 6px;
+  flex-shrink: 0;
+}
+
+.origin-card .card-body { padding: 8px 12px 10px; background: #fff; }
+
+.origin-card .card-row {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  padding: 3px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.origin-card .card-row:last-child { border-bottom: none; }
+
+.origin-card .card-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--origin-color, #666);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ── MODAL (Condition Codex modal pattern) ───────────────────── */
+.modal-trait-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.45;
+}
+
+.modal-trait-row:last-child { border-bottom: none; }
+
+.modal-trait-row.flavor span:last-child { font-style: italic; color: #555; }
+
+.modal-bullet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--origin-color, #666);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.modal-text {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #card-grid { grid-template-columns: 1fr 1fr; }
+  .origin-controls .search-input { max-width: none; order: 3; flex-basis: 100%; }
+}
+
+@media (max-width: 480px) {
+  #card-grid { grid-template-columns: 1fr; }
+  .tool-container { padding: 16px; }
+}

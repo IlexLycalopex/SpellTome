@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Backgrounds & Races | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/backgrounds.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item active" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="party-manager.html" class="nav-item" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party Manager
+    </a>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>Backgrounds & Races</h1>
+    <p class="subtitle">D&D 5e character origins reference</p>
+
+    <div class="origin-controls">
+      <div class="pill-filters" id="type-pills">
+        <button type="button" class="pill active" data-type="all" onclick="setType(this)" aria-pressed="true">All</button>
+        <button type="button" class="pill" data-type="background" onclick="setType(this)">Backgrounds</button>
+        <button type="button" class="pill" data-type="race" onclick="setType(this)">Races</button>
+      </div>
+      <input type="text" class="search-input" id="search-input" placeholder="Search names, proficiencies, traits&hellip;" oninput="applyFilters()" aria-label="Search backgrounds and races">
+      <button class="btn-ghost" onclick="resetFilters()">Reset</button>
+    </div>
+
+    <div id="results-bar" aria-live="polite"></div>
+
+    <div id="card-grid"></div>
+
+    <div id="empty-state" style="display:none;">
+      <svg class="rune" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M32 14v36M14 32h36M20 20l24 24M44 20L20 44"/></svg>
+      <h2>No Origins Found</h2>
+      <p>Try adjusting your search or filters.</p>
+    </div>
+  </main>
+</div>
+
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/modal.js"></script>
+<script>
+// PAGE SCRIPT
+const COLORS = { background: '#3a7a5a', race: '#6a4a8a' };
+
+// ── BACKGROUNDS — all 13 PHB (2014) backgrounds ─────────────────
+const BACKGROUNDS = [
+  {
+    name: 'Acolyte', type: 'background',
+    skills: ['Insight', 'Religion'], tools: [], languages: 'Two of your choice',
+    equipment: 'A holy symbol (a gift to you when you entered the priesthood), a prayer book or prayer wheel, 5 sticks of incense, vestments, a set of common clothes, and a pouch containing 15 gp.',
+    feature: { name: 'Shelter of the Faithful', desc: 'As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity and have a residence there, and you can call upon the priests for assistance so long as it would not be hazardous to them and you remain in good standing.' },
+    flavor: [
+      'I idolize a particular hero of my faith, and constantly refer to that person’s deeds and example.',
+      'I see omens in every event and action. The gods try to speak to us, we just need to listen.',
+      'Ideal: Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld.',
+      'Ideal: Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.'
+    ]
+  },
+  {
+    name: 'Charlatan', type: 'background',
+    skills: ['Deception', 'Sleight of Hand'], tools: ['Disguise kit', 'Forgery kit'], languages: 'None',
+    equipment: 'A set of fine clothes, a disguise kit, tools of the con of your choice (ten stoppered bottles filled with colored liquid, a set of weighted dice, a deck of marked cards, or a signet ring of an imaginary duke), and a pouch containing 15 gp.',
+    feature: { name: 'False Identity', desc: 'You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy.' },
+    flavor: [
+      'I fall in and out of love easily, and am always pursuing someone.',
+      'Flattery is my preferred trick for getting what I want.',
+      'I lie about almost everything, even when there’s no good reason to.',
+      'Ideal: Independence. I am a free spirit — no one tells me what to do.'
+    ]
+  },
+  {
+    name: 'Criminal', type: 'background',
+    skills: ['Deception', 'Stealth'], tools: ['One type of gaming set', 'Thieves’ tools'], languages: 'None',
+    equipment: 'A crowbar, a set of dark common clothes including a hood, and a pouch containing 15 gp.',
+    feature: { name: 'Criminal Contact', desc: 'You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.' },
+    flavor: [
+      'I always have a plan for what to do when things go wrong.',
+      'I am always calm, no matter what the situation. I never raise my voice or let my emotions control me.',
+      'The best way to get me to do something is to tell me I can’t do it.',
+      'Ideal: Honor. I don’t steal from others in the trade.'
+    ]
+  },
+  {
+    name: 'Entertainer', type: 'background',
+    skills: ['Acrobatics', 'Performance'], tools: ['Disguise kit', 'One type of musical instrument'], languages: 'None',
+    equipment: 'A musical instrument (one of your choice), the favor of an admirer (love letter, lock of hair, or trinket), a costume, and a pouch containing 15 gp.',
+    feature: { name: 'By Popular Demand', desc: 'You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble’s court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.' },
+    flavor: [
+      'I know a story relevant to almost every situation.',
+      'I love a good insult, even one directed at me.',
+      'Nobody stays angry at me or around me for long, since I can defuse any amount of tension.',
+      'Ideal: Beauty. When I perform, I make the world better than it was.'
+    ]
+  },
+  {
+    name: 'Folk Hero', type: 'background',
+    skills: ['Animal Handling', 'Survival'], tools: ['One type of artisan’s tools', 'Vehicles (land)'], languages: 'None',
+    equipment: 'A set of artisan’s tools (one of your choice), a shovel, an iron pot, a set of common clothes, and a pouch containing 10 gp.',
+    feature: { name: 'Rustic Hospitality', desc: 'Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you.' },
+    flavor: [
+      'I judge people by their actions, not their words.',
+      'If someone is in trouble, I’m always ready to lend help.',
+      'When I set my mind to something, I follow through no matter what gets in my way.',
+      'Ideal: Sincerity. There’s no good in pretending to be something I’m not.'
+    ]
+  },
+  {
+    name: 'Guild Artisan', type: 'background',
+    skills: ['Insight', 'Persuasion'], tools: ['One type of artisan’s tools'], languages: 'One of your choice',
+    equipment: 'A set of artisan’s tools (one of your choice), a letter of introduction from your guild, a set of traveler’s clothes, and a pouch containing 15 gp.',
+    feature: { name: 'Guild Membership', desc: 'As an established and respected member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities and towns, a guildhall offers a central place to meet other members of your profession. Guilds often wield tremendous political power; you may be able to call on the guild’s assistance in legal or political matters. You must pay dues of 5 gp per month to the guild to remain in good standing.' },
+    flavor: [
+      'I believe that anything worth doing is worth doing right. I can’t help it — I’m a perfectionist.',
+      'I always want to know how things work and what makes people tick.',
+      'I’m well known for my work, and I want to make sure everyone appreciates it.',
+      'Ideal: Generosity. My talents were given to me so that I could use them to benefit the world.'
+    ]
+  },
+  {
+    name: 'Hermit', type: 'background',
+    skills: ['Medicine', 'Religion'], tools: ['Herbalism kit'], languages: 'One of your choice',
+    equipment: 'A scroll case stuffed full of notes from your studies or prayers, a winter blanket, a set of common clothes, an herbalism kit, and 5 gp.',
+    feature: { name: 'Discovery', desc: 'The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history.' },
+    flavor: [
+      'I’ve been isolated for so long that I rarely speak, preferring gestures and the occasional grunt.',
+      'I am utterly serene, even in the face of disaster.',
+      'I feel tremendous empathy for all who suffer.',
+      'Ideal: Self-Knowledge. If you know yourself, there’s nothing left to know.'
+    ]
+  },
+  {
+    name: 'Noble', type: 'background',
+    skills: ['History', 'Persuasion'], tools: ['One type of gaming set'], languages: 'One of your choice',
+    equipment: 'A set of fine clothes, a signet ring, a scroll of pedigree, and a purse containing 25 gp.',
+    feature: { name: 'Position of Privilege', desc: 'Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to.' },
+    flavor: [
+      'My eloquent flattery makes everyone I talk to feel like the most wonderful and important person in the world.',
+      'Despite my noble birth, I do not place myself above other folk. We all have the same blood.',
+      'No one could doubt by looking at my regal bearing that I am a cut above the unwashed masses.',
+      'Ideal: Responsibility. It is my duty to respect the authority of those above me, just as those below me must respect mine.'
+    ]
+  },
+  {
+    name: 'Outlander', type: 'background',
+    skills: ['Athletics', 'Survival'], tools: ['One type of musical instrument'], languages: 'One of your choice',
+    equipment: 'A staff, a hunting trap, a trophy from an animal you killed, a set of traveler’s clothes, and a pouch containing 10 gp.',
+    feature: { name: 'Wanderer', desc: 'You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth.' },
+    flavor: [
+      'I watch over my friends as if they were a litter of newborn pups.',
+      'I’m driven by a wanderlust that led me away from home.',
+      'I feel far more comfortable around animals than people.',
+      'Ideal: Glory. I must earn glory in battle, for myself and my clan.'
+    ]
+  },
+  {
+    name: 'Sage', type: 'background',
+    skills: ['Arcana', 'History'], tools: [], languages: 'Two of your choice',
+    equipment: 'A bottle of black ink, a quill, a small knife, a letter from a dead colleague posing a question you have not yet been able to answer, a set of common clothes, and a pouch containing 10 gp.',
+    feature: { name: 'Researcher', desc: 'When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Knowing where the information can be found does not automatically enable you to obtain it; unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.' },
+    flavor: [
+      'I use polysyllabic words that convey the impression of great erudition.',
+      'There’s nothing I like more than a good mystery.',
+      'I am horribly, horribly awkward in social situations.',
+      'Ideal: Knowledge. The path to power and self-improvement is through knowledge.'
+    ]
+  },
+  {
+    name: 'Sailor', type: 'background',
+    skills: ['Athletics', 'Perception'], tools: ['Navigator’s tools', 'Vehicles (water)'], languages: 'None',
+    equipment: 'A belaying pin (club), 50 feet of silk rope, a lucky charm such as a rabbit foot or a small stone with a hole in the center (or you may roll for a random trinket), a set of common clothes, and a pouch containing 10 gp.',
+    feature: { name: 'Ship’s Passage', desc: 'When you need to, you can secure free passage on a sailing ship for yourself and your adventuring companions. You might sail on the ship you served on, or another ship you have good relations with (perhaps one captained by a former crewmate). Because you are calling in a favor, you cannot be certain of a schedule or route that will meet your every need. In return for your free passage, you and your companions are expected to assist the crew during the voyage.' },
+    flavor: [
+      'My friends know they can rely on me, no matter what.',
+      'I work hard so that I can play hard when the work is done.',
+      'I never pass up a friendly wager.',
+      'Ideal: Freedom. The sea is freedom — the freedom to go anywhere and do anything.'
+    ]
+  },
+  {
+    name: 'Soldier', type: 'background',
+    skills: ['Athletics', 'Intimidation'], tools: ['One type of gaming set', 'Vehicles (land)'], languages: 'None',
+    equipment: 'An insignia of rank, a trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner), a set of bone dice or deck of cards, a set of common clothes, and a pouch containing 10 gp.',
+    feature: { name: 'Military Rank', desc: 'You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized.' },
+    flavor: [
+      'I’m always polite and respectful.',
+      'I can stare down a hell hound without flinching.',
+      'I face problems head-on. A simple, direct solution is the best path to success.',
+      'Ideal: Responsibility. I do what I must and obey just authority.'
+    ]
+  },
+  {
+    name: 'Urchin', type: 'background',
+    skills: ['Sleight of Hand', 'Stealth'], tools: ['Disguise kit', 'Thieves’ tools'], languages: 'None',
+    equipment: 'A small knife, a map of the city you grew up in, a pet mouse, a token to remember your parents by, a set of common clothes, and a pouch containing 10 gp.',
+    feature: { name: 'City Secrets', desc: 'You know the secret patterns and flow of cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow.' },
+    flavor: [
+      'I hide scraps of food and trinkets away in my pockets.',
+      'I sleep with my back to a wall or tree, with everything I own wrapped in a bundle in my arms.',
+      'I bluntly say what other people are hinting at or hiding.',
+      'Ideal: Community. We have to take care of each other, because no one else is going to do it.'
+    ]
+  }
+];
+
+// ── RACES — 9 PHB (2014) races with subraces ────────────────────
+const DWARF_BASE = [
+  { n: 'Dwarven Resilience', d: 'You have advantage on saving throws against poison, and you have resistance against poison damage.' },
+  { n: 'Dwarven Combat Training', d: 'You have proficiency with the battleaxe, handaxe, light hammer, and warhammer.' },
+  { n: 'Tool Proficiency', d: 'You gain proficiency with the artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools.' },
+  { n: 'Stonecunning', d: 'Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check.' },
+  { n: 'Speed', d: 'Your speed is not reduced by wearing heavy armor.' }
+];
+const ELF_BASE = [
+  { n: 'Keen Senses', d: 'You have proficiency in the Perception skill.' },
+  { n: 'Fey Ancestry', d: 'You have advantage on saving throws against being charmed, and magic can’t put you to sleep.' },
+  { n: 'Trance', d: 'Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day, gaining the same benefit a human does from 8 hours of sleep.' }
+];
+const HALFLING_BASE = [
+  { n: 'Lucky', d: 'When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.' },
+  { n: 'Brave', d: 'You have advantage on saving throws against being frightened.' },
+  { n: 'Halfling Nimbleness', d: 'You can move through the space of any creature that is of a size larger than yours.' }
+];
+const GNOME_BASE = [
+  { n: 'Gnome Cunning', d: 'You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic.' }
+];
+
+const RACES = [
+  {
+    name: 'Dwarf — Hill Dwarf', type: 'race',
+    asi: '+2 Constitution, +1 Wisdom', size: 'Medium', speed: '25 ft.', darkvision: '60 ft.', languages: 'Common, Dwarvish',
+    traits: DWARF_BASE.concat([
+      { n: 'Dwarven Toughness', d: 'Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.' }
+    ])
+  },
+  {
+    name: 'Dwarf — Mountain Dwarf', type: 'race',
+    asi: '+2 Constitution, +2 Strength', size: 'Medium', speed: '25 ft.', darkvision: '60 ft.', languages: 'Common, Dwarvish',
+    traits: DWARF_BASE.concat([
+      { n: 'Dwarven Armor Training', d: 'You have proficiency with light and medium armor.' }
+    ])
+  },
+  {
+    name: 'Elf — High Elf', type: 'race',
+    asi: '+2 Dexterity, +1 Intelligence', size: 'Medium', speed: '30 ft.', darkvision: '60 ft.', languages: 'Common, Elvish, plus one extra language of your choice',
+    traits: ELF_BASE.concat([
+      { n: 'Elf Weapon Training', d: 'You have proficiency with the longsword, shortsword, shortbow, and longbow.' },
+      { n: 'Cantrip', d: 'You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it.' }
+    ])
+  },
+  {
+    name: 'Elf — Wood Elf', type: 'race',
+    asi: '+2 Dexterity, +1 Wisdom', size: 'Medium', speed: '35 ft.', darkvision: '60 ft.', languages: 'Common, Elvish',
+    traits: ELF_BASE.concat([
+      { n: 'Elf Weapon Training', d: 'You have proficiency with the longsword, shortsword, shortbow, and longbow.' },
+      { n: 'Fleet of Foot', d: 'Your base walking speed increases to 35 feet.' },
+      { n: 'Mask of the Wild', d: 'You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.' }
+    ])
+  },
+  {
+    name: 'Elf — Drow (Dark Elf)', type: 'race',
+    asi: '+2 Dexterity, +1 Charisma', size: 'Medium', speed: '30 ft.', darkvision: '120 ft. (Superior Darkvision)', languages: 'Common, Elvish',
+    traits: ELF_BASE.concat([
+      { n: 'Superior Darkvision', d: 'Your darkvision has a radius of 120 feet.' },
+      { n: 'Sunlight Sensitivity', d: 'You have disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight.' },
+      { n: 'Drow Magic', d: 'You know the dancing lights cantrip. At 3rd level, you can cast faerie fire once per long rest; at 5th level, darkness once per long rest. Charisma is your spellcasting ability for these spells.' },
+      { n: 'Drow Weapon Training', d: 'You have proficiency with rapiers, shortswords, and hand crossbows.' }
+    ])
+  },
+  {
+    name: 'Halfling — Lightfoot', type: 'race',
+    asi: '+2 Dexterity, +1 Charisma', size: 'Small', speed: '25 ft.', darkvision: 'None', languages: 'Common, Halfling',
+    traits: HALFLING_BASE.concat([
+      { n: 'Naturally Stealthy', d: 'You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.' }
+    ])
+  },
+  {
+    name: 'Halfling — Stout', type: 'race',
+    asi: '+2 Dexterity, +1 Constitution', size: 'Small', speed: '25 ft.', darkvision: 'None', languages: 'Common, Halfling',
+    traits: HALFLING_BASE.concat([
+      { n: 'Stout Resilience', d: 'You have advantage on saving throws against poison, and you have resistance against poison damage.' }
+    ])
+  },
+  {
+    name: 'Human', type: 'race',
+    asi: '+1 to all six ability scores', size: 'Medium', speed: '30 ft.', darkvision: 'None', languages: 'Common, plus one extra language of your choice',
+    traits: [
+      { n: 'Versatile', d: 'Humans gain +1 to every ability score, reflecting their broad adaptability and ambition.' }
+    ]
+  },
+  {
+    name: 'Human — Variant', type: 'race',
+    asi: '+1 to two different ability scores of your choice', size: 'Medium', speed: '30 ft.', darkvision: 'None', languages: 'Common, plus one extra language of your choice',
+    traits: [
+      { n: 'Skills', d: 'You gain proficiency in one skill of your choice.' },
+      { n: 'Feat', d: 'You gain one feat of your choice. (Optional rule; requires DM approval.)' }
+    ]
+  },
+  {
+    name: 'Dragonborn', type: 'race',
+    asi: '+2 Strength, +1 Charisma', size: 'Medium', speed: '30 ft.', darkvision: 'None', languages: 'Common, Draconic',
+    traits: [
+      { n: 'Draconic Ancestry', d: 'You have draconic ancestry. Choose one type of dragon; your breath weapon and damage resistance are determined by it: Black (acid), Blue (lightning), Brass (fire), Bronze (lightning), Copper (acid), Gold (fire), Green (poison), Red (fire), Silver (cold), White (cold).' },
+      { n: 'Breath Weapon', d: 'As an action, you exhale destructive energy; the shape and save depend on your ancestry. Black (acid), Blue (lightning), Brass (fire), Bronze (lightning), and Copper (acid) breathe a 5 by 30 ft. line (Dexterity save). Gold (fire) and Red (fire) breathe a 15 ft. cone (Dexterity save). Green (poison), Silver (cold), and White (cold) breathe a 15 ft. cone (Constitution save). Each creature in the area makes the listed saving throw (DC 8 + your Constitution modifier + your proficiency bonus), taking 2d6 damage on a failed save, half as much on a success. The damage increases to 3d6 at 6th level, 4d6 at 11th, and 5d6 at 16th. After you use your breath weapon, you can’t use it again until you complete a short or long rest.' },
+      { n: 'Damage Resistance', d: 'You have resistance to the damage type associated with your draconic ancestry.' }
+    ]
+  },
+  {
+    name: 'Gnome — Forest Gnome', type: 'race',
+    asi: '+2 Intelligence, +1 Dexterity', size: 'Small', speed: '25 ft.', darkvision: '60 ft.', languages: 'Common, Gnomish',
+    traits: GNOME_BASE.concat([
+      { n: 'Natural Illusionist', d: 'You know the minor illusion cantrip. Intelligence is your spellcasting ability for it.' },
+      { n: 'Speak with Small Beasts', d: 'Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts.' }
+    ])
+  },
+  {
+    name: 'Gnome — Rock Gnome', type: 'race',
+    asi: '+2 Intelligence, +1 Constitution', size: 'Small', speed: '25 ft.', darkvision: '60 ft.', languages: 'Common, Gnomish',
+    traits: GNOME_BASE.concat([
+      { n: 'Artificer’s Lore', d: 'Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus.' },
+      { n: 'Tinker', d: 'You have proficiency with artisan’s tools (tinker’s tools). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a Tiny clockwork device (a clockwork toy, fire starter, or music box).' }
+    ])
+  },
+  {
+    name: 'Half-Elf', type: 'race',
+    asi: '+2 Charisma, +1 to two other ability scores of your choice', size: 'Medium', speed: '30 ft.', darkvision: '60 ft.', languages: 'Common, Elvish, plus one extra language of your choice',
+    traits: [
+      { n: 'Fey Ancestry', d: 'You have advantage on saving throws against being charmed, and magic can’t put you to sleep.' },
+      { n: 'Skill Versatility', d: 'You gain proficiency in two skills of your choice.' }
+    ]
+  },
+  {
+    name: 'Half-Orc', type: 'race',
+    asi: '+2 Strength, +1 Constitution', size: 'Medium', speed: '30 ft.', darkvision: '60 ft.', languages: 'Common, Orc',
+    traits: [
+      { n: 'Menacing', d: 'You gain proficiency in the Intimidation skill.' },
+      { n: 'Relentless Endurance', d: 'When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can’t use this feature again until you finish a long rest.' },
+      { n: 'Savage Attacks', d: 'When you score a critical hit with a melee weapon attack, you can roll one of the weapon’s damage dice one additional time and add it to the extra damage of the critical hit.' }
+    ]
+  },
+  {
+    name: 'Tiefling', type: 'race',
+    asi: '+2 Charisma, +1 Intelligence', size: 'Medium', speed: '30 ft.', darkvision: '60 ft.', languages: 'Common, Infernal',
+    traits: [
+      { n: 'Hellish Resistance', d: 'You have resistance to fire damage.' },
+      { n: 'Infernal Legacy', d: 'You know the thaumaturgy cantrip. At 3rd level, you can cast hellish rebuke as a 2nd-level spell once per long rest; at 5th level, darkness once per long rest. Charisma is your spellcasting ability for these spells.' }
+    ]
+  }
+];
+
+const ALL_ENTRIES = BACKGROUNDS.concat(RACES);
+
+// Searchable text: names, proficiencies, trait names
+ALL_ENTRIES.forEach(e => {
+  if (e.type === 'background') {
+    e.search = [e.name, e.skills.join(' '), e.tools.join(' '), e.languages, e.feature.name].join(' ').toLowerCase();
+  } else {
+    e.search = [e.name, e.asi, e.languages, e.traits.map(t => t.n).join(' ')].join(' ').toLowerCase();
+  }
+});
+
+// ── STATE & FILTERING ────────────────────────────────────────────
+let activeType = 'all';
+let searchQuery = '';
+
+function setType(pill) {
+  activeType = pill.dataset.type;
+  document.querySelectorAll('#type-pills .pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.type === activeType);
+    p.setAttribute('aria-pressed', p.dataset.type === activeType ? 'true' : 'false');
+  });
+  renderGrid();
+}
+
+function applyFilters() {
+  searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+  renderGrid();
+}
+
+function resetFilters() {
+  document.getElementById('search-input').value = '';
+  searchQuery = '';
+  activeType = 'all';
+  document.querySelectorAll('#type-pills .pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.type === 'all');
+    p.setAttribute('aria-pressed', p.dataset.type === 'all' ? 'true' : 'false');
+  });
+  renderGrid();
+}
+
+function filtered() {
+  return ALL_ENTRIES.filter(e => {
+    const typeOk = activeType === 'all' || e.type === activeType;
+    const searchOk = !searchQuery || e.search.includes(searchQuery);
+    return typeOk && searchOk;
+  });
+}
+
+// ── RENDER ───────────────────────────────────────────────────────
+function renderGrid() {
+  const list = filtered();
+  const grid = document.getElementById('card-grid');
+  const empty = document.getElementById('empty-state');
+  const bar = document.getElementById('results-bar');
+  const nb = list.filter(e => e.type === 'background').length;
+  const nr = list.length - nb;
+  bar.textContent = `${list.length} ${list.length === 1 ? 'entry' : 'entries'} shown — ${nb} background${nb !== 1 ? 's' : ''}, ${nr} race${nr !== 1 ? 's' : ''}`;
+  if (list.length === 0) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(buildCard).join('');
+  grid.querySelectorAll('.origin-card').forEach((el, i) => {
+    el.addEventListener('click', () => openModal(list[i]));
+    el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openModal(list[i]); } });
+  });
+}
+
+function buildCard(e) {
+  const color = COLORS[e.type];
+  if (e.type === 'background') {
+    return `<div class="origin-card type-background" style="--origin-color:${color}" tabindex="0" role="button" aria-label="${e.name}, background">
+      <div class="card-header">
+        <span class="card-title">${e.name}</span>
+        <span class="card-type-badge">Background</span>
+      </div>
+      <div class="card-body">
+        <div class="card-row"><span class="card-bullet"></span><span><strong>Skills:</strong> ${e.skills.join(', ')}</span></div>
+        ${e.tools.length ? `<div class="card-row"><span class="card-bullet"></span><span><strong>Tools:</strong> ${e.tools.join(', ')}</span></div>` : ''}
+        <div class="card-row"><span class="card-bullet"></span><span><strong>Feature:</strong> ${e.feature.name}</span></div>
+      </div>
+    </div>`;
+  }
+  const keyTraits = e.traits.slice(0, 3).map(t => t.n).join(' · ');
+  return `<div class="origin-card type-race" style="--origin-color:${color}" tabindex="0" role="button" aria-label="${e.name}, race">
+    <div class="card-header">
+      <span class="card-title">${e.name}</span>
+      <span class="card-type-badge">Race</span>
+    </div>
+    <div class="card-body">
+      <div class="card-row"><span class="card-bullet"></span><span><strong>ASI:</strong> ${e.asi}</span></div>
+      <div class="card-row"><span class="card-bullet"></span><span><strong>Traits:</strong> ${keyTraits}</span></div>
+    </div>
+  </div>`;
+}
+
+// ── MODAL ────────────────────────────────────────────────────────
+function openModal(e) {
+  const color = COLORS[e.type];
+  const box = document.getElementById('modal-box');
+  box.style.setProperty('--origin-color', color);
+  let body = '';
+  if (e.type === 'background') {
+    body = `
+      <div class="modal-section-label" style="color:${color}">Proficiencies</div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Skills:</strong> ${e.skills.join(', ')}</span></div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Tools:</strong> ${e.tools.length ? e.tools.join(', ') : 'None'}</span></div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Languages:</strong> ${e.languages}</span></div>
+      <div class="modal-section-label" style="color:${color}">Equipment</div>
+      <p class="modal-text">${e.equipment}</p>
+      <div class="modal-section-label" style="color:${color}">Feature: ${e.feature.name}</div>
+      <p class="modal-text">${e.feature.desc}</p>
+      <div class="modal-section-label" style="color:${color}">Suggested Characteristics</div>
+      ${e.flavor.map(f => `<div class="modal-trait-row flavor"><span class="modal-bullet" style="background:${color}"></span><span>${f}</span></div>`).join('')}`;
+  } else {
+    body = `
+      <div class="modal-section-label" style="color:${color}">Ability Score Increase</div>
+      <p class="modal-text">${e.asi}</p>
+      <div class="modal-section-label" style="color:${color}">Vitals</div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Size:</strong> ${e.size}</span></div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Speed:</strong> ${e.speed}</span></div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Darkvision:</strong> ${e.darkvision}</span></div>
+      <div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>Languages:</strong> ${e.languages}</span></div>
+      <div class="modal-section-label" style="color:${color}">Racial Traits</div>
+      ${e.traits.map(t => `<div class="modal-trait-row"><span class="modal-bullet" style="background:${color}"></span><span><strong>${t.n}.</strong> ${t.d}</span></div>`).join('')}`;
+  }
+  box.innerHTML = `
+    <div class="modal-header" style="background:${color}">
+      <div class="modal-title-block">
+        <div class="modal-title">${e.name}</div>
+        <div class="modal-subtitle">${e.type === 'background' ? 'Background · PHB' : 'Race · PHB'}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+    <div class="modal-body">${body}</div>`;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+renderGrid();
+</script>
+</body>
+</html>

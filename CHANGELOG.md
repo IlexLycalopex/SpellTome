@@ -6,6 +6,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.0.0] — 2026-06-10
+
+### Added
+- **Party Manager** (`party-manager.html`) — persistent character roster (HP, AC, initiative, passive perception, notes) with export/import. The Combat Tracker now prefers this roster over its legacy quick-save party and pre-fills HP/AC when loading the party into an encounter.
+- **Encounter Builder** (`encounter-builder.html`) — DMG XP-budget encounter balancing against party size/level (pre-filled from the Party Manager), with a difficulty verdict meter, named saved encounters, and "Send to Combat Tracker" via the shared monster queue.
+- **Equipment & Gear Compendium** (`equipment.html`) — all SRD weapons, armour, adventuring gear, tools, and packs with costs, weights, and property explanations.
+- **Backgrounds & Races** (`backgrounds.html`) — all 13 PHB backgrounds and the nine core races with subraces and full trait text.
+- **NPC Generator** (`npc-generator.html`) — names by race/gender, occupation, personality, mannerism, voice, and plot hook with per-field rerolls, history, and "Send to Log Builder" (the Log Builder absorbs the queue into its NPC section on load).
+- **Loot Generator** (`loot-generator.html`) — DMG individual and hoard treasure by CR tier: coins, gems, art objects, and magic-item rarity results linking to the Magic Item Compendium.
+- **Campaign Map** (`campaign-map.html`) — pannable/zoomable Sword Coast map with campaign pins (Waterdeep, Goldenfields, Nightstone, …) and user-added custom markers, editable and persisted locally.
+- **Shared monster dataset** — the 251-monster array moved from monsters.html into `assets/js/monsters-data.js`, now shared with the Encounter Builder.
+- All seven pages added to the site nav (via `_src/components/nav.html` + `build_nav.py`) and the hub.
+
+---
+
 ## [1.5.0] — 2026-06-10
 
 ### Added

@@ -1,0 +1,219 @@
+/* ============================================================
+   NPC-GENERATOR.CSS — NPC Generator styling
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+.tool-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── BACKGROUND FLOURISH ─────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 18% 15%, rgba(120,60,20,0.16) 0%, transparent 52%),
+    radial-gradient(ellipse at 82% 80%, rgba(40,70,40,0.16) 0%, transparent 52%);
+}
+
+/* ── HEADINGS ────────────────────────────────────────────── */
+.tool-container h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 1.05;
+  margin-bottom: 6px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.25), 0 2px 6px rgba(0,0,0,0.4);
+}
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  margin-bottom: 28px;
+}
+
+/* ── PANEL ───────────────────────────────────────────────── */
+.panel {
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(8px);
+  margin-bottom: 18px;
+}
+.panel-head {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: color-mix(in srgb, var(--bg-panel) 72%, transparent);
+}
+.panel-title {
+  font-family: 'Cinzel', serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+}
+.panel-body { padding: 18px; }
+
+/* ── CONTROLS ────────────────────────────────────────────── */
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.field-label {
+  font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim);
+  display: block; margin-bottom: 8px;
+}
+.controls-grid select {
+  width: 100%;
+  padding: 11px 28px 11px 14px;
+  font-size: 1rem;
+  border-radius: 7px;
+}
+
+.generate-btn {
+  width: 100%;
+  font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 16px 22px; border-radius: 8px;
+  border: 1px solid var(--gold-dim);
+  background: linear-gradient(135deg, rgba(138,106,44,0.5), rgba(201,168,76,0.2));
+  color: var(--gold); cursor: pointer;
+  transition: all 0.14s;
+}
+.generate-btn:hover {
+  background: linear-gradient(135deg, rgba(138,106,44,0.8), rgba(201,168,76,0.35));
+  box-shadow: 0 0 18px rgba(201,168,76,0.25);
+}
+.generate-btn:active { transform: translateY(1px); }
+
+/* ── NPC RESULT CARD ─────────────────────────────────────── */
+#npc-card { display: none; }
+#npc-card.show { display: block; animation: card-in 0.25s ease; }
+@keyframes card-in { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+.npc-name-row {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.npc-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.3rem, 3.4vw, 1.8rem);
+  font-weight: 700; color: var(--gold);
+  text-shadow: 0 0 22px rgba(201,168,76,0.3);
+}
+.npc-meta {
+  font-size: 0.95rem; color: var(--text-muted); font-style: italic;
+  margin-bottom: 16px;
+}
+
+.npc-field {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 9px 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 42%, transparent);
+}
+.npc-field:last-of-type { border-bottom: none; }
+.npc-field-label {
+  font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim);
+  padding-top: 4px;
+}
+.npc-field-value { font-size: 1rem; color: var(--text-light); line-height: 1.45; }
+.reroll-btn {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-radius: 6px;
+  font-size: 0.9rem; line-height: 1;
+  padding: 4px 7px;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: border-color 0.14s, background 0.14s, transform 0.06s;
+}
+.reroll-btn:hover {
+  border-color: color-mix(in srgb, var(--gold) 50%, var(--border));
+  background: color-mix(in srgb, var(--gold) 10%, transparent);
+}
+.reroll-btn:active { transform: rotate(20deg); }
+
+/* ── CARD ACTIONS ────────────────────────────────────────── */
+.npc-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.action-btn {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 18px; border-radius: 7px;
+  border: 1px solid color-mix(in srgb, var(--gold) 32%, var(--border));
+  background: color-mix(in srgb, var(--gold) 10%, var(--bg-elevated));
+  color: var(--gold); cursor: pointer;
+  transition: background 0.14s, border-color 0.14s, transform 0.06s;
+}
+.action-btn:hover {
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--gold) 48%, var(--border));
+}
+.action-btn:active { transform: translateY(1px); }
+
+.confirm-note {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(80,180,100,0.45);
+  background: rgba(80,180,100,0.09);
+  color: #6dcc88;
+  font-size: 0.92rem;
+}
+.confirm-note.show { display: block; animation: card-in 0.2s ease; }
+.confirm-note a { color: var(--gold); }
+
+/* ── HISTORY ─────────────────────────────────────────────── */
+.hist-clear-btn {
+  font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 6px;
+  border: 1px solid rgba(192,57,43,0.4); background: rgba(192,57,43,0.1);
+  color: #e07060; cursor: pointer; transition: all 0.14s;
+}
+.hist-clear-btn:hover { background: rgba(192,57,43,0.25); border-color: rgba(192,57,43,0.65); }
+
+.npc-hist-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px; align-items: center;
+  width: 100%; text-align: left;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.92rem; padding: 10px 13px;
+  border: 1px solid color-mix(in srgb, var(--border) 42%, transparent);
+  border-radius: 7px; margin-bottom: 8px;
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  color: var(--text-muted); cursor: pointer;
+  transition: border-color 0.14s, background 0.14s;
+}
+.npc-hist-row:hover {
+  border-color: color-mix(in srgb, var(--gold) 40%, var(--border));
+  background: color-mix(in srgb, var(--gold) 7%, var(--bg-elevated));
+}
+.npc-hist-row:last-child { margin-bottom: 0; }
+.npc-hist-name { color: var(--gold); font-weight: 600; }
+.npc-hist-sub { color: var(--text-dim); font-size: 0.82rem; font-style: italic; }
+.hist-empty { font-size: 0.9rem; color: var(--text-dim); font-style: italic; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .tool-container { padding: 18px 14px 48px; }
+  .controls-grid { grid-template-columns: 1fr; }
+  .npc-field { grid-template-columns: 1fr auto; }
+  .npc-field-label { grid-column: 1 / -1; padding-top: 0; }
+}
