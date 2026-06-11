@@ -187,6 +187,11 @@ const listConfig = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  const campaignOptions = document.getElementById('campaign-options');
+  if (campaignOptions && typeof tomeStore !== 'undefined') {
+    campaignOptions.innerHTML = tomeStore.campaignNames()
+      .map(name => `<option value="${escapeHtml(name)}"></option>`).join('');
+  }
   bindScalarFields();
   bindToolbar();
   bindPreviewTabs();

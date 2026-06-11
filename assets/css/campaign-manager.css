@@ -1,0 +1,95 @@
+/* ============================================================
+   CAMPAIGN-MANAGER.CSS — Campaign Manager styling
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+.tool-container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+.tool-container h1 { font-family: 'Cinzel', serif; font-size: 1.6rem; margin: 0 0 4px; color: var(--text-strong); }
+.tool-container .subtitle { color: var(--text-muted); font-style: italic; margin: 0 0 18px; }
+
+.cm-banner {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+.cm-banner strong { color: var(--gold); }
+
+.cm-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.cm-stats { display: flex; gap: 1.4rem; }
+.cm-stat { display: flex; flex-direction: column; line-height: 1.15; }
+.cm-stat-num { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: var(--gold); }
+.cm-stat-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+
+.btn { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+.btn-gold { background: linear-gradient(135deg, var(--gold-dim), var(--gold)); border-color: var(--gold); color: #0d0b08; }
+.btn-gold:hover { color: #0d0b08; filter: brightness(1.08); }
+.btn-ghost { background: transparent; }
+.btn-danger { border-color: rgba(192,57,43,0.4); color: #ec7063; }
+.btn-danger.confirming { background: linear-gradient(135deg, #7a1a10, #c0392b); border-color: #c0392b; color: #fff; }
+.btn-sm { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
+
+/* form */
+.cm-form-panel { background: color-mix(in srgb, var(--bg-elevated) 82%, transparent); border: 1px solid var(--gold-dim); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+.cm-form-panel[hidden] { display: none; }
+.cm-form-title { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.45rem; }
+.form-row.solo { grid-template-columns: 1fr; }
+.fg { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.fg label { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); }
+.fg input, .fg select { background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-light); padding: 0.45rem 0.6rem; border-radius: 5px; font-family: 'EB Garamond', serif; font-size: 0.95rem; }
+.fg input:focus, .fg select:focus { outline: none; border-color: var(--gold-dim); background: var(--input-bg-focus); }
+.cm-form-actions { display: flex; gap: 0.4rem; justify-content: flex-end; margin-top: 0.7rem; }
+.cm-form-error { color: #ec7063; font-size: 0.85rem; font-style: italic; flex: 1; align-self: center; }
+
+/* cards */
+.cm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 0.9rem; }
+@media (max-width: 520px) { .cm-grid { grid-template-columns: 1fr; } }
+
+.cm-card { background: color-mix(in srgb, var(--bg-elevated) 82%, transparent); border: 1px solid var(--border); border-left: 4px solid var(--gold-dim); border-radius: 8px; padding: 0.95rem 1.05rem; }
+.cm-card.current { border-left-color: var(--gold); box-shadow: 0 0 0 1px rgba(201,168,76,0.25); }
+.cm-card.status-completed, .cm-card.status-hiatus { opacity: 0.75; }
+
+.cm-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.cm-card-name { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--text-strong); }
+.cm-current-badge { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--gold); color: var(--text-on-gold); border-radius: 4px; padding: 2px 6px; margin-left: 8px; vertical-align: middle; }
+.cm-card-meta { font-size: 0.82rem; color: var(--text-muted); }
+.cm-status-badge { font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
+.cm-status-badge.s-active   { color: #2ecc71; border-color: rgba(46,204,113,0.45); }
+.cm-status-badge.s-planned  { color: #5dade2; border-color: rgba(93,173,226,0.45); }
+.cm-status-badge.s-hiatus   { color: #f39c12; border-color: rgba(243,156,18,0.45); }
+.cm-status-badge.s-completed{ color: var(--text-dim); }
+
+.cm-card-desc { font-size: 0.92rem; font-style: italic; color: var(--text-muted); margin: 0.5rem 0 0; }
+
+.cm-card-stats { display: flex; gap: 0.5rem; margin: 0.7rem 0; flex-wrap: wrap; }
+.cm-stat-chip { display: flex; flex-direction: column; align-items: center; min-width: 74px; padding: 0.4rem 0.6rem; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; }
+.cm-stat-chip:hover { border-color: var(--gold-dim); }
+.cm-chip-val { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95rem; color: var(--gold); }
+.cm-chip-label { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+
+.cm-card-latest { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.6rem; }
+.cm-card-latest em { color: var(--text-muted); }
+
+.cm-members { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
+.cm-member { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; padding: 0.2rem 0.5rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text-muted); }
+.cm-member.gm { border-color: var(--gold-dim); color: var(--gold); }
+.cm-member-x, .cm-member-role { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.78rem; padding: 0 2px; }
+.cm-member-x:hover { color: #ec7063; }
+.cm-member-role:hover { color: var(--gold); }
+.cm-member-add { font-size: 0.72rem; padding: 0.2rem 0.55rem; background: transparent; border: 1px dashed var(--border); border-radius: 999px; color: var(--text-dim); cursor: pointer; }
+.cm-member-add:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+.cm-card-actions { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.cm-links { margin-left: auto; display: flex; gap: 0.6rem; }
+.cm-links a { font-size: 0.74rem; color: var(--text-dim); text-decoration: none; }
+.cm-links a:hover { color: var(--gold); }
+
+@media (max-width: 640px) {
+  .tool-container { padding: 16px; }
+  .cm-summary { flex-direction: column; align-items: stretch; }
+}

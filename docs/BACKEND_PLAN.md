@@ -46,6 +46,18 @@ unlike a GitHub PAT (which is why the Log Builder deliberately delegates
 commits to github.com instead). Never put the `service_role` key anywhere
 near the site.
 
+### Campaign registry (added v2.4.0)
+
+The Campaign Manager page maintains a `campaigns` collection in the
+adapter: `{ id, name, gm, ruleset, status, description, members:[{name,
+role: 'gm'|'player'}] }`. This is the client-side precursor of the
+`campaigns` and `campaign_members` tables below — when Supabase arrives,
+each member gains a `user_id` (matched by invitation email at first
+sign-in) and the local `role` becomes the RLS role: **gm = admin**
+(manage campaign, members, delete), **player = write** (edit shared
+collections). All campaign dropdowns site-wide already read from this
+registry via `tomeStore.campaignNames()`.
+
 ## Phase 2 — Schema
 
 Start with a **collection mirror**, not a normalized schema. It maps 1:1

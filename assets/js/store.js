@@ -15,6 +15,7 @@
 const tomeStore = (() => {
 
   const REGISTRY = {
+    campaigns:      { key: 'tome_campaigns_v1',                  scope: 'synced', label: 'Campaign registry' },
     party:          { key: 'tome_party_v1',                      scope: 'synced', label: 'Party roster' },
     activeCampaign: { key: 'tome_active_campaign_v1',            scope: 'synced', label: 'Selected campaign', raw: true },
     combatState:    { key: 'tome_combat_tracker_v1',             scope: 'synced', label: 'Combat tracker state' },
@@ -122,5 +123,31 @@ const tomeStore = (() => {
     return { restored, skipped };
   }
 
-  return { get, set, remove, exportAll, downloadBackup, importBackup, REGISTRY };
+  /* ── CAMPAIGNS ─────────────────────────────────────────────── */
+
+  /**
+   * Every campaign name known to the site, for dropdowns/datalists:
+   * the campaign registry (Campaign Manager) first, then any names
+   * still only present as party tags or map configs.
+   */
+  function campaignNames() {
+    const names = [];
+    const seen = new Set();
+    const push = name => {
+      const n = String(name || '').trim();
+      if (n && !seen.has(n)) { seen.add(n); names.push(n); }
+    };
+    const registry = get('campaigns');
+    if (Array.isArray(registry)) registry.forEach(c => push(c && c.name));
+    const party = get('party');
+    if (Array.isArray(party)) party.forEach(p => push(p && p.campaign));
+    const maps = get('mapMarkers');
+    if (maps && maps.campaigns && typeof maps.campaigns === 'object') {
+      Object.keys(maps.campaigns).forEach(push);
+    }
+    push("Storm King's Thunder");
+    return names;
+  }
+
+  return { get, set, remove, exportAll, downloadBackup, importBackup, campaignNames, REGISTRY };
 })();
