@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.2.0] — 2026-06-11
+
+### Added
+- **Central storage adapter** (`assets/js/store.js`) — every tool now reads and writes through `tomeStore` instead of raw `localStorage`. The registry inventories all 13 data collections and marks which are campaign data destined for the future shared backend vs device-local state. The planned Supabase backend slots in behind this one module without touching any page.
+- **Whole-site backup & restore** — the hub gains a data bar: "Back Up All Data" downloads every collection as one JSON file; "Restore" loads it back (unknown keys ignored, invalid files rejected). Until a backend exists, this is the safety net against cleared browser data and the way to move data between devices.
+- **Backend migration plan** (`docs/BACKEND_PLAN.md`) — Supabase target architecture: magic-link auth, collection-mirror schema with row-level security, local-first sync driver, and a scheduled GitHub Action to keep the free-tier project from pausing.
+
+---
+
 ## [2.1.0] — 2026-06-11
 
 ### Added

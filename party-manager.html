@@ -253,14 +253,13 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 // PAGE SCRIPT — Party Manager
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'tome_party_v1';
-  const ACTIVE_CAMPAIGN_KEY = 'tome_active_campaign_v1';
-  const CLASSES = ['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
+  const CLASSES =['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
 
   let party = loadParty();
   let editingId = null;     // id being edited, or null when adding
@@ -271,14 +270,12 @@
   let activeCampaign = loadActiveCampaign();
 
   function loadActiveCampaign() {
-    try { return String(localStorage.getItem(ACTIVE_CAMPAIGN_KEY) || ''); } catch (e) { return ''; }
+    return String(tomeStore.get('activeCampaign', '') || '');
   }
 
   function saveActiveCampaign() {
-    try {
-      if (activeCampaign) localStorage.setItem(ACTIVE_CAMPAIGN_KEY, activeCampaign);
-      else localStorage.removeItem(ACTIVE_CAMPAIGN_KEY);
-    } catch (e) {}
+    if (activeCampaign) tomeStore.set('activeCampaign', activeCampaign);
+    else tomeStore.remove('activeCampaign');
   }
 
   function campaignNames() {
@@ -287,20 +284,12 @@
 
   /* ── STORAGE ─────────────────────────────────────────────── */
   function loadParty() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return [];
-      const data = JSON.parse(raw);
-      return Array.isArray(data) ? data.filter(c => c && typeof c === 'object').map(normalize) : [];
-    } catch (e) {
-      return [];
-    }
+    const data = tomeStore.get('party', []);
+    return Array.isArray(data) ? data.filter(c => c && typeof c === 'object').map(normalize) : [];
   }
 
   function saveParty() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(party));
-    } catch (e) {
+    if (!tomeStore.set('party', party)) {
       alert('Could not save the party (storage unavailable).');
     }
   }

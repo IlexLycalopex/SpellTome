@@ -1,4 +1,3 @@
-const STORAGE_KEY = 'spelltome-campaign-log-builder-v1';
 const GITHUB_USER = 'IlexLycalopex';
 const GITHUB_REPO = 'SpellTome';
 const SESSIONS_PATH = 'playlog';
@@ -24,7 +23,7 @@ const emptyState = () => ({
 
 const hasStoredDraft = (() => {
   try {
-    return Boolean(localStorage.getItem(STORAGE_KEY));
+    return tomeStore.get('logDraft') !== null;
   } catch (error) {
     return false;
   }
@@ -201,8 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function importNpcQueue() {
   let queue;
   try {
-    queue = JSON.parse(localStorage.getItem('tome_npc_queue_v1'));
-    localStorage.removeItem('tome_npc_queue_v1');
+    queue = tomeStore.get('npcQueue');
+    tomeStore.remove('npcQueue');
   } catch (error) { return; }
   if (!Array.isArray(queue) || !queue.length) return;
   const incoming = queue
@@ -863,14 +862,14 @@ function downloadMarkdown() {
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  tomeStore.set('logDraft', state);
 }
 
 function loadState() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return emptyState();
-    return { ...emptyState(), ...JSON.parse(stored) };
+    const stored = tomeStore.get('logDraft');
+    if (!stored || typeof stored !== 'object') return emptyState();
+    return { ...emptyState(), ...stored };
   } catch (error) {
     return emptyState();
   }

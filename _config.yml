@@ -1,6 +1,7 @@
 title: Spell Tome
 description: D&D 5e Spell Card Selector
 exclude:
+  - docs/
   - README.md
   - CHANGELOG.md
   - CONTRIBUTING.md

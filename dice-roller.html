@@ -283,6 +283,7 @@
   </footer>
 </div>
 
+<script src="assets/js/store.js"></script>
 <script>
 const SKULL_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="9" r="6"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9.5 12.5c.8.6 4.2.6 5 0"/><path d="M10 15v3"/><path d="M14 15v3"/><path d="M8 21h8"/></svg>`;
 const SWORDS_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/><path d="M9.5 6.5L11 5l-2-2-7 7 2 2 1.5-1.5"/><path d="M15 5l-1 1"/><path d="M5 15l-1 1"/></svg>`;
@@ -405,8 +406,8 @@ function rollSkillCheck(){
 
 // ---- SAVED ----
 const SAVED_KEY='diceSaved_v1';
-function loadSaved(){ try{return JSON.parse(localStorage.getItem(SAVED_KEY))||[];}catch(e){return[];} }
-function saveSaved(arr){ localStorage.setItem(SAVED_KEY,JSON.stringify(arr)); }
+function loadSaved(){ return tomeStore.get('diceSaved') || []; }
+function saveSaved(arr){ tomeStore.set('diceSaved', arr); }
 function renderSaved(){
   const grid=document.getElementById('saved-grid');
   const arr=loadSaved();
@@ -427,7 +428,7 @@ function addExpression(expr){
   arr.push(n); saveSaved(arr); renderSaved();
 }
 function removeExpression(expr){ saveSaved(loadSaved().filter(e=>e!==expr)); renderSaved(); }
-function clearSaved(){ localStorage.removeItem(SAVED_KEY); renderSaved(); }
+function clearSaved(){ tomeStore.remove('diceSaved'); renderSaved(); }
 
 // ---- CORE ----
 
@@ -439,7 +440,7 @@ function pushHistory(html){
   const empty=histDiv.querySelector('.hist-empty'); if(empty) empty.remove();
   const item=document.createElement('div'); item.className='history-item'; item.innerHTML=html;
   histDiv.prepend(item);
-  localStorage.setItem('diceHistory_v2',histDiv.innerHTML);
+  tomeStore.set('diceHistory', histDiv.innerHTML);
 }
 
 function quickRoll(sides){
@@ -480,13 +481,13 @@ function displayResult({total,expr,rolls,modifier,forceSides}){
 
 function clearHistory(){
   document.getElementById('history').innerHTML='<div class="hist-empty">No rolls yet.</div>';
-  localStorage.removeItem('diceHistory_v2');
+  tomeStore.remove('diceHistory');
 }
 
 // ---- INIT ----
 window.addEventListener('load',()=>{
   renderSaved();
-  const saved=localStorage.getItem('diceHistory_v2');
+  const saved=tomeStore.get('diceHistory');
   document.getElementById('history').innerHTML=saved||'<div class="hist-empty">No rolls yet.</div>';
 
   document.getElementById('expression').addEventListener('keydown',e=>{ if(e.key==='Enter') rollExpression(); });
