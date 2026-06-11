@@ -635,9 +635,14 @@ function migrateLegacyParty() {
 function getSavedParty() {
   try {
     const p = JSON.parse(localStorage.getItem('tome_party_v1'));
+    // Honour the campaign selected in the Party Manager; untagged
+    // characters belong to every campaign.
+    let campaign = '';
+    try { campaign = String(localStorage.getItem('tome_active_campaign_v1') || ''); } catch(e) {}
     if (Array.isArray(p)) {
       return p
         .filter(m => m && m.name && (m.status || 'active') === 'active')
+        .filter(m => !campaign || !m.campaign || m.campaign === campaign)
         .map(m => ({
           name: String(m.name),
           bonus: Number(m.dexMod) || 0,
