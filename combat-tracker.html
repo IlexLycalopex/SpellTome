@@ -314,6 +314,7 @@
 </div>
 
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 // ═══════ STATE ═══════
 let units = [];
@@ -331,17 +332,13 @@ let touchId = null, touchClone = null;
 
 const CONDITIONS = ['Blinded','Charmed','Deafened','Exhausted','Frightened','Grappled','Incapacitated','Invisible','Paralysed','Petrified','Poisoned','Prone','Restrained','Stunned','Unconscious','Concentrating'];
 
-const STORAGE_KEY = 'tome_combat_tracker_v1';
-
 function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({units,nextId,turnIdx,round,phase,mode})); } catch(e) {}
+  tomeStore.set('combatState', {units,nextId,turnIdx,round,phase,mode});
 }
 
 function load() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-    const d = JSON.parse(raw);
+    const d = tomeStore.get('combatState');
     if (!d || typeof d !== 'object') return;
     units   = Array.isArray(d.units) ? d.units : [];
     nextId  = Number(d.nextId) || 1;
@@ -385,16 +382,11 @@ function pickType(t) {
 }
 
 // ═══════ MONSTER CODEX IMPORT ═══════
-// monsters.html queues creatures under this key; they are absorbed into
-// the roster on load (initiative auto-rolled from the monster's DEX mod).
-const COMBAT_QUEUE_KEY = 'tome_combat_queue_v1';
-
+// monsters.html and the Encounter Builder queue creatures here; they are
+// absorbed into the roster on load (initiative auto-rolled from DEX mod).
 function importCombatQueue() {
-  let queue;
-  try {
-    queue = JSON.parse(localStorage.getItem(COMBAT_QUEUE_KEY));
-    localStorage.removeItem(COMBAT_QUEUE_KEY);
-  } catch(e) { return; }
+  const queue = tomeStore.get('combatQueue');
+  tomeStore.remove('combatQueue');
   if (!Array.isArray(queue) || !queue.length) return;
   queue.forEach(m => {
     const bonus = Number(m.dexMod) || 0;
@@ -616,9 +608,10 @@ function selectUnit(id) {
 // data is migrated into the Party Manager once, then removed.
 function migrateLegacyParty() {
   try {
+    // 'dnd-party' predates the Party Manager and tomeStore registry.
     const legacy = JSON.parse(localStorage.getItem('dnd-party') || '[]');
     if (!Array.isArray(legacy) || !legacy.length) { localStorage.removeItem('dnd-party'); return; }
-    const current = JSON.parse(localStorage.getItem('tome_party_v1') || '[]');
+    const current = tomeStore.get('party');
     if (!Array.isArray(current) || !current.length) {
       const migrated = legacy.filter(m => m && m.name).map((m, i) => ({
         id: 'pc_migrated_' + Date.now().toString(36) + '_' + i,
@@ -627,18 +620,17 @@ function migrateLegacyParty() {
         hpMax: 0, ac: 10, dexMod: Number(m.bonus) || 0,
         speed: 30, passivePerception: 10, status: 'active', notes: ''
       }));
-      localStorage.setItem('tome_party_v1', JSON.stringify(migrated));
+      tomeStore.set('party', migrated);
     }
     localStorage.removeItem('dnd-party');
   } catch(e) {}
 }
 function getSavedParty() {
   try {
-    const p = JSON.parse(localStorage.getItem('tome_party_v1'));
+    const p = tomeStore.get('party');
     // Honour the campaign selected in the Party Manager; untagged
     // characters belong to every campaign.
-    let campaign = '';
-    try { campaign = String(localStorage.getItem('tome_active_campaign_v1') || ''); } catch(e) {}
+    const campaign = String(tomeStore.get('activeCampaign', '') || '');
     if (Array.isArray(p)) {
       return p
         .filter(m => m && m.name && (m.status || 'active') === 'active')

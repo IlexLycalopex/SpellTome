@@ -188,6 +188,7 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 // PAGE SCRIPT — NPC Generator
 
@@ -348,7 +349,7 @@ function renderNPC(){
 
 // ─── HISTORY ─────────────────────────────────────────────────
 function loadHistory(){
-  try { return JSON.parse(localStorage.getItem(NPC_HISTORY_KEY)) || []; }
+  try { return tomeStore.get('npcHistory') || []; }
   catch(e){ return []; }
 }
 function saveToHistory(npc, isNew){
@@ -358,7 +359,7 @@ function saveToHistory(npc, isNew){
     if(idx >= 0) arr[idx] = npc;
     else arr.unshift(npc);
     arr = arr.slice(0, 10);
-    localStorage.setItem(NPC_HISTORY_KEY, JSON.stringify(arr));
+    tomeStore.set('npcHistory', arr);
   } catch(e){ /* storage full or unavailable */ }
   renderHistory();
 }
@@ -380,7 +381,7 @@ function renderHistory(){
   });
 }
 function clearNpcHistory(){
-  try { localStorage.removeItem(NPC_HISTORY_KEY); } catch(e){}
+  tomeStore.remove('npcHistory');
   renderHistory();
 }
 
@@ -426,7 +427,7 @@ function sendToLogBuilder(){
   if(!currentNPC) return;
   const note = document.getElementById('send-confirm');
   let queue;
-  try { queue = JSON.parse(localStorage.getItem(NPC_QUEUE_KEY)) || []; }
+  try { queue = tomeStore.get('npcQueue') || []; }
   catch(e){ queue = []; }
   if(!Array.isArray(queue)) queue = [];
   queue.push({
@@ -434,7 +435,7 @@ function sendToLogBuilder(){
     notes: currentNPC.occupation + '. ' + currentNPC.personality + '. ' + currentNPC.voice + '.'
   });
   try {
-    localStorage.setItem(NPC_QUEUE_KEY, JSON.stringify(queue));
+    if (!tomeStore.set('npcQueue', queue)) throw new Error('storage unavailable');
     note.innerHTML = esc(currentNPC.name) + ' queued for the <a href="campaign-log-builder.html">Log Builder</a>.';
   } catch(e){
     note.textContent = 'Could not save to the queue (storage unavailable).';

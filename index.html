@@ -704,6 +704,19 @@
 
       </div>
     </div>
+
+      <div class="data-bar">
+        <div class="data-bar-copy">
+          <strong>Your Tome data lives in this browser.</strong>
+          Party, encounters, map markers and combat state are saved locally on this device &mdash; back them up before clearing browser data or switching devices.
+        </div>
+        <div class="data-bar-actions">
+          <button class="btn btn-gold" onclick="backupTome()">&#x2B07; Back Up All Data</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('restore-file').click()">Restore</button>
+          <input type="file" id="restore-file" accept=".json,application/json" hidden>
+          <span class="data-bar-status" id="data-bar-status"></span>
+        </div>
+      </div>
   </main>
 
   <footer class="site-footer">
@@ -713,6 +726,32 @@
 </div>
 
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/store.js"></script>
+<script>
+function backupTome() {
+  const count = tomeStore.downloadBackup();
+  document.getElementById('data-bar-status').textContent = count + ' collection' + (count === 1 ? '' : 's') + ' exported';
+}
+
+document.getElementById('restore-file').addEventListener('change', function () {
+  const file = this.files && this.files[0];
+  this.value = '';
+  if (!file) return;
+  const statusEl = document.getElementById('data-bar-status');
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const snapshot = JSON.parse(reader.result);
+      if (!confirm('Restore this backup from ' + (snapshot.exportedAt || 'unknown date') + '? Existing Tome data in this browser will be overwritten.')) return;
+      const result = tomeStore.importBackup(snapshot);
+      statusEl.textContent = result.restored + ' collection' + (result.restored === 1 ? '' : 's') + ' restored' + (result.skipped ? ' (' + result.skipped + ' skipped)' : '');
+    } catch (error) {
+      statusEl.textContent = 'Restore failed: ' + error.message;
+    }
+  };
+  reader.readAsText(file);
+});
+</script>
 </body>
 </html>
 

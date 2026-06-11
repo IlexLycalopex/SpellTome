@@ -184,6 +184,7 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 // PAGE SCRIPT — Loot Generator (DMG 2014 treasure tables)
 
@@ -581,7 +582,7 @@ function fallbackCopy(text, done){
 
 // ─── HISTORY ─────────────────────────────────────────────────
 function loadLootHistory(){
-  try { return JSON.parse(localStorage.getItem(LOOT_HISTORY_KEY)) || []; }
+  try { return tomeStore.get('lootHistory') || []; }
   catch(e){ return []; }
 }
 function pushLootHistory(res){
@@ -589,7 +590,7 @@ function pushLootHistory(res){
     let arr = loadLootHistory();
     arr.unshift(res);
     arr = arr.slice(0, 10);
-    localStorage.setItem(LOOT_HISTORY_KEY, JSON.stringify(arr));
+    tomeStore.set('lootHistory', arr);
   } catch(e){ /* storage unavailable */ }
   renderLootHistory();
 }
@@ -615,7 +616,7 @@ function renderLootHistory(){
   });
 }
 function clearLootHistory(){
-  try { localStorage.removeItem(LOOT_HISTORY_KEY); } catch(e){}
+  tomeStore.remove('lootHistory');
   renderLootHistory();
 }
 

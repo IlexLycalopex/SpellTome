@@ -196,6 +196,7 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
 <script src="assets/js/monsters-data.js"></script>
 <script>
 // ═══════ ENCOUNTER BUILDER ═══════
@@ -254,10 +255,9 @@ function monsterByName(name) { return MONSTERS.find(m => m.name === name); }
 // ── Party prefill from Party Manager ───────────────────────────
 function initParty() {
   try {
-    const stored = JSON.parse(localStorage.getItem(STORE_PARTY));
+    const stored = tomeStore.get('party');
     if (!Array.isArray(stored)) return;
-    let campaign = '';
-    try { campaign = String(localStorage.getItem('tome_active_campaign_v1') || ''); } catch (e) {}
+    const campaign = String(tomeStore.get('activeCampaign', '') || '');
     const party = stored
       .filter(p => p && (p.status || 'active') === 'active')
       .filter(p => !campaign || !p.campaign || p.campaign === campaign);
@@ -398,7 +398,7 @@ function sendToCombat() {
   if (!roster.length) return;
   let queue = [];
   try {
-    const q = JSON.parse(localStorage.getItem(COMBAT_QUEUE_KEY));
+    const q = tomeStore.get('combatQueue');
     if (Array.isArray(q)) queue = q;
   } catch (e) { /* start fresh */ }
   let sent = 0;
@@ -411,7 +411,7 @@ function sendToCombat() {
     }
   });
   try {
-    localStorage.setItem(COMBAT_QUEUE_KEY, JSON.stringify(queue));
+    if (!tomeStore.set('combatQueue', queue)) throw new Error('storage unavailable');
   } catch (e) {
     const c = document.getElementById('send-confirm');
     c.style.display = '';
@@ -426,7 +426,7 @@ function sendToCombat() {
 // ── Saved encounters ────────────────────────────────────────────
 function readEncounters() {
   try {
-    const e = JSON.parse(localStorage.getItem(STORE_ENCOUNTERS));
+    const e = tomeStore.get('encounters');
     return (e && typeof e === 'object' && !Array.isArray(e)) ? e : {};
   } catch (err) { return {}; }
 }
@@ -443,7 +443,7 @@ function saveEncounter() {
   if (!name || !roster.length) return;
   const all = readEncounters();
   all[name] = roster.map(r => ({ name: r.name, count: r.count }));
-  try { localStorage.setItem(STORE_ENCOUNTERS, JSON.stringify(all)); } catch (e) { return; }
+  if (!tomeStore.set('encounters', all)) return;
   refreshSavedSelect(name);
 }
 
@@ -463,7 +463,7 @@ function deleteEncounter() {
   if (!name) return;
   const all = readEncounters();
   delete all[name];
-  try { localStorage.setItem(STORE_ENCOUNTERS, JSON.stringify(all)); } catch (e) { return; }
+  if (!tomeStore.set('encounters', all)) return;
   refreshSavedSelect('');
 }
 
