@@ -1,62 +1,116 @@
 /* ============================================================
    SKILLS-FEATS.CSS — Skills & Feats Browser styling
-   Inherits: theme.css, layout.css, nav.css
+   Inherits: theme.css, layout.css, nav.css, components.css,
+   filters.css
    ============================================================ */
 
 #card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  gap: 14px;
+  padding: 20px 24px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+.sf-card {
+  --accent: var(--gold);
+  background: var(--card-shell);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
   overflow: hidden;
-  transition: box-shadow 0.2s;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
+}
+.sf-card.t-skill { --accent: #7c6ba8; }
+.sf-card.t-feat  { --accent: var(--gold); }
+
+.sf-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
 }
 
-.card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+.sf-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px 8px;
 }
 
-.card-header {
-  padding: 12px 16px;
-  border-left: 4px solid;
-  background: var(--card-header-bg);
+.sf-card-header h3 {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-strong);
 }
 
-.card-header h3 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
+.sf-badge {
+  flex: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
-.card-badge {
-  display: inline-block;
-  background: var(--badge-bg);
-  color: var(--badge-text);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.card-body {
-  padding: 12px 16px;
-  font-size: 14px;
+.sf-card-body {
+  padding: 0 16px 14px;
+  font-size: 0.95rem;
   line-height: 1.5;
 }
 
-.card-body p {
+.sf-card-body p {
   margin: 0;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 @media (max-width: 768px) {
-  #card-grid {
-    grid-template-columns: 1fr;
-  }
+  #card-grid { grid-template-columns: 1fr; padding: 14px 14px 40px; }
+}
+
+/* ── FILTER BAR LAYOUT (previously borrowed from spelltome.css) ── */
+.search-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.search-primary .search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-bar-secondary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Visually hidden, available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
