@@ -261,3 +261,43 @@ html[data-theme="light"] body {
   .pm-stats       { justify-content: space-around; }
   .pm-actions     { justify-content: center; }
 }
+
+/* ── STATUS (active / away / dead) ───────────────────────────── */
+.pm-card { cursor: pointer; }
+
+.pm-status-group { display: flex; gap: 2px; margin-right: auto; }
+
+.pm-status-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.45rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.pm-status-btn:hover { color: var(--text-light); border-color: var(--gold-dim); }
+.pm-status-btn.on.s-active { background: rgba(46,204,113,0.15); border-color: rgba(46,204,113,0.5); color: #2ecc71; }
+.pm-status-btn.on.s-away   { background: rgba(243,156,18,0.15); border-color: rgba(243,156,18,0.5); color: #f39c12; }
+.pm-status-btn.on.s-dead   { background: rgba(192,57,43,0.18); border-color: rgba(192,57,43,0.55); color: #ec7063; }
+
+.pm-card-banner {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  margin: -0.2rem 0 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+.pm-card-banner.s-away { background: rgba(243,156,18,0.12); color: #f39c12; }
+.pm-card-banner.s-dead { background: rgba(192,57,43,0.15); color: #ec7063; }
+
+.pm-card.status-away { opacity: 0.65; }
+.pm-card.status-dead { opacity: 0.55; filter: grayscale(0.6); }
+.pm-card.status-dead .pm-card-name { text-decoration: line-through; text-decoration-color: rgba(192,57,43,0.6); }

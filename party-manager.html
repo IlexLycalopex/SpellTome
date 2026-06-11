@@ -129,7 +129,7 @@
 
     <div class="pm-banner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg>
-      The Combat Tracker imports this party automatically.
+      The Combat Tracker and Encounter Builder use this roster automatically &mdash; only <strong>Active</strong> members are taken into battle. Click a card to edit it.
     </div>
 
     <div class="pm-summary">
@@ -137,6 +137,10 @@
         <div class="pm-stat">
           <span class="pm-stat-num" id="stat-count">0</span>
           <span class="pm-stat-label">Members</span>
+        </div>
+        <div class="pm-stat">
+          <span class="pm-stat-num" id="stat-active">&mdash;</span>
+          <span class="pm-stat-label">Active</span>
         </div>
         <div class="pm-stat">
           <span class="pm-stat-num" id="stat-avg-level">&mdash;</span>
@@ -292,6 +296,7 @@
       dexMod: clampNum(c.dexMod, -5, 10, 0),
       speed: clampNum(c.speed, 0, 120, 30),
       passivePerception: clampNum(c.passivePerception, 1, 40, 10),
+      status: ['active', 'away', 'dead'].includes(c.status) ? c.status : 'active',
       notes: String(c.notes ?? '').slice(0, 200)
     };
   }
@@ -309,7 +314,9 @@
     const grid = document.getElementById('party-grid');
     const empty = document.getElementById('empty-state');
 
+    const activeCount = party.filter(c => (c.status || 'active') === 'active').length;
     document.getElementById('stat-count').textContent = party.length;
+    document.getElementById('stat-active').textContent = party.length ? activeCount : '—';
     document.getElementById('stat-avg-level').textContent = party.length
       ? (party.reduce((s, c) => s + c.level, 0) / party.length).toFixed(1).replace(/\.0$/, '')
       : '—';
@@ -318,12 +325,18 @@
 
     grid.innerHTML = party.map(c => {
       const cls = c.klass ? ' style="--class-color: var(--cl-' + c.klass.toLowerCase() + ')"' : '';
+      const status = c.status || 'active';
       const classLine = [
         c.klass ? esc(c.klass) + ' &bull; Level ' + c.level : 'Level ' + c.level,
         c.race ? '<span class="pm-card-race">' + esc(c.race) + '</span>' : ''
       ].filter(Boolean).join(' &mdash; ');
       const isConfirming = confirmingId === c.id;
-      return '<article class="pm-card"' + cls + '>' +
+      const statusBtn = (val, label) =>
+        '<button class="pm-status-btn' + (status === val ? ' on s-' + val : '') + '" ' +
+        'onclick="event.stopPropagation();setStatus(\'' + c.id + '\',\'' + val + '\')" ' +
+        'title="Mark ' + label.toLowerCase() + '">' + label + '</button>';
+      return '<article class="pm-card status-' + status + '"' + cls + ' onclick="editCharacter(\'' + c.id + '\')" title="Click to edit">' +
+        (status !== 'active' ? '<div class="pm-card-banner s-' + status + '">' + (status === 'dead' ? '&#x2620; Dead' : 'Away from party') + '</div>' : '') +
         '<div class="pm-card-name">' + esc(c.name) + '</div>' +
         (c.player ? '<div class="pm-card-player">played by ' + esc(c.player) + '</div>' : '') +
         '<div class="pm-card-class">' + classLine + '</div>' +
@@ -336,9 +349,12 @@
         '</div>' +
         (c.notes ? '<div class="pm-card-notes">' + esc(c.notes) + '</div>' : '') +
         '<div class="pm-card-actions">' +
-          '<button class="btn btn-ghost btn-sm" onclick="editCharacter(\'' + c.id + '\')">Edit</button>' +
+          '<div class="pm-status-group">' +
+            statusBtn('active', 'Active') + statusBtn('away', 'Away') + statusBtn('dead', 'Dead') +
+          '</div>' +
+          '<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editCharacter(\'' + c.id + '\')">&#x270E; Edit</button>' +
           '<button class="btn btn-danger btn-sm' + (isConfirming ? ' confirming' : '') + '" ' +
-            'onclick="deleteCharacter(\'' + c.id + '\')">' +
+            'onclick="event.stopPropagation();deleteCharacter(\'' + c.id + '\')">' +
             (isConfirming ? 'Confirm?' : 'Delete') +
           '</button>' +
         '</div>' +
@@ -424,6 +440,14 @@
     if (c) openForm(c);
   }
 
+  function setStatus(id, status) {
+    const c = party.find(x => x.id === id);
+    if (!c || !['active', 'away', 'dead'].includes(status)) return;
+    c.status = status;
+    saveParty();
+    render();
+  }
+
   /* ── DELETE (two-click confirm) ──────────────────────────── */
   function deleteCharacter(id) {
     if (confirmingId === id) {
@@ -495,6 +519,7 @@
   window.closeForm = closeForm;
   window.saveCharacter = saveCharacter;
   window.editCharacter = editCharacter;
+  window.setStatus = setStatus;
   window.deleteCharacter = deleteCharacter;
   window.exportParty = exportParty;
 

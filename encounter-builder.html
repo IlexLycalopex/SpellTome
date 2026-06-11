@@ -254,8 +254,10 @@ function monsterByName(name) { return MONSTERS.find(m => m.name === name); }
 // ── Party prefill from Party Manager ───────────────────────────
 function initParty() {
   try {
-    const party = JSON.parse(localStorage.getItem(STORE_PARTY));
-    if (!Array.isArray(party) || party.length === 0) return;
+    const stored = JSON.parse(localStorage.getItem(STORE_PARTY));
+    if (!Array.isArray(stored)) return;
+    const party = stored.filter(p => p && (p.status || 'active') === 'active');
+    if (party.length === 0) return;
     const levels = party.map(p => Number(p && p.level)).filter(n => n >= 1 && n <= 20).sort((a, b) => a - b);
     if (!levels.length) return;
     const mid = Math.floor(levels.length / 2);
