@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Party Manager | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/party-manager.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="party-manager.html" class="nav-item active" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party Manager
+    </a>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>Party Manager</h1>
+    <p class="subtitle">Persistent party roster shared with the Combat Tracker</p>
+
+    <div class="pm-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg>
+      The Combat Tracker imports this party automatically.
+    </div>
+
+    <div class="pm-summary">
+      <div class="pm-stats">
+        <div class="pm-stat">
+          <span class="pm-stat-num" id="stat-count">0</span>
+          <span class="pm-stat-label">Members</span>
+        </div>
+        <div class="pm-stat">
+          <span class="pm-stat-num" id="stat-avg-level">&mdash;</span>
+          <span class="pm-stat-label">Avg Level</span>
+        </div>
+      </div>
+      <div class="pm-actions">
+        <button class="btn btn-gold" id="add-btn" onclick="openForm()">+ Add Character</button>
+        <button class="btn btn-ghost" onclick="exportParty()">Export JSON</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">Import JSON</button>
+        <input type="file" id="import-file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+
+    <section class="pm-form-panel" id="form-panel" hidden>
+      <div class="pm-form-title" id="form-title">Add Character</div>
+      <div class="form-row">
+        <div class="fg">
+          <label for="f-name">Character Name *</label>
+          <input type="text" id="f-name" placeholder="e.g. Thorin Oakenshield" maxlength="60">
+        </div>
+        <div class="fg">
+          <label for="f-player">Player</label>
+          <input type="text" id="f-player" placeholder="e.g. Jamie Watts" maxlength="60">
+        </div>
+      </div>
+      <div class="form-row trio">
+        <div class="fg">
+          <label for="f-class">Class</label>
+          <select id="f-class">
+            <option value="">&mdash; Class &mdash;</option>
+            <option>Barbarian</option>
+            <option>Bard</option>
+            <option>Cleric</option>
+            <option>Druid</option>
+            <option>Fighter</option>
+            <option>Monk</option>
+            <option>Paladin</option>
+            <option>Ranger</option>
+            <option>Rogue</option>
+            <option>Sorcerer</option>
+            <option>Warlock</option>
+            <option>Wizard</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="f-level">Level</label>
+          <input type="number" id="f-level" min="1" max="20" placeholder="1">
+        </div>
+        <div class="fg">
+          <label for="f-race">Race</label>
+          <input type="text" id="f-race" placeholder="e.g. Half-Elf" maxlength="40">
+        </div>
+      </div>
+      <div class="form-row penta">
+        <div class="fg">
+          <label for="f-hp">Max HP</label>
+          <input type="number" id="f-hp" min="0" max="999" placeholder="10">
+        </div>
+        <div class="fg">
+          <label for="f-ac">AC</label>
+          <input type="number" id="f-ac" min="0" max="40" placeholder="14">
+        </div>
+        <div class="fg">
+          <label for="f-dex">Init Bonus</label>
+          <input type="number" id="f-dex" min="-5" max="10" placeholder="+2">
+        </div>
+        <div class="fg">
+          <label for="f-speed">Speed</label>
+          <input type="number" id="f-speed" min="0" max="120" step="5" placeholder="30">
+        </div>
+        <div class="fg">
+          <label for="f-pp">Passive Perc.</label>
+          <input type="number" id="f-pp" min="1" max="40" placeholder="12">
+        </div>
+      </div>
+      <div class="form-row solo">
+        <div class="fg">
+          <label for="f-notes">Notes</label>
+          <input type="text" id="f-notes" placeholder="Darkvision 60 ft, carries the party map&hellip;" maxlength="200">
+        </div>
+      </div>
+      <div class="pm-form-actions">
+        <span class="pm-form-error" id="form-error"></span>
+        <button class="btn btn-ghost" onclick="closeForm()">Cancel</button>
+        <button class="btn btn-gold" id="form-save-btn" onclick="saveCharacter()">Save Character</button>
+      </div>
+    </section>
+
+    <div class="pm-grid" id="party-grid"></div>
+
+    <div class="pm-empty" id="empty-state" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <h2>No Adventurers Yet</h2>
+      <p>Your party roster is empty. Add your first character to begin the chronicle.</p>
+      <button class="btn btn-gold" onclick="openForm()">+ Add Your First Character</button>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/utils.js"></script>
+<script>
+// PAGE SCRIPT — Party Manager
+(function () {
+  'use strict';
+
+  const STORAGE_KEY = 'tome_party_v1';
+  const CLASSES = ['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
+
+  let party = loadParty();
+  let editingId = null;     // id being edited, or null when adding
+  let confirmingId = null;  // id with a pending delete confirmation
+  let confirmTimer = null;
+
+  /* ── STORAGE ─────────────────────────────────────────────── */
+  function loadParty() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const data = JSON.parse(raw);
+      return Array.isArray(data) ? data.filter(c => c && typeof c === 'object').map(normalize) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveParty() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(party));
+    } catch (e) {
+      alert('Could not save the party (storage unavailable).');
+    }
+  }
+
+  /* ── HELPERS ─────────────────────────────────────────────── */
+  function clampNum(v, min, max, fallback) {
+    const n = Number(v);
+    if (v === '' || v === null || v === undefined || Number.isNaN(n)) return fallback;
+    return Math.min(max, Math.max(min, Math.round(n)));
+  }
+
+  function normalize(c) {
+    return {
+      id: typeof c.id === 'string' && c.id ? c.id : newId(),
+      name: String(c.name ?? '').slice(0, 60),
+      player: String(c.player ?? '').slice(0, 60),
+      klass: CLASSES.includes(c.klass) ? c.klass : '',
+      level: clampNum(c.level, 1, 20, 1),
+      race: String(c.race ?? '').slice(0, 40),
+      hpMax: clampNum(c.hpMax, 0, 999, 10),
+      ac: clampNum(c.ac, 0, 40, 10),
+      dexMod: clampNum(c.dexMod, -5, 10, 0),
+      speed: clampNum(c.speed, 0, 120, 30),
+      passivePerception: clampNum(c.passivePerception, 1, 40, 10),
+      notes: String(c.notes ?? '').slice(0, 200)
+    };
+  }
+
+  function newId() {
+    return 'pc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  }
+
+  function signed(n) {
+    return (n >= 0 ? '+' : '') + n;
+  }
+
+  /* ── RENDER ──────────────────────────────────────────────── */
+  function render() {
+    const grid = document.getElementById('party-grid');
+    const empty = document.getElementById('empty-state');
+
+    document.getElementById('stat-count').textContent = party.length;
+    document.getElementById('stat-avg-level').textContent = party.length
+      ? (party.reduce((s, c) => s + c.level, 0) / party.length).toFixed(1).replace(/\.0$/, '')
+      : '—';
+
+    empty.hidden = party.length > 0;
+
+    grid.innerHTML = party.map(c => {
+      const cls = c.klass ? ' style="--class-color: var(--cl-' + c.klass.toLowerCase() + ')"' : '';
+      const classLine = [
+        c.klass ? esc(c.klass) + ' &bull; Level ' + c.level : 'Level ' + c.level,
+        c.race ? '<span class="pm-card-race">' + esc(c.race) + '</span>' : ''
+      ].filter(Boolean).join(' &mdash; ');
+      const isConfirming = confirmingId === c.id;
+      return '<article class="pm-card"' + cls + '>' +
+        '<div class="pm-card-name">' + esc(c.name) + '</div>' +
+        (c.player ? '<div class="pm-card-player">played by ' + esc(c.player) + '</div>' : '') +
+        '<div class="pm-card-class">' + classLine + '</div>' +
+        '<div class="pm-chips">' +
+          chip(c.hpMax, 'HP') +
+          chip(c.ac, 'AC') +
+          chip(signed(c.dexMod), 'Init') +
+          chip(c.speed + ' ft', 'Speed') +
+          chip(c.passivePerception, 'Pass. Perc') +
+        '</div>' +
+        (c.notes ? '<div class="pm-card-notes">' + esc(c.notes) + '</div>' : '') +
+        '<div class="pm-card-actions">' +
+          '<button class="btn btn-ghost btn-sm" onclick="editCharacter(\'' + c.id + '\')">Edit</button>' +
+          '<button class="btn btn-danger btn-sm' + (isConfirming ? ' confirming' : '') + '" ' +
+            'onclick="deleteCharacter(\'' + c.id + '\')">' +
+            (isConfirming ? 'Confirm?' : 'Delete') +
+          '</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  function chip(val, label) {
+    return '<div class="pm-chip"><span class="pm-chip-val">' + esc(val) + '</span>' +
+           '<span class="pm-chip-label">' + esc(label) + '</span></div>';
+  }
+
+  /* ── FORM ────────────────────────────────────────────────── */
+  function openForm(character) {
+    editingId = character ? character.id : null;
+    document.getElementById('form-title').textContent = character ? 'Edit Character' : 'Add Character';
+    document.getElementById('form-save-btn').textContent = character ? 'Save Changes' : 'Save Character';
+    document.getElementById('form-error').textContent = '';
+    document.getElementById('f-name').classList.remove('invalid');
+
+    document.getElementById('f-name').value   = character ? character.name : '';
+    document.getElementById('f-player').value = character ? character.player : '';
+    document.getElementById('f-class').value  = character ? character.klass : '';
+    document.getElementById('f-level').value  = character ? (character.level ?? '') : '';
+    document.getElementById('f-race').value   = character ? character.race : '';
+    document.getElementById('f-hp').value     = character ? (character.hpMax ?? '') : '';
+    document.getElementById('f-ac').value     = character ? (character.ac ?? '') : '';
+    document.getElementById('f-dex').value    = character ? (character.dexMod ?? '') : '';
+    document.getElementById('f-speed').value  = character ? (character.speed ?? '') : '';
+    document.getElementById('f-pp').value     = character ? (character.passivePerception ?? '') : '';
+    document.getElementById('f-notes').value  = character ? character.notes : '';
+
+    const panel = document.getElementById('form-panel');
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('f-name').focus();
+  }
+
+  function closeForm() {
+    document.getElementById('form-panel').hidden = true;
+    editingId = null;
+  }
+
+  function saveCharacter() {
+    const nameEl = document.getElementById('f-name');
+    const name = nameEl.value.trim();
+    if (!name) {
+      nameEl.classList.add('invalid');
+      document.getElementById('form-error').textContent = 'A character name is required.';
+      nameEl.focus();
+      return;
+    }
+
+    const entry = normalize({
+      id: editingId ?? newId(),
+      name: name,
+      player: document.getElementById('f-player').value.trim(),
+      klass: document.getElementById('f-class').value,
+      level: document.getElementById('f-level').value,
+      race: document.getElementById('f-race').value.trim(),
+      hpMax: document.getElementById('f-hp').value,
+      ac: document.getElementById('f-ac').value,
+      dexMod: document.getElementById('f-dex').value,
+      speed: document.getElementById('f-speed').value,
+      passivePerception: document.getElementById('f-pp').value,
+      notes: document.getElementById('f-notes').value.trim()
+    });
+
+    if (editingId) {
+      const idx = party.findIndex(c => c.id === editingId);
+      if (idx !== -1) party[idx] = entry; else party.push(entry);
+    } else {
+      party.push(entry);
+    }
+
+    saveParty();
+    closeForm();
+    render();
+  }
+
+  function editCharacter(id) {
+    const c = party.find(x => x.id === id);
+    if (c) openForm(c);
+  }
+
+  /* ── DELETE (two-click confirm) ──────────────────────────── */
+  function deleteCharacter(id) {
+    if (confirmingId === id) {
+      clearTimeout(confirmTimer);
+      confirmingId = null;
+      party = party.filter(c => c.id !== id);
+      if (editingId === id) closeForm();
+      saveParty();
+      render();
+      return;
+    }
+    confirmingId = id;
+    clearTimeout(confirmTimer);
+    confirmTimer = setTimeout(() => { confirmingId = null; render(); }, 3500);
+    render();
+  }
+
+  /* ── EXPORT / IMPORT ─────────────────────────────────────── */
+  function exportParty() {
+    const blob = new Blob([JSON.stringify(party, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tome-party.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function importParty(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      let data;
+      try {
+        data = JSON.parse(reader.result);
+      } catch (e) {
+        alert('That file is not valid JSON.');
+        return;
+      }
+      if (!Array.isArray(data) || !data.every(c => c && typeof c === 'object' && typeof c.name === 'string')) {
+        alert('Invalid party file: expected an array of characters with at least a "name" field.');
+        return;
+      }
+      const incoming = data.map(normalize);
+      let next;
+      if (party.length === 0) {
+        next = incoming;
+      } else if (confirm('Replace your current party of ' + party.length + ' with the imported ' + incoming.length + '?\n\nOK = replace, Cancel = merge (imported characters are added alongside the current party).')) {
+        next = incoming;
+      } else {
+        const existingIds = new Set(party.map(c => c.id));
+        next = party.concat(incoming.map(c => existingIds.has(c.id) ? Object.assign({}, c, { id: newId() }) : c));
+      }
+      party = next;
+      saveParty();
+      render();
+    };
+    reader.readAsText(file);
+  }
+
+  document.getElementById('import-file').addEventListener('change', function () {
+    if (this.files && this.files[0]) importParty(this.files[0]);
+    this.value = '';
+  });
+
+  /* ── EXPOSE FOR INLINE HANDLERS ──────────────────────────── */
+  window.openForm = function () { openForm(null); };
+  window.closeForm = closeForm;
+  window.saveCharacter = saveCharacter;
+  window.editCharacter = editCharacter;
+  window.deleteCharacter = deleteCharacter;
+  window.exportParty = exportParty;
+
+  render();
+})();
+</script>
+</body>
+</html>

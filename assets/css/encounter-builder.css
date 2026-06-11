@@ -1,0 +1,289 @@
+/* ============================================================
+   ENCOUNTER-BUILDER.CSS — Encounter Builder styling
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+.tool-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.tool-container h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+  color: var(--text-strong);
+  margin-bottom: 4px;
+}
+
+.tool-container .subtitle {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 22px;
+}
+
+/* ── PANELS ──────────────────────────────────────────────────── */
+.eb-panel {
+  background: var(--card-shell);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.eb-panel-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.eb-panel-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.eb-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ── PARTY PANEL ─────────────────────────────────────────────── */
+.party-row { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+.party-field { display: flex; flex-direction: column; gap: 4px; }
+.party-field input { width: 90px; }
+
+.party-note {
+  font-family: 'Cinzel', serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  border-radius: 20px;
+  padding: 4px 12px;
+  margin-bottom: 4px;
+}
+
+/* ── MONSTER BROWSER ─────────────────────────────────────────── */
+.eb-filter-bar { padding: 0 0 10px; gap: 8px; }
+.eb-filter-bar .search-input { min-width: 120px; }
+.eb-filter-bar select { max-width: 110px; }
+
+.browser-count {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.browser-list {
+  max-height: 420px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--results-bg);
+}
+
+.browser-row,
+.roster-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.browser-row:last-child { border-bottom: none; }
+.browser-row:hover { background: var(--bg-soft); }
+
+.browser-info { display: flex; flex-direction: column; min-width: 0; }
+.browser-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.browser-meta { font-size: 0.74rem; color: var(--text-muted); }
+
+.btn-add {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 9px;
+  cursor: pointer;
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.btn-add:hover {
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
+
+/* ── ROSTER ──────────────────────────────────────────────────── */
+#roster-list {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--results-bg);
+}
+#roster-list:empty { border: none; }
+.roster-row:last-child { border-bottom: none; }
+
+.roster-empty {
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 10px 2px;
+}
+
+.count-controls { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+
+.count-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.count-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
+.count-btn.remove:hover { color: #d05050; border-color: #d05050; }
+
+.count-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ── MATH BLOCK ──────────────────────────────────────────────── */
+.math-block {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.math-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.math-row strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
+  color: var(--text-strong);
+}
+
+.threshold-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.threshold-box {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 4px;
+  text-align: center;
+}
+.threshold-box .th-label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.threshold-box .th-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+.verdict-meter {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.verdict-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 5px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.verdict-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* ── ACTIONS / CONFIRM ───────────────────────────────────────── */
+.eb-actions { margin-top: 14px; display: flex; justify-content: center; }
+
+.send-confirm {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--gold);
+}
+.send-confirm a { color: var(--gold); text-decoration: underline; }
+
+/* ── SAVED ENCOUNTERS ────────────────────────────────────────── */
+.saved-block {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.saved-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.saved-row select { max-width: 170px; }
+.saved-row input { flex: 1; min-width: 120px; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 820px) {
+  .eb-columns { grid-template-columns: 1fr; }
+  .browser-list { max-height: 300px; }
+}

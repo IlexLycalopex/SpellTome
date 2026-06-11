@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Loot Generator | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/loot-generator.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="party-manager.html" class="nav-item" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party Manager
+    </a>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item active" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>Loot Generator</h1>
+    <p class="subtitle">Treasure rolls by challenge rating</p>
+
+    <!-- CONTROLS -->
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Treasure Tables (DMG)</span></div>
+      <div class="panel-body">
+        <span class="field-label">Challenge Rating</span>
+        <div class="tier-pills" role="group" aria-label="Challenge rating tier">
+          <button class="tier-pill active" type="button" id="tier-0" onclick="setTier(0)">CR 0&ndash;4</button>
+          <button class="tier-pill" type="button" id="tier-1" onclick="setTier(1)">CR 5&ndash;10</button>
+          <button class="tier-pill" type="button" id="tier-2" onclick="setTier(2)">CR 11&ndash;16</button>
+          <button class="tier-pill" type="button" id="tier-3" onclick="setTier(3)">CR 17+</button>
+        </div>
+        <span class="field-label">Treasure Type</span>
+        <div class="mode-toggle" role="group" aria-label="Treasure type">
+          <button class="mode-opt active" type="button" id="mode-individual" onclick="setMode('individual')">Individual</button>
+          <button class="mode-opt" type="button" id="mode-hoard" onclick="setMode('hoard')">Hoard</button>
+        </div>
+        <div class="roll-row">
+          <div class="mult-wrap" id="mult-wrap">
+            <label class="field-label" for="creature-count">&times;N Creatures</label>
+            <input type="number" id="creature-count" min="1" max="20" value="1">
+          </div>
+          <button class="roll-btn" type="button" onclick="rollTreasure()">&#x1FA99;&nbsp; Roll Treasure</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="panel" id="loot-result-panel">
+      <div class="panel-head"><span class="panel-title" id="loot-result-title">Treasure</span></div>
+      <div class="panel-body">
+        <div id="loot-result-body"></div>
+        <div class="grand-total">
+          <span class="grand-total-label">Total Value (gp equivalent)</span>
+          <span class="grand-total-value" id="loot-total"></span>
+        </div>
+        <div class="loot-actions">
+          <button class="action-btn" type="button" id="loot-copy-btn" onclick="copyLoot()">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Roll History</span>
+        <button class="hist-clear-btn" type="button" onclick="clearLootHistory()">Clear</button>
+      </div>
+      <div class="panel-body">
+        <div id="loot-history"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/utils.js"></script>
+<script>
+// PAGE SCRIPT — Loot Generator (DMG 2014 treasure tables)
+
+// ─── DICE ────────────────────────────────────────────────────
+function rollDice(n, d){
+  const rolls = [];
+  let total = 0;
+  for(let i = 0; i < n; i++){ const r = Math.floor(Math.random()*d)+1; rolls.push(r); total += r; }
+  return { total, rolls };
+}
+function rollDiceStr(str){ // '1d6' or '1'
+  const m = String(str).match(/^(\d+)d(\d+)$/);
+  if(!m) return { total: parseInt(str,10)||1, rolls: [] };
+  return rollDice(parseInt(m[1],10), parseInt(m[2],10));
+}
+const GP_VALUE = { cp: 0.01, sp: 0.1, ep: 0.5, gp: 1, pp: 10 };
+const COIN_ORDER = ['cp','sp','ep','gp','pp'];
+
+// ─── INDIVIDUAL TREASURE (coins by d100) ─────────────────────
+// Each row: { max, coins: [[coin, n, d, mult], ...] }
+const INDIVIDUAL_TABLES = [
+  [ // CR 0-4
+    { max: 30,  coins: [['cp',5,6,1]] },
+    { max: 60,  coins: [['sp',4,6,1]] },
+    { max: 70,  coins: [['ep',3,6,1]] },
+    { max: 95,  coins: [['gp',3,6,1]] },
+    { max: 100, coins: [['pp',1,6,1]] }
+  ],
+  [ // CR 5-10
+    { max: 30,  coins: [['cp',4,6,100],['ep',1,6,10]] },
+    { max: 60,  coins: [['sp',6,6,10],['gp',2,6,10]] },
+    { max: 70,  coins: [['ep',3,6,10],['gp',2,6,10]] },
+    { max: 95,  coins: [['gp',4,6,10]] },
+    { max: 100, coins: [['gp',2,6,10],['pp',3,6,1]] }
+  ],
+  [ // CR 11-16
+    { max: 20,  coins: [['sp',4,6,100],['gp',1,6,100]] },
+    { max: 35,  coins: [['ep',1,6,100],['gp',1,6,100]] },
+    { max: 75,  coins: [['gp',2,6,100],['pp',1,6,10]] },
+    { max: 100, coins: [['gp',2,6,100],['pp',2,6,10]] }
+  ],
+  [ // CR 17+
+    { max: 15,  coins: [['ep',2,6,1000],['gp',8,6,100]] },
+    { max: 55,  coins: [['gp',1,6,1000],['pp',1,6,100]] },
+    { max: 100, coins: [['gp',1,6,1000],['pp',2,6,100]] }
+  ]
+];
+
+// ─── GEMSTONES & ART OBJECTS ─────────────────────────────────
+const GEMS = {
+  10:   ['Azurite','Banded agate','Blue quartz','Eye agate','Hematite','Lapis lazuli','Obsidian','Tiger eye'],
+  50:   ['Bloodstone','Carnelian','Chalcedony','Citrine','Jasper','Moonstone','Onyx','Star rose quartz'],
+  100:  ['Amber','Amethyst','Chrysoberyl','Coral','Garnet','Jade','Pearl','Tourmaline'],
+  500:  ['Alexandrite','Aquamarine','Black pearl','Blue spinel','Peridot','Topaz'],
+  1000: ['Black opal','Blue sapphire','Emerald','Fire opal','Opal','Star ruby','Star sapphire','Yellow sapphire'],
+  5000: ['Black sapphire','Diamond','Jacinth','Ruby','Flawless emerald','Imperial jade']
+};
+const ART = {
+  25:   ['Silver ewer','Carved bone statuette','Small gold bracelet','Cloth-of-gold vestments','Black velvet mask stitched with silver thread','Copper chalice with silver filigree','Pair of engraved bone dice','Embroidered silk handkerchief'],
+  250:  ['Gold ring set with bloodstones','Carved ivory statuette','Large gold bracelet','Silver necklace with a gemstone pendant','Bronze crown','Silk robe with gold embroidery','Large well-made tapestry','Brass mug with jade inlay'],
+  750:  ['Silver chalice set with moonstones','Silver-plated steel longsword with jet set in hilt','Carved harp of exotic wood with ivory inlay','Small gold idol','Gold dragon comb set with red garnets as eyes','Bottle stopper cork embossed with gold leaf and set with amethysts','Ceremonial electrum dagger with a black pearl in the pommel','Silver and gold brooch'],
+  2500: ['Fine gold chain set with a fire opal','Old masterpiece painting','Embroidered silk and velvet mantle set with numerous moonstones','Platinum bracelet set with a sapphire','Embroidered glove set with jewel chips','Jeweled anklet','Gold music box','Gold circlet set with four aquamarines'],
+  7500: ['Jeweled gold crown','Jeweled platinum ring','Small gold statuette set with rubies','Gold cup set with emeralds','Gold jewelry box with platinum filigree','Painted gold child\'s sarcophagus','Jade game board with solid gold playing pieces','Bejeweled ivory drinking horn with gold filigree']
+};
+
+// ─── MAGIC ITEM TABLES → RARITY ──────────────────────────────
+const TABLE_RARITY = {
+  A: 'Common', B: 'Uncommon', C: 'Rare', D: 'Very Rare', E: 'Very Rare / Legendary',
+  F: 'Uncommon', G: 'Rare', H: 'Very Rare', I: 'Legendary'
+};
+
+// ─── HOARD TABLES ────────────────────────────────────────────
+// rows: { max, gems:[n,d,value] | art:[n,d,value] | magic:[[dice, table], ...] }
+const HOARD_TABLES = [
+  { // CR 0-4
+    base: [['cp',6,6,100],['sp',3,6,100],['gp',2,6,10]],
+    rows: [
+      { max: 6 },
+      { max: 16, gems: [2,6,10] },
+      { max: 26, art:  [2,4,25] },
+      { max: 36, gems: [2,6,50] },
+      { max: 44, gems: [2,6,10], magic: [['1d6','A']] },
+      { max: 52, art:  [2,4,25], magic: [['1d6','A']] },
+      { max: 60, gems: [2,6,50], magic: [['1d6','A']] },
+      { max: 65, gems: [2,6,10], magic: [['1d4','B']] },
+      { max: 70, art:  [2,4,25], magic: [['1d4','B']] },
+      { max: 75, gems: [2,6,50], magic: [['1d4','B']] },
+      { max: 78, gems: [2,6,10], magic: [['1d4','C']] },
+      { max: 80, art:  [2,4,25], magic: [['1d4','C']] },
+      { max: 85, gems: [2,6,50], magic: [['1d4','C']] },
+      { max: 92, art:  [2,4,25], magic: [['1d4','F']] },
+      { max: 97, gems: [2,6,50], magic: [['1d4','F']] },
+      { max: 99, art:  [2,4,25], magic: [['1','G']] },
+      { max: 100, gems:[2,6,50], magic: [['1','G']] }
+    ]
+  },
+  { // CR 5-10
+    base: [['cp',2,6,100],['sp',2,6,1000],['gp',6,6,100],['pp',3,6,10]],
+    rows: [
+      { max: 4 },
+      { max: 10, art:  [2,4,25] },
+      { max: 16, gems: [3,6,50] },
+      { max: 22, gems: [3,6,100] },
+      { max: 28, art:  [2,4,250] },
+      { max: 32, art:  [2,4,25],  magic: [['1d6','A']] },
+      { max: 36, gems: [3,6,50],  magic: [['1d6','A']] },
+      { max: 40, gems: [3,6,100], magic: [['1d6','A']] },
+      { max: 44, art:  [2,4,250], magic: [['1d6','A']] },
+      { max: 49, art:  [2,4,25],  magic: [['1d4','B']] },
+      { max: 54, gems: [3,6,50],  magic: [['1d4','B']] },
+      { max: 59, gems: [3,6,100], magic: [['1d4','B']] },
+      { max: 63, art:  [2,4,250], magic: [['1d4','B']] },
+      { max: 66, art:  [2,4,25],  magic: [['1d4','C']] },
+      { max: 69, gems: [3,6,50],  magic: [['1d4','C']] },
+      { max: 72, gems: [3,6,100], magic: [['1d4','C']] },
+      { max: 74, art:  [2,4,250], magic: [['1d4','C']] },
+      { max: 76, art:  [2,4,25],  magic: [['1','D']] },
+      { max: 78, gems: [3,6,50],  magic: [['1','D']] },
+      { max: 79, gems: [3,6,100], magic: [['1','D']] },
+      { max: 80, art:  [2,4,250], magic: [['1','D']] },
+      { max: 84, art:  [2,4,25],  magic: [['1d4','F']] },
+      { max: 88, gems: [3,6,50],  magic: [['1d4','F']] },
+      { max: 91, gems: [3,6,100], magic: [['1d4','F']] },
+      { max: 94, art:  [2,4,250], magic: [['1d4','F']] },
+      { max: 96, gems: [3,6,100], magic: [['1d4','G']] },
+      { max: 98, art:  [2,4,250], magic: [['1d4','G']] },
+      { max: 99, gems: [3,6,100], magic: [['1','H']] },
+      { max: 100, art: [2,4,250], magic: [['1','H']] }
+    ]
+  },
+  { // CR 11-16
+    base: [['gp',4,6,1000],['pp',5,6,100]],
+    rows: [
+      { max: 3 },
+      { max: 6,  art:  [2,4,250] },
+      { max: 9,  art:  [2,4,750] },
+      { max: 12, gems: [3,6,500] },
+      { max: 15, gems: [3,6,1000] },
+      { max: 19, art:  [2,4,250],  magic: [['1d4','A'],['1d6','B']] },
+      { max: 23, art:  [2,4,750],  magic: [['1d4','A'],['1d6','B']] },
+      { max: 26, gems: [3,6,500],  magic: [['1d4','A'],['1d6','B']] },
+      { max: 29, gems: [3,6,1000], magic: [['1d4','A'],['1d6','B']] },
+      { max: 35, art:  [2,4,250],  magic: [['1d6','C']] },
+      { max: 40, art:  [2,4,750],  magic: [['1d6','C']] },
+      { max: 45, gems: [3,6,500],  magic: [['1d6','C']] },
+      { max: 50, gems: [3,6,1000], magic: [['1d6','C']] },
+      { max: 54, art:  [2,4,250],  magic: [['1d4','D']] },
+      { max: 58, art:  [2,4,750],  magic: [['1d4','D']] },
+      { max: 62, gems: [3,6,500],  magic: [['1d4','D']] },
+      { max: 66, gems: [3,6,1000], magic: [['1d4','D']] },
+      { max: 68, art:  [2,4,250],  magic: [['1','E']] },
+      { max: 70, art:  [2,4,750],  magic: [['1','E']] },
+      { max: 72, gems: [3,6,500],  magic: [['1','E']] },
+      { max: 74, gems: [3,6,1000], magic: [['1','E']] },
+      { max: 76, art:  [2,4,250],  magic: [['1','F'],['1d4','G']] },
+      { max: 78, art:  [2,4,750],  magic: [['1','F'],['1d4','G']] },
+      { max: 80, gems: [3,6,500],  magic: [['1','F'],['1d4','G']] },
+      { max: 82, gems: [3,6,1000], magic: [['1','F'],['1d4','G']] },
+      { max: 85, art:  [2,4,250],  magic: [['1d4','H']] },
+      { max: 88, art:  [2,4,750],  magic: [['1d4','H']] },
+      { max: 90, gems: [3,6,500],  magic: [['1d4','H']] },
+      { max: 92, gems: [3,6,1000], magic: [['1d4','H']] },
+      { max: 94, art:  [2,4,250],  magic: [['1','I']] },
+      { max: 96, art:  [2,4,750],  magic: [['1','I']] },
+      { max: 98, gems: [3,6,500],  magic: [['1','I']] },
+      { max: 100, gems:[3,6,1000], magic: [['1','I']] }
+    ]
+  },
+  { // CR 17+
+    base: [['gp',12,6,1000],['pp',8,6,1000]],
+    rows: [
+      { max: 2 },
+      { max: 5,  gems: [3,6,1000],  magic: [['1d8','C']] },
+      { max: 8,  art:  [1,10,2500], magic: [['1d8','C']] },
+      { max: 11, art:  [1,4,7500],  magic: [['1d8','C']] },
+      { max: 14, gems: [1,8,5000],  magic: [['1d8','C']] },
+      { max: 22, gems: [3,6,1000],  magic: [['1d6','D']] },
+      { max: 30, art:  [1,10,2500], magic: [['1d6','D']] },
+      { max: 38, art:  [1,4,7500],  magic: [['1d6','D']] },
+      { max: 46, gems: [1,8,5000],  magic: [['1d6','D']] },
+      { max: 52, gems: [3,6,1000],  magic: [['1d6','E']] },
+      { max: 58, art:  [1,10,2500], magic: [['1d6','E']] },
+      { max: 63, art:  [1,4,7500],  magic: [['1d6','E']] },
+      { max: 68, gems: [1,8,5000],  magic: [['1d6','E']] },
+      { max: 70, gems: [3,6,1000],  magic: [['1d4','G']] },
+      { max: 72, art:  [1,10,2500], magic: [['1d4','G']] },
+      { max: 74, art:  [1,4,7500],  magic: [['1d4','G']] },
+      { max: 76, gems: [1,8,5000],  magic: [['1d4','G']] },
+      { max: 78, gems: [3,6,1000],  magic: [['1d4','H']] },
+      { max: 80, art:  [1,10,2500], magic: [['1d4','H']] },
+      { max: 82, art:  [1,4,7500],  magic: [['1d4','H']] },
+      { max: 85, gems: [1,8,5000],  magic: [['1d4','H']] },
+      { max: 90, gems: [3,6,1000],  magic: [['1d4','I']] },
+      { max: 95, art:  [1,10,2500], magic: [['1d4','I']] },
+      { max: 100, gems:[1,8,5000],  magic: [['1d4','I']] }
+    ]
+  }
+];
+
+const TIER_LABELS = ['CR 0–4','CR 5–10','CR 11–16','CR 17+'];
+
+// ─── CORE ROLLING (pure: no DOM) ─────────────────────────────
+function rollCoinEntry(entry){
+  const [coin, n, d, mult] = entry;
+  const r = rollDice(n, d);
+  const amount = r.total * mult;
+  const formula = n + 'd' + d + (mult > 1 ? '×' + mult : '') + ' [' + r.rolls.join(', ') + ']';
+  return { coin, amount, formula };
+}
+function pickRow(rows, d100){
+  for(const row of rows){ if(d100 <= row.max) return row; }
+  return rows[rows.length - 1];
+}
+function pickFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function rollLoot(tierIdx, mode, creatureCount){
+  const result = {
+    tier: tierIdx, mode, creatureCount: mode === 'individual' ? creatureCount : 1,
+    coinLines: [], coins: { cp:0, sp:0, ep:0, gp:0, pp:0 },
+    gems: [], art: [], magic: [], d100s: [], totalGp: 0
+  };
+  if(mode === 'individual'){
+    const table = INDIVIDUAL_TABLES[tierIdx];
+    for(let c = 0; c < creatureCount; c++){
+      const d100 = Math.floor(Math.random()*100)+1;
+      result.d100s.push(d100);
+      const row = pickRow(table, d100);
+      const prefix = creatureCount > 1 ? ('#' + (c+1) + ' — ') : '';
+      row.coins.forEach(entry => {
+        const r = rollCoinEntry(entry);
+        result.coins[r.coin] += r.amount;
+        result.coinLines.push({ label: prefix + r.formula + ' (d100: ' + d100 + ')', coin: r.coin, amount: r.amount });
+      });
+    }
+  } else {
+    const table = HOARD_TABLES[tierIdx];
+    table.base.forEach(entry => {
+      const r = rollCoinEntry(entry);
+      result.coins[r.coin] += r.amount;
+      result.coinLines.push({ label: r.formula, coin: r.coin, amount: r.amount });
+    });
+    const d100 = Math.floor(Math.random()*100)+1;
+    result.d100s.push(d100);
+    const row = pickRow(table.rows, d100);
+    if(row.gems){
+      const [n, d, value] = row.gems;
+      const count = rollDice(n, d).total;
+      const tally = {};
+      for(let i = 0; i < count; i++){ const g = pickFrom(GEMS[value]); tally[g] = (tally[g]||0)+1; }
+      Object.keys(tally).forEach(name => result.gems.push({ name, count: tally[name], value, dice: n+'d'+d }));
+    }
+    if(row.art){
+      const [n, d, value] = row.art;
+      const count = rollDice(n, d).total;
+      const tally = {};
+      for(let i = 0; i < count; i++){ const a = pickFrom(ART[value]); tally[a] = (tally[a]||0)+1; }
+      Object.keys(tally).forEach(name => result.art.push({ name, count: tally[name], value, dice: n+'d'+d }));
+    }
+    if(row.magic){
+      row.magic.forEach(([dice, tableId]) => {
+        const count = rollDiceStr(dice).total;
+        result.magic.push({ table: tableId, rarity: TABLE_RARITY[tableId], count, dice });
+      });
+    }
+  }
+  let total = 0;
+  COIN_ORDER.forEach(c => { total += result.coins[c] * GP_VALUE[c]; });
+  result.gems.forEach(g => { total += g.count * g.value; });
+  result.art.forEach(a => { total += a.count * a.value; });
+  result.totalGp = Math.round(total * 100) / 100;
+  return result;
+}
+
+// ─── STATE & UI ──────────────────────────────────────────────
+const LOOT_HISTORY_KEY = 'tome_loot_history_v1';
+let currentTier = 0;
+let currentMode = 'individual';
+let currentResult = null;
+
+function setTier(idx){
+  currentTier = idx;
+  for(let i = 0; i < 4; i++) document.getElementById('tier-'+i).classList.toggle('active', i === idx);
+}
+function setMode(mode){
+  currentMode = mode;
+  document.getElementById('mode-individual').classList.toggle('active', mode === 'individual');
+  document.getElementById('mode-hoard').classList.toggle('active', mode === 'hoard');
+  document.getElementById('mult-wrap').classList.toggle('hidden', mode !== 'individual');
+}
+
+function fmt(n){ return n.toLocaleString('en-US'); }
+
+function rollTreasure(){
+  let count = 1;
+  if(currentMode === 'individual'){
+    count = parseInt(document.getElementById('creature-count').value, 10);
+    if(isNaN(count) || count < 1) count = 1;
+    if(count > 20) count = 20;
+    document.getElementById('creature-count').value = count;
+  }
+  currentResult = rollLoot(currentTier, currentMode, count);
+  renderResult(currentResult);
+  pushLootHistory(currentResult);
+}
+
+function renderResult(res){
+  const panel = document.getElementById('loot-result-panel');
+  const body = document.getElementById('loot-result-body');
+  const modeLabel = res.mode === 'hoard' ? 'Hoard' : 'Individual' + (res.creatureCount > 1 ? ' ×' + res.creatureCount : '');
+  document.getElementById('loot-result-title').textContent = modeLabel + ' — ' + TIER_LABELS[res.tier];
+  let html = '';
+
+  html += '<div class="loot-section-title">Coins</div>';
+  res.coinLines.forEach(line => {
+    html += '<div class="loot-line"><span><span class="loot-dice">' + esc(line.label) + '</span></span>'
+      + '<span class="loot-amount coin-' + line.coin + '">' + fmt(line.amount) + ' ' + line.coin + '</span></div>';
+  });
+
+  if(res.gems.length){
+    html += '<div class="loot-section-title">Gemstones</div>';
+    res.gems.forEach(g => {
+      html += '<div class="loot-line"><span>' + (g.count > 1 ? g.count + '× ' : '') + esc(g.name)
+        + ' <span class="loot-dice">(' + esc(g.dice) + ' gems, ' + fmt(g.value) + ' gp each)</span></span>'
+        + '<span class="loot-amount">' + fmt(g.count * g.value) + ' gp</span></div>';
+    });
+  }
+  if(res.art.length){
+    html += '<div class="loot-section-title">Art Objects</div>';
+    res.art.forEach(a => {
+      html += '<div class="loot-line"><span>' + (a.count > 1 ? a.count + '× ' : '') + esc(a.name)
+        + ' <span class="loot-dice">(' + esc(a.dice) + ' objects, ' + fmt(a.value) + ' gp each)</span></span>'
+        + '<span class="loot-amount">' + fmt(a.count * a.value) + ' gp</span></div>';
+    });
+  }
+  if(res.magic.length){
+    html += '<div class="loot-section-title">Magic Items</div>';
+    res.magic.forEach(m => {
+      html += '<div class="loot-line magic-line"><span>' + m.count + ' × ' + esc(m.rarity)
+        + ' magic item' + (m.count > 1 ? 's' : '') + ' <span class="loot-dice">(Table ' + esc(m.table) + ', '
+        + esc(m.dice) + ')</span> — <a href="magic-items.html">pick from the Magic Item Compendium</a></span>'
+        + '<span class="loot-amount">&mdash;</span></div>';
+    });
+  }
+  if(res.mode === 'hoard'){
+    html += '<div class="loot-section-title">Hoard d100: ' + res.d100s[0] + '</div>';
+  }
+  body.innerHTML = html;
+  document.getElementById('loot-total').textContent = fmt(res.totalGp) + ' gp';
+  panel.classList.add('show');
+}
+
+// ─── COPY ────────────────────────────────────────────────────
+function lootToText(res){
+  const lines = [(res.mode === 'hoard' ? 'Hoard' : 'Individual ×' + res.creatureCount) + ' treasure, ' + TIER_LABELS[res.tier]];
+  lines.push('Coins:');
+  res.coinLines.forEach(l => lines.push('  ' + l.label + ' = ' + fmt(l.amount) + ' ' + l.coin));
+  if(res.gems.length){
+    lines.push('Gemstones:');
+    res.gems.forEach(g => lines.push('  ' + g.count + 'x ' + g.name + ' (' + fmt(g.value) + ' gp each) = ' + fmt(g.count*g.value) + ' gp'));
+  }
+  if(res.art.length){
+    lines.push('Art objects:');
+    res.art.forEach(a => lines.push('  ' + a.count + 'x ' + a.name + ' (' + fmt(a.value) + ' gp each) = ' + fmt(a.count*a.value) + ' gp'));
+  }
+  if(res.magic.length){
+    lines.push('Magic items:');
+    res.magic.forEach(m => lines.push('  ' + m.count + ' x ' + m.rarity + ' (Table ' + m.table + ') - pick from the Magic Item Compendium'));
+  }
+  lines.push('Total: ' + fmt(res.totalGp) + ' gp equivalent');
+  return lines.join('\n');
+}
+function copyLoot(){
+  if(!currentResult) return;
+  const text = lootToText(currentResult);
+  const done = () => {
+    const btn = document.getElementById('loot-copy-btn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = old; }, 1400);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta);
+  done();
+}
+
+// ─── HISTORY ─────────────────────────────────────────────────
+function loadLootHistory(){
+  try { return JSON.parse(localStorage.getItem(LOOT_HISTORY_KEY)) || []; }
+  catch(e){ return []; }
+}
+function pushLootHistory(res){
+  try {
+    let arr = loadLootHistory();
+    arr.unshift(res);
+    arr = arr.slice(0, 10);
+    localStorage.setItem(LOOT_HISTORY_KEY, JSON.stringify(arr));
+  } catch(e){ /* storage unavailable */ }
+  renderLootHistory();
+}
+function renderLootHistory(){
+  const el = document.getElementById('loot-history');
+  const arr = loadLootHistory();
+  if(!arr.length){ el.innerHTML = '<div class="hist-empty">Treasure rolls will appear here.</div>'; return; }
+  el.innerHTML = '';
+  arr.forEach(res => {
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'loot-hist-row';
+    const modeLabel = res.mode === 'hoard' ? 'Hoard' : 'Individual' + (res.creatureCount > 1 ? ' ×' + res.creatureCount : '');
+    const extras = [];
+    if(res.gems && res.gems.length) extras.push('gems');
+    if(res.art && res.art.length) extras.push('art');
+    if(res.magic && res.magic.length) extras.push('magic items');
+    row.innerHTML = '<span><span class="loot-hist-label">' + esc(modeLabel + ' — ' + TIER_LABELS[res.tier]) + '</span>'
+      + (extras.length ? ' <span class="loot-hist-sub">+ ' + esc(extras.join(', ')) + '</span>' : '') + '</span>'
+      + '<span class="loot-hist-total">' + fmt(res.totalGp) + ' gp</span>';
+    row.addEventListener('click', () => { currentResult = res; renderResult(res); });
+    el.appendChild(row);
+  });
+}
+function clearLootHistory(){
+  try { localStorage.removeItem(LOOT_HISTORY_KEY); } catch(e){}
+  renderLootHistory();
+}
+
+// ─── INIT ────────────────────────────────────────────────────
+window.addEventListener('load', renderLootHistory);
+</script>
+</body>
+</html>

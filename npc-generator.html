@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>NPC Generator | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/npc-generator.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="party-manager.html" class="nav-item" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party Manager
+    </a>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item active" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>NPC Generator</h1>
+    <p class="subtitle">Instant names, traits and hooks</p>
+
+    <!-- CONTROLS -->
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Forge an NPC</span></div>
+      <div class="panel-body">
+        <div class="controls-grid">
+          <div>
+            <label class="field-label" for="npc-race">Race</label>
+            <select id="npc-race">
+              <option value="random" selected>Random</option>
+              <option value="human">Human</option>
+              <option value="elf">Elf</option>
+              <option value="dwarf">Dwarf</option>
+              <option value="halfling">Halfling</option>
+              <option value="gnome">Gnome</option>
+              <option value="halforc">Half-Orc</option>
+              <option value="tiefling">Tiefling</option>
+              <option value="dragonborn">Dragonborn</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="npc-gender">Gender</label>
+            <select id="npc-gender">
+              <option value="random" selected>Random</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <button class="generate-btn" type="button" onclick="generateNPC()">&#x1F3B2;&nbsp; Generate NPC</button>
+      </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="panel" id="npc-card">
+      <div class="panel-head"><span class="panel-title">Your NPC</span></div>
+      <div class="panel-body">
+        <div id="npc-card-body"></div>
+        <div class="npc-actions">
+          <button class="action-btn" type="button" onclick="copyNPC()" id="copy-btn">Copy</button>
+          <button class="action-btn" type="button" onclick="sendToLogBuilder()">Send to Log Builder</button>
+        </div>
+        <div class="confirm-note" id="send-confirm"></div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Recent NPCs</span>
+        <button class="hist-clear-btn" type="button" onclick="clearNpcHistory()">Clear</button>
+      </div>
+      <div class="panel-body">
+        <div id="npc-history"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/utils.js"></script>
+<script>
+// PAGE SCRIPT — NPC Generator
+
+// ─── DATA TABLES ─────────────────────────────────────────────
+const RACES = {
+  human: {
+    label: 'Human',
+    male: ['Aldric','Bertram','Cassian','Doran','Edmund','Falk','Garrick','Hadrian','Ivo','Jorah','Kellan','Lucan','Merek','Osric','Percival','Roland','Stefan','Tobias'],
+    female: ['Adelaide','Brienne','Catriona','Daniela','Elspeth','Fiora','Giselle','Helena','Isolde','Johanna','Katrin','Lysandra','Maren','Nadia','Odette','Petra','Rosalind','Sabine'],
+    surnames: ['Ashdown','Blackwood','Carver','Dunmore','Fairweather','Greymantle','Hartley','Ironwood','Kestrel','Marchbanks','Norwood','Pembrook','Ravenscroft','Stonebrook','Thatcher','Whitfield']
+  },
+  elf: {
+    label: 'Elf',
+    male: ['Aelar','Beiro','Carric','Dayereth','Erevan','Faelar','Galinndan','Heian','Ivellios','Laucian','Mindartis','Naal','Paelias','Quarion','Riardon','Soveliss','Thamior','Varis'],
+    female: ['Adrie','Birel','Caelynn','Dara','Enna','Felosial','Ielenia','Jelenneth','Keyleth','Leshanna','Mialee','Naivara','Quelenna','Sariel','Shanairra','Thia','Vadania','Xanaphia'],
+    surnames: ['Amakiir','Galanodel','Holimion','Ilphelkiir','Liadon','Meliamne','Nailo','Siannodel','Xiloscient','Moonwhisper','Silverfrond','Dawnstrider']
+  },
+  dwarf: {
+    label: 'Dwarf',
+    male: ['Adrik','Baern','Darrak','Eberk','Fargrim','Gardain','Harbek','Kildrak','Morgran','Orsik','Rangrim','Thoradin','Thorin','Tordek','Ulfgar','Veit','Vondal','Bruenor'],
+    female: ['Amber','Artin','Audhild','Bardryn','Dagnal','Diesa','Eldeth','Falkrunn','Finellen','Gunnloda','Gurdis','Helja','Hlin','Kathra','Kristryd','Mardred','Riswynn','Torbera'],
+    surnames: ['Balderk','Battlehammer','Brawnanvil','Dankil','Fireforge','Frostbeard','Gorunn','Holderhek','Ironfist','Loderr','Lutgehr','Rumnaheim','Strakeln','Torunn','Ungart','Coppervein']
+  },
+  halfling: {
+    label: 'Halfling',
+    male: ['Alton','Ander','Cade','Corrin','Eldon','Errich','Finnan','Garret','Lindal','Lyle','Merric','Milo','Osborn','Perrin','Reed','Roscoe','Wellby','Wendel'],
+    female: ['Andry','Bree','Callie','Cora','Euphemia','Jillian','Kithri','Lavinia','Lidda','Merla','Nedda','Paela','Portia','Seraphina','Shaena','Trym','Vani','Verna'],
+    surnames: ['Brushgather','Goodbarrel','Greenbottle','High-hill','Hilltopple','Leagallow','Tealeaf','Thorngage','Tosscobble','Underbough','Appleblossom','Honeypot']
+  },
+  gnome: {
+    label: 'Gnome',
+    male: ['Alston','Alvyn','Boddynock','Brocc','Burgell','Dimble','Eldon','Erky','Fonkin','Frug','Gerbo','Gimble','Glim','Jebeddo','Kellen','Namfoodle','Orryn','Roondar'],
+    female: ['Bimpnottin','Breena','Caramip','Carlin','Donella','Duvamil','Ella','Ellyjobell','Ellywick','Lilli','Loopmottin','Lorilla','Mardnab','Nissa','Nyx','Oda','Orla','Roywyn'],
+    surnames: ['Beren','Daergel','Folkor','Garrick','Nackle','Murnig','Ningel','Raulnor','Scheppen','Timbers','Turen','Sparkfizzle','Cogspinner','Gearwhistle']
+  },
+  halforc: {
+    label: 'Half-Orc',
+    male: ['Dench','Feng','Gell','Grumbar','Henk','Holg','Imsh','Keth','Krusk','Mhurren','Ront','Shump','Thokk','Brug','Karash','Murog','Ohr','Varg'],
+    female: ['Baggi','Emen','Engong','Kansif','Myev','Neega','Ovak','Ownka','Shautha','Sutha','Vola','Volen','Yevelda','Grenna','Hesk','Mara','Ushka','Zella'],
+    surnames: ['Bonecrusher','Skullsplitter','Ironjaw','the Gray','Half-Tusk','Bloodfist','Grimsnarl','Stonefang','One-Ear','Wolfsbane','Ashmaw','the Quiet']
+  },
+  tiefling: {
+    label: 'Tiefling',
+    male: ['Akmenos','Amnon','Barakas','Damakos','Ekemon','Iados','Kairon','Leucis','Melech','Mordai','Morthos','Pelaios','Skamos','Therai','Zherom','Caim','Vassal','Nethis'],
+    female: ['Akta','Anakis','Bryseis','Criella','Damaia','Ea','Kallista','Lerissa','Makaria','Nemeia','Orianna','Phelaia','Rieta','Vex','Zaar','Belphega','Itra','Sorrel'],
+    surnames: ['Art','Carrion','Chant','Creed','Despair','Excellence','Fear','Glory','Hope','Ideal','Music','Nowhere','Open','Poetry','Quest','Sorrow','Torment','Weary']
+  },
+  dragonborn: {
+    label: 'Dragonborn',
+    male: ['Arjhan','Balasar','Bharash','Donaar','Ghesh','Heskan','Kriv','Medrash','Mehen','Nadarr','Pandjed','Patrin','Rhogar','Shamash','Shedinn','Tarhun','Torinn','Vrak'],
+    female: ['Akra','Biri','Daar','Farideh','Harann','Havilar','Jheri','Kava','Korinn','Mishann','Nala','Perra','Raiann','Sora','Surina','Thava','Uadjit','Vezera'],
+    surnames: ['Clethtinthiallor','Daardendrian','Delmirev','Drachedandion','Fenkenkabradon','Kepeshkmolik','Kerrhylon','Kimbatuul','Linxakasendalor','Myastan','Nemmonis','Norixius','Ophinshtalajiir','Prexijandilin','Shestendeliath','Turnuroth','Verthisathurgiesh','Yarjerit']
+  }
+};
+
+const OCCUPATIONS = ['Blacksmith','Innkeeper','Town guard','Merchant','Herbalist','Fisherman','Cartographer','Scribe','Stablehand','Baker','Gravedigger','Fence','Bounty hunter','Street performer','Tax collector','Priest','Apothecary','Sailor','Ratcatcher','Locksmith','Jeweler','Falconer','Wagon driver','Mercenary','Fortune teller','Tanner','Brewer','Beekeeper','Lamplighter','Cooper','Moneylender','Town crier','Hedge wizard','Midwife','Chandler','Pawnbroker','Hunter','Glassblower','Court bard','Sewer worker','Retired adventurer','Cheesemonger'];
+
+const TRAITS = ['Endlessly optimistic, even in the rain','Suspicious of anyone in a cloak','Speaks in elaborate metaphors','Painfully honest, to a fault','Collects rumors like coins','Quick to laugh, slow to forgive','Always quoting an obscure proverb','Never forgets a debt — owed or owing','Believes everything happens for a reason','Treats strangers like old friends','Counts everything, twice','Hates being touched','Fiercely protective of the young','Compulsively tidy','Loves a good wager','Terrified of magic','Name-drops nobility constantly','Refuses to speak ill of the dead','Always hungry, always snacking','Secretly a hopeless romantic','Pretends to know more than they do','Apologizes for everything','Thrives on gossip but never shares their own','Trusts animals more than people','Convinced they are cursed','Insists on paying their own way','Never sits with their back to a door','Believes hard work fixes anything','Dramatically pessimistic about small things','Keeps a journal of every conversation'];
+
+const MANNERISMS = ['Taps fingers when lying','Hums old battle hymns under their breath','Squints at everyone as if nearsighted','Constantly polishes a copper coin','Chews on a piece of straw','Cracks knuckles before answering questions','Quotes their grandmother mid-sentence','Stares just over your shoulder while talking','Laughs at their own jokes — twice','Whispers prayers when nervous','Tugs at their collar when stressed','Smells everything before touching it','Repeats the last word you said — said','Draws little symbols in spilled ale','Winks far too often','Speaks to an invisible companion','Never finishes a sent—','Bows slightly to every passing dog','Clicks tongue while thinking','Picks at a fraying sleeve','Counts on fingers during any negotiation','Stands uncomfortably close','Always faces north when possible','Rubs an old scar absent-mindedly','Snaps fingers to punctuate sentences'];
+
+const BONDS = ['Owes a life debt to a retired soldier','Saving every coin to buy back the family farm','Their sister vanished on the old forest road','Sworn to protect the local temple','Would do anything for their aging mentor','Secretly funds the town orphanage','Searching for the captain who abandoned their crew','Keeps their late spouse\'s shop running unchanged','Their guild is the only family they have','Loyal to a noble house that lost everything','Raising a sibling\'s child as their own','Promised a dying friend to deliver one last letter','Protects an old smuggling route — and its people','Their hometown burned; the survivors look to them','Devoted to a god they\'ve never told anyone about','Wants to clear a wrongly convicted friend\'s name','Their beloved dog is the last gift from their father','Bound by oath to a mysterious benefactor','Will reunite their scattered family, whatever it costs','Tends the grave of someone they could not save'];
+
+const FLAWS = ['Cannot resist a dare','Drinks to forget something they never name','Pockets small shiny things without thinking','Owes serious money to dangerous people','Lies even when the truth would help','Holds a grudge for decades','Is blackmailing someone — or being blackmailed','Sold information to the city watch, once','Cowardice cost someone their life years ago','Secretly illiterate and ashamed of it','Trusts no one fully, not even family','Gambles away every windfall','Pretends their dead rival is still alive','In love with someone dangerously off-limits','Once served a cult and fears being recognized','Jealousy poisons every friendship they have','Keeps a stolen heirloom they cannot return','Believes the law doesn\'t apply to them','Their famous heroic deed was actually a lie','Hides a forbidden arcane experiment at home'];
+
+const VOICES = ['Gravelly, drops their g\'s','High and reedy, fast talker','Slow drawl, savors every word','Booming, always one notch too loud','Soft whisper that forces you to lean in','Sing-song lilt with rolling r\'s','Clipped and precise, like a clerk reading law','Hoarse, like they\'ve been shouting all day','Warm and honeyed, born salesman','Monotone, utterly without inflection','Nasal with a distinct upriver accent','Stutters on hard consonants when nervous','Deep and musical, almost chanting','Breathy, trails off at the end of sentences...','Sharp staccato, bites off each word'];
+
+const HOOKS = ['Saw strange lights in the abandoned mill last night','Needs a parcel delivered — no questions asked','Heard the mayor argue with a hooded stranger','Found a sealed letter addressed to someone long dead','Their cellar wall collapsed, revealing a tunnel','Will pay handsomely for an escort to the next town','Knows which graves were disturbed — and why it matters','Claims a doppelganger has replaced the harbormaster','Lost a family ring in the sewers; offers a reward','Overheard smugglers naming a date and a cove','Their well water has turned black and whispers','Is being followed by the same beggar every day','Has a treasure map they\'re too afraid to use','Swears the new priest casts no shadow','Wants revenge on a bandit chief — quietly','A wolf has been leaving dead birds on their doorstep','Received an inheritance letter from a town that doesn\'t exist','The night watch refuses to patrol their street anymore','Bought a locked box at auction that hums at midnight','Their child\'s imaginary friend knows real secrets'];
+
+const APPEARANCE_BUILD = ['Tall and wiry','Short and barrel-chested','Lean with ropy muscle','Stocky and broad-shouldered','Slight, almost frail','Heavyset and imposing','Gangly with long limbs','Compact and quick-moving','Soft-bodied and slow-moving','Athletic and straight-backed','Hunched and weathered','Round-faced and ruddy'];
+
+const APPEARANCE_DETAIL = ['with a scar across one eyebrow','with ink-stained fingers','with a meticulously braided beard','with mismatched eyes','with a milky left eye','missing two fingers on one hand','with burn scars along one forearm','with an elaborate tattoo creeping up the neck','with hair gone prematurely silver','with a crooked, often-broken nose','draped in clothes a size too fine','wearing a patched coat with too many pockets','with a limp they pretend not to have','with a gold tooth that flashes when they smile','smelling faintly of lamp oil and parchment','with calloused, rope-burned hands','with small bones woven into their hair','who never removes their worn leather gloves'];
+
+// ─── GENERATION ──────────────────────────────────────────────
+const NPC_HISTORY_KEY = 'tome_npc_history_v1';
+const NPC_QUEUE_KEY = 'tome_npc_queue_v1';
+const FIELD_DEFS = [
+  ['name', 'Name'],
+  ['occupation', 'Occupation'],
+  ['appearance', 'Appearance'],
+  ['personality', 'Personality'],
+  ['mannerism', 'Mannerism'],
+  ['bond', 'Bond'],
+  ['flaw', 'Flaw'],
+  ['voice', 'Voice'],
+  ['hook', 'Plot Hook']
+];
+
+let currentNPC = null;
+
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function rollName(race, gender){
+  const r = RACES[race];
+  return pick(gender==='male' ? r.male : r.female) + ' ' + pick(r.surnames);
+}
+function rollAppearance(){ return pick(APPEARANCE_BUILD) + ', ' + pick(APPEARANCE_DETAIL) + '.'; }
+
+function generateNPC(){
+  const raceSel = document.getElementById('npc-race').value;
+  const genderSel = document.getElementById('npc-gender').value;
+  const race = raceSel==='random' ? pick(Object.keys(RACES)) : raceSel;
+  const gender = genderSel==='random' ? pick(['male','female']) : genderSel;
+  currentNPC = {
+    id: Date.now() + '_' + Math.floor(Math.random()*1e6),
+    race, gender,
+    name: rollName(race, gender),
+    occupation: pick(OCCUPATIONS),
+    appearance: rollAppearance(),
+    personality: pick(TRAITS),
+    mannerism: pick(MANNERISMS),
+    bond: pick(BONDS),
+    flaw: pick(FLAWS),
+    voice: pick(VOICES),
+    hook: pick(HOOKS)
+  };
+  renderNPC();
+  saveToHistory(currentNPC, true);
+}
+
+function rerollField(field){
+  if(!currentNPC) return;
+  if(field==='name')           currentNPC.name = rollName(currentNPC.race, currentNPC.gender);
+  else if(field==='occupation') currentNPC.occupation = pick(OCCUPATIONS);
+  else if(field==='appearance') currentNPC.appearance = rollAppearance();
+  else if(field==='personality')currentNPC.personality = pick(TRAITS);
+  else if(field==='mannerism')  currentNPC.mannerism = pick(MANNERISMS);
+  else if(field==='bond')       currentNPC.bond = pick(BONDS);
+  else if(field==='flaw')       currentNPC.flaw = pick(FLAWS);
+  else if(field==='voice')      currentNPC.voice = pick(VOICES);
+  else if(field==='hook')       currentNPC.hook = pick(HOOKS);
+  renderNPC();
+  saveToHistory(currentNPC, false);
+}
+
+// ─── RENDERING ───────────────────────────────────────────────
+function renderNPC(){
+  const npc = currentNPC;
+  if(!npc) return;
+  const card = document.getElementById('npc-card');
+  const body = document.getElementById('npc-card-body');
+  const meta = RACES[npc.race].label + ' • ' + (npc.gender==='male'?'Male':'Female') + ' • ' + npc.occupation;
+  let html = '<div class="npc-name-row"><span class="npc-name">' + esc(npc.name) + '</span>'
+    + '<button class="reroll-btn" type="button" title="Reroll name" onclick="rerollField(\'name\')">&#x1F3B2;</button></div>'
+    + '<div class="npc-meta">' + esc(meta) + ' <button class="reroll-btn" type="button" title="Reroll occupation" onclick="rerollField(\'occupation\')">&#x1F3B2;</button></div>';
+  FIELD_DEFS.forEach(([key, label]) => {
+    if(key==='name' || key==='occupation') return;
+    html += '<div class="npc-field">'
+      + '<span class="npc-field-label">' + esc(label) + '</span>'
+      + '<span class="npc-field-value">' + esc(npc[key]) + '</span>'
+      + '<button class="reroll-btn" type="button" title="Reroll ' + esc(label.toLowerCase()) + '" onclick="rerollField(\'' + key + '\')">&#x1F3B2;</button>'
+      + '</div>';
+  });
+  body.innerHTML = html;
+  card.classList.add('show');
+  document.getElementById('send-confirm').classList.remove('show');
+}
+
+// ─── HISTORY ─────────────────────────────────────────────────
+function loadHistory(){
+  try { return JSON.parse(localStorage.getItem(NPC_HISTORY_KEY)) || []; }
+  catch(e){ return []; }
+}
+function saveToHistory(npc, isNew){
+  try {
+    let arr = loadHistory();
+    const idx = arr.findIndex(n => n.id === npc.id);
+    if(idx >= 0) arr[idx] = npc;
+    else arr.unshift(npc);
+    arr = arr.slice(0, 10);
+    localStorage.setItem(NPC_HISTORY_KEY, JSON.stringify(arr));
+  } catch(e){ /* storage full or unavailable */ }
+  renderHistory();
+}
+function renderHistory(){
+  const el = document.getElementById('npc-history');
+  const arr = loadHistory();
+  if(!arr.length){ el.innerHTML = '<div class="hist-empty">Generated NPCs will appear here.</div>'; return; }
+  el.innerHTML = '';
+  arr.forEach(npc => {
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'npc-hist-row';
+    const raceLabel = RACES[npc.race] ? RACES[npc.race].label : npc.race;
+    row.innerHTML = '<span><span class="npc-hist-name">' + esc(npc.name) + '</span> &mdash; '
+      + esc(raceLabel + ' ' + npc.occupation) + '</span>'
+      + '<span class="npc-hist-sub">' + esc(npc.voice) + '</span>';
+    row.addEventListener('click', () => { currentNPC = JSON.parse(JSON.stringify(npc)); renderNPC(); });
+    el.appendChild(row);
+  });
+}
+function clearNpcHistory(){
+  try { localStorage.removeItem(NPC_HISTORY_KEY); } catch(e){}
+  renderHistory();
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────
+function npcToText(npc){
+  return [
+    npc.name + ' — ' + RACES[npc.race].label + ' ' + (npc.gender==='male'?'Male':'Female') + ', ' + npc.occupation,
+    'Appearance: ' + npc.appearance,
+    'Personality: ' + npc.personality,
+    'Mannerism: ' + npc.mannerism,
+    'Bond: ' + npc.bond,
+    'Flaw: ' + npc.flaw,
+    'Voice: ' + npc.voice,
+    'Plot hook: ' + npc.hook
+  ].join('\n');
+}
+
+function copyNPC(){
+  if(!currentNPC) return;
+  const text = npcToText(currentNPC);
+  const done = () => {
+    const btn = document.getElementById('copy-btn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = old; }, 1400);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta);
+  done();
+}
+
+function sendToLogBuilder(){
+  if(!currentNPC) return;
+  const note = document.getElementById('send-confirm');
+  let queue;
+  try { queue = JSON.parse(localStorage.getItem(NPC_QUEUE_KEY)) || []; }
+  catch(e){ queue = []; }
+  if(!Array.isArray(queue)) queue = [];
+  queue.push({
+    name: currentNPC.name,
+    notes: currentNPC.occupation + '. ' + currentNPC.personality + '. ' + currentNPC.voice + '.'
+  });
+  try {
+    localStorage.setItem(NPC_QUEUE_KEY, JSON.stringify(queue));
+    note.innerHTML = esc(currentNPC.name) + ' queued for the <a href="campaign-log-builder.html">Log Builder</a>.';
+  } catch(e){
+    note.textContent = 'Could not save to the queue (storage unavailable).';
+  }
+  note.classList.add('show');
+}
+
+// ─── INIT ────────────────────────────────────────────────────
+window.addEventListener('load', renderHistory);
+</script>
+</body>
+</html>

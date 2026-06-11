@@ -191,9 +191,28 @@ document.addEventListener('DOMContentLoaded', () => {
   bindScalarFields();
   bindToolbar();
   bindPreviewTabs();
+  importNpcQueue();
   render();
   void initializeSuggestedSessionNumber();
 });
+
+// NPCs sent over from the NPC Generator (npc-generator.html) wait in this
+// queue; absorb them into the draft's NPC list on load.
+function importNpcQueue() {
+  let queue;
+  try {
+    queue = JSON.parse(localStorage.getItem('tome_npc_queue_v1'));
+    localStorage.removeItem('tome_npc_queue_v1');
+  } catch (error) { return; }
+  if (!Array.isArray(queue) || !queue.length) return;
+  const incoming = queue
+    .filter(item => item && hasText(item.name))
+    .map(item => ({ mode: 'New NPC', type: 'info', name: String(item.name), status: '', notes: String(item.notes || '') }));
+  if (!incoming.length) return;
+  const existing = state.npcs.filter(item => hasText(item.name) || hasText(item.notes));
+  state.npcs = existing.concat(incoming);
+  setStatus(`${incoming.length} NPC${incoming.length === 1 ? '' : 's'} imported from the NPC Generator`);
+}
 
 function bindScalarFields() {
   const map = {

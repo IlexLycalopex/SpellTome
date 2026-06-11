@@ -43,6 +43,13 @@ PAGES = [
     'level-up-guide.html',
     'campaign-tracker.html',
     'campaign-log-builder.html',
+    'party-manager.html',
+    'encounter-builder.html',
+    'equipment.html',
+    'backgrounds.html',
+    'npc-generator.html',
+    'loot-generator.html',
+    'campaign-map.html',
 ]
 
 # ── Helpers ──────────────────────────────────────────────────────────────────

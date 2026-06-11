@@ -1,0 +1,233 @@
+/* ============================================================
+   LOOT-GENERATOR.CSS — Loot Generator styling
+   Inherits: theme.css, layout.css, nav.css, components.css
+   ============================================================ */
+
+.tool-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── BACKGROUND FLOURISH ─────────────────────────────────── */
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 18%, rgba(120,90,10,0.18) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 78%, rgba(0,55,110,0.15) 0%, transparent 52%);
+}
+
+/* ── HEADINGS ────────────────────────────────────────────── */
+.tool-container h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 1.05;
+  margin-bottom: 6px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.25), 0 2px 6px rgba(0,0,0,0.4);
+}
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  margin-bottom: 28px;
+}
+
+/* ── PANEL ───────────────────────────────────────────────── */
+.panel {
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(8px);
+  margin-bottom: 18px;
+}
+.panel-head {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: color-mix(in srgb, var(--bg-panel) 72%, transparent);
+}
+.panel-title {
+  font-family: 'Cinzel', serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+}
+.panel-body { padding: 18px; }
+
+.field-label {
+  font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim);
+  display: block; margin-bottom: 8px;
+}
+
+/* ── CR TIER PILLS ───────────────────────────────────────── */
+.tier-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.tier-pill {
+  font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 10px 18px; border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted); cursor: pointer;
+  transition: background 0.14s, color 0.14s, border-color 0.14s;
+}
+.tier-pill:hover {
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-elevated));
+  color: var(--text-light);
+}
+.tier-pill.active {
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+  color: var(--gold);
+}
+
+/* ── MODE TOGGLE ─────────────────────────────────────────── */
+.mode-toggle {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 18px;
+}
+.mode-opt {
+  font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 10px; border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+}
+.mode-opt:first-child { border-right: 1px solid var(--border); }
+.mode-opt.active {
+  background: color-mix(in srgb, var(--gold) 14%, var(--bg-elevated));
+  color: var(--text-light);
+}
+.mode-opt:not(.active):hover {
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-elevated));
+  color: var(--text-light);
+}
+
+/* ── ROLL ROW ────────────────────────────────────────────── */
+.roll-row { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: end; }
+.mult-wrap { display: block; }
+.mult-wrap.hidden { display: none; }
+.mult-wrap input { width: 92px; padding: 12px 12px; font-size: 1rem; border-radius: 7px; }
+
+.roll-btn {
+  width: 100%;
+  font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 15px 22px; border-radius: 8px;
+  border: 1px solid var(--gold-dim);
+  background: linear-gradient(135deg, rgba(138,106,44,0.5), rgba(201,168,76,0.2));
+  color: var(--gold); cursor: pointer;
+  transition: all 0.14s;
+}
+.roll-btn:hover {
+  background: linear-gradient(135deg, rgba(138,106,44,0.8), rgba(201,168,76,0.35));
+  box-shadow: 0 0 18px rgba(201,168,76,0.25);
+}
+.roll-btn:active { transform: translateY(1px); }
+
+/* ── RESULT PANEL ────────────────────────────────────────── */
+#loot-result-panel { display: none; }
+#loot-result-panel.show { display: block; animation: loot-in 0.25s ease; }
+@keyframes loot-in { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+.loot-section-title {
+  font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim);
+  margin: 16px 0 8px;
+}
+.loot-section-title:first-child { margin-top: 0; }
+
+.loot-line {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 10px; align-items: baseline;
+  font-size: 0.98rem; padding: 7px 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 38%, transparent);
+  color: var(--text-light); line-height: 1.4;
+}
+.loot-line:last-child { border-bottom: none; }
+.loot-dice { color: var(--text-dim); font-size: 0.82rem; font-style: italic; }
+.loot-amount { font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold); white-space: nowrap; }
+
+.coin-cp { color: #c08a5a; } .coin-sp { color: #b9c2cc; } .coin-ep { color: #9fb89a; }
+.coin-gp { color: var(--gold); } .coin-pp { color: #d7d2ee; }
+
+.magic-line a { color: var(--gold); }
+
+.grand-total {
+  margin-top: 18px; padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-elevated));
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+}
+.grand-total-label {
+  font-family: 'Cinzel', serif; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted);
+}
+.grand-total-value {
+  font-family: 'Cinzel', serif; font-weight: 900; color: var(--gold);
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  text-shadow: 0 0 22px rgba(201,168,76,0.35);
+}
+
+.loot-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.action-btn {
+  font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 18px; border-radius: 7px;
+  border: 1px solid color-mix(in srgb, var(--gold) 32%, var(--border));
+  background: color-mix(in srgb, var(--gold) 10%, var(--bg-elevated));
+  color: var(--gold); cursor: pointer;
+  transition: background 0.14s, border-color 0.14s, transform 0.06s;
+}
+.action-btn:hover {
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--gold) 48%, var(--border));
+}
+.action-btn:active { transform: translateY(1px); }
+
+/* ── HISTORY ─────────────────────────────────────────────── */
+.hist-clear-btn {
+  font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 6px;
+  border: 1px solid rgba(192,57,43,0.4); background: rgba(192,57,43,0.1);
+  color: #e07060; cursor: pointer; transition: all 0.14s;
+}
+.hist-clear-btn:hover { background: rgba(192,57,43,0.25); border-color: rgba(192,57,43,0.65); }
+
+.loot-hist-row {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 8px; align-items: center;
+  width: 100%; text-align: left;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.92rem; padding: 10px 13px;
+  border: 1px solid color-mix(in srgb, var(--border) 42%, transparent);
+  border-radius: 7px; margin-bottom: 8px;
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  color: var(--text-muted); cursor: pointer;
+  transition: border-color 0.14s, background 0.14s;
+}
+.loot-hist-row:hover {
+  border-color: color-mix(in srgb, var(--gold) 40%, var(--border));
+  background: color-mix(in srgb, var(--gold) 7%, var(--bg-elevated));
+}
+.loot-hist-row:last-child { margin-bottom: 0; }
+.loot-hist-label { color: var(--text-light); }
+.loot-hist-total { font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold); white-space: nowrap; }
+.loot-hist-sub { color: var(--text-dim); font-size: 0.8rem; font-style: italic; }
+.hist-empty { font-size: 0.9rem; color: var(--text-dim); font-style: italic; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .tool-container { padding: 18px 14px 48px; }
+  .roll-row { grid-template-columns: 1fr; }
+  .mult-wrap input { width: 100%; }
+  .tier-pill { flex: 1 1 calc(50% - 8px); text-align: center; }
+}
