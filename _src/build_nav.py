@@ -50,6 +50,7 @@ PAGES = [
     'npc-generator.html',
     'loot-generator.html',
     'campaign-map.html',
+    'campaign-manager.html',
 ]
 
 # ── Helpers ──────────────────────────────────────────────────────────────────

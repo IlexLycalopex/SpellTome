@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.4.0] — 2026-06-11
+
+### Added
+- **Campaign Manager** (`campaign-manager.html`) — the central campaign registry. Campaign cards show a live dashboard (active/total PCs from the Party Manager, session count and last-session synopsis from the playlog, map status), a description, GM/ruleset, and play status (active/planned/hiatus/completed). Members carry GM/Player roles — local for now, becoming per-campaign permissions when Supabase accounts arrive. "Make Current" sets the site-wide campaign that the Party Manager, Combat Tracker, Encounter Builder and Map follow. Renaming a campaign cascades to party tags, map data and the current-campaign selection.
+- **One campaign list everywhere** — `tomeStore.campaignNames()` feeds the registry into every campaign field: the Log Builder's campaign input (new datalist), the Map's campaign selector, and the Party Manager's campaign suggestions. Storm King's Thunder is auto-registered with its GM and players; campaigns existing only as party tags or map configs are absorbed into the registry.
+
+---
+
 ## [2.3.0] — 2026-06-11
 
 ### Added

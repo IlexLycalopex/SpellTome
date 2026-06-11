@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Campaign Manager | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/campaign-manager.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="party-manager.html" class="nav-item" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party Manager
+    </a>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-manager.html" class="nav-item active" data-page="campaign-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg>
+      &nbsp;Campaign Manager
+    </a>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>Campaign Manager</h1>
+    <p class="subtitle">The central registry of campaigns &mdash; linking parties, sessions, maps and members.</p>
+
+    <div class="cm-banner">
+      One campaign is <strong>current</strong> at a time: the Party Manager, Combat Tracker, Encounter Builder and Map all follow it.
+      Member roles are local for now &mdash; they become real per-campaign permissions when accounts arrive (see the backend plan).
+    </div>
+
+    <div class="cm-summary">
+      <div class="cm-stats">
+        <div class="cm-stat"><span class="cm-stat-num" id="stat-campaigns">0</span><span class="cm-stat-label">Campaigns</span></div>
+        <div class="cm-stat"><span class="cm-stat-num" id="stat-current">&mdash;</span><span class="cm-stat-label">Current</span></div>
+      </div>
+      <div class="cm-actions">
+        <button class="btn btn-gold" onclick="openForm()">+ New Campaign</button>
+      </div>
+    </div>
+
+    <section class="cm-form-panel" id="form-panel" hidden>
+      <div class="cm-form-title" id="form-title">New Campaign</div>
+      <div class="form-row">
+        <div class="fg">
+          <label for="f-name">Campaign Name *</label>
+          <input type="text" id="f-name" placeholder="e.g. Curse of Strahd" maxlength="60">
+        </div>
+        <div class="fg">
+          <label for="f-gm">Game Master</label>
+          <input type="text" id="f-gm" placeholder="e.g. Matthew Rogers" maxlength="60">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label for="f-ruleset">Ruleset</label>
+          <input type="text" id="f-ruleset" placeholder="D&amp;D 5e" maxlength="40">
+        </div>
+        <div class="fg">
+          <label for="f-status">Status</label>
+          <select id="f-status">
+            <option value="active">Active</option>
+            <option value="planned">Planned</option>
+            <option value="hiatus">On hiatus</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row solo">
+        <div class="fg">
+          <label for="f-desc">Description</label>
+          <input type="text" id="f-desc" placeholder="Giants have broken their ancient ordning&hellip;" maxlength="200">
+        </div>
+      </div>
+      <div class="cm-form-actions">
+        <span class="cm-form-error" id="form-error"></span>
+        <button class="btn btn-ghost" onclick="closeForm()">Cancel</button>
+        <button class="btn btn-gold" id="form-save-btn" onclick="saveCampaign()">Save Campaign</button>
+      </div>
+    </section>
+
+    <div class="cm-grid" id="campaign-grid"></div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
+<script>
+// PAGE SCRIPT — Campaign Manager
+(function () {
+  'use strict';
+
+  const GITHUB_USER = 'IlexLycalopex';
+  const GITHUB_REPO = 'SpellTome';
+  const SESSIONS_PATH = 'playlog';
+  const STATUSES = { active: 'Active', planned: 'Planned', hiatus: 'On hiatus', completed: 'Completed' };
+
+  let campaigns = loadCampaigns();
+  let editingId = null;
+  let confirmingId = null;
+  let confirmTimer = null;
+  let sessionStats = null;   // { name: {count, latestDate, latestSynopsis, maxSession} } once fetched
+
+  /* ── STORAGE & SEEDING ─────────────────────────────────────── */
+  function normalize(c) {
+    const o = c && typeof c === 'object' ? c : {};
+    return {
+      id: typeof o.id === 'string' && o.id ? o.id : newId(),
+      name: String(o.name ?? '').slice(0, 60).trim(),
+      gm: String(o.gm ?? '').slice(0, 60),
+      ruleset: String(o.ruleset ?? 'D&D 5e').slice(0, 40),
+      status: Object.keys(STATUSES).includes(o.status) ? o.status : 'active',
+      description: String(o.description ?? '').slice(0, 200),
+      members: Array.isArray(o.members)
+        ? o.members.filter(m => m && m.name).map(m => ({
+            name: String(m.name).slice(0, 60),
+            role: m.role === 'gm' ? 'gm' : 'player'
+          }))
+        : [],
+      createdAt: o.createdAt || new Date().toISOString()
+    };
+  }
+
+  function loadCampaigns() {
+    const data = tomeStore.get('campaigns', []);
+    return Array.isArray(data) ? data.map(normalize).filter(c => c.name) : [];
+  }
+
+  function saveCampaigns() {
+    if (!tomeStore.set('campaigns', campaigns)) alert('Could not save (storage unavailable).');
+  }
+
+  function newId() {
+    return 'cmp_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  }
+
+  // Absorb campaigns that exist only as party tags or map configs, and
+  // make sure the home campaign is registered.
+  function seedRegistry() {
+    const known = new Set(campaigns.map(c => c.name));
+    let changed = false;
+    const ensure = (name, extra) => {
+      if (!name || known.has(name)) return;
+      campaigns.push(normalize(Object.assign({ name }, extra || {})));
+      known.add(name);
+      changed = true;
+    };
+    ensure("Storm King's Thunder", {
+      gm: 'Matthew Rogers',
+      description: 'Giants have broken their ancient ordning and stir across the Sword Coast.',
+      members: [{ name: 'Matthew Rogers', role: 'gm' },
+                { name: 'Jamie Watts', role: 'player' }, { name: 'Alex Stratford', role: 'player' },
+                { name: 'Paul Schofield', role: 'player' }, { name: 'Nick Johnson', role: 'player' }]
+    });
+    tomeStore.campaignNames().forEach(n => ensure(n));
+    if (changed) saveCampaigns();
+  }
+
+  /* ── DERIVED LINKS ─────────────────────────────────────────── */
+  function characterStats(name) {
+    const party = tomeStore.get('party');
+    if (!Array.isArray(party)) return { total: 0, active: 0 };
+    const mine = party.filter(p => p && (!p.campaign || p.campaign === name));
+    return { total: mine.length, active: mine.filter(p => (p.status || 'active') === 'active').length };
+  }
+
+  function hasMap(name) {
+    if (name === "Storm King's Thunder") return true;
+    const maps = tomeStore.get('mapMarkers');
+    return Boolean(maps && maps.campaigns && maps.campaigns[name] && maps.campaigns[name].image);
+  }
+
+  function currentCampaign() {
+    return String(tomeStore.get('activeCampaign', '') || '');
+  }
+
+  /* ── SESSION STATS (playlog via GitHub, like the Chronicle) ── */
+  async function fetchSessionStats() {
+    try {
+      const api = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
+      const repo = await (await fetch(api)).json();
+      const branch = repo.default_branch || 'main';
+      const tree = await (await fetch(`${api}/git/trees/${branch}?recursive=1`)).json();
+      const files = tree.tree.filter(i => i.type === 'blob' && i.path.startsWith(SESSIONS_PATH + '/') && i.path.endsWith('.md'));
+      const stats = {};
+      await Promise.all(files.map(async f => {
+        try {
+          const raw = await (await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${branch}/${encodeURI(f.path)}`)).text();
+          const fm = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+          if (!fm) return;
+          const meta = {};
+          fm[1].split('\n').forEach(line => {
+            const kv = line.match(/^(\w[\w_-]*):\s*(.*)$/);
+            if (kv) meta[kv[1]] = kv[2].trim().replace(/^["']|["']$/g, '');
+          });
+          const name = meta.campaign;
+          if (!name) return;
+          const entry = stats[name] = stats[name] || { count: 0, latestDate: '', latestSynopsis: '', maxSession: 0 };
+          entry.count += 1;
+          const num = Number(meta.session) || 0;
+          if (num >= entry.maxSession) {
+            entry.maxSession = num;
+            entry.latestDate = meta.date || '';
+            entry.latestSynopsis = meta.synopsis || '';
+          }
+        } catch (e) {}
+      }));
+      sessionStats = stats;
+      render();
+    } catch (e) {
+      sessionStats = {};   // offline — cards show a dash
+      render();
+    }
+  }
+
+  /* ── RENDER ────────────────────────────────────────────────── */
+  function render() {
+    const grid = document.getElementById('campaign-grid');
+    const current = currentCampaign();
+    document.getElementById('stat-campaigns').textContent = campaigns.length;
+    document.getElementById('stat-current').textContent = current || "Storm King's Thunder";
+
+    const order = { active: 0, planned: 1, hiatus: 2, completed: 3 };
+    const sorted = campaigns.slice().sort((a, b) =>
+      (order[a.status] - order[b.status]) || a.name.localeCompare(b.name));
+
+    grid.innerHTML = sorted.map(c => {
+      const chars = characterStats(c.name);
+      const ses = sessionStats ? (sessionStats[c.name] || { count: 0 }) : null;
+      const isCurrent = current === c.name || (!current && c.name === "Storm King's Thunder");
+      const isConfirming = confirmingId === c.id;
+      const memberRows = c.members.map((m, i) =>
+        '<span class="cm-member' + (m.role === 'gm' ? ' gm' : '') + '">' +
+          esc(m.name) + (m.role === 'gm' ? ' &middot; GM' : '') +
+          '<button class="cm-member-x" title="Remove" onclick="removeMember(\'' + c.id + '\',' + i + ')">&times;</button>' +
+          '<button class="cm-member-role" title="Toggle GM/Player" onclick="toggleRole(\'' + c.id + '\',' + i + ')">&#8645;</button>' +
+        '</span>').join('');
+      return '<article class="cm-card status-' + c.status + (isCurrent ? ' current' : '') + '">' +
+        '<div class="cm-card-head">' +
+          '<div>' +
+            '<div class="cm-card-name">' + esc(c.name) + (isCurrent ? '<span class="cm-current-badge">Current</span>' : '') + '</div>' +
+            '<div class="cm-card-meta">' + esc(c.ruleset || 'D&D 5e') + (c.gm ? ' &mdash; GM: ' + esc(c.gm) : '') + '</div>' +
+          '</div>' +
+          '<span class="cm-status-badge s-' + c.status + '">' + STATUSES[c.status] + '</span>' +
+        '</div>' +
+        (c.description ? '<p class="cm-card-desc">' + esc(c.description) + '</p>' : '') +
+        '<div class="cm-card-stats">' +
+          stat(chars.active + '/' + chars.total, 'Active PCs', 'party-manager.html') +
+          stat(ses === null ? '&hellip;' : ses.count, 'Sessions', 'campaign-tracker.html') +
+          stat(hasMap(c.name) ? '&#x2713;' : '&mdash;', 'Map', 'campaign-map.html') +
+        '</div>' +
+        (ses && ses.count ? '<div class="cm-card-latest">Last session' + (ses.latestDate ? ' &middot; ' + esc(ses.latestDate) : '') + ': <em>' + esc(String(ses.latestSynopsis).slice(0, 140)) + '</em></div>' : '') +
+        '<div class="cm-members">' + memberRows +
+          '<button class="cm-member-add" onclick="addMember(\'' + c.id + '\')" title="Add member">+ Member</button>' +
+          '<button class="cm-member-add" onclick="importPlayers(\'' + c.id + '\')" title="Add the players of this campaign\'s characters">&#8645; From party</button>' +
+        '</div>' +
+        '<div class="cm-card-actions">' +
+          (isCurrent ? '' : '<button class="btn btn-gold btn-sm" onclick="makeCurrent(\'' + c.id + '\')">Make Current</button>') +
+          '<button class="btn btn-ghost btn-sm" onclick="editCampaign(\'' + c.id + '\')">&#x270E; Edit</button>' +
+          '<button class="btn btn-danger btn-sm' + (isConfirming ? ' confirming' : '') + '" onclick="deleteCampaign(\'' + c.id + '\')">' + (isConfirming ? 'Confirm?' : 'Delete') + '</button>' +
+          '<span class="cm-links">' +
+            '<a href="party-manager.html">Party</a><a href="campaign-map.html">Map</a>' +
+            '<a href="campaign-tracker.html">Chronicle</a><a href="campaign-log-builder.html">Log</a>' +
+          '</span>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  function stat(value, label, href) {
+    return '<a class="cm-stat-chip" href="' + href + '"><span class="cm-chip-val">' + value + '</span><span class="cm-chip-label">' + esc(label) + '</span></a>';
+  }
+
+  /* ── FORM ──────────────────────────────────────────────────── */
+  function byId(id) { return campaigns.find(c => c.id === id); }
+
+  function openForm(campaign) {
+    editingId = campaign ? campaign.id : null;
+    document.getElementById('form-title').textContent = campaign ? 'Edit Campaign' : 'New Campaign';
+    document.getElementById('form-save-btn').textContent = campaign ? 'Save Changes' : 'Save Campaign';
+    document.getElementById('form-error').textContent = '';
+    document.getElementById('f-name').value = campaign ? campaign.name : '';
+    document.getElementById('f-gm').value = campaign ? campaign.gm : '';
+    document.getElementById('f-ruleset').value = campaign ? campaign.ruleset : 'D&D 5e';
+    document.getElementById('f-status').value = campaign ? campaign.status : 'active';
+    document.getElementById('f-desc').value = campaign ? campaign.description : '';
+    const panel = document.getElementById('form-panel');
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('f-name').focus();
+  }
+
+  function closeForm() {
+    document.getElementById('form-panel').hidden = true;
+    editingId = null;
+  }
+
+  function saveCampaign() {
+    const name = document.getElementById('f-name').value.trim();
+    if (!name) { document.getElementById('form-error').textContent = 'A campaign name is required.'; return; }
+    const clash = campaigns.find(c => c.name === name && c.id !== editingId);
+    if (clash) { document.getElementById('form-error').textContent = 'A campaign with that name already exists.'; return; }
+
+    const existing = editingId ? byId(editingId) : null;
+    const entry = normalize({
+      id: editingId ?? undefined,
+      name,
+      gm: document.getElementById('f-gm').value.trim(),
+      ruleset: document.getElementById('f-ruleset').value.trim() || 'D&D 5e',
+      status: document.getElementById('f-status').value,
+      description: document.getElementById('f-desc').value.trim(),
+      members: existing ? existing.members : [],
+      createdAt: existing ? existing.createdAt : undefined
+    });
+
+    if (existing && existing.name !== name) renameEverywhere(existing.name, name);
+
+    if (existing) campaigns[campaigns.indexOf(existing)] = entry;
+    else campaigns.push(entry);
+    saveCampaigns();
+    closeForm();
+    render();
+  }
+
+  // Renaming cascades to everything linked by campaign name, so the
+  // registry stays the single source of truth.
+  function renameEverywhere(oldName, newName) {
+    const party = tomeStore.get('party');
+    if (Array.isArray(party)) {
+      let touched = false;
+      party.forEach(p => { if (p && p.campaign === oldName) { p.campaign = newName; touched = true; } });
+      if (touched) tomeStore.set('party', party);
+    }
+    const maps = tomeStore.get('mapMarkers');
+    if (maps && maps.campaigns && maps.campaigns[oldName]) {
+      maps.campaigns[newName] = maps.campaigns[oldName];
+      delete maps.campaigns[oldName];
+      tomeStore.set('mapMarkers', maps);
+    }
+    if (currentCampaign() === oldName) tomeStore.set('activeCampaign', newName);
+  }
+
+  /* ── ACTIONS ───────────────────────────────────────────────── */
+  function makeCurrent(id) {
+    const c = byId(id);
+    if (!c) return;
+    tomeStore.set('activeCampaign', c.name);
+    render();
+  }
+
+  function editCampaign(id) {
+    const c = byId(id);
+    if (c) openForm(c);
+  }
+
+  function deleteCampaign(id) {
+    if (confirmingId === id) {
+      clearTimeout(confirmTimer);
+      confirmingId = null;
+      const c = byId(id);
+      campaigns = campaigns.filter(x => x.id !== id);
+      if (c && currentCampaign() === c.name) tomeStore.remove('activeCampaign');
+      saveCampaigns();
+      render();
+      return;
+    }
+    confirmingId = id;
+    clearTimeout(confirmTimer);
+    confirmTimer = setTimeout(() => { confirmingId = null; render(); }, 3500);
+    render();
+  }
+
+  function addMember(id) {
+    const c = byId(id);
+    if (!c) return;
+    const name = (prompt('Member name:') || '').trim();
+    if (!name) return;
+    if (!c.members.some(m => m.name === name)) c.members.push({ name: name.slice(0, 60), role: 'player' });
+    saveCampaigns();
+    render();
+  }
+
+  function removeMember(id, index) {
+    const c = byId(id);
+    if (!c || !c.members[index]) return;
+    c.members.splice(index, 1);
+    saveCampaigns();
+    render();
+  }
+
+  function toggleRole(id, index) {
+    const c = byId(id);
+    if (!c || !c.members[index]) return;
+    c.members[index].role = c.members[index].role === 'gm' ? 'player' : 'gm';
+    saveCampaigns();
+    render();
+  }
+
+  function importPlayers(id) {
+    const c = byId(id);
+    if (!c) return;
+    const party = tomeStore.get('party');
+    if (!Array.isArray(party)) return;
+    const existing = new Set(c.members.map(m => m.name));
+    party
+      .filter(p => p && p.player && (!p.campaign || p.campaign === c.name))
+      .forEach(p => {
+        const name = String(p.player).trim();
+        if (name && !existing.has(name)) { existing.add(name); c.members.push({ name, role: 'player' }); }
+      });
+    saveCampaigns();
+    render();
+  }
+
+  /* ── EXPOSE ────────────────────────────────────────────────── */
+  window.openForm = function () { openForm(null); };
+  window.closeForm = closeForm;
+  window.saveCampaign = saveCampaign;
+  window.editCampaign = editCampaign;
+  window.deleteCampaign = deleteCampaign;
+  window.makeCurrent = makeCurrent;
+  window.addMember = addMember;
+  window.removeMember = removeMember;
+  window.toggleRole = toggleRole;
+  window.importPlayers = importPlayers;
+
+  seedRegistry();
+  render();
+  void fetchSessionStats();
+})();
+</script>
+</body>
+</html>
