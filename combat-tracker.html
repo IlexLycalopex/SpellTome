@@ -166,7 +166,7 @@
       <div class="party-bar-names" id="party-bar-names">No party saved</div>
       <div class="party-bar-actions">
         <button class="btn btn-gold btn-sm" id="load-party-btn" onclick="loadParty()" disabled>⚔ Load</button>
-        <button class="btn btn-ghost btn-sm" id="party-edit-btn" onclick="openSavePartyModal()">💾 Edit</button>
+        <a class="btn btn-ghost btn-sm" id="party-edit-btn" href="party-manager.html">⚙ Manage</a>
       </div>
     </div>
 
@@ -313,28 +313,6 @@
   </div>
 </div>
 
-<!-- Save Party Modal -->
-<div class="overlay" id="party-modal">
-  <div class="modal">
-    <h3>Save Party</h3>
-    <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;margin-bottom:.85rem">Names and initiative bonuses are stored. Fresh rolls each time you load.</p>
-    <div class="party-slot-header">
-      <span class="ph-name">Name</span>
-      <span class="ph-bonus">Init ±</span>
-      <span class="ph-gap"></span>
-    </div>
-    <div id="party-slots"></div>
-    <div style="margin-bottom:.7rem;display:flex;gap:.5rem;flex-wrap:wrap;">
-      <button class="btn btn-ghost btn-sm" onclick="addPartySlot()">+ Add Member</button>
-      <button class="btn btn-ghost btn-sm" id="clear-party-slots-btn" onclick="clearPartySlots()" style="color:#c0392b;border-color:rgba(192,57,43,0.4);">✕ Clear Party</button>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal('party-modal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveParty()">Save Party</button>
-    </div>
-  </div>
-</div>
-
 <script src="assets/js/utils.js"></script>
 <script>
 // ═══════ STATE ═══════
@@ -376,6 +354,7 @@ function load() {
 
 function init() {
   buildCondGrid();
+  migrateLegacyParty();
   renderSavedParty();
   load();
   importCombatQueue();
@@ -632,62 +611,50 @@ function selectUnit(id) {
 }
 
 // ═══════ PARTY ═══════
-// Party Manager (tome_party_v1) takes precedence over the legacy
-// quick-save slots ('dnd-party') when it has members.
-function getManagedParty() {
+// The Party Manager (tome_party_v1) is the single source of party data.
+// Only Active members are loaded into combat. Legacy 'dnd-party' quick-save
+// data is migrated into the Party Manager once, then removed.
+function migrateLegacyParty() {
+  try {
+    const legacy = JSON.parse(localStorage.getItem('dnd-party') || '[]');
+    if (!Array.isArray(legacy) || !legacy.length) { localStorage.removeItem('dnd-party'); return; }
+    const current = JSON.parse(localStorage.getItem('tome_party_v1') || '[]');
+    if (!Array.isArray(current) || !current.length) {
+      const migrated = legacy.filter(m => m && m.name).map((m, i) => ({
+        id: 'pc_migrated_' + Date.now().toString(36) + '_' + i,
+        name: String(m.name).slice(0, 60),
+        player: '', klass: '', level: 1, race: '',
+        hpMax: 0, ac: 10, dexMod: Number(m.bonus) || 0,
+        speed: 30, passivePerception: 10, status: 'active', notes: ''
+      }));
+      localStorage.setItem('tome_party_v1', JSON.stringify(migrated));
+    }
+    localStorage.removeItem('dnd-party');
+  } catch(e) {}
+}
+function getSavedParty() {
   try {
     const p = JSON.parse(localStorage.getItem('tome_party_v1'));
-    if (Array.isArray(p) && p.length) {
-      return p.filter(m => m && m.name).map(m => ({
-        name: String(m.name),
-        bonus: Number(m.dexMod) || 0,
-        hpMax: Number(m.hpMax) || 0,
-        ac: Number(m.ac) || null
-      }));
+    if (Array.isArray(p)) {
+      return p
+        .filter(m => m && m.name && (m.status || 'active') === 'active')
+        .map(m => ({
+          name: String(m.name),
+          bonus: Number(m.dexMod) || 0,
+          hpMax: Number(m.hpMax) || 0,
+          ac: Number(m.ac) || null
+        }));
     }
   } catch(e) {}
-  return null;
-}
-function openSavePartyModal() {
-  if (getManagedParty()) { window.location.href = 'party-manager.html'; return; }
-  const saved=getSavedParty();
-  const c=document.getElementById('party-slots'); c.innerHTML='';
-  const members=saved.length?saved:[{name:'',bonus:2},{name:'',bonus:2},{name:'',bonus:2},{name:'',bonus:2}];
-  members.forEach(m=>addPartySlotEl(m.name,m.bonus));
-  openModal('party-modal');
-}
-function addPartySlot() { addPartySlotEl('',2); }
-function addPartySlotEl(name,bonus) {
-  const c=document.getElementById('party-slots');
-  const d=document.createElement('div'); d.className='party-slot';
-  d.innerHTML=`<span class="party-slot-icon">⚔</span><input type="text" placeholder="Name" value="${esc(name)}" maxlength="30"><input type="number" class="party-slot-bonus" value="${bonus||0}" title="Init bonus"><button class="ib red" onclick="this.closest('.party-slot').remove()" title="Remove">✕</button>`;
-  c.appendChild(d);
-}
-function saveParty() {
-  const party=[];
-  document.querySelectorAll('#party-slots .party-slot').forEach(s=>{
-    const ins=s.querySelectorAll('input');
-    const name=ins[0].value.trim(); const bonus=parseInt(ins[1].value)||0;
-    if(name) party.push({name,bonus});
-  });
-  try{localStorage.setItem('dnd-party',JSON.stringify(party));}catch(e){}
-  closeModal('party-modal'); renderSavedParty();
-}
-function clearPartySlots() {
-  document.getElementById('party-slots').innerHTML='';
-}
-function getSavedParty(){
-  const managed=getManagedParty(); if(managed) return managed;
-  try{return JSON.parse(localStorage.getItem('dnd-party')||'[]');}catch(e){return[];}
+  return [];
 }
 function renderSavedParty() {
   const party=getSavedParty();
   const el=document.getElementById('party-bar-names');
   const btn=document.getElementById('load-party-btn');
-  if(!party.length){el.textContent='No party saved';if(btn)btn.disabled=true;return;}
+  if(!party.length){el.innerHTML='No active party — set one up in the <a href="party-manager.html">Party Manager</a>';if(btn)btn.disabled=true;return;}
   if(btn)btn.disabled=false;
-  const tag=getManagedParty()?' <span class="pname" style="opacity:.6">(Party Manager)</span>':'';
-  el.innerHTML=party.map(m=>`<span class="pname">⚔ ${esc(m.name)}</span>`).join(' ')+tag;
+  el.innerHTML=party.map(m=>`<span class="pname">⚔ ${esc(m.name)}</span>`).join(' ');
 }
 function loadParty() {
   const party=getSavedParty(); if(!party.length) return;
@@ -835,7 +802,7 @@ function renderCombat() {
 // ═══════ MODALS ═══════
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-['hp-modal','edit-modal','party-modal','export-modal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});});
+['hp-modal','edit-modal','export-modal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});});
 
 // ═══════ EXPORT / IMPORT ═══════
 function openExportModal() {
@@ -880,7 +847,7 @@ function focus(id){document.getElementById(id)?.focus();}
 document.addEventListener('keydown',e=>{
   if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;
   if(e.key==='n'||e.key==='N'){if(phase==='combat')nextTurn();}
-  if(e.key==='Escape'){closeCondPanel();['hp-modal','edit-modal','party-modal','export-modal'].forEach(closeModal);}
+  if(e.key==='Escape'){closeCondPanel();['hp-modal','edit-modal','export-modal'].forEach(closeModal);}
 });
 
 init();

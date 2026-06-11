@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.0.1] — 2026-06-11
+
+### Changed
+- **One party system** — removed the Combat Tracker's legacy name+initiative quick-save party editor; the Party Manager roster (`tome_party_v1`) is now the single source of party data. Existing legacy parties are migrated automatically on the Combat Tracker's next load. The party bar's "Manage" button links to the Party Manager.
+- **Character status** — party members can be marked Active / Away / Dead from their card. Away and dead characters are dimmed (dead get a banner and strikethrough) and are excluded from the Combat Tracker's party load and the Encounter Builder's party prefill.
+- **Clearer editing** — clicking anywhere on a character card opens the edit form (the ✎ Edit button remains), and the summary bar now shows an Active count alongside Members.
+
+---
+
 ## [2.0.0] — 2026-06-10
 
 ### Added
