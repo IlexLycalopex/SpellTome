@@ -7,11 +7,9 @@
 <link rel="stylesheet" href="assets/css/theme.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/nav.css">
-<link rel="stylesheet" href="assets/css/skills-feats.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/filters.css">
-<link rel="stylesheet" href="assets/css/cards.css">
-<link rel="stylesheet" href="assets/css/spelltome.css">
+<link rel="stylesheet" href="assets/css/skills-feats.css">
 </head>
 <body>
 <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
@@ -283,12 +281,12 @@ function renderGrid(){
   grid.style.display = 'grid';
   emptyState.style.display = 'none';
   grid.innerHTML = filtered.map(item => `
-    <article class="card" data-id="${item.id}">
-      <div class="card-header" style="border-left-color: ${item.type === 'skill' ? '#7c6ba8' : '#c9a84c'}">
+    <article class="sf-card t-${item.type}" data-id="${item.id}">
+      <div class="sf-card-header">
         <h3>${item.name}</h3>
-        <span class="card-badge">${item.type === 'skill' ? item.ability : item.prereq}</span>
+        <span class="sf-badge">${item.type === 'skill' ? item.ability : item.prereq}</span>
       </div>
-      <div class="card-body">
+      <div class="sf-card-body">
         <p>${item.description}</p>
       </div>
     </article>

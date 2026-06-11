@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.4.1] — 2026-06-11
+
+### Fixed
+- **Skills & Feats styling** — the page's cards referenced six CSS variables that exist in no stylesheet (`--card-bg`, `--border-color`, `--badge-bg`, …), so they rendered with no background, borders or badge colours; it also imported `cards.css` and `spelltome.css` whose spell-card `.card-header` rules bled into its cards. Rewritten on the site's actual theme variables and typography (Cinzel headings, accent-coloured left borders and badges per skill/feat, standard hover), with the two conflicting stylesheets dropped — the filter-bar layout rules it borrowed from spelltome.css now live in its own stylesheet, and the search label is properly screen-reader-only.
+
+---
+
 ## [2.4.0] — 2026-06-11
 
 ### Added
