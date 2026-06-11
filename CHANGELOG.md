@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.3.0] — 2026-06-11
+
+### Added
+- **Per-campaign maps** — the Campaign Map gains a campaign selector (kept in step with the site-wide active campaign from the Party Manager). The bundled Sword Coast map and its pins now belong to Storm King's Thunder; any other campaign can set its own map via an image URL/path or a browser upload (≤2.5 MB, included in hub backups — committing the image to `assets/img/` is recommended for permanence). Markers are stored per campaign, and existing v1 marker data migrates to Storm King's Thunder automatically.
+
+---
+
 ## [2.2.0] — 2026-06-11
 
 ### Added
