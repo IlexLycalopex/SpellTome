@@ -256,7 +256,11 @@ function initParty() {
   try {
     const stored = JSON.parse(localStorage.getItem(STORE_PARTY));
     if (!Array.isArray(stored)) return;
-    const party = stored.filter(p => p && (p.status || 'active') === 'active');
+    let campaign = '';
+    try { campaign = String(localStorage.getItem('tome_active_campaign_v1') || ''); } catch (e) {}
+    const party = stored
+      .filter(p => p && (p.status || 'active') === 'active')
+      .filter(p => !campaign || !p.campaign || p.campaign === campaign);
     if (party.length === 0) return;
     const levels = party.map(p => Number(p && p.level)).filter(n => n >= 1 && n <= 20).sort((a, b) => a - b);
     if (!levels.length) return;

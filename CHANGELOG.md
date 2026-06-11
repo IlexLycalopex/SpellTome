@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.1.0] — 2026-06-11
+
+### Added
+- **Campaign tags on characters** — Party Manager characters can be tagged with a campaign name (free text with suggestions, matching the Campaign Chronicle's `campaign:` frontmatter values). When more than zero campaigns are in use, a pill bar filters the roster; the selected campaign is persisted (`tome_active_campaign_v1`) and honoured by the Combat Tracker's party load and the Encounter Builder's party prefill. Untagged characters belong to every campaign, so existing rosters keep working unchanged. New characters default to the currently selected campaign.
+
+---
+
 ## [2.0.2] — 2026-06-11
 
 ### Fixed

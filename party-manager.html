@@ -157,7 +157,7 @@
 
     <section class="pm-form-panel" id="form-panel" hidden>
       <div class="pm-form-title" id="form-title">Add Character</div>
-      <div class="form-row">
+      <div class="form-row trio">
         <div class="fg">
           <label for="f-name">Character Name *</label>
           <input type="text" id="f-name" placeholder="e.g. Thorin Oakenshield" maxlength="60">
@@ -165,6 +165,11 @@
         <div class="fg">
           <label for="f-player">Player</label>
           <input type="text" id="f-player" placeholder="e.g. Jamie Watts" maxlength="60">
+        </div>
+        <div class="fg">
+          <label for="f-campaign">Campaign</label>
+          <input type="text" id="f-campaign" list="campaign-list" placeholder="e.g. Storm King's Thunder" maxlength="60">
+          <datalist id="campaign-list"></datalist>
         </div>
       </div>
       <div class="form-row trio">
@@ -230,6 +235,11 @@
       </div>
     </section>
 
+    <div class="pm-campaign-bar" id="campaign-bar" hidden>
+      <span class="pm-campaign-label">Campaign</span>
+      <div class="pm-campaign-pills" id="campaign-pills"></div>
+    </div>
+
     <div class="pm-grid" id="party-grid"></div>
 
     <div class="pm-empty" id="empty-state" hidden>
@@ -249,12 +259,31 @@
   'use strict';
 
   const STORAGE_KEY = 'tome_party_v1';
+  const ACTIVE_CAMPAIGN_KEY = 'tome_active_campaign_v1';
   const CLASSES = ['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
 
   let party = loadParty();
   let editingId = null;     // id being edited, or null when adding
   let confirmingId = null;  // id with a pending delete confirmation
   let confirmTimer = null;
+  // '' = all campaigns. Persisted so the Combat Tracker and Encounter
+  // Builder load the same campaign's roster.
+  let activeCampaign = loadActiveCampaign();
+
+  function loadActiveCampaign() {
+    try { return String(localStorage.getItem(ACTIVE_CAMPAIGN_KEY) || ''); } catch (e) { return ''; }
+  }
+
+  function saveActiveCampaign() {
+    try {
+      if (activeCampaign) localStorage.setItem(ACTIVE_CAMPAIGN_KEY, activeCampaign);
+      else localStorage.removeItem(ACTIVE_CAMPAIGN_KEY);
+    } catch (e) {}
+  }
+
+  function campaignNames() {
+    return [...new Set(party.map(c => c.campaign).filter(Boolean))].sort();
+  }
 
   /* ── STORAGE ─────────────────────────────────────────────── */
   function loadParty() {
@@ -291,6 +320,7 @@
       klass: CLASSES.includes(c.klass) ? c.klass : '',
       level: clampNum(c.level, 1, 20, 1),
       race: String(c.race ?? '').slice(0, 40),
+      campaign: String(c.campaign ?? '').slice(0, 60).trim(),
       hpMax: clampNum(c.hpMax, 0, 999, 10),
       ac: clampNum(c.ac, 0, 40, 10),
       dexMod: clampNum(c.dexMod, -5, 10, 0),
@@ -314,17 +344,28 @@
     const grid = document.getElementById('party-grid');
     const empty = document.getElementById('empty-state');
 
-    const activeCount = party.filter(c => (c.status || 'active') === 'active').length;
-    document.getElementById('stat-count').textContent = party.length;
-    document.getElementById('stat-active').textContent = party.length ? activeCount : '—';
-    document.getElementById('stat-avg-level').textContent = party.length
-      ? (party.reduce((s, c) => s + c.level, 0) / party.length).toFixed(1).replace(/\.0$/, '')
+    renderCampaignBar();
+    // Untagged characters belong to every campaign.
+    const shown = activeCampaign
+      ? party.filter(c => !c.campaign || c.campaign === activeCampaign)
+      : party;
+
+    const activeCount = shown.filter(c => (c.status || 'active') === 'active').length;
+    document.getElementById('stat-count').textContent = shown.length;
+    document.getElementById('stat-active').textContent = shown.length ? activeCount : '—';
+    document.getElementById('stat-avg-level').textContent = shown.length
+      ? (shown.reduce((s, c) => s + c.level, 0) / shown.length).toFixed(1).replace(/\.0$/, '')
       : '—';
 
     empty.hidden = party.length > 0;
     empty.style.display = party.length > 0 ? 'none' : '';
 
-    grid.innerHTML = party.map(c => {
+    if (!shown.length && party.length) {
+      grid.innerHTML = '<div class="pm-filter-empty">No characters in this campaign yet.</div>';
+      return;
+    }
+
+    grid.innerHTML = shown.map(c => {
       const cls = c.klass ? ' style="--class-color: var(--cl-' + c.klass.toLowerCase() + ')"' : '';
       const status = c.status || 'active';
       const classLine = [
@@ -341,6 +382,7 @@
         '<div class="pm-card-name">' + esc(c.name) + '</div>' +
         (c.player ? '<div class="pm-card-player">played by ' + esc(c.player) + '</div>' : '') +
         '<div class="pm-card-class">' + classLine + '</div>' +
+        (c.campaign ? '<div class="pm-card-campaign">&#x1F4D6; ' + esc(c.campaign) + '</div>' : '') +
         '<div class="pm-chips">' +
           chip(c.hpMax, 'HP') +
           chip(c.ac, 'AC') +
@@ -363,6 +405,39 @@
     }).join('');
   }
 
+  function renderCampaignBar() {
+    const bar = document.getElementById('campaign-bar');
+    const names = campaignNames();
+    if (!names.length) {
+      bar.hidden = true;
+      if (activeCampaign) { activeCampaign = ''; saveActiveCampaign(); }
+      return;
+    }
+    if (activeCampaign && !names.includes(activeCampaign)) {
+      activeCampaign = '';
+      saveActiveCampaign();
+    }
+    bar.hidden = false;
+    const pill = (val, label) =>
+      '<button class="pm-campaign-pill' + (activeCampaign === val ? ' on' : '') + '" ' +
+      'onclick="setCampaignFilter(' + JSON.stringify(val).replace(/"/g, '&quot;') + ')">' + esc(label) + '</button>';
+    document.getElementById('campaign-pills').innerHTML =
+      pill('', 'All') + names.map(n => pill(n, n)).join('');
+  }
+
+  function setCampaignFilter(name) {
+    activeCampaign = String(name || '');
+    saveActiveCampaign();
+    render();
+  }
+
+  function refreshCampaignDatalist() {
+    const names = campaignNames();
+    if (!names.includes("Storm King's Thunder")) names.push("Storm King's Thunder");
+    document.getElementById('campaign-list').innerHTML =
+      names.map(n => '<option value="' + esc(n) + '"></option>').join('');
+  }
+
   function chip(val, label) {
     return '<div class="pm-chip"><span class="pm-chip-val">' + esc(val) + '</span>' +
            '<span class="pm-chip-label">' + esc(label) + '</span></div>';
@@ -376,8 +451,10 @@
     document.getElementById('form-error').textContent = '';
     document.getElementById('f-name').classList.remove('invalid');
 
+    refreshCampaignDatalist();
     document.getElementById('f-name').value   = character ? character.name : '';
     document.getElementById('f-player').value = character ? character.player : '';
+    document.getElementById('f-campaign').value = character ? character.campaign : activeCampaign;
     document.getElementById('f-class').value  = character ? character.klass : '';
     document.getElementById('f-level').value  = character ? (character.level ?? '') : '';
     document.getElementById('f-race').value   = character ? character.race : '';
@@ -413,6 +490,7 @@
       id: editingId ?? newId(),
       name: name,
       player: document.getElementById('f-player').value.trim(),
+      campaign: document.getElementById('f-campaign').value.trim(),
       klass: document.getElementById('f-class').value,
       level: document.getElementById('f-level').value,
       race: document.getElementById('f-race').value.trim(),
@@ -521,6 +599,7 @@
   window.saveCharacter = saveCharacter;
   window.editCharacter = editCharacter;
   window.setStatus = setStatus;
+  window.setCampaignFilter = setCampaignFilter;
   window.deleteCharacter = deleteCharacter;
   window.exportParty = exportParty;
 
