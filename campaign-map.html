@@ -127,9 +127,11 @@
     <div class="map-toolbar">
       <div class="map-title-block">
         <h1>Campaign Map</h1>
-        <p class="subtitle">The Sword Coast &amp; the Savage Frontier</p>
+        <p class="subtitle" id="map-subtitle">The Sword Coast &amp; the Savage Frontier</p>
       </div>
       <div class="map-actions">
+        <select class="map-btn" id="campaign-select" title="Switch campaign map"></select>
+        <button class="map-btn toggle" id="map-setup-btn" title="Set or change this campaign's map image">Map&hellip;</button>
         <button class="map-btn" id="zoom-out-btn" title="Zoom out">&minus;</button>
         <button class="map-btn" id="zoom-in-btn" title="Zoom in">+</button>
         <button class="map-btn" id="zoom-reset-btn" title="Fit map">Fit</button>
@@ -146,6 +148,29 @@
           <div id="marker-layer"></div>
         </div>
         <div class="map-hint" id="map-hint">Drag to pan &middot; scroll or pinch to zoom &middot; click a pin for notes</div>
+        <div class="map-empty" id="map-empty" style="display:none">
+          <h2 id="map-empty-title">No map for this campaign yet</h2>
+          <p>Give this campaign its own map below &mdash; markers work the same once it's set.</p>
+        </div>
+      </div>
+
+      <div class="map-setup" id="map-setup" style="display:none">
+        <div class="map-setup-title">Campaign map image</div>
+        <label>Image URL
+          <input type="url" id="map-url-input" placeholder="https://&hellip; or assets/img/my-map.jpg">
+        </label>
+        <div class="map-setup-row">
+          <button class="map-btn" id="map-url-save">Use URL</button>
+          <span class="map-setup-or">or</span>
+          <button class="map-btn" id="map-file-btn">Upload image&hellip;</button>
+          <input type="file" id="map-file-input" accept="image/*" hidden>
+        </div>
+        <p class="map-setup-note">Uploads are stored in this browser (max ~2.5&nbsp;MB &mdash; they're included in hub backups). For a permanent shared map, commit the image to the site's <code>assets/img/</code> folder and use its path here.</p>
+        <div class="map-setup-row">
+          <button class="map-btn" id="map-remove-btn" style="display:none">Remove this map</button>
+          <button class="map-btn" id="map-setup-close">Close</button>
+        </div>
+        <div class="map-setup-status" id="map-setup-status"></div>
       </div>
 
       <aside class="marker-panel" id="marker-panel">
@@ -193,33 +218,70 @@ const DEFAULT_MARKERS = [
   { id:'neverwinter', name:'Neverwinter',  x:0.170, y:0.130, note:'The Jewel of the North.' }
 ];
 
-const MAP_STORE_KEY = 'tome_map_markers_v1';
+// The bundled Sword Coast map and its pins belong to this campaign;
+// every other campaign supplies its own image (URL or upload).
+const DEFAULT_CAMPAIGN = "Storm King's Thunder";
+const DEFAULT_IMAGE = 'assets/img/sword-coast-map.jpg';
+
+function emptyConfig() {
+  return { image: '', custom: [], overrides: {}, hidden: [] };
+}
+
+function normalizeConfig(raw) {
+  const c = raw && typeof raw === 'object' ? raw : {};
+  return {
+    image: typeof c.image === 'string' ? c.image : '',
+    custom: Array.isArray(c.custom) ? c.custom : [],
+    overrides: c.overrides && typeof c.overrides === 'object' ? c.overrides : {},
+    hidden: Array.isArray(c.hidden) ? c.hidden : []
+  };
+}
 
 function loadStore() {
-  try {
-    const raw = tomeStore.get('mapMarkers');
-    if (raw && typeof raw === 'object') {
-      return {
-        custom: Array.isArray(raw.custom) ? raw.custom : [],
-        overrides: raw.overrides && typeof raw.overrides === 'object' ? raw.overrides : {},
-        hidden: Array.isArray(raw.hidden) ? raw.hidden : []
-      };
+  const raw = tomeStore.get('mapMarkers');
+  if (raw && typeof raw === 'object') {
+    if (raw.format === 2 && raw.campaigns && typeof raw.campaigns === 'object') {
+      const campaigns = {};
+      Object.keys(raw.campaigns).forEach(name => { campaigns[name] = normalizeConfig(raw.campaigns[name]); });
+      return { format: 2, campaigns };
     }
-  } catch(e) {}
-  return { custom: [], overrides: {}, hidden: [] };
+    // v1 shape ({custom, overrides, hidden}) predates per-campaign maps —
+    // those markers were all Sword Coast pins.
+    if (Array.isArray(raw.custom) || raw.overrides || Array.isArray(raw.hidden)) {
+      return { format: 2, campaigns: { [DEFAULT_CAMPAIGN]: normalizeConfig(raw) } };
+    }
+  }
+  return { format: 2, campaigns: {} };
 }
 
 let store = loadStore();
+let currentCampaign = String(tomeStore.get('activeCampaign', '') || '') || DEFAULT_CAMPAIGN;
+
+function cfg() {
+  if (!store.campaigns[currentCampaign]) store.campaigns[currentCampaign] = emptyConfig();
+  return store.campaigns[currentCampaign];
+}
+
+function currentImage() {
+  const c = cfg();
+  if (c.image) return c.image;
+  return currentCampaign === DEFAULT_CAMPAIGN ? DEFAULT_IMAGE : '';
+}
 
 function saveStore() {
-  tomeStore.set('mapMarkers', store);
+  if (!tomeStore.set('mapMarkers', store)) {
+    setSetupStatus('Could not save — storage is full. Use a smaller image or an image URL.');
+  }
 }
 
 function allMarkers() {
-  const defaults = DEFAULT_MARKERS
-    .filter(m => !store.hidden.includes(m.id))
-    .map(m => Object.assign({}, m, store.overrides[m.id] || {}, { builtin: true }));
-  return defaults.concat(store.custom.map(m => Object.assign({}, m, { builtin: false })));
+  const c = cfg();
+  const defaults = currentCampaign === DEFAULT_CAMPAIGN
+    ? DEFAULT_MARKERS
+        .filter(m => !c.hidden.includes(m.id))
+        .map(m => Object.assign({}, m, c.overrides[m.id] || {}, { builtin: true }))
+    : [];
+  return defaults.concat(c.custom.map(m => Object.assign({}, m, { builtin: false })));
 }
 
 function findMarker(id) { return allMarkers().find(m => m.id === id); }
@@ -345,10 +407,11 @@ function renderMarkers() {
 }
 
 function moveMarker(id, x, y) {
-  const custom = store.custom.find(m => m.id === id);
+  const c = cfg();
+  const custom = c.custom.find(m => m.id === id);
   if (custom) { custom.x = x; custom.y = y; }
   else {
-    store.overrides[id] = Object.assign(store.overrides[id] || {}, { x, y });
+    c.overrides[id] = Object.assign(c.overrides[id] || {}, { x, y });
   }
   renderMarkers();
 }
@@ -362,6 +425,7 @@ layer.addEventListener('click', e => {
 viewport.addEventListener('click', e => {
   if (moved) return;
   if (addMode && !e.target.closest('.map-marker')) {
+    if (!currentImage()) return;
     const rect = viewport.getBoundingClientRect();
     pendingPoint = {
       x: ((e.clientX - rect.left) - tx) / (imgW * scale),
@@ -415,9 +479,10 @@ document.getElementById('popup-edit-btn').addEventListener('click', () => {
 
 document.getElementById('popup-delete-btn').addEventListener('click', () => {
   if (!popupMarkerId) return;
-  const customIdx = store.custom.findIndex(m => m.id === popupMarkerId);
-  if (customIdx >= 0) store.custom.splice(customIdx, 1);
-  else if (!store.hidden.includes(popupMarkerId)) store.hidden.push(popupMarkerId);
+  const c = cfg();
+  const customIdx = c.custom.findIndex(m => m.id === popupMarkerId);
+  if (customIdx >= 0) c.custom.splice(customIdx, 1);
+  else if (!c.hidden.includes(popupMarkerId)) c.hidden.push(popupMarkerId);
   saveStore();
   renderMarkers();
   renderMarkerList();
@@ -428,13 +493,14 @@ document.getElementById('popup-save-btn').addEventListener('click', () => {
   const name = document.getElementById('popup-name-input').value.trim();
   const note = document.getElementById('popup-note-input').value.trim();
   if (!name) { document.getElementById('popup-name-input').focus(); return; }
+  const c = cfg();
   if (pendingPoint) {
-    store.custom.push({ id: 'custom-' + Date.now(), name, note, x: pendingPoint.x, y: pendingPoint.y });
+    c.custom.push({ id: 'custom-' + Date.now(), name, note, x: pendingPoint.x, y: pendingPoint.y });
     setAddMode(false);
   } else if (popupMarkerId) {
-    const custom = store.custom.find(m => m.id === popupMarkerId);
+    const custom = c.custom.find(m => m.id === popupMarkerId);
     if (custom) { custom.name = name; custom.note = note; }
-    else store.overrides[popupMarkerId] = Object.assign(store.overrides[popupMarkerId] || {}, { name, note });
+    else c.overrides[popupMarkerId] = Object.assign(c.overrides[popupMarkerId] || {}, { name, note });
   }
   saveStore();
   renderMarkers();
@@ -496,6 +562,127 @@ document.getElementById('marker-list').addEventListener('click', e => {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
+// ═══════ CAMPAIGNS & MAP IMAGE ═══════
+function knownCampaigns() {
+  const names = new Set([DEFAULT_CAMPAIGN]);
+  Object.keys(store.campaigns).forEach(n => names.add(n));
+  const party = tomeStore.get('party');
+  if (Array.isArray(party)) party.forEach(p => { if (p && p.campaign) names.add(String(p.campaign)); });
+  names.add(currentCampaign);
+  return [...names].sort();
+}
+
+function renderCampaignSelect() {
+  const select = document.getElementById('campaign-select');
+  select.innerHTML = knownCampaigns()
+    .map(n => '<option value="' + esc(n) + '"' + (n === currentCampaign ? ' selected' : '') + '>' + esc(n) + '</option>')
+    .join('') + '<option value="__new__">+ New campaign map…</option>';
+}
+
+function switchCampaign(name) {
+  currentCampaign = name;
+  // Keep the site-wide campaign selection in step with the map.
+  if (name === DEFAULT_CAMPAIGN) tomeStore.remove('activeCampaign');
+  else tomeStore.set('activeCampaign', name);
+  closePopup();
+  loadCampaignMap();
+}
+
+document.getElementById('campaign-select').addEventListener('change', e => {
+  if (e.target.value === '__new__') {
+    const name = (prompt('Campaign name (matches the chronicle\'s campaign field):') || '').trim();
+    renderCampaignSelect();
+    if (!name) return;
+    switchCampaign(name.slice(0, 60));
+    renderCampaignSelect();
+    if (!currentImage()) setSetupVisible(true);
+    return;
+  }
+  switchCampaign(e.target.value);
+});
+
+function loadCampaignMap() {
+  const src = currentImage();
+  const hasMap = Boolean(src);
+  document.getElementById('map-empty').style.display = hasMap ? 'none' : '';
+  document.getElementById('map-empty-title').textContent = 'No map for ' + currentCampaign + ' yet';
+  document.getElementById('map-subtitle').textContent = currentCampaign === DEFAULT_CAMPAIGN
+    ? 'The Sword Coast & the Savage Frontier' : currentCampaign;
+  canvas.style.display = hasMap ? '' : 'none';
+  document.getElementById('map-remove-btn').style.display =
+    (cfg().image && currentCampaign !== DEFAULT_CAMPAIGN) ? '' : 'none';
+  renderMarkerList();
+  if (!hasMap) { setSetupVisible(true); return; }
+  if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+  else if (img.complete && img.naturalWidth) initWhenSized();
+}
+
+// ═══════ MAP SETUP PANEL ═══════
+function setSetupVisible(on) {
+  document.getElementById('map-setup').style.display = on ? '' : 'none';
+  document.getElementById('map-setup-btn').classList.toggle('active', on);
+  if (on) {
+    const c = cfg();
+    document.getElementById('map-url-input').value =
+      (c.image && !c.image.startsWith('data:')) ? c.image : '';
+    setSetupStatus(currentCampaign === DEFAULT_CAMPAIGN
+      ? 'This campaign uses the bundled Sword Coast map; setting an image replaces it for this browser.' : '');
+  }
+}
+
+function setSetupStatus(message) {
+  document.getElementById('map-setup-status').textContent = message;
+}
+
+function applyMapImage(src) {
+  cfg().image = src;
+  saveStore();
+  setSetupVisible(false);
+  loadCampaignMap();
+}
+
+document.getElementById('map-setup-btn').addEventListener('click', () => {
+  setSetupVisible(document.getElementById('map-setup').style.display === 'none');
+});
+document.getElementById('map-setup-close').addEventListener('click', () => setSetupVisible(false));
+
+document.getElementById('map-url-save').addEventListener('click', () => {
+  const url = document.getElementById('map-url-input').value.trim();
+  if (!url) { setSetupStatus('Enter an image URL or path first.'); return; }
+  applyMapImage(url);
+});
+
+document.getElementById('map-file-btn').addEventListener('click', () => {
+  document.getElementById('map-file-input').click();
+});
+
+document.getElementById('map-file-input').addEventListener('change', function () {
+  const file = this.files && this.files[0];
+  this.value = '';
+  if (!file) return;
+  if (file.size > 2.5 * 1024 * 1024) {
+    setSetupStatus('That image is ' + (file.size / 1048576).toFixed(1) + ' MB — too large to store in the browser. Host it (or add it to assets/img/) and use the URL instead.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => applyMapImage(String(reader.result));
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('map-remove-btn').addEventListener('click', () => {
+  if (!confirm('Remove the map image for ' + currentCampaign + '? Its markers are kept.')) return;
+  cfg().image = '';
+  saveStore();
+  loadCampaignMap();
+});
+
+img.addEventListener('error', () => {
+  if (img.getAttribute('src') !== DEFAULT_IMAGE || currentCampaign !== DEFAULT_CAMPAIGN) {
+    setSetupVisible(true);
+    setSetupStatus('That image failed to load — check the URL.');
+  }
+});
+
 // ═══════ INIT ═══════
 function initWhenSized() {
   if (img.naturalWidth) { imgW = img.naturalWidth; imgH = img.naturalHeight; }
@@ -503,8 +690,9 @@ function initWhenSized() {
   renderMarkers();
   renderMarkerList();
 }
-if (img.complete) initWhenSized();
-else img.addEventListener('load', initWhenSized);
+img.addEventListener('load', initWhenSized);
+renderCampaignSelect();
+loadCampaignMap();
 window.addEventListener('resize', () => { clampPan(); applyTransform(); });
 </script>
 </body>
