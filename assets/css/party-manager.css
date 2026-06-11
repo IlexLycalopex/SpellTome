@@ -359,3 +359,17 @@ html[data-theme="light"] body {
   border: 1px dashed var(--border);
   border-radius: 8px;
 }
+
+/* ── CHARACTER MODAL & EDIT BUTTON ───────────────────────────── */
+/* Page-local edit button: never affected by shared responsive rules */
+.pm-edit-btn { background: transparent; border-color: var(--border); color: var(--text-muted); }
+.pm-edit-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+.pm-modal-chips { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+.pm-modal-chips .pm-chip { min-width: 64px; }
+
+.pm-modal-row { display: flex; gap: 10px; font-size: 0.95rem; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+.pm-modal-row:last-of-type { border-bottom: none; }
+.pm-modal-label { flex: none; width: 90px; font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); align-self: center; }
+
+.pm-modal-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }

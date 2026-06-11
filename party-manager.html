@@ -257,9 +257,14 @@
   </main>
 </div>
 
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/utils.js"></script>
 <script src="assets/js/store.js"></script>
+<script src="assets/js/modal.js"></script>
 <script>
 // PAGE SCRIPT — Party Manager
 (function () {
@@ -372,7 +377,7 @@
         '<button class="pm-status-btn' + (status === val ? ' on s-' + val : '') + '" ' +
         'onclick="event.stopPropagation();setStatus(\'' + c.id + '\',\'' + val + '\')" ' +
         'title="Mark ' + label.toLowerCase() + '">' + label + '</button>';
-      return '<article class="pm-card status-' + status + '"' + cls + ' onclick="editCharacter(\'' + c.id + '\')" title="Click to edit">' +
+      return '<article class="pm-card status-' + status + '"' + cls + ' onclick="openCharacterModal(\'' + c.id + '\')" title="View character">' +
         (status !== 'active' ? '<div class="pm-card-banner s-' + status + '">' + (status === 'dead' ? '&#x2620; Dead' : 'Away from party') + '</div>' : '') +
         '<div class="pm-card-name">' + esc(c.name) + '</div>' +
         (c.player ? '<div class="pm-card-player">played by ' + esc(c.player) + '</div>' : '') +
@@ -390,7 +395,7 @@
           '<div class="pm-status-group">' +
             statusBtn('active', 'Active') + statusBtn('away', 'Away') + statusBtn('dead', 'Dead') +
           '</div>' +
-          '<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editCharacter(\'' + c.id + '\')">&#x270E; Edit</button>' +
+          '<button class="btn pm-edit-btn btn-sm" onclick="event.stopPropagation();editCharacter(\'' + c.id + '\')">&#x270E; Edit</button>' +
           '<button class="btn btn-danger btn-sm' + (isConfirming ? ' confirming' : '') + '" ' +
             'onclick="event.stopPropagation();deleteCharacter(\'' + c.id + '\')">' +
             (isConfirming ? 'Confirm?' : 'Delete') +
@@ -511,7 +516,45 @@
 
   function editCharacter(id) {
     const c = party.find(x => x.id === id);
-    if (c) openForm(c);
+    if (c) { closeModal(); openForm(c); }
+  }
+
+  /* ── CHARACTER MODAL (full sheet view) ──────────────────── */
+  function openCharacterModal(id) {
+    const c = party.find(x => x.id === id);
+    if (!c) return;
+    const status = c.status || 'active';
+    const accent = c.klass ? 'var(--cl-' + c.klass.toLowerCase() + ')' : 'var(--gold-dim)';
+    const row = (label, value) =>
+      value || value === 0
+        ? '<div class="pm-modal-row"><span class="pm-modal-label">' + esc(label) + '</span><span>' + esc(value) + '</span></div>'
+        : '';
+    const statusBtn = (val, label) =>
+      '<button class="pm-status-btn' + (status === val ? ' on s-' + val : '') + '" ' +
+      'onclick="setStatus(\'' + c.id + '\',\'' + val + '\');openCharacterModal(\'' + c.id + '\')">' + label + '</button>';
+    document.getElementById('modal-box').innerHTML =
+      '<div class="modal-header" style="background:' + accent + '">' +
+        '<div class="modal-title-block">' +
+          '<div class="modal-title">' + esc(c.name) + '</div>' +
+          '<div class="modal-subtitle">' + esc([c.race, c.klass ? c.klass + ' ' + c.level : 'Level ' + c.level].filter(Boolean).join(' — ')) +
+            (status !== 'active' ? ' &middot; ' + (status === 'dead' ? '&#x2620; Dead' : 'Away') : '') + '</div>' +
+        '</div>' +
+        '<button class="modal-close" onclick="closeModal()">Close</button>' +
+      '</div>' +
+      '<div class="modal-body">' +
+        '<div class="pm-modal-chips">' +
+          chip(c.hpMax, 'Max HP') + chip(c.ac, 'AC') + chip(signed(c.dexMod), 'Init') +
+          chip(c.speed + ' ft', 'Speed') + chip(c.passivePerception, 'Pass. Perc') +
+        '</div>' +
+        row('Player', c.player) +
+        row('Campaign', c.campaign) +
+        row('Notes', c.notes) +
+        '<div class="pm-modal-actions">' +
+          '<div class="pm-status-group">' + statusBtn('active', 'Active') + statusBtn('away', 'Away') + statusBtn('dead', 'Dead') + '</div>' +
+          '<button class="btn btn-gold" onclick="editCharacter(\'' + c.id + '\')">&#x270E; Edit Character</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('modal-overlay').classList.add('active');
   }
 
   function setStatus(id, status) {
@@ -593,6 +636,7 @@
   window.closeForm = closeForm;
   window.saveCharacter = saveCharacter;
   window.editCharacter = editCharacter;
+  window.openCharacterModal = openCharacterModal;
   window.setStatus = setStatus;
   window.setCampaignFilter = setCampaignFilter;
   window.deleteCharacter = deleteCharacter;
