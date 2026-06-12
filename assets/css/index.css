@@ -266,3 +266,15 @@ body::before {
   color: var(--text-on-gold);
 }
 .data-bar .btn-gold:hover { color: var(--text-on-gold); filter: brightness(1.1); }
+
+.account-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-light);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.92rem;
+  min-width: 210px;
+}
+.account-input:focus { outline: none; border-color: var(--gold-dim); }

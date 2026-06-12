@@ -54,10 +54,16 @@ const tomeStore = (() => {
     const e = entry(name);
     try {
       localStorage.setItem(e.key, e.raw ? String(value) : JSON.stringify(value));
-      return true;
     } catch (error) {
       return false;
     }
+    // Let the sync driver (sync.js) know a collection changed.
+    try {
+      if (typeof window !== 'undefined' && window.dispatchEvent) {
+        window.dispatchEvent(new CustomEvent('tome:set', { detail: { name, scope: e.scope } }));
+      }
+    } catch (error) {}
+    return true;
   }
 
   function remove(name) {

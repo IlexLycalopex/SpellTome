@@ -1,6 +1,14 @@
 # Backend Plan — Supabase Migration
 
-Status: **Phases 0–2 DONE** (2026-06-12). Phase 3 (sync driver) is next.
+Status: **Phases 0–3 DONE** (2026-06-12). The site is live-synced.
+
+Phase 3 shipped as `assets/js/sync.js` (tomeSync), loaded on every page:
+magic-link sign-in from the hub, a shared "vault" campaign row holding the
+group's collections (first sign-in creates it and becomes GM; GMs invite
+players by email from the hub), local-first reads with debounced background
+push and pull-on-load, last-write-wins with a dirty-local-wins guard.
+Signed-out/offline the site behaves exactly as before. Remaining ideas:
+Realtime subscriptions for live combat, per-D&D-campaign collection rows.
 
 Live project: `edmeogmkquhslpvjelyq` (eu-west-1)
 - API URL: `https://edmeogmkquhslpvjelyq.supabase.co`
