@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.5.1] — 2026-06-12
+
+### Fixed
+- **Feat descriptions** — feat cards rendered "undefined" because they store their text as `benefit` while the renderer read `description`; searching also crashed the grid on feat entries for the same reason. The dataset itself was replaced with the complete, accurate set of all 42 PHB (2014) feats with full benefit text and correct prerequisites — five invented entries removed ("Eldritch Sight" is a warlock invocation; "Medic", "Polearm Ace", "Initiative Master", "Battle Hardened" don't exist) and five real feats added that were missing (Dual Wielder, Dungeon Delver, Elemental Adept, Heavy Armor Master, Medium Armor Master).
+
+---
+
 ## [2.5.0] — 2026-06-11
 
 ### Added
