@@ -373,3 +373,34 @@ html[data-theme="light"] body {
 .pm-modal-label { flex: none; width: 90px; font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); align-self: center; }
 
 .pm-modal-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
+
+/* ── FULL CHARACTER SHEET ────────────────────────────────────── */
+.pm-sheet-details { margin: 0.6rem 0; border: 1px dashed var(--border); border-radius: 6px; padding: 0.5rem 0.8rem; }
+.pm-sheet-details summary { cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); }
+.pm-sheet-details[open] summary { margin-bottom: 0.6rem; color: var(--gold); }
+.form-row.hexa { grid-template-columns: repeat(6, 1fr); }
+.fg textarea { background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-light); padding: 0.38rem 0.55rem; border-radius: 5px; font-family: 'EB Garamond', Georgia, serif; font-size: 0.92rem; resize: vertical; }
+.fg textarea:focus { outline: none; border-color: var(--gold-dim); background: var(--input-bg-focus); }
+
+.pm-prof-group { margin-bottom: 0.55rem; }
+.pm-prof-label { display: block; font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.3rem; }
+.pm-prof-row { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.pm-prof-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; padding: 0.18rem 0.5rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text-muted); cursor: pointer; user-select: none; }
+.pm-prof-chip:has(input:checked) { border-color: var(--gold-dim); color: var(--gold); background: rgba(201,168,76,0.08); }
+.pm-prof-chip input { accent-color: var(--gold); margin: 0; }
+
+.pm-ability-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.4rem; margin-bottom: 0.8rem; }
+.pm-ability { display: flex; flex-direction: column; align-items: center; padding: 0.4rem 0.2rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-soft); line-height: 1.2; }
+.pm-ability-name { font-family: 'Cinzel', serif; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text-dim); }
+.pm-ability-score { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--text-strong); }
+.pm-ability-mod { font-size: 0.78rem; color: var(--gold); }
+
+.pm-sheet-link { color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold-dim); }
+.pm-sheet-link:hover { color: #e8c97a; }
+
+.pm-card-sheetline { margin-top: 0.45rem; font-size: 0.78rem; color: var(--text-dim); }
+
+@media (max-width: 640px) {
+  .form-row.hexa { grid-template-columns: repeat(3, 1fr); }
+  .pm-ability-grid { grid-template-columns: repeat(3, 1fr); }
+}

@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.0.0] — 2026-06-12
+
+### Added
+- **Group sync (Supabase) live across the whole site** — `assets/js/sync.js` runs on every page: sign in once with an email magic link (hub page) and the group's data — party, campaigns, encounters, map markers, combat state, saved dice rolls — syncs across everyone's devices. The first member to sign in creates the shared vault and becomes GM; GMs invite players by email from the hub (the invitation binds to their account at first sign-in). Local-first: reads stay instant from this device, pushes happen in the background, newer server data is pulled on page load, and an unsynced local change always beats an incoming pull. Signed out or offline, everything works exactly as before.
+- **Full character sheets** — Party Manager becomes **Party & Characters** and moves to the Campaigns section. Characters gain ability scores (with derived modifiers — DEX now drives the initiative bonus), saving-throw and skill proficiencies (bonuses computed from level), and spells, gear and tools lists. The character modal renders the complete sheet, with each spell linking into the Spell Tome and each item into Equipment & Gear (both compendiums now accept `?q=` deep links). All existing characters work unchanged.
+
+---
+
 ## [2.6.0] — 2026-06-12
 
 ### Added
