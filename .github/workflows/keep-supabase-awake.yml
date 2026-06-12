@@ -1,0 +1,19 @@
+# Pings the Tome's Supabase project twice a week so the free-tier
+# instance never pauses from inactivity (pause threshold: 7 idle days).
+# The anon key is public by design — it is shipped in the site's client
+# code; row-level security is what protects the data.
+name: Keep Supabase awake
+on:
+  schedule:
+    - cron: '17 6 * * 1,4'   # Mondays + Thursdays, 06:17 UTC
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping heartbeat table
+        run: |
+          curl --fail -s \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkbWVvZ21rcXVoc2xwdmplbHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMDc4NDAsImV4cCI6MjA5Njc4Mzg0MH0.xOnV3Jt8CI3owyUMhFrpoKfQz7VLG2vRI63iCu6CvaU" \
+            "https://edmeogmkquhslpvjelyq.supabase.co/rest/v1/heartbeat?select=pinged_at&limit=1"
+          echo "pinged $(date -u +%FT%TZ)"
