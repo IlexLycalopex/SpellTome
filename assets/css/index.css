@@ -278,3 +278,18 @@ body::before {
   min-width: 210px;
 }
 .account-input:focus { outline: none; border-color: var(--gold-dim); }
+
+.admin-badge {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #7a1a5a, #c4306a);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 7px;
+  vertical-align: middle;
+}
+select.account-input { max-width: 230px; }

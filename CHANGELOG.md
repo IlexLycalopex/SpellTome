@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.1.0] — 2026-06-12
+
+### Added
+- **Platform admin role** — admins (listed by email in the database, currently the site owner) sit above GMs: row-level security grants them full access across every tenant, the hub shows an Admin badge, and a vault switcher lets them open and repair any group's vault. Switching deliberately drops un-pushed local changes so one group's data can never be written into another's; an admin with no membership gets their own vault rather than silently adopting someone else's.
+- **Multi-tenancy** — vault names are no longer globally unique: any group can sign in and run their own game in a fully isolated vault (named for its creator). Tenants cannot see or edit each other's campaigns, members or data — verified live against the database with simulated stranger and admin JWTs.
+
+---
+
 ## [3.0.0] — 2026-06-12
 
 ### Added
