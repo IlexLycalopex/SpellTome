@@ -824,14 +824,33 @@ function renderAccount(info) {
   }
   const when = st.lastSyncAt ? new Date(st.lastSyncAt).toLocaleTimeString() : '\u2014';
   copy.innerHTML = 'Signed in as <strong style="display:inline">' + esc2(st.user.email) + '</strong>' +
-    (st.isGm ? ' (GM)' : '') + ' \u00b7 ' +
+    (st.isAdmin ? ' <span class="admin-badge">Admin</span>' : st.isGm ? ' (GM)' : '') + ' \u00b7 ' +
     (st.state === 'error' ? 'sync error' : st.state === 'syncing' ? 'syncing\u2026' : 'last sync ' + when) +
     (st.pendingPush ? ' \u00b7 ' + st.pendingPush + ' pending' : '');
   actions.innerHTML =
+    (st.isAdmin ? '<select id="vault-select" class="account-input" title="Admin: inspect or repair any group\'s vault"><option>this vault</option></select>' : '') +
     (st.isGm ? '<input type="email" id="invite-email" placeholder="invite player by email" class="account-input">' +
                '<button class="btn" id="invite-btn">Invite</button>' : '') +
     '<button class="btn" id="signout-btn">Sign Out</button>' +
     '<span class="data-bar-status" id="account-status"></span>';
+  const vaultSelect = document.getElementById('vault-select');
+  if (vaultSelect) {
+    tomeSync.listVaults().then(vaults => {
+      vaultSelect.innerHTML = vaults.map(v =>
+        '<option value="' + esc2(v.id) + '"' + (v.id === st.vaultId ? ' selected' : '') + '>' +
+        esc2(v.name) + '</option>').join('');
+    }).catch(() => {});
+    vaultSelect.addEventListener('change', async () => {
+      const statusEl = document.getElementById('account-status');
+      if (!confirm('Switch this device to another vault? Unsynced local changes are dropped and the pages will show that group\u2019s data until you switch back.')) {
+        renderAccount(); return;
+      }
+      try {
+        await tomeSync.switchVault(vaultSelect.value);
+        statusEl.textContent = 'Vault switched — reload pages to see its data.';
+      } catch (e) { statusEl.textContent = 'Switch failed: ' + e.message; }
+    });
+  }
   const inviteBtn = document.getElementById('invite-btn');
   if (inviteBtn) inviteBtn.addEventListener('click', async () => {
     const email = document.getElementById('invite-email').value.trim();

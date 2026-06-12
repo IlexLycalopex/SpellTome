@@ -21,7 +21,10 @@
 const tomeSync = (() => {
   const SUPABASE_URL = 'https://edmeogmkquhslpvjelyq.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkbWVvZ21rcXVoc2xwdmplbHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMDc4NDAsImV4cCI6MjA5Njc4Mzg0MH0.xOnV3Jt8CI3owyUMhFrpoKfQz7VLG2vRI63iCu6CvaU';
-  const VAULT_NAME = 'The Tome Vault';
+  // Each group gets its own vault; the name is informational only.
+  function defaultVaultName() {
+    return 'Vault \u2014 ' + (user && user.email ? user.email : 'group');
+  }
   const META_KEY = 'tome_sync_meta_v1';     // { vaultId, synced: { collection: iso } }
   const PUSH_DEBOUNCE_MS = 2000;
 
@@ -29,6 +32,7 @@ const tomeSync = (() => {
   let user = null;
   let vaultId = null;
   let isGm = false;
+  let isAdmin = false;
   let pushTimer = null;
   let lastSyncAt = null;
   let state = 'init';                        // init|unavailable|signedout|syncing|synced|error
@@ -51,7 +55,7 @@ const tomeSync = (() => {
   function setState(next, detail) {
     state = next;
     try {
-      window.dispatchEvent(new CustomEvent('tome:sync-state', { detail: { state, user, isGm, lastSyncAt, detail } }));
+      window.dispatchEvent(new CustomEvent('tome:sync-state', { detail: { state, user, isGm, isAdmin, vaultId, lastSyncAt, detail } }));
     } catch (e) {}
   }
 
@@ -98,6 +102,7 @@ const tomeSync = (() => {
   async function start() {
     try {
       setState('syncing');
+      await detectAdmin();
       await claimInvitations();
       await ensureVault();
       await pullAll();
@@ -119,22 +124,61 @@ const tomeSync = (() => {
       .eq('invited_email', email);
   }
 
+  async function detectAdmin() {
+    try {
+      const { data } = await client.rpc('am_i_admin');
+      isAdmin = data === true;
+    } catch (e) { isAdmin = false; }
+  }
+
+  // Vault resolution: the vaults this user belongs to come first (an admin
+  // can see every tenant, but must not silently adopt someone else's).
+  // Admins may pin any vault via switchVault(); the choice persists.
   async function ensureVault() {
-    const { data, error } = await client.from('campaigns').select('id,name').limit(1);
-    if (error) throw error;
-    if (data && data.length) {
-      vaultId = data[0].id;
+    const meta = loadMeta();
+    const memberships = await client.from('campaign_members')
+      .select('campaign_id,role').eq('user_id', user.id);
+    if (memberships.error) throw memberships.error;
+    const mine = memberships.data || [];
+
+    if (isAdmin && meta.adminVaultId) {
+      vaultId = meta.adminVaultId;
+    } else if (mine.length) {
+      const preferred = mine.find(m => m.campaign_id === meta.vaultId) || mine[0];
+      vaultId = preferred.campaign_id;
     } else {
       const ins = await client.from('campaigns')
-        .insert({ name: VAULT_NAME, description: 'Shared data vault for The Tome' })
+        .insert({ name: defaultVaultName(), description: 'Shared data vault for The Tome' })
         .select('id').single();
       if (ins.error) throw ins.error;
       vaultId = ins.data.id;
     }
-    const me = await client.from('campaign_members')
-      .select('role').eq('campaign_id', vaultId).eq('user_id', user.id).limit(1);
-    isGm = Boolean(me.data && me.data[0] && me.data[0].role === 'gm');
+    const me = mine.find(m => m.campaign_id === vaultId);
+    isGm = Boolean(me && me.role === 'gm') || (!me && isAdmin) || (!mine.length);
     saveMeta({ vaultId });
+  }
+
+  /** All vaults this user can see (admins: every tenant). */
+  async function listVaults() {
+    const { data, error } = await client.from('campaigns').select('id,name,created_at');
+    if (error) throw error;
+    return data || [];
+  }
+
+  /**
+   * Point this device at another vault (admin repair work, or a player in
+   * two groups). Clears local sync bookkeeping so the target vault's data
+   * is pulled fresh; un-pushed local changes are deliberately dropped
+   * rather than written into the wrong tenant.
+   */
+  async function switchVault(id) {
+    dirty.clear();
+    saveMeta({ vaultId: id, adminVaultId: isAdmin ? id : undefined, synced: {} });
+    vaultId = id;
+    setState('syncing');
+    await pullAll();
+    lastSyncAt = new Date().toISOString();
+    setState('synced');
   }
 
   /* ── pull / push ───────────────────────────────────────────── */
@@ -225,7 +269,7 @@ const tomeSync = (() => {
   }
 
   function status() {
-    return { state, user, isGm, lastSyncAt, pendingPush: dirty.size };
+    return { state, user, isGm, isAdmin, vaultId, lastSyncAt, pendingPush: dirty.size };
   }
 
   if (typeof document !== 'undefined') {
@@ -233,5 +277,5 @@ const tomeSync = (() => {
     else init();
   }
 
-  return { signIn, signOut, status, inviteMember, listMembers, pushDirty, init };
+  return { signIn, signOut, status, inviteMember, listMembers, listVaults, switchVault, pushDirty, init };
 })();

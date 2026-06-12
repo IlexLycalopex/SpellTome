@@ -7,8 +7,21 @@ magic-link sign-in from the hub, a shared "vault" campaign row holding the
 group's collections (first sign-in creates it and becomes GM; GMs invite
 players by email from the hub), local-first reads with debounced background
 push and pull-on-load, last-write-wins with a dirty-local-wins guard.
-Signed-out/offline the site behaves exactly as before. Remaining ideas:
-Realtime subscriptions for live combat, per-D&D-campaign collection rows.
+Signed-out/offline the site behaves exactly as before.
+
+**Multi-tenancy & platform admin** (migration 0004): vault names are no
+longer globally unique — every group that signs in gets its own vault
+(named for its creator) and RLS keeps tenants invisible to each other.
+Platform admins are listed by email in `tome_private.app_admins`
+(currently the site owner); admin policies grant full read/write across
+all tenants, the client detects the role via `public.am_i_admin()`, and
+the hub shows an Admin badge plus a vault switcher for repairing any
+group's data (switching deliberately drops un-pushed local changes so
+one tenant's data is never written into another). Admins never silently
+adopt a foreign vault — without a membership they get their own.
+
+Remaining ideas: Realtime subscriptions for live combat,
+per-D&D-campaign collection rows.
 
 Live project: `edmeogmkquhslpvjelyq` (eu-west-1)
 - API URL: `https://edmeogmkquhslpvjelyq.supabase.co`
