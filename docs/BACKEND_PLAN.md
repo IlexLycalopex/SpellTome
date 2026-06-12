@@ -1,6 +1,20 @@
 # Backend Plan — Supabase Migration
 
-Status: **planning**. Phase 0 (storage adapter + backup) shipped in v2.2.0.
+Status: **Phases 0–2 DONE** (2026-06-12). Phase 3 (sync driver) is next.
+
+Live project: `edmeogmkquhslpvjelyq` (eu-west-1)
+- API URL: `https://edmeogmkquhslpvjelyq.supabase.co`
+- Anon key: in `.github/workflows/keep-supabase-awake.yml` (public by design)
+- MCP server: configured project-wide in `.mcp.json` (authenticate locally
+  with `claude /mcp`)
+- Applied migrations are mirrored in `supabase/migrations/`
+- Schema deployed: `campaigns`, `campaign_members` (gm/player roles,
+  email-claim flow), `tome_collections` (jsonb mirror), `heartbeat`
+  (anon-readable keep-awake target). RLS verified live: anon and
+  non-member authenticated roles see zero campaign rows; the security
+  advisor reports no findings. Helper predicates live in the
+  `tome_private` schema so they expose no /rpc surface.
+- Keep-awake: scheduled GitHub Action pings `heartbeat` Mon + Thu.
 
 The Tome currently stores all tool data in browser `localStorage` — per
 device, per browser, wiped by "clear site data". The target is a shared

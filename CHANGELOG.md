@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.6.0] — 2026-06-12
+
+### Added
+- **Supabase backend stood up** (Phases 1–2 of the backend plan). Live project `edmeogmkquhslpvjelyq`: `campaigns`, `campaign_members` (GM/player roles with an email-claim flow for first sign-in), `tome_collections` (jsonb collection mirror) and an anon-readable `heartbeat` table. Row-level security verified live (anon and non-member authenticated roles see nothing); helper predicates live in a private schema with no API surface; the Supabase security advisor reports zero findings. Applied migrations mirrored in `supabase/migrations/`.
+- **Project MCP config** (`.mcp.json`) wiring the Supabase MCP server for local Claude Code sessions, plus Supabase agent skills under `.agents/skills/`.
+- **Keep-awake workflow** (`.github/workflows/keep-supabase-awake.yml`) pinging the heartbeat table Mondays and Thursdays so the free-tier project never pauses.
+
+---
+
 ## [2.5.1] — 2026-06-12
 
 ### Fixed
