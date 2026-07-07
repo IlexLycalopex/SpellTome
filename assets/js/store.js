@@ -17,6 +17,7 @@ const tomeStore = (() => {
   const REGISTRY = {
     campaigns:      { key: 'tome_campaigns_v1',                  scope: 'synced', label: 'Campaign registry' },
     party:          { key: 'tome_party_v1',                      scope: 'synced', label: 'Party roster' },
+    characterCards: { key: 'tome_character_cards_v1',            scope: 'synced', label: 'Character cards' },
     activeCampaign: { key: 'tome_active_campaign_v1',            scope: 'synced', label: 'Selected campaign', raw: true },
     combatState:    { key: 'tome_combat_tracker_v1',             scope: 'synced', label: 'Combat tracker state' },
     encounters:     { key: 'tome_encounters_v1',                 scope: 'synced', label: 'Saved encounters' },
@@ -147,6 +148,8 @@ const tomeStore = (() => {
     if (Array.isArray(registry)) registry.forEach(c => push(c && c.name));
     const party = get('party');
     if (Array.isArray(party)) party.forEach(p => push(p && p.campaign));
+    const cards = get('characterCards');
+    if (Array.isArray(cards)) cards.forEach(c => push(c && c.campaign));
     const maps = get('mapMarkers');
     if (maps && maps.campaigns && typeof maps.campaigns === 'object') {
       Object.keys(maps.campaigns).forEach(push);
