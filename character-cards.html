@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Character Cards | The Tome</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/character-cards.css">
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-header">
+    <span class="nav-drawer-title">The Tome</span>
+    <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="nav-scroll">
+
+    <span class="nav-section-label">Home</span>
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      &nbsp;Hub
+    </a>
+
+    <span class="nav-section-label">Reference</span>
+    <a href="spelltome.html" class="nav-item" data-page="spelltome.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      &nbsp;Spell Tome
+    </a>
+    <a href="conditions.html" class="nav-item" data-page="conditions.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      &nbsp;Condition Codex
+    </a>
+    <a href="wildshape.html" class="nav-item" data-page="wildshape.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      &nbsp;Wildshape &amp; Familiar
+    </a>
+    <a href="monsters.html" class="nav-item" data-page="monsters.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17h-1a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 3.04 1.36 5.75 3.5 7.59V20h13v-.41C20.64 17.75 22 15.04 22 12 22 6.5 17.5 2 12 2z"/></svg>
+      &nbsp;Monster Codex
+    </a>
+    <a href="magic-items.html" class="nav-item" data-page="magic-items.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="3" x2="6" y2="9"/><line x1="12" y1="3" x2="18" y2="9"/></svg>
+      &nbsp;Magic Item Compendium
+    </a>
+    <a href="equipment.html" class="nav-item" data-page="equipment.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+      &nbsp;Equipment &amp; Gear
+    </a>
+    <a href="skills-feats.html" class="nav-item" data-page="skills-feats.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      &nbsp;Skills &amp; Feats
+    </a>
+    <a href="backgrounds.html" class="nav-item" data-page="backgrounds.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      &nbsp;Backgrounds &amp; Races
+    </a>
+    <a href="quick-reference.html" class="nav-item" data-page="quick-reference.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      &nbsp;Quick Reference
+    </a>
+
+    <span class="nav-section-label">Table Tools</span>
+    <a href="combat-tracker.html" class="nav-item" data-page="combat-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="3" y2="21"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+      &nbsp;Combat Tracker
+    </a>
+    <a href="encounter-builder.html" class="nav-item" data-page="encounter-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+      &nbsp;Encounter Builder
+    </a>
+    <a href="dice-roller.html" class="nav-item" data-page="dice-roller.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      &nbsp;Dice Roller
+    </a>
+    <a href="npc-generator.html" class="nav-item" data-page="npc-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      &nbsp;NPC Generator
+    </a>
+    <a href="loot-generator.html" class="nav-item" data-page="loot-generator.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+      &nbsp;Loot Generator
+    </a>
+    <a href="level-up-guide.html" class="nav-item" data-page="level-up-guide.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8 10 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+      &nbsp;Level Up Guide
+    </a>
+
+    <span class="nav-section-label">Campaigns</span>
+    <a href="campaign-manager.html" class="nav-item" data-page="campaign-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg>
+      &nbsp;Campaign Manager
+    </a>
+    <a href="party-manager.html" class="nav-item" data-page="party-manager.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      &nbsp;Party &amp; Characters
+    </a>
+    <a href="character-cards.html" class="nav-item active" data-page="character-cards.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="13" height="18" rx="2"/><circle cx="9.5" cy="8" r="2.5"/><path d="M5.5 16c0-2 1.7-3.5 4-3.5s4 1.5 4 3.5"/><path d="M20 6v14a2 2 0 0 1-2 2H8"/></svg>
+      &nbsp;Character Cards
+    </a>
+    <a href="campaign-tracker.html" class="nav-item" data-page="campaign-tracker.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      &nbsp;Campaign Chronicle
+    </a>
+    <a href="campaign-log-builder.html" class="nav-item" data-page="campaign-log-builder.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      &nbsp;Log Builder
+    </a>
+    <a href="campaign-map.html" class="nav-item" data-page="campaign-map.html">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      &nbsp;Campaign Map
+    </a>
+
+  </div>
+</nav>
+
+
+
+<div class="page-wrap">
+  <header id="site-header">
+    <a href="index.html" class="site-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="13" height="18" rx="2"/><circle cx="9.5" cy="8" r="2.5"/><path d="M5.5 16c0-2 1.7-3.5 4-3.5s4 1.5 4 3.5"/><path d="M20 6v14a2 2 0 0 1-2 2H8"/></svg>
+      The Tome
+    </a>
+    <button class="hamburger-btn" onclick="openNav()" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="tool-container">
+    <h1>Character Cards</h1>
+    <p class="subtitle">A collectible-card gallery for your party and NPCs — hover for the foil, click or press Enter to flip.</p>
+
+    <div class="cc-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="13" height="18" rx="2"/><circle cx="9.5" cy="8" r="2.5"/></svg>
+      Cards are grouped by campaign and support both D&amp;D 5e and Daggerheart. Switching campaigns keeps each ruleset's cards separate — nothing from another campaign shows until you switch back.
+    </div>
+
+    <div class="cc-summary">
+      <div class="cc-view-toggle" id="cc-view-toggle">
+        <button type="button" class="cc-view-btn" data-view="gm">GM View</button>
+        <button type="button" class="cc-view-btn" data-view="player">Player View</button>
+      </div>
+      <div class="cc-actions">
+        <button class="btn btn-gold" onclick="openForm()">+ Add Character Card</button>
+        <button class="btn btn-ghost" onclick="exportCards()">Export JSON</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('cc-import-file').click()">Import JSON</button>
+        <input type="file" id="cc-import-file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+
+    <div class="cc-campaign-bar" id="cc-campaign-bar" hidden>
+      <span class="cc-campaign-label">Campaign</span>
+      <div class="cc-campaign-pills" id="cc-campaign-pills"></div>
+    </div>
+    <div class="cc-no-campaign" id="cc-no-campaign" hidden>
+      <span>No campaigns yet. Add a character card below and give it a campaign name, or set one up first in the Campaign Manager.</span>
+      <a class="btn btn-ghost" href="campaign-manager.html">Open Campaign Manager</a>
+    </div>
+
+    <div class="cc-filter-row">
+      <div class="cc-filter-groups">
+        <div class="cc-filter-group" id="cc-kind-filters"></div>
+        <div class="cc-filter-group" id="cc-ruleset-filters"></div>
+      </div>
+      <div class="cc-result-info">
+        <span id="cc-result-count"></span>
+        <span class="cc-hidden-note" id="cc-hidden-note" hidden><span class="dot"></span><span class="txt"></span></span>
+      </div>
+    </div>
+
+    <section class="cc-form-panel" id="cc-form-panel" hidden>
+      <div class="cc-form-title" id="cc-form-title">Add Character Card</div>
+
+      <div class="form-row trio">
+        <div class="fg">
+          <label for="f-name">Character Name *</label>
+          <input type="text" id="f-name" placeholder="e.g. Vessa Corr" maxlength="60">
+        </div>
+        <div class="fg">
+          <label for="f-campaign">Campaign</label>
+          <input type="text" id="f-campaign" list="cc-campaign-list" placeholder="e.g. The Hollow Crown" maxlength="60">
+          <datalist id="cc-campaign-list"></datalist>
+        </div>
+        <div class="fg">
+          <label for="f-tagline">Tagline</label>
+          <input type="text" id="f-tagline" placeholder="One short flavour line" maxlength="140">
+        </div>
+      </div>
+
+      <div class="form-row trio">
+        <div class="fg">
+          <label>Ruleset</label>
+          <div class="cc-type-toggle">
+            <button type="button" class="cc-type-btn cc-ruleset-btn" data-ruleset="dnd5e" onclick="setRuleset('dnd5e')">D&amp;D 5e</button>
+            <button type="button" class="cc-type-btn cc-ruleset-btn" data-ruleset="daggerheart" onclick="setRuleset('daggerheart')">Daggerheart</button>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Kind</label>
+          <div class="cc-type-toggle">
+            <button type="button" class="cc-type-btn cc-kind-btn" data-kind="pc" onclick="setKind('pc')">Player Character</button>
+            <button type="button" class="cc-type-btn cc-kind-btn" data-kind="npc" onclick="setKind('npc')">NPC</button>
+          </div>
+        </div>
+        <div class="fg fg-check" style="align-self:end;padding-bottom:0.4rem">
+          <input type="checkbox" id="f-gmonly">
+          <label for="f-gmonly">GM-only card (hidden in Player view)</label>
+        </div>
+      </div>
+
+      <div class="cc-artwork-row">
+        <div class="cc-artwork-thumb" id="cc-artwork-thumb">No art</div>
+        <div class="cc-artwork-actions">
+          <button type="button" class="btn btn-ghost btn-sm" id="cc-artwork-btn">Upload artwork&hellip;</button>
+          <input type="file" id="cc-artwork-input" accept="image/*" hidden>
+          <button type="button" class="btn btn-ghost btn-sm" id="cc-artwork-remove" hidden>Remove artwork</button>
+          <span class="cc-artwork-note">Custom portrait, auto-resized and stored with the card. Falls back to an initial letter if left blank.</span>
+          <span class="cc-artwork-status" id="cc-artwork-status"></span>
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="id-dnd-pc">
+        <div class="cc-form-section-title">Identity — D&amp;D 5e player character</div>
+        <div class="form-row quad">
+          <div class="fg"><label for="f-race">Race</label><input type="text" id="f-race" maxlength="40" placeholder="e.g. Half-elf"></div>
+          <div class="fg"><label for="f-klass">Class</label><input type="text" id="f-klass" maxlength="40" placeholder="e.g. Warlock"></div>
+          <div class="fg"><label for="f-subclass">Subclass</label><input type="text" id="f-subclass" maxlength="40" placeholder="e.g. The Fiend"></div>
+          <div class="fg"><label for="f-level">Level</label><input type="number" id="f-level" min="1" max="20" placeholder="1"></div>
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="id-dnd-npc" hidden>
+        <div class="cc-form-section-title">Identity — D&amp;D 5e NPC</div>
+        <div class="form-row trio">
+          <div class="fg"><label for="f-type">Type</label><input type="text" id="f-type" maxlength="40" placeholder="e.g. Undead"></div>
+          <div class="fg"><label for="f-cr">Challenge Rating</label><input type="text" id="f-cr" maxlength="10" placeholder="e.g. 6 or 1/2"></div>
+          <div class="fg"><label for="f-role">Role</label><input type="text" id="f-role" maxlength="60" placeholder="e.g. Cult leader"></div>
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="id-dh-pc" hidden>
+        <div class="cc-form-section-title">Identity — Daggerheart player character</div>
+        <div class="form-row quad">
+          <div class="fg"><label for="f-ancestry">Ancestry</label><input type="text" id="f-ancestry" maxlength="40" placeholder="e.g. Faerie"></div>
+          <div class="fg"><label for="f-community">Community</label><input type="text" id="f-community" maxlength="40" placeholder="e.g. Wildborne"></div>
+          <div class="fg"><label for="f-dh-klass">Class</label><input type="text" id="f-dh-klass" maxlength="40" placeholder="e.g. Ranger"></div>
+          <div class="fg"><label for="f-dh-subclass">Subclass</label><input type="text" id="f-dh-subclass" maxlength="40" placeholder="e.g. Wayfinder"></div>
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="id-dh-npc" hidden>
+        <div class="cc-form-section-title">Identity — Daggerheart adversary</div>
+        <div class="form-row trio">
+          <div class="fg"><label for="f-adversary">Adversary type</label><input type="text" id="f-adversary" maxlength="60" placeholder="e.g. Horde (Tier 2)"></div>
+          <div class="fg"><label for="f-dh-role">Role</label><input type="text" id="f-dh-role" maxlength="60" placeholder="e.g. Devourer"></div>
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="stats-dnd">
+        <div class="cc-form-section-title">Stats — D&amp;D 5e</div>
+        <div class="form-row trio">
+          <div class="fg"><label for="f-ac">AC</label><input type="number" id="f-ac" min="0" max="40" placeholder="14"></div>
+          <div class="fg"><label for="f-hp">HP</label><input type="number" id="f-hp" min="0" max="999" placeholder="42"></div>
+          <div class="fg"><label for="f-speed">Speed</label><input type="text" id="f-speed" maxlength="20" placeholder="30 ft"></div>
+        </div>
+        <div class="form-row hexa">
+          <div class="fg"><label for="ab-str">STR</label><input type="number" id="ab-str" min="1" max="30" placeholder="10"></div>
+          <div class="fg"><label for="ab-dex">DEX</label><input type="number" id="ab-dex" min="1" max="30" placeholder="10"></div>
+          <div class="fg"><label for="ab-con">CON</label><input type="number" id="ab-con" min="1" max="30" placeholder="10"></div>
+          <div class="fg"><label for="ab-int">INT</label><input type="number" id="ab-int" min="1" max="30" placeholder="10"></div>
+          <div class="fg"><label for="ab-wis">WIS</label><input type="number" id="ab-wis" min="1" max="30" placeholder="10"></div>
+          <div class="fg"><label for="ab-cha">CHA</label><input type="number" id="ab-cha" min="1" max="30" placeholder="10"></div>
+        </div>
+        <div class="fg">
+          <label>Saving throw proficiencies</label>
+          <div class="cc-prof-row" id="save-profs"></div>
+        </div>
+        <div class="fg" style="margin-top:0.5rem">
+          <label for="f-skills">Key skills (comma separated, up to 6)</label>
+          <input type="text" id="f-skills" maxlength="200" placeholder="Deception, Arcana, Persuasion">
+        </div>
+      </div>
+
+      <div class="cc-form-section" id="stats-dh" hidden>
+        <div class="cc-form-section-title">Stats — Daggerheart</div>
+        <div class="form-row hexa">
+          <div class="fg"><label for="tr-agility">AGI</label><input type="number" id="tr-agility" min="-4" max="6" placeholder="0"></div>
+          <div class="fg"><label for="tr-strength">STR</label><input type="number" id="tr-strength" min="-4" max="6" placeholder="0"></div>
+          <div class="fg"><label for="tr-finesse">FIN</label><input type="number" id="tr-finesse" min="-4" max="6" placeholder="0"></div>
+          <div class="fg"><label for="tr-instinct">INS</label><input type="number" id="tr-instinct" min="-4" max="6" placeholder="0"></div>
+          <div class="fg"><label for="tr-presence">PRE</label><input type="number" id="tr-presence" min="-4" max="6" placeholder="0"></div>
+          <div class="fg"><label for="tr-knowledge">KNO</label><input type="number" id="tr-knowledge" min="-4" max="6" placeholder="0"></div>
+        </div>
+        <div class="form-row quad">
+          <div class="fg"><label for="f-evasion">Evasion</label><input type="number" id="f-evasion" min="0" max="30" placeholder="10"></div>
+          <div class="fg"><label for="f-dh-hp">HP</label><input type="number" id="f-dh-hp" min="0" max="30" placeholder="6"></div>
+          <div class="fg"><label for="f-stress">Stress</label><input type="number" id="f-stress" min="0" max="20" placeholder="6"></div>
+          <div class="fg"><label for="f-hope">Hope</label><input type="number" id="f-hope" min="0" max="12" placeholder="2"></div>
+        </div>
+        <div class="form-row trio">
+          <div class="fg"><label for="f-thresholds">Damage thresholds</label><input type="text" id="f-thresholds" maxlength="20" placeholder="7 / 13"></div>
+          <div class="fg"><label for="f-domains">Domains (comma separated)</label><input type="text" id="f-domains" maxlength="200" placeholder="Bone, Sage"></div>
+          <div class="fg"><label for="f-experiences">Experiences (comma separated)</label><input type="text" id="f-experiences" maxlength="240" placeholder="Reads a wood like a page"></div>
+        </div>
+      </div>
+
+      <div class="form-row solo">
+        <div class="fg">
+          <label for="f-bio">Bio (shown in the detail view — separate paragraphs with a blank line)</label>
+          <textarea id="f-bio" rows="3" placeholder="Public-facing description&hellip;"></textarea>
+        </div>
+      </div>
+      <div class="form-row solo">
+        <div class="fg">
+          <label for="f-gmnotes">GM notes (hidden from Player view — a courtesy screen, not access control)</label>
+          <textarea id="f-gmnotes" rows="3" placeholder="Secrets, twists, stat rationale&hellip;"></textarea>
+        </div>
+      </div>
+
+      <div class="cc-form-actions">
+        <span class="cc-form-error" id="cc-form-error"></span>
+        <button class="btn btn-ghost" onclick="closeForm()">Cancel</button>
+        <button class="btn btn-gold" id="cc-form-save-btn" onclick="saveCard()">Save Card</button>
+      </div>
+    </section>
+
+    <div class="cc-gallery" id="cc-gallery">
+      <div class="cc-grid" id="cc-grid"></div>
+      <p class="cc-note">GM-only cards and GM notes are hidden by the view toggle only. This is a courtesy screen, not access control — the content still exists in this browser's stored data.</p>
+    </div>
+  </main>
+</div>
+
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal-box"></div>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/sync.js" defer></script>
+<script src="assets/js/modal.js"></script>
+<script>
+// PAGE SCRIPT — Character Cards
+(function () {
+  'use strict';
+
+  const ABILITIES = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+  const TRAITS = ['agility', 'strength', 'finesse', 'instinct', 'presence', 'knowledge'];
+
+  let reduceMotion = false;
+  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  let cards = loadCards();
+  let activeCampaign = loadActiveCampaign();
+  let view = loadView();
+  let kindFilter = 'all';
+  let rulesetFilter = 'all';
+  let editingId = null;
+  let formRuleset = 'dnd5e';
+  let formKind = 'pc';
+  let formPortraitDraft = '';
+  const flippedIds = new Set();
+
+  /* ── STORAGE ─────────────────────────────────────────────── */
+  function loadCards() {
+    const data = tomeStore.get('characterCards', []);
+    return Array.isArray(data) ? data.filter(c => c && typeof c === 'object').map(normalize) : [];
+  }
+  function saveCards() {
+    if (!tomeStore.set('characterCards', cards)) {
+      alert('Could not save (storage unavailable or full — try removing some custom artwork).');
+    }
+  }
+  function loadActiveCampaign() { return String(tomeStore.get('activeCampaign', '') || ''); }
+  function saveActiveCampaign() { if (activeCampaign) tomeStore.set('activeCampaign', activeCampaign); else tomeStore.remove('activeCampaign'); }
+
+  function loadView() {
+    try { return sessionStorage.getItem('tome_cc_view') === 'player' ? 'player' : 'gm'; } catch (e) { return 'gm'; }
+  }
+  function saveView() {
+    try { sessionStorage.setItem('tome_cc_view', view); } catch (e) {}
+  }
+
+  function newId() { return 'cc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8); }
+
+  /* ── HELPERS ─────────────────────────────────────────────── */
+  function clampNum(v, min, max, fallback) {
+    const n = Number(v);
+    if (v === '' || v === null || v === undefined || Number.isNaN(n)) return fallback;
+    return Math.min(max, Math.max(min, Math.round(n)));
+  }
+  function splitList(str) {
+    return String(str ?? '').split(',').map(s => s.trim()).filter(Boolean).slice(0, 12);
+  }
+  function paragraphs(text) {
+    return String(text ?? '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean).slice(0, 20);
+  }
+  function mod(score) { const m = Math.floor((Number(score ?? 10) - 10) / 2); return (m >= 0 ? '+' : '') + m; }
+  function signed(n) { const v = Number(n || 0); return (v >= 0 ? '+' : '') + v; }
+
+  function normalize(c) {
+    const ruleset = c.ruleset === 'daggerheart' ? 'daggerheart' : 'dnd5e';
+    const kind = c.kind === 'npc' ? 'npc' : 'pc';
+    return {
+      id: typeof c.id === 'string' && c.id ? c.id : newId(),
+      name: String(c.name ?? '').slice(0, 60),
+      campaign: String(c.campaign ?? '').slice(0, 60).trim(),
+      ruleset, kind,
+      portrait: typeof c.portrait === 'string' ? c.portrait.slice(0, 400000) : '',
+      tagline: String(c.tagline ?? '').slice(0, 140),
+      gmOnly: !!c.gmOnly,
+      bio: String(c.bio ?? '').slice(0, 4000),
+      gmNotes: String(c.gmNotes ?? '').slice(0, 4000),
+      race: String(c.race ?? '').slice(0, 40),
+      klass: String(c.klass ?? '').slice(0, 40),
+      subclass: String(c.subclass ?? '').slice(0, 40),
+      level: clampNum(c.level, 1, 20, 1),
+      npcType: String(c.npcType ?? '').slice(0, 40),
+      cr: String(c.cr ?? '').slice(0, 10),
+      role: String(c.role ?? '').slice(0, 60),
+      ancestry: String(c.ancestry ?? '').slice(0, 40),
+      community: String(c.community ?? '').slice(0, 40),
+      adversary: String(c.adversary ?? '').slice(0, 60),
+      ac: clampNum(c.ac, 0, 40, 10),
+      hp: clampNum(c.hp, 0, 999, 10),
+      speed: String(c.speed ?? '').slice(0, 20),
+      abilities: (a => ABILITIES.reduce((o, k) => (o[k] = clampNum(a[k], 1, 30, 10), o), {}))(c.abilities || {}),
+      saveProfs: Array.isArray(c.saveProfs) ? c.saveProfs.filter(k => ABILITIES.includes(k)) : [],
+      keySkills: Array.isArray(c.keySkills) ? c.keySkills.map(x => String(x).slice(0, 30)).slice(0, 6) : [],
+      traits: (t => TRAITS.reduce((o, k) => (o[k] = clampNum(t[k], -4, 6, 0), o), {}))(c.traits || {}),
+      evasion: clampNum(c.evasion, 0, 30, 10),
+      stress: clampNum(c.stress, 0, 20, 6),
+      hope: (c.hope === '' || c.hope === null || c.hope === undefined) ? null : clampNum(c.hope, 0, 12, 0),
+      thresholds: String(c.thresholds ?? '').slice(0, 20),
+      domains: Array.isArray(c.domains) ? c.domains.map(x => String(x).slice(0, 24)).slice(0, 6) : [],
+      experiences: Array.isArray(c.experiences) ? c.experiences.map(x => String(x).slice(0, 60)).slice(0, 6) : []
+    };
+  }
+
+  function lines(c) {
+    if (c.ruleset === 'dnd5e') {
+      if (c.kind === 'pc') return [c.race || '—', [c.klass, c.subclass].filter(Boolean).join(' · ') || '—'];
+      return [[c.npcType, c.cr ? 'CR ' + c.cr : ''].filter(Boolean).join(' · ') || '—', c.role || '—'];
+    }
+    if (c.kind === 'pc') return [[c.ancestry, c.community].filter(Boolean).join(' · ') || '—', [c.klass, c.subclass].filter(Boolean).join(' · ') || '—'];
+    return [c.adversary || '—', c.role || '—'];
+  }
+
+  function campaignNamesLocal() {
+    return [...new Set(cards.map(c => c.campaign).filter(Boolean))].sort();
+  }
+
+  /* ── CARD RENDERING ──────────────────────────────────────── */
+  function cardFrontHTML(c) {
+    const [lineA, lineB] = lines(c);
+    const isDnd = c.ruleset === 'dnd5e';
+    const isPc = c.kind === 'pc';
+    const initial = (c.name || '?').trim().charAt(0).toUpperCase() || '?';
+    return '' +
+    '<div class="cc-face cc-face-front">' +
+      '<div class="cc-portrait">' +
+        '<div class="cc-portrait-grid"></div>' +
+        (c.portrait
+          ? '<img class="cc-portrait-img" src="' + c.portrait + '" alt="Portrait of ' + esc(c.name) + ', ' + esc(lineA) + '" loading="lazy" width="400" height="560">'
+          : '<div class="cc-portrait-initial">' + esc(initial) + '</div>') +
+        '<div class="cc-glyph">' + (isDnd
+          ? '<div class="cc-glyph-dnd">d20</div>'
+          : '<div class="cc-glyph-dh"><span></span></div>') + '</div>' +
+        '<div class="cc-sigil" title="' + (isPc ? 'Player character' : 'Non-player character') + '">' +
+          (isPc ? '<span class="cc-sigil-pc"></span>' : '<span class="cc-sigil-npc"></span>') +
+        '</div>' +
+        (c.gmOnly ? '<div class="cc-gm-badge">GM only</div>' : '') +
+        '<div class="cc-sheen1"></div><div class="cc-sheen2"></div>' +
+      '</div>' +
+      '<div class="cc-front-text">' +
+        '<div class="cc-front-name">' + esc(c.name) + '</div>' +
+        '<div class="cc-front-linea">' + esc(lineA) + '</div>' +
+        '<div class="cc-front-lineb">' + esc(lineB) + '</div>' +
+        (c.tagline ? '<div class="cc-front-tagline">' + esc(c.tagline) + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  }
+
+  function dndBackHTML(c) {
+    const a = c.abilities;
+    const top = [
+      { l: 'AC', v: c.ac }, { l: 'HP', v: c.hp },
+      c.kind === 'npc' ? { l: 'CR', v: c.cr || '—' } : { l: 'Speed', v: c.speed || '—' }
+    ];
+    return '' +
+    '<div class="cc-back-lines">' +
+      '<div class="cc-stat-row n3">' + top.map(s => '<div class="cc-stat-box"><div class="l">' + esc(s.l) + '</div><div class="v">' + esc(s.v) + '</div></div>').join('') + '</div>' +
+      '<div class="cc-ability-grid">' + ABILITIES.map(k => '<div class="cc-ability"><div class="l">' + k.toUpperCase() + '</div><div class="s">' + a[k] + '</div><div class="m">' + mod(a[k]) + '</div></div>').join('') + '</div>' +
+      (c.saveProfs.length ? '<div class="cc-back-line"><span class="lbl">SAVES</span><span class="val">' + c.saveProfs.map(k => k.toUpperCase()).join(' · ') + '</span></div>' : '') +
+      (c.keySkills.length ? '<div class="cc-back-line"><span class="lbl">SKILLS</span><div class="cc-chip-row">' + c.keySkills.map(s => '<span class="cc-chip">' + esc(s) + '</span>').join('') + '</div></div>' : '') +
+    '</div>';
+  }
+
+  function dhBackHTML(c) {
+    const t = c.traits;
+    const top = [
+      { l: 'Evasion', v: c.evasion }, { l: 'HP', v: c.hp }, { l: 'Stress', v: c.stress },
+      (c.hope !== null) ? { l: 'Hope', v: c.hope } : { l: 'Thr.', v: c.thresholds || '—' }
+    ];
+    return '' +
+    '<div class="cc-back-lines">' +
+      '<div class="cc-trait-grid">' + TRAITS.map(k => '<div class="cc-trait"><span class="l">' + k.slice(0, 3).toUpperCase() + '</span><span class="v">' + signed(t[k]) + '</span></div>').join('') + '</div>' +
+      '<div class="cc-stat-row n4">' + top.map(s => '<div class="cc-stat-box"><div class="l">' + esc(s.l) + '</div><div class="v">' + esc(s.v) + '</div></div>').join('') + '</div>' +
+      (c.thresholds ? '<div class="cc-back-line"><span class="lbl">THRESHOLDS</span><span class="val">' + esc(c.thresholds) + '</span></div>' : '') +
+      (c.domains.length ? '<div class="cc-back-line"><span class="lbl">DOMAINS</span><div class="cc-chip-row">' + c.domains.map(d => '<span class="cc-chip domain">' + esc(d) + '</span>').join('') + '</div></div>' : '') +
+      (c.experiences.length ? '<div class="cc-back-line"><span class="lbl">EXP</span><div class="cc-chip-row">' + c.experiences.map(x => '<span class="cc-chip">' + esc(x) + '</span>').join('') + '</div></div>' : '') +
+    '</div>';
+  }
+
+  function cardBackHTML(c) {
+    const isDnd = c.ruleset === 'dnd5e';
+    return '' +
+    '<div class="cc-face cc-face-back">' +
+      '<div class="cc-back-head"><div class="cc-back-name">' + esc(c.name) + '</div><div class="cc-back-ruleset">' + (isDnd ? 'D&amp;D 5e' : 'Daggerheart') + '</div></div>' +
+      (isDnd ? dndBackHTML(c) : dhBackHTML(c)) +
+      '<button type="button" class="cc-details-btn" data-action="details" data-id="' + c.id + '">Details</button>' +
+    '</div>';
+  }
+
+  function cardAriaLabel(c, flipped) {
+    const [lineA] = lines(c);
+    return esc(c.name) + ', ' + esc(lineA) + '. ' + (flipped ? 'Showing stats. Press Enter to flip back.' : 'Press Enter to flip for stats.');
+  }
+
+  function cardHTML(c) {
+    const flipped = flippedIds.has(c.id);
+    return '<div class="cc-card' + (flipped ? ' flipped' : '') + '" tabindex="0" role="button" aria-label="' + cardAriaLabel(c, flipped) + '" data-id="' + c.id + '">' +
+      '<div class="cc-tilt"><div class="cc-flip">' + cardFrontHTML(c) + cardBackHTML(c) + '</div></div>' +
+    '</div>';
+  }
+
+  /* ── FILTERING ───────────────────────────────────────────── */
+  function visibleCards() {
+    let list = cards.filter(c => !c.campaign || !activeCampaign || c.campaign === activeCampaign);
+    if (view !== 'gm') list = list.filter(c => !c.gmOnly);
+    if (kindFilter !== 'all') list = list.filter(c => c.kind === kindFilter);
+    if (rulesetFilter !== 'all') list = list.filter(c => c.ruleset === rulesetFilter);
+    return list;
+  }
+
+  /* ── RENDER ──────────────────────────────────────────────── */
+  function render() {
+    renderViewToggle();
+    renderCampaignBar();
+    renderFilterRow();
+
+    const grid = document.getElementById('cc-grid');
+    if (!cards.length) {
+      grid.innerHTML = '<div class="cc-empty"><h2>No Character Cards Yet</h2><p>Build your first collectible-style card &mdash; portrait, stats, and a flip to reveal the back.</p>' +
+        '<button class="btn btn-gold" onclick="openForm()">+ Add Your First Card</button></div>';
+      return;
+    }
+    const shown = visibleCards();
+    if (!shown.length) {
+      grid.innerHTML = '<div class="cc-empty"><h2>No Cards Match</h2><p>Try a different campaign, filter, or view.</p></div>';
+      return;
+    }
+    grid.innerHTML = shown.map(cardHTML).join('');
+  }
+
+  function renderViewToggle() {
+    document.querySelectorAll('.cc-view-btn').forEach(b => b.classList.toggle('on', b.dataset.view === view));
+  }
+
+  function renderCampaignBar() {
+    const bar = document.getElementById('cc-campaign-bar');
+    const noBar = document.getElementById('cc-no-campaign');
+    const names = [...new Set([...tomeStore.campaignNames(), ...campaignNamesLocal()])];
+    if (!names.length) {
+      bar.hidden = true;
+      noBar.hidden = false;
+      if (activeCampaign) { activeCampaign = ''; saveActiveCampaign(); }
+      return;
+    }
+    noBar.hidden = true;
+    if (activeCampaign && !names.includes(activeCampaign)) { activeCampaign = ''; saveActiveCampaign(); }
+    bar.hidden = false;
+    const pill = (val, label, extra) =>
+      '<button type="button" class="cc-campaign-pill' + (activeCampaign === val ? ' on' : '') + (extra ? ' ' + extra : '') + '" data-campaign="' + esc(val) + '">' + esc(label) + '</button>';
+    document.getElementById('cc-campaign-pills').innerHTML =
+      pill('', 'All') + names.map(n => pill(n, n)).join('') + pill('__new__', '+ New', 'new');
+  }
+
+  function renderFilterRow() {
+    const kindPills = [['all', 'All'], ['pc', 'Player characters'], ['npc', 'Non-player']];
+    document.getElementById('cc-kind-filters').innerHTML = kindPills.map(([k, l]) =>
+      '<button type="button" class="cc-filter-pill' + (kindFilter === k ? ' on' : '') + '" data-kind-filter="' + k + '">' + esc(l) + '</button>').join('');
+    const rulesetPills = [['all', 'All systems'], ['dnd5e', 'D&D 5e'], ['daggerheart', 'Daggerheart']];
+    document.getElementById('cc-ruleset-filters').innerHTML = rulesetPills.map(([k, l]) =>
+      '<button type="button" class="cc-filter-pill' + (rulesetFilter === k ? ' on' : '') + '" data-ruleset-filter="' + k + '">' + esc(l) + '</button>').join('');
+
+    const shown = visibleCards();
+    const n = shown.length;
+    document.getElementById('cc-result-count').textContent = n + (n === 1 ? ' card' : ' cards');
+
+    const hiddenNote = document.getElementById('cc-hidden-note');
+    const hiddenCount = cards.filter(c => c.gmOnly && (!c.campaign || !activeCampaign || c.campaign === activeCampaign)).length;
+    if (view !== 'gm' && hiddenCount > 0) {
+      hiddenNote.hidden = false;
+      hiddenNote.querySelector('.txt').textContent = hiddenCount + (hiddenCount === 1 ? ' card hidden in Player view' : ' cards hidden in Player view');
+    } else {
+      hiddenNote.hidden = true;
+    }
+  }
+
+  function refreshCampaignDatalist() {
+    const names = [...new Set([...tomeStore.campaignNames(), ...campaignNamesLocal()])];
+    document.getElementById('cc-campaign-list').innerHTML = names.map(n => '<option value="' + esc(n) + '"></option>').join('');
+  }
+
+  /* ── CAMPAIGN SWITCHER ───────────────────────────────────── */
+  function setCampaignFilter(name) {
+    activeCampaign = String(name || '');
+    saveActiveCampaign();
+    render();
+  }
+
+  document.getElementById('cc-campaign-pills').addEventListener('click', e => {
+    const btn = e.target.closest('.cc-campaign-pill');
+    if (!btn) return;
+    const val = btn.dataset.campaign;
+    if (val === '__new__') {
+      const name = (prompt('New campaign name:') || '').trim();
+      if (!name) return;
+      setCampaignFilter(name.slice(0, 60));
+      return;
+    }
+    setCampaignFilter(val);
+  });
+
+  document.getElementById('cc-view-toggle').addEventListener('click', e => {
+    const btn = e.target.closest('.cc-view-btn');
+    if (!btn) return;
+    view = btn.dataset.view;
+    saveView();
+    render();
+  });
+
+  document.getElementById('cc-kind-filters').addEventListener('click', e => {
+    const btn = e.target.closest('[data-kind-filter]');
+    if (!btn) return;
+    kindFilter = btn.dataset.kindFilter;
+    render();
+  });
+
+  document.getElementById('cc-ruleset-filters').addEventListener('click', e => {
+    const btn = e.target.closest('[data-ruleset-filter]');
+    if (!btn) return;
+    rulesetFilter = btn.dataset.rulesetFilter;
+    render();
+  });
+
+  /* ── CARD FLIP / TILT / FOIL ─────────────────────────────── */
+  const grid = document.getElementById('cc-grid');
+
+  function toggleFlip(id) {
+    const el = grid.querySelector('.cc-card[data-id="' + id + '"]');
+    if (!el) return;
+    const flipped = el.classList.toggle('flipped');
+    if (flipped) flippedIds.add(id); else flippedIds.delete(id);
+    const c = cards.find(x => x.id === id);
+    if (c) el.setAttribute('aria-label', cardAriaLabel(c, flipped));
+  }
+
+  grid.addEventListener('click', e => {
+    const detailsBtn = e.target.closest('.cc-details-btn');
+    if (detailsBtn) { e.stopPropagation(); openDetail(detailsBtn.dataset.id); return; }
+    const card = e.target.closest('.cc-card');
+    if (card) toggleFlip(card.dataset.id);
+  });
+
+  grid.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.cc-card');
+    if (!card || e.target.closest('.cc-details-btn')) return;
+    e.preventDefault();
+    toggleFlip(card.dataset.id);
+  });
+
+  grid.addEventListener('pointermove', e => {
+    if (reduceMotion || e.pointerType === 'touch') return;
+    const card = e.target.closest('.cc-card');
+    if (!card) return;
+    const tilt = card.querySelector('.cc-tilt');
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    const m = 6;
+    tilt.style.setProperty('--ry', ((px - 0.5) * 2 * m).toFixed(2) + 'deg');
+    tilt.style.setProperty('--rx', (-(py - 0.5) * 2 * m).toFixed(2) + 'deg');
+    tilt.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+    tilt.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+    tilt.style.setProperty('--sheen', '1');
+  });
+
+  grid.addEventListener('pointerleave', e => {
+    const card = e.target.closest('.cc-card');
+    if (!card) return;
+    const tilt = card.querySelector('.cc-tilt');
+    tilt.style.setProperty('--rx', '0deg'); tilt.style.setProperty('--ry', '0deg');
+    tilt.style.setProperty('--mx', '50%'); tilt.style.setProperty('--my', '50%');
+    tilt.style.setProperty('--sheen', '0');
+  }, true);
+
+  /* ── DETAIL MODAL ────────────────────────────────────────── */
+  function openDetail(id) {
+    const c = cards.find(x => x.id === id);
+    if (!c) return;
+    const [lineA, lineB] = lines(c);
+    const bioParas = paragraphs(c.bio);
+    const gmParas = paragraphs(c.gmNotes);
+    const showGm = view === 'gm' && gmParas.length > 0;
+    const initial = (c.name || '?').trim().charAt(0).toUpperCase() || '?';
+    document.getElementById('modal-box').innerHTML =
+      '<div class="modal-header" style="background:linear-gradient(135deg, var(--gold-dim), var(--gold))">' +
+        '<div class="modal-title-block">' +
+          '<div class="modal-title">' + esc(c.name) + '</div>' +
+          '<div class="modal-subtitle">' + esc([lineA, lineB].filter(Boolean).join(' — ')) + '</div>' +
+        '</div>' +
+        '<button class="modal-close" onclick="closeModal()">Close</button>' +
+      '</div>' +
+      '<div class="modal-body">' +
+        '<div class="cc-modal-head">' +
+          '<div class="cc-modal-portrait">' + (c.portrait ? '<img src="' + c.portrait + '" alt="">' : esc(initial)) + '</div>' +
+          '<div><div class="cc-modal-linea">' + esc(lineA) + '</div><div class="cc-modal-lineb">' + esc(lineB) + '</div></div>' +
+        '</div>' +
+        '<div class="cc-modal-bio">' + (bioParas.length ? bioParas.map(p => '<p>' + esc(p) + '</p>').join('') : '<p style="font-style:italic;color:var(--text-dim)">No bio written yet.</p>') + '</div>' +
+        (showGm ? '<div class="cc-gm-box"><div class="cc-gm-box-title"><span class="dot"></span>GM notes</div>' +
+          gmParas.map(p => '<p>' + esc(p) + '</p>').join('') +
+          '<div class="cc-gm-note-warning">Hidden by the view toggle only &mdash; this content still exists in this browser’s stored data, so treat it as a courtesy screen, not access control.</div>' +
+        '</div>' : '') +
+        '<div class="pm-modal-actions" style="display:flex;gap:0.4rem;justify-content:flex-end;margin-top:1rem">' +
+          '<button class="btn btn-ghost" onclick="closeModal();editCard(\'' + c.id + '\')">Edit</button>' +
+          '<button class="btn btn-danger" onclick="closeModal();deleteCardConfirm(\'' + c.id + '\')">Delete</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('modal-overlay').classList.add('active');
+  }
+
+  function deleteCardConfirm(id) {
+    const c = cards.find(x => x.id === id);
+    if (!c) return;
+    if (!confirm('Delete "' + c.name + '"? This cannot be undone.')) return;
+    cards = cards.filter(x => x.id !== id);
+    flippedIds.delete(id);
+    saveCards();
+    render();
+  }
+
+  /* ── ADD / EDIT FORM ─────────────────────────────────────── */
+  function setRuleset(val) {
+    formRuleset = val === 'daggerheart' ? 'daggerheart' : 'dnd5e';
+    document.querySelectorAll('.cc-ruleset-btn').forEach(b => b.classList.toggle('on', b.dataset.ruleset === formRuleset));
+    updateFormVisibility();
+  }
+  function setKind(val) {
+    formKind = val === 'npc' ? 'npc' : 'pc';
+    document.querySelectorAll('.cc-kind-btn').forEach(b => b.classList.toggle('on', b.dataset.kind === formKind));
+    updateFormVisibility();
+  }
+  function updateFormVisibility() {
+    document.getElementById('id-dnd-pc').hidden = !(formRuleset === 'dnd5e' && formKind === 'pc');
+    document.getElementById('id-dnd-npc').hidden = !(formRuleset === 'dnd5e' && formKind === 'npc');
+    document.getElementById('id-dh-pc').hidden = !(formRuleset === 'daggerheart' && formKind === 'pc');
+    document.getElementById('id-dh-npc').hidden = !(formRuleset === 'daggerheart' && formKind === 'npc');
+    document.getElementById('stats-dnd').hidden = formRuleset !== 'dnd5e';
+    document.getElementById('stats-dh').hidden = formRuleset !== 'daggerheart';
+  }
+
+  function updateArtworkPreview() {
+    const thumb = document.getElementById('cc-artwork-thumb');
+    if (formPortraitDraft) {
+      thumb.style.backgroundImage = 'url("' + formPortraitDraft + '")';
+      thumb.textContent = '';
+      document.getElementById('cc-artwork-remove').hidden = false;
+    } else {
+      thumb.style.backgroundImage = '';
+      thumb.textContent = 'No art';
+      document.getElementById('cc-artwork-remove').hidden = true;
+    }
+  }
+  function setArtworkStatus(msg) { document.getElementById('cc-artwork-status').textContent = msg; }
+
+  function processArtwork(file, cb) {
+    const reader = new FileReader();
+    reader.onerror = () => cb(null, 'Could not read that file.');
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => cb(null, 'Could not read that image.');
+      img.onload = () => {
+        const maxEdge = 640;
+        let w = img.naturalWidth, h = img.naturalHeight;
+        if (!w || !h) { cb(null, 'Could not read that image.'); return; }
+        const scale = Math.min(1, maxEdge / Math.max(w, h));
+        w = Math.max(1, Math.round(w * scale));
+        h = Math.max(1, Math.round(h * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        let out;
+        try { out = canvas.toDataURL('image/jpeg', 0.82); } catch (err) { cb(null, 'Could not process that image.'); return; }
+        cb(out, null);
+      };
+      img.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('cc-artwork-btn').addEventListener('click', () => document.getElementById('cc-artwork-input').click());
+  document.getElementById('cc-artwork-input').addEventListener('change', function () {
+    const file = this.files && this.files[0];
+    this.value = '';
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { setArtworkStatus('That file is not an image.'); return; }
+    if (file.size > 12 * 1024 * 1024) { setArtworkStatus('That image is too large (max 12 MB before processing).'); return; }
+    setArtworkStatus('Processing…');
+    processArtwork(file, (dataUrl, err) => {
+      if (err) { setArtworkStatus(err); return; }
+      formPortraitDraft = dataUrl;
+      updateArtworkPreview();
+      setArtworkStatus('Artwork ready — saved with the card.');
+    });
+  });
+  document.getElementById('cc-artwork-remove').addEventListener('click', () => {
+    formPortraitDraft = '';
+    updateArtworkPreview();
+    setArtworkStatus('');
+  });
+
+  function openForm(character) {
+    editingId = character ? character.id : null;
+    formPortraitDraft = character ? (character.portrait || '') : '';
+    document.getElementById('cc-form-title').textContent = character ? 'Edit Character Card' : 'Add Character Card';
+    document.getElementById('cc-form-save-btn').textContent = character ? 'Save Changes' : 'Save Card';
+    document.getElementById('cc-form-error').textContent = '';
+    document.getElementById('f-name').classList.remove('invalid');
+    refreshCampaignDatalist();
+
+    document.getElementById('f-name').value = character ? character.name : '';
+    document.getElementById('f-campaign').value = character ? character.campaign : activeCampaign;
+    document.getElementById('f-tagline').value = character ? character.tagline : '';
+    document.getElementById('f-gmonly').checked = !!(character && character.gmOnly);
+    document.getElementById('f-bio').value = character ? character.bio : '';
+    document.getElementById('f-gmnotes').value = character ? character.gmNotes : '';
+
+    setRuleset(character ? character.ruleset : 'dnd5e');
+    setKind(character ? character.kind : 'pc');
+
+    document.getElementById('f-race').value = character ? character.race : '';
+    document.getElementById('f-klass').value = character ? character.klass : '';
+    document.getElementById('f-subclass').value = character ? character.subclass : '';
+    document.getElementById('f-level').value = character ? (character.level ?? '') : '';
+    document.getElementById('f-type').value = character ? character.npcType : '';
+    document.getElementById('f-cr').value = character ? character.cr : '';
+    document.getElementById('f-role').value = character ? character.role : '';
+    document.getElementById('f-ancestry').value = character ? character.ancestry : '';
+    document.getElementById('f-community').value = character ? character.community : '';
+    document.getElementById('f-dh-klass').value = character ? character.klass : '';
+    document.getElementById('f-dh-subclass').value = character ? character.subclass : '';
+    document.getElementById('f-adversary').value = character ? character.adversary : '';
+    document.getElementById('f-dh-role').value = character ? character.role : '';
+
+    document.getElementById('f-ac').value = character ? (character.ac ?? '') : '';
+    document.getElementById('f-hp').value = character ? (character.hp ?? '') : '';
+    document.getElementById('f-speed').value = character ? character.speed : '';
+    const ab = character ? character.abilities : null;
+    ABILITIES.forEach(k => { document.getElementById('ab-' + k).value = ab ? (ab[k] ?? '') : ''; });
+    document.getElementById('save-profs').innerHTML = ABILITIES.map(k =>
+      '<label class="cc-prof-chip"><input type="checkbox" data-save="' + k + '"' +
+      (character && character.saveProfs.includes(k) ? ' checked' : '') + '>' + k.toUpperCase() + '</label>').join('');
+    document.getElementById('f-skills').value = character ? character.keySkills.join(', ') : '';
+
+    const tr = character ? character.traits : null;
+    TRAITS.forEach(k => { document.getElementById('tr-' + k).value = tr ? (tr[k] ?? '') : ''; });
+    document.getElementById('f-evasion').value = character ? (character.evasion ?? '') : '';
+    document.getElementById('f-dh-hp').value = character ? (character.hp ?? '') : '';
+    document.getElementById('f-stress').value = character ? (character.stress ?? '') : '';
+    document.getElementById('f-hope').value = character && character.hope !== null ? character.hope : '';
+    document.getElementById('f-thresholds').value = character ? character.thresholds : '';
+    document.getElementById('f-domains').value = character ? character.domains.join(', ') : '';
+    document.getElementById('f-experiences').value = character ? character.experiences.join(', ') : '';
+
+    updateArtworkPreview();
+    setArtworkStatus('');
+
+    const panel = document.getElementById('cc-form-panel');
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('f-name').focus();
+  }
+
+  function closeForm() {
+    document.getElementById('cc-form-panel').hidden = true;
+    editingId = null;
+  }
+
+  function editCard(id) {
+    const c = cards.find(x => x.id === id);
+    if (c) openForm(c);
+  }
+
+  function saveCard() {
+    const nameEl = document.getElementById('f-name');
+    const name = nameEl.value.trim();
+    if (!name) {
+      nameEl.classList.add('invalid');
+      document.getElementById('cc-form-error').textContent = 'A character name is required.';
+      nameEl.focus();
+      return;
+    }
+
+    const entry = normalize({
+      id: editingId ?? newId(),
+      name, campaign: document.getElementById('f-campaign').value.trim(),
+      ruleset: formRuleset, kind: formKind,
+      portrait: formPortraitDraft,
+      tagline: document.getElementById('f-tagline').value.trim(),
+      gmOnly: document.getElementById('f-gmonly').checked,
+      bio: document.getElementById('f-bio').value,
+      gmNotes: document.getElementById('f-gmnotes').value,
+      race: document.getElementById('f-race').value.trim(),
+      klass: (formRuleset === 'dnd5e' ? document.getElementById('f-klass').value : document.getElementById('f-dh-klass').value).trim(),
+      subclass: (formRuleset === 'dnd5e' ? document.getElementById('f-subclass').value : document.getElementById('f-dh-subclass').value).trim(),
+      level: document.getElementById('f-level').value,
+      npcType: document.getElementById('f-type').value.trim(),
+      cr: document.getElementById('f-cr').value.trim(),
+      role: formKind === 'npc' ? (formRuleset === 'dnd5e' ? document.getElementById('f-role').value : document.getElementById('f-dh-role').value).trim() : '',
+      ancestry: document.getElementById('f-ancestry').value.trim(),
+      community: document.getElementById('f-community').value.trim(),
+      adversary: document.getElementById('f-adversary').value.trim(),
+      ac: document.getElementById('f-ac').value,
+      hp: (formRuleset === 'dnd5e' ? document.getElementById('f-hp').value : document.getElementById('f-dh-hp').value),
+      speed: document.getElementById('f-speed').value.trim(),
+      abilities: ABILITIES.reduce((o, k) => (o[k] = document.getElementById('ab-' + k).value, o), {}),
+      saveProfs: [...document.querySelectorAll('#save-profs input:checked')].map(el => el.dataset.save),
+      keySkills: splitList(document.getElementById('f-skills').value),
+      traits: TRAITS.reduce((o, k) => (o[k] = document.getElementById('tr-' + k).value, o), {}),
+      evasion: document.getElementById('f-evasion').value,
+      stress: document.getElementById('f-stress').value,
+      hope: document.getElementById('f-hope').value,
+      thresholds: document.getElementById('f-thresholds').value.trim(),
+      domains: splitList(document.getElementById('f-domains').value),
+      experiences: splitList(document.getElementById('f-experiences').value)
+    });
+
+    if (editingId) {
+      const idx = cards.findIndex(c => c.id === editingId);
+      if (idx !== -1) cards[idx] = entry; else cards.push(entry);
+    } else {
+      cards.push(entry);
+    }
+
+    saveCards();
+    closeForm();
+    render();
+  }
+
+  /* ── EXPORT / IMPORT ─────────────────────────────────────── */
+  function exportCards() {
+    const blob = new Blob([JSON.stringify(cards, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tome-character-cards.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function importCards(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      let data;
+      try { data = JSON.parse(reader.result); } catch (e) { alert('That file is not valid JSON.'); return; }
+      if (!Array.isArray(data) || !data.every(c => c && typeof c === 'object' && typeof c.name === 'string')) {
+        alert('Invalid file: expected an array of character cards with at least a "name" field.');
+        return;
+      }
+      const incoming = data.map(normalize);
+      let next;
+      if (cards.length === 0) {
+        next = incoming;
+      } else if (confirm('Replace your current ' + cards.length + ' card(s) with the imported ' + incoming.length + '?\n\nOK = replace, Cancel = merge (imported cards are added alongside the current ones).')) {
+        next = incoming;
+      } else {
+        const existingIds = new Set(cards.map(c => c.id));
+        next = cards.concat(incoming.map(c => existingIds.has(c.id) ? Object.assign({}, c, { id: newId() }) : c));
+      }
+      cards = next;
+      saveCards();
+      render();
+    };
+    reader.readAsText(file);
+  }
+
+  document.getElementById('cc-import-file').addEventListener('change', function () {
+    if (this.files && this.files[0]) importCards(this.files[0]);
+    this.value = '';
+  });
+
+  /* ── EXPOSE FOR INLINE HANDLERS ──────────────────────────── */
+  window.openForm = function (character) { openForm(character || null); };
+  window.closeForm = closeForm;
+  window.saveCard = saveCard;
+  window.editCard = editCard;
+  window.deleteCardConfirm = deleteCardConfirm;
+  window.setRuleset = setRuleset;
+  window.setKind = setKind;
+  window.exportCards = exportCards;
+
+  render();
+})();
+</script>
+</body>
+</html>

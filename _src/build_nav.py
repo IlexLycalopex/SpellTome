@@ -44,6 +44,7 @@ PAGES = [
     'campaign-tracker.html',
     'campaign-log-builder.html',
     'party-manager.html',
+    'character-cards.html',
     'encounter-builder.html',
     'equipment.html',
     'backgrounds.html',
