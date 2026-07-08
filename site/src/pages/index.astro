@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '@lib/paths';
+
+const tools = [
+  {
+    title: 'Spell Compendium',
+    desc: 'Browse, filter and print D&D 5e spell cards — 2014 and 2024 editions.',
+    path: '/compendium/dnd5e/spells',
+    span: true,
+  },
+  { title: 'Monsters', desc: 'The monster codex with CR filters.', path: '/compendium/dnd5e/monsters' },
+  { title: 'Dice Roller', desc: 'Every system: d20, d6 pools, d100, duality dice.', path: '/tools/dice' },
+  { title: 'Combat Tracker', desc: 'Initiative and HP, shared live with your table.', path: '/tools/combat' },
+  { title: 'Chronicle', desc: 'The campaign play logs — public reading room.', path: '/chronicle', span: true },
+  { title: 'Campaigns', desc: 'Manage campaigns, members and sessions.', path: '/campaigns' },
+  { title: 'Encounter Builder', desc: 'XP-budget encounter balancing.', path: '/tools/encounter-builder' },
+  { title: 'NPC Generator', desc: 'Names, traits, motives on demand.', path: '/tools/npc' },
+  { title: 'Loot Generator', desc: 'DMG treasure, individual and hoard.', path: '/tools/loot' },
+  { title: 'Conditions', desc: 'Condition reference per ruleset.', path: '/compendium/dnd5e/conditions' },
+  { title: 'Magic Items', desc: 'The magic item compendium.', path: '/compendium/dnd5e/magic-items' },
+  { title: 'Party & Characters', desc: 'Rosters and character sheets per system.', path: '/party' },
+];
+
+const systems = [
+  { id: 'dnd5e', name: 'D&D 5e' },
+  { id: 'daggerheart', name: 'Daggerheart' },
+  { id: 'vaesen', name: 'Vaesen' },
+  { id: 'tftl', name: 'Tales from the Loop' },
+  { id: 'coc7e', name: 'Call of Cthulhu' },
+];
+---
+
+<BaseLayout title="Hub" current="/">
+  <h1 class="page-title">The Tome</h1>
+  <p class="page-sub">
+    A tabletop companion for five systems — reference, table tools and the campaign chronicle in one place.
+  </p>
+
+  <div class="chip-row" style="margin: 0 0 1.5rem;">
+    {systems.map((s) => (
+      <button class="chip skin-chip" data-skin-id={s.id}>
+        <span class="dot"></span>
+        {s.name}
+      </button>
+    ))}
+  </div>
+
+  <div class="bento">
+    {tools.map((t) => (
+      <a class={`card${t.span ? ' span-2' : ''}`} href={href(t.path)}>
+        <h3>{t.title}</h3>
+        <p>{t.desc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
+
+<script>
+  // Skin preview chips: clicking applies that ruleset's skin site-wide,
+  // persisted under the same key BaseLayout's pre-paint script reads.
+  document.querySelectorAll<HTMLButtonElement>('.skin-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const id = chip.dataset.skinId!;
+      document.documentElement.dataset.skin = id;
+      localStorage.setItem('tome-active-skin', id);
+      document.querySelectorAll('.skin-chip').forEach((c) => c.classList.toggle('on', c === chip));
+    });
+  });
+  const active = document.documentElement.dataset.skin;
+  document.querySelector(`.skin-chip[data-skin-id="${active}"]`)?.classList.add('on');
+</script>

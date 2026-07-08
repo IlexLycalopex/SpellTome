@@ -1,0 +1,6 @@
+node_modules/
+site/dist/
+site/.astro/
+_pages/
+.env
+.env.*

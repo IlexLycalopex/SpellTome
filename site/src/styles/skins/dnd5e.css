@@ -1,0 +1,10 @@
+/* D&D 5e skin — burnished gold on the neutral shell */
+html[data-skin='dnd5e'] {
+  --accent: #c9a84c;
+  --accent-ink: #171204;
+  --font-display: 'Sora', 'Palatino Linotype', Palatino, serif;
+}
+html[data-skin='dnd5e'][data-theme='light'] {
+  --accent: #8f612d;
+  --accent-ink: #fdf9ef;
+}

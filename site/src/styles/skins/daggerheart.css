@@ -1,0 +1,23 @@
+/* Daggerheart skin — vivid violet with warm ember counterpoint */
+html[data-skin='daggerheart'] {
+  --surface-0: #171420;
+  --surface-1: #1f1b2b;
+  --surface-2: #272236;
+  --surface-3: #302a42;
+  --edge: #322b45;
+  --edge-strong: #453c5c;
+  --accent: #8a5ee0;
+  --accent-ink: #f4f0fd;
+  --warn: #e08d3c;
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+}
+html[data-skin='daggerheart'][data-theme='light'] {
+  --surface-0: #f2f0f7;
+  --surface-1: #ffffff;
+  --surface-2: #e9e5f3;
+  --surface-3: #ddd6ec;
+  --edge: #dcd5ea;
+  --edge-strong: #c3b8dc;
+  --accent: #6a3fc0;
+  --accent-ink: #f6f2fe;
+}

@@ -1,0 +1,53 @@
+---
+import Nav from '@components/Nav.astro';
+import '../styles/tokens/base.css';
+import '../styles/skins/dnd5e.css';
+import '../styles/skins/tftl.css';
+import '../styles/skins/vaesen.css';
+import '../styles/skins/coc7e.css';
+import '../styles/skins/daggerheart.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** ruleset skin for this page; pages tied to a campaign resolve it client-side */
+  skin?: 'dnd5e' | 'tftl' | 'vaesen' | 'coc7e' | 'daggerheart' | 'auto';
+  /** current nav path, e.g. '/compendium/dnd5e/spells' */
+  current?: string;
+}
+const { title, description = 'The Tome — tabletop RPG companion', skin = 'auto', current } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-skin={skin === 'auto' ? 'dnd5e' : skin}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · The Tome</title>
+    <script is:inline define:vars={{ skin }}>
+      // Pre-paint: apply persisted theme and (for campaign pages) the active
+      // campaign's skin before first render to avoid a flash.
+      const root = document.documentElement;
+      const theme =
+        localStorage.getItem('tome-theme') ??
+        (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      root.dataset.theme = theme;
+      if (skin === 'auto') {
+        const active = localStorage.getItem('tome-active-skin');
+        if (active) root.dataset.skin = active;
+      }
+    </script>
+  </head>
+  <body>
+    <Nav current={current} />
+    <main class="page">
+      <slot />
+    </main>
+    <footer class="app-footer">
+      <span>The Tome — a tabletop companion for D&D 5e, Daggerheart, Vaesen, Tales from the Loop &amp; Call of Cthulhu.</span>
+      <span>Personal project · not affiliated with any publisher</span>
+    </footer>
+  </body>
+</html>

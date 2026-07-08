@@ -1,0 +1,78 @@
+---
+import { href } from '@lib/paths';
+import { NAV_SECTIONS, TOP_NAV } from '@lib/nav-items';
+
+interface Props {
+  /** path of the current page, e.g. '/compendium/dnd5e/spells' */
+  current?: string;
+}
+const { current = '/' } = Astro.props;
+
+const isCurrent = (path: string) => path === current;
+/** top-bar sections highlight when the current path lives under them */
+const isSectionCurrent = (path: string) =>
+  path === current || (path !== '/' && current.startsWith(path.split('/').slice(0, 2).join('/')));
+---
+
+<header class="app-header">
+  <a class="app-logo" href={href('/')}><span class="dot"></span>The Tome</a>
+  <nav class="top-nav" aria-label="Primary">
+    {TOP_NAV.map((item) => (
+      <a href={href(item.path)} aria-current={isSectionCurrent(item.path) ? 'page' : undefined}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark or light theme">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  </button>
+  <button class="icon-btn" id="nav-open" aria-label="Open navigation" aria-controls="nav-drawer" aria-expanded="false">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  </button>
+</header>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Site navigation">
+  <div class="nav-drawer-head">
+    <span class="t">The Tome</span>
+    <button class="icon-btn" id="nav-close" aria-label="Close navigation">✕</button>
+  </div>
+  <div class="nav-scroll">
+    {NAV_SECTIONS.map((section) => (
+      <>
+        <span class="nav-section">{section.label}</span>
+        {section.items.map((item) => (
+          <a class="nav-item" href={href(item.path)} aria-current={isCurrent(item.path) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </>
+    ))}
+  </div>
+</nav>
+
+<script>
+  const root = document.documentElement;
+  const openBtn = document.getElementById('nav-open')!;
+  const setOpen = (open: boolean) => {
+    root.classList.toggle('nav-open', open);
+    openBtn.setAttribute('aria-expanded', String(open));
+  };
+  openBtn.addEventListener('click', () => setOpen(true));
+  document.getElementById('nav-close')!.addEventListener('click', () => setOpen(false));
+  document.getElementById('nav-overlay')!.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  // Theme toggle — persists to the same key the old site used.
+  document.getElementById('theme-toggle')!.addEventListener('click', () => {
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = next;
+    localStorage.setItem('tome-theme', next);
+  });
+</script>

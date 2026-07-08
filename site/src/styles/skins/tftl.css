@@ -1,0 +1,23 @@
+/* Tales from the Loop skin — dusk indigo, neon pink, mono headers */
+html[data-skin='tftl'] {
+  --surface-0: #16142a;
+  --surface-1: #1d1a36;
+  --surface-2: #241f44;
+  --surface-3: #2c2653;
+  --edge: #322c5e;
+  --edge-strong: #443c7c;
+  --accent: #e0526f;
+  --accent-ink: #ffffff;
+  --info: #5ee7df;
+  --font-display: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+html[data-skin='tftl'][data-theme='light'] {
+  --surface-0: #f1effa;
+  --surface-1: #ffffff;
+  --surface-2: #e9e5f6;
+  --surface-3: #ddd7f0;
+  --edge: #d8d2ec;
+  --edge-strong: #bfb6e0;
+  --accent: #c22a4d;
+  --accent-ink: #ffffff;
+}
