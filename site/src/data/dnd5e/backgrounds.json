@@ -1,0 +1,304 @@
+[
+ {
+  "name": "Acolyte",
+  "type": "background",
+  "skills": [
+   "Insight",
+   "Religion"
+  ],
+  "tools": [],
+  "languages": "Two of your choice",
+  "equipment": "A holy symbol (a gift to you when you entered the priesthood), a prayer book or prayer wheel, 5 sticks of incense, vestments, a set of common clothes, and a pouch containing 15 gp.",
+  "feature": {
+   "name": "Shelter of the Faithful",
+   "desc": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity and have a residence there, and you can call upon the priests for assistance so long as it would not be hazardous to them and you remain in good standing."
+  },
+  "flavor": [
+   "I idolize a particular hero of my faith, and constantly refer to that person’s deeds and example.",
+   "I see omens in every event and action. The gods try to speak to us, we just need to listen.",
+   "Ideal: Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld.",
+   "Ideal: Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well."
+  ]
+ },
+ {
+  "name": "Charlatan",
+  "type": "background",
+  "skills": [
+   "Deception",
+   "Sleight of Hand"
+  ],
+  "tools": [
+   "Disguise kit",
+   "Forgery kit"
+  ],
+  "languages": "None",
+  "equipment": "A set of fine clothes, a disguise kit, tools of the con of your choice (ten stoppered bottles filled with colored liquid, a set of weighted dice, a deck of marked cards, or a signet ring of an imaginary duke), and a pouch containing 15 gp.",
+  "feature": {
+   "name": "False Identity",
+   "desc": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
+  },
+  "flavor": [
+   "I fall in and out of love easily, and am always pursuing someone.",
+   "Flattery is my preferred trick for getting what I want.",
+   "I lie about almost everything, even when there’s no good reason to.",
+   "Ideal: Independence. I am a free spirit — no one tells me what to do."
+  ]
+ },
+ {
+  "name": "Criminal",
+  "type": "background",
+  "skills": [
+   "Deception",
+   "Stealth"
+  ],
+  "tools": [
+   "One type of gaming set",
+   "Thieves’ tools"
+  ],
+  "languages": "None",
+  "equipment": "A crowbar, a set of dark common clothes including a hood, and a pouch containing 15 gp.",
+  "feature": {
+   "name": "Criminal Contact",
+   "desc": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
+  },
+  "flavor": [
+   "I always have a plan for what to do when things go wrong.",
+   "I am always calm, no matter what the situation. I never raise my voice or let my emotions control me.",
+   "The best way to get me to do something is to tell me I can’t do it.",
+   "Ideal: Honor. I don’t steal from others in the trade."
+  ]
+ },
+ {
+  "name": "Entertainer",
+  "type": "background",
+  "skills": [
+   "Acrobatics",
+   "Performance"
+  ],
+  "tools": [
+   "Disguise kit",
+   "One type of musical instrument"
+  ],
+  "languages": "None",
+  "equipment": "A musical instrument (one of your choice), the favor of an admirer (love letter, lock of hair, or trinket), a costume, and a pouch containing 15 gp.",
+  "feature": {
+   "name": "By Popular Demand",
+   "desc": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble’s court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
+  },
+  "flavor": [
+   "I know a story relevant to almost every situation.",
+   "I love a good insult, even one directed at me.",
+   "Nobody stays angry at me or around me for long, since I can defuse any amount of tension.",
+   "Ideal: Beauty. When I perform, I make the world better than it was."
+  ]
+ },
+ {
+  "name": "Folk Hero",
+  "type": "background",
+  "skills": [
+   "Animal Handling",
+   "Survival"
+  ],
+  "tools": [
+   "One type of artisan’s tools",
+   "Vehicles (land)"
+  ],
+  "languages": "None",
+  "equipment": "A set of artisan’s tools (one of your choice), a shovel, an iron pot, a set of common clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "Rustic Hospitality",
+   "desc": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
+  },
+  "flavor": [
+   "I judge people by their actions, not their words.",
+   "If someone is in trouble, I’m always ready to lend help.",
+   "When I set my mind to something, I follow through no matter what gets in my way.",
+   "Ideal: Sincerity. There’s no good in pretending to be something I’m not."
+  ]
+ },
+ {
+  "name": "Guild Artisan",
+  "type": "background",
+  "skills": [
+   "Insight",
+   "Persuasion"
+  ],
+  "tools": [
+   "One type of artisan’s tools"
+  ],
+  "languages": "One of your choice",
+  "equipment": "A set of artisan’s tools (one of your choice), a letter of introduction from your guild, a set of traveler’s clothes, and a pouch containing 15 gp.",
+  "feature": {
+   "name": "Guild Membership",
+   "desc": "As an established and respected member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities and towns, a guildhall offers a central place to meet other members of your profession. Guilds often wield tremendous political power; you may be able to call on the guild’s assistance in legal or political matters. You must pay dues of 5 gp per month to the guild to remain in good standing."
+  },
+  "flavor": [
+   "I believe that anything worth doing is worth doing right. I can’t help it — I’m a perfectionist.",
+   "I always want to know how things work and what makes people tick.",
+   "I’m well known for my work, and I want to make sure everyone appreciates it.",
+   "Ideal: Generosity. My talents were given to me so that I could use them to benefit the world."
+  ]
+ },
+ {
+  "name": "Hermit",
+  "type": "background",
+  "skills": [
+   "Medicine",
+   "Religion"
+  ],
+  "tools": [
+   "Herbalism kit"
+  ],
+  "languages": "One of your choice",
+  "equipment": "A scroll case stuffed full of notes from your studies or prayers, a winter blanket, a set of common clothes, an herbalism kit, and 5 gp.",
+  "feature": {
+   "name": "Discovery",
+   "desc": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history."
+  },
+  "flavor": [
+   "I’ve been isolated for so long that I rarely speak, preferring gestures and the occasional grunt.",
+   "I am utterly serene, even in the face of disaster.",
+   "I feel tremendous empathy for all who suffer.",
+   "Ideal: Self-Knowledge. If you know yourself, there’s nothing left to know."
+  ]
+ },
+ {
+  "name": "Noble",
+  "type": "background",
+  "skills": [
+   "History",
+   "Persuasion"
+  ],
+  "tools": [
+   "One type of gaming set"
+  ],
+  "languages": "One of your choice",
+  "equipment": "A set of fine clothes, a signet ring, a scroll of pedigree, and a purse containing 25 gp.",
+  "feature": {
+   "name": "Position of Privilege",
+   "desc": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
+  },
+  "flavor": [
+   "My eloquent flattery makes everyone I talk to feel like the most wonderful and important person in the world.",
+   "Despite my noble birth, I do not place myself above other folk. We all have the same blood.",
+   "No one could doubt by looking at my regal bearing that I am a cut above the unwashed masses.",
+   "Ideal: Responsibility. It is my duty to respect the authority of those above me, just as those below me must respect mine."
+  ]
+ },
+ {
+  "name": "Outlander",
+  "type": "background",
+  "skills": [
+   "Athletics",
+   "Survival"
+  ],
+  "tools": [
+   "One type of musical instrument"
+  ],
+  "languages": "One of your choice",
+  "equipment": "A staff, a hunting trap, a trophy from an animal you killed, a set of traveler’s clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "Wanderer",
+   "desc": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth."
+  },
+  "flavor": [
+   "I watch over my friends as if they were a litter of newborn pups.",
+   "I’m driven by a wanderlust that led me away from home.",
+   "I feel far more comfortable around animals than people.",
+   "Ideal: Glory. I must earn glory in battle, for myself and my clan."
+  ]
+ },
+ {
+  "name": "Sage",
+  "type": "background",
+  "skills": [
+   "Arcana",
+   "History"
+  ],
+  "tools": [],
+  "languages": "Two of your choice",
+  "equipment": "A bottle of black ink, a quill, a small knife, a letter from a dead colleague posing a question you have not yet been able to answer, a set of common clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "Researcher",
+   "desc": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Knowing where the information can be found does not automatically enable you to obtain it; unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
+  },
+  "flavor": [
+   "I use polysyllabic words that convey the impression of great erudition.",
+   "There’s nothing I like more than a good mystery.",
+   "I am horribly, horribly awkward in social situations.",
+   "Ideal: Knowledge. The path to power and self-improvement is through knowledge."
+  ]
+ },
+ {
+  "name": "Sailor",
+  "type": "background",
+  "skills": [
+   "Athletics",
+   "Perception"
+  ],
+  "tools": [
+   "Navigator’s tools",
+   "Vehicles (water)"
+  ],
+  "languages": "None",
+  "equipment": "A belaying pin (club), 50 feet of silk rope, a lucky charm such as a rabbit foot or a small stone with a hole in the center (or you may roll for a random trinket), a set of common clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "Ship’s Passage",
+   "desc": "When you need to, you can secure free passage on a sailing ship for yourself and your adventuring companions. You might sail on the ship you served on, or another ship you have good relations with (perhaps one captained by a former crewmate). Because you are calling in a favor, you cannot be certain of a schedule or route that will meet your every need. In return for your free passage, you and your companions are expected to assist the crew during the voyage."
+  },
+  "flavor": [
+   "My friends know they can rely on me, no matter what.",
+   "I work hard so that I can play hard when the work is done.",
+   "I never pass up a friendly wager.",
+   "Ideal: Freedom. The sea is freedom — the freedom to go anywhere and do anything."
+  ]
+ },
+ {
+  "name": "Soldier",
+  "type": "background",
+  "skills": [
+   "Athletics",
+   "Intimidation"
+  ],
+  "tools": [
+   "One type of gaming set",
+   "Vehicles (land)"
+  ],
+  "languages": "None",
+  "equipment": "An insignia of rank, a trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner), a set of bone dice or deck of cards, a set of common clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "Military Rank",
+   "desc": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+  },
+  "flavor": [
+   "I’m always polite and respectful.",
+   "I can stare down a hell hound without flinching.",
+   "I face problems head-on. A simple, direct solution is the best path to success.",
+   "Ideal: Responsibility. I do what I must and obey just authority."
+  ]
+ },
+ {
+  "name": "Urchin",
+  "type": "background",
+  "skills": [
+   "Sleight of Hand",
+   "Stealth"
+  ],
+  "tools": [
+   "Disguise kit",
+   "Thieves’ tools"
+  ],
+  "languages": "None",
+  "equipment": "A small knife, a map of the city you grew up in, a pet mouse, a token to remember your parents by, a set of common clothes, and a pouch containing 10 gp.",
+  "feature": {
+   "name": "City Secrets",
+   "desc": "You know the secret patterns and flow of cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow."
+  },
+  "flavor": [
+   "I hide scraps of food and trinkets away in my pockets.",
+   "I sleep with my back to a wall or tree, with everything I own wrapped in a bundle in my arms.",
+   "I bluntly say what other people are hinting at or hiding.",
+   "Ideal: Community. We have to take care of each other, because no one else is going to do it."
+  ]
+ }
+]

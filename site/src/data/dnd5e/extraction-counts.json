@@ -1,0 +1,19 @@
+{
+ "spells-2014.json": 400,
+ "spells-2024.json": 405,
+ "monsters.json": 251,
+ "magic-items.json": 77,
+ "equipment.json": 165,
+ "conditions.json": 15,
+ "skills.json": 18,
+ "feats.json": 42,
+ "backgrounds.json": 13,
+ "races.json": 15,
+ "beasts.json": 76,
+ "familiars.json": 15,
+ "tables/npc-races.json": 8,
+ "tables/npc-occupations.json": 42,
+ "tables/npc-traits.json": 30,
+ "tables/loot-individual.json": 4,
+ "tables/loot-hoard.json": 4
+}

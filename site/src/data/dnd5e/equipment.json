@@ -1,0 +1,1462 @@
+[
+ {
+  "name": "Club",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "1 sp",
+  "dmg": "1d4 bludgeoning",
+  "weight": "2 lb.",
+  "props": [
+   "light"
+  ]
+ },
+ {
+  "name": "Dagger",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "2 gp",
+  "dmg": "1d4 piercing",
+  "weight": "1 lb.",
+  "props": [
+   "finesse",
+   "light",
+   "thrown (range 20/60)"
+  ]
+ },
+ {
+  "name": "Greatclub",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "2 sp",
+  "dmg": "1d8 bludgeoning",
+  "weight": "10 lb.",
+  "props": [
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Handaxe",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "5 gp",
+  "dmg": "1d6 slashing",
+  "weight": "2 lb.",
+  "props": [
+   "light",
+   "thrown (range 20/60)"
+  ]
+ },
+ {
+  "name": "Javelin",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "5 sp",
+  "dmg": "1d6 piercing",
+  "weight": "2 lb.",
+  "props": [
+   "thrown (range 30/120)"
+  ]
+ },
+ {
+  "name": "Light Hammer",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "2 gp",
+  "dmg": "1d4 bludgeoning",
+  "weight": "2 lb.",
+  "props": [
+   "light",
+   "thrown (range 20/60)"
+  ]
+ },
+ {
+  "name": "Mace",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "5 gp",
+  "dmg": "1d6 bludgeoning",
+  "weight": "4 lb.",
+  "props": []
+ },
+ {
+  "name": "Quarterstaff",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "2 sp",
+  "dmg": "1d6 bludgeoning",
+  "weight": "4 lb.",
+  "props": [
+   "versatile (1d8)"
+  ]
+ },
+ {
+  "name": "Sickle",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "1 gp",
+  "dmg": "1d4 slashing",
+  "weight": "2 lb.",
+  "props": [
+   "light"
+  ]
+ },
+ {
+  "name": "Spear",
+  "cat": "weapons",
+  "sub": "simple melee",
+  "cost": "1 gp",
+  "dmg": "1d6 piercing",
+  "weight": "3 lb.",
+  "props": [
+   "thrown (range 20/60)",
+   "versatile (1d8)"
+  ]
+ },
+ {
+  "name": "Light Crossbow",
+  "cat": "weapons",
+  "sub": "simple ranged",
+  "cost": "25 gp",
+  "dmg": "1d8 piercing",
+  "weight": "5 lb.",
+  "props": [
+   "ammunition (range 80/320)",
+   "loading",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Dart",
+  "cat": "weapons",
+  "sub": "simple ranged",
+  "cost": "5 cp",
+  "dmg": "1d4 piercing",
+  "weight": "1/4 lb.",
+  "props": [
+   "finesse",
+   "thrown (range 20/60)"
+  ]
+ },
+ {
+  "name": "Shortbow",
+  "cat": "weapons",
+  "sub": "simple ranged",
+  "cost": "25 gp",
+  "dmg": "1d6 piercing",
+  "weight": "2 lb.",
+  "props": [
+   "ammunition (range 80/320)",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Sling",
+  "cat": "weapons",
+  "sub": "simple ranged",
+  "cost": "1 sp",
+  "dmg": "1d4 bludgeoning",
+  "weight": "—",
+  "props": [
+   "ammunition (range 30/120)"
+  ]
+ },
+ {
+  "name": "Battleaxe",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "10 gp",
+  "dmg": "1d8 slashing",
+  "weight": "4 lb.",
+  "props": [
+   "versatile (1d10)"
+  ]
+ },
+ {
+  "name": "Flail",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "10 gp",
+  "dmg": "1d8 bludgeoning",
+  "weight": "2 lb.",
+  "props": []
+ },
+ {
+  "name": "Glaive",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "20 gp",
+  "dmg": "1d10 slashing",
+  "weight": "6 lb.",
+  "props": [
+   "heavy",
+   "reach",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Greataxe",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "30 gp",
+  "dmg": "1d12 slashing",
+  "weight": "7 lb.",
+  "props": [
+   "heavy",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Greatsword",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "50 gp",
+  "dmg": "2d6 slashing",
+  "weight": "6 lb.",
+  "props": [
+   "heavy",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Halberd",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "20 gp",
+  "dmg": "1d10 slashing",
+  "weight": "6 lb.",
+  "props": [
+   "heavy",
+   "reach",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Lance",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "10 gp",
+  "dmg": "1d12 piercing",
+  "weight": "6 lb.",
+  "props": [
+   "reach",
+   "special"
+  ],
+  "special": "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you are not mounted."
+ },
+ {
+  "name": "Longsword",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "15 gp",
+  "dmg": "1d8 slashing",
+  "weight": "3 lb.",
+  "props": [
+   "versatile (1d10)"
+  ]
+ },
+ {
+  "name": "Maul",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "10 gp",
+  "dmg": "2d6 bludgeoning",
+  "weight": "10 lb.",
+  "props": [
+   "heavy",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Morningstar",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "15 gp",
+  "dmg": "1d8 piercing",
+  "weight": "4 lb.",
+  "props": []
+ },
+ {
+  "name": "Pike",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "5 gp",
+  "dmg": "1d10 piercing",
+  "weight": "18 lb.",
+  "props": [
+   "heavy",
+   "reach",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Rapier",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "25 gp",
+  "dmg": "1d8 piercing",
+  "weight": "2 lb.",
+  "props": [
+   "finesse"
+  ]
+ },
+ {
+  "name": "Scimitar",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "25 gp",
+  "dmg": "1d6 slashing",
+  "weight": "3 lb.",
+  "props": [
+   "finesse",
+   "light"
+  ]
+ },
+ {
+  "name": "Shortsword",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "10 gp",
+  "dmg": "1d6 piercing",
+  "weight": "2 lb.",
+  "props": [
+   "finesse",
+   "light"
+  ]
+ },
+ {
+  "name": "Trident",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "5 gp",
+  "dmg": "1d6 piercing",
+  "weight": "4 lb.",
+  "props": [
+   "thrown (range 20/60)",
+   "versatile (1d8)"
+  ]
+ },
+ {
+  "name": "War Pick",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "5 gp",
+  "dmg": "1d8 piercing",
+  "weight": "2 lb.",
+  "props": []
+ },
+ {
+  "name": "Warhammer",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "15 gp",
+  "dmg": "1d8 bludgeoning",
+  "weight": "2 lb.",
+  "props": [
+   "versatile (1d10)"
+  ]
+ },
+ {
+  "name": "Whip",
+  "cat": "weapons",
+  "sub": "martial melee",
+  "cost": "2 gp",
+  "dmg": "1d4 slashing",
+  "weight": "3 lb.",
+  "props": [
+   "finesse",
+   "reach"
+  ]
+ },
+ {
+  "name": "Blowgun",
+  "cat": "weapons",
+  "sub": "martial ranged",
+  "cost": "10 gp",
+  "dmg": "1 piercing",
+  "weight": "1 lb.",
+  "props": [
+   "ammunition (range 25/100)",
+   "loading"
+  ]
+ },
+ {
+  "name": "Hand Crossbow",
+  "cat": "weapons",
+  "sub": "martial ranged",
+  "cost": "75 gp",
+  "dmg": "1d6 piercing",
+  "weight": "3 lb.",
+  "props": [
+   "ammunition (range 30/120)",
+   "light",
+   "loading"
+  ]
+ },
+ {
+  "name": "Heavy Crossbow",
+  "cat": "weapons",
+  "sub": "martial ranged",
+  "cost": "50 gp",
+  "dmg": "1d10 piercing",
+  "weight": "18 lb.",
+  "props": [
+   "ammunition (range 100/400)",
+   "heavy",
+   "loading",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Longbow",
+  "cat": "weapons",
+  "sub": "martial ranged",
+  "cost": "50 gp",
+  "dmg": "1d8 piercing",
+  "weight": "2 lb.",
+  "props": [
+   "ammunition (range 150/600)",
+   "heavy",
+   "two-handed"
+  ]
+ },
+ {
+  "name": "Net",
+  "cat": "weapons",
+  "sub": "martial ranged",
+  "cost": "1 gp",
+  "dmg": "—",
+  "weight": "3 lb.",
+  "props": [
+   "special",
+   "thrown (range 5/15)"
+  ],
+  "special": "A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. A creature can use its action to make a DC 10 Strength check to free itself or another creature within its reach, ending the effect on a success. Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it. When you use an action, bonus action, or reaction to attack with a net, you can make only one attack regardless of the number of attacks you can normally make."
+ },
+ {
+  "name": "Padded Armor",
+  "cat": "armor",
+  "sub": "light armor",
+  "cost": "5 gp",
+  "ac": "11 + Dex modifier",
+  "stealthDis": true,
+  "weight": "8 lb.",
+  "desc": "Quilted layers of cloth and batting. Cheap, but rustles loudly."
+ },
+ {
+  "name": "Leather Armor",
+  "cat": "armor",
+  "sub": "light armor",
+  "cost": "10 gp",
+  "ac": "11 + Dex modifier",
+  "stealthDis": false,
+  "weight": "10 lb.",
+  "desc": "A breastplate and shoulder protectors of leather stiffened by boiling in oil, with softer materials covering the rest."
+ },
+ {
+  "name": "Studded Leather Armor",
+  "cat": "armor",
+  "sub": "light armor",
+  "cost": "45 gp",
+  "ac": "12 + Dex modifier",
+  "stealthDis": false,
+  "weight": "13 lb.",
+  "desc": "Tough but flexible leather reinforced with close-set rivets or spikes."
+ },
+ {
+  "name": "Hide Armor",
+  "cat": "armor",
+  "sub": "medium armor",
+  "cost": "10 gp",
+  "ac": "12 + Dex modifier (max 2)",
+  "stealthDis": false,
+  "weight": "12 lb.",
+  "desc": "Crude armor of thick furs and pelts, common among barbarian tribes and frontier folk."
+ },
+ {
+  "name": "Chain Shirt",
+  "cat": "armor",
+  "sub": "medium armor",
+  "cost": "50 gp",
+  "ac": "13 + Dex modifier (max 2)",
+  "stealthDis": false,
+  "weight": "20 lb.",
+  "desc": "Interlocking metal rings worn between layers of clothing or leather. Protects the torso while staying quiet under outer garments."
+ },
+ {
+  "name": "Scale Mail",
+  "cat": "armor",
+  "sub": "medium armor",
+  "cost": "50 gp",
+  "ac": "14 + Dex modifier (max 2)",
+  "stealthDis": true,
+  "weight": "45 lb.",
+  "desc": "A coat and leggings of leather covered with overlapping pieces of metal, much like the scales of a fish."
+ },
+ {
+  "name": "Breastplate",
+  "cat": "armor",
+  "sub": "medium armor",
+  "cost": "400 gp",
+  "ac": "14 + Dex modifier (max 2)",
+  "stealthDis": false,
+  "weight": "20 lb.",
+  "desc": "A fitted metal chest piece worn with supple leather, leaving the limbs relatively unencumbered."
+ },
+ {
+  "name": "Half Plate",
+  "cat": "armor",
+  "sub": "medium armor",
+  "cost": "750 gp",
+  "ac": "15 + Dex modifier (max 2)",
+  "stealthDis": true,
+  "weight": "40 lb.",
+  "desc": "Shaped metal plates covering most of the body, with simple greaves held by leather straps. No helmet visor or full leg protection."
+ },
+ {
+  "name": "Ring Mail",
+  "cat": "armor",
+  "sub": "heavy armor",
+  "cost": "30 gp",
+  "ac": "14",
+  "stealthDis": true,
+  "weight": "40 lb.",
+  "desc": "Leather armor with heavy rings sewn into it. Inferior to chain mail — usually worn by those who can afford nothing better."
+ },
+ {
+  "name": "Chain Mail",
+  "cat": "armor",
+  "sub": "heavy armor",
+  "cost": "75 gp",
+  "ac": "16",
+  "str": 13,
+  "stealthDis": true,
+  "weight": "55 lb.",
+  "desc": "Interlocking metal rings over a layer of quilted fabric, including gauntlets."
+ },
+ {
+  "name": "Splint Armor",
+  "cat": "armor",
+  "sub": "heavy armor",
+  "cost": "200 gp",
+  "ac": "17",
+  "str": 15,
+  "stealthDis": true,
+  "weight": "60 lb.",
+  "desc": "Narrow vertical strips of metal riveted to a leather backing worn over cloth padding, with flexible chain mail at the joints."
+ },
+ {
+  "name": "Plate Armor",
+  "cat": "armor",
+  "sub": "heavy armor",
+  "cost": "1,500 gp",
+  "ac": "18",
+  "str": 15,
+  "stealthDis": true,
+  "weight": "65 lb.",
+  "desc": "Shaped, interlocking metal plates covering the entire body, with a gambeson beneath and buckles distributing the weight."
+ },
+ {
+  "name": "Shield",
+  "cat": "armor",
+  "sub": "shield",
+  "cost": "10 gp",
+  "ac": "+2",
+  "stealthDis": false,
+  "weight": "6 lb.",
+  "desc": "Made from wood or metal and carried in one hand. Wielding a shield increases your Armor Class by 2. You can benefit from only one shield at a time."
+ },
+ {
+  "name": "Acid (vial)",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "1 lb.",
+  "desc": "As an action, you can splash or throw this vial up to 20 feet. On a hit (ranged attack), the target takes 2d6 acid damage."
+ },
+ {
+  "name": "Alchemist’s Fire (flask)",
+  "cat": "gear",
+  "cost": "50 gp",
+  "weight": "1 lb.",
+  "desc": "Sticky, adhesive fluid that ignites when exposed to air. Thrown up to 20 feet; on a hit the target takes 1d4 fire damage at the start of each of its turns until it douses the flames (DC 10 Dexterity check as an action)."
+ },
+ {
+  "name": "Arrows (20)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "1 lb.",
+  "desc": "Ammunition for bows. Sold in bundles of twenty."
+ },
+ {
+  "name": "Crossbow Bolts (20)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "1½ lb.",
+  "desc": "Ammunition for crossbows. Sold in cases of twenty."
+ },
+ {
+  "name": "Sling Bullets (20)",
+  "cat": "gear",
+  "cost": "4 cp",
+  "weight": "1½ lb.",
+  "desc": "Smooth stones or lead pellets for a sling. Sold in pouches of twenty."
+ },
+ {
+  "name": "Blowgun Needles (50)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "1 lb.",
+  "desc": "Thin needles fired from a blowgun, often coated with poison."
+ },
+ {
+  "name": "Antitoxin (vial)",
+  "cat": "gear",
+  "cost": "50 gp",
+  "weight": "—",
+  "desc": "A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour."
+ },
+ {
+  "name": "Backpack",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "5 lb.",
+  "desc": "A leather pack with straps. Holds up to 1 cubic foot or 30 pounds of gear."
+ },
+ {
+  "name": "Ball Bearings (bag of 1,000)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "2 lb.",
+  "desc": "As an action, spill these to cover a level 10-foot-square area. A creature moving across must succeed on a DC 10 Dexterity save or fall prone (half-speed movement avoids the save)."
+ },
+ {
+  "name": "Bedroll",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "7 lb.",
+  "desc": "A padded sleeping roll for camping in the wild."
+ },
+ {
+  "name": "Bell",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "—",
+  "desc": "A small brass bell. Handy for improvised alarms."
+ },
+ {
+  "name": "Blanket",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "3 lb.",
+  "desc": "A thick woolen blanket against cold nights."
+ },
+ {
+  "name": "Block and Tackle",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "5 lb.",
+  "desc": "A set of pulleys with rope and hook. Lets you hoist up to four times the weight you can normally lift."
+ },
+ {
+  "name": "Book",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "5 lb.",
+  "desc": "A book of lore, poetry, history, or any other subject. Blank books are useful as journals."
+ },
+ {
+  "name": "Bottle, Glass",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "2 lb.",
+  "desc": "Holds 1½ pints of liquid."
+ },
+ {
+  "name": "Caltrops (bag of 20)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "2 lb.",
+  "desc": "As an action, spread to cover a 5-foot square. A creature entering the area must succeed on a DC 15 Dexterity save or stop moving and take 1 piercing damage, reducing its speed by 10 feet until it regains at least 1 hit point."
+ },
+ {
+  "name": "Candle",
+  "cat": "gear",
+  "cost": "1 cp",
+  "weight": "—",
+  "desc": "Sheds bright light in a 5-foot radius and dim light for an additional 5 feet, for 1 hour."
+ },
+ {
+  "name": "Case, Map or Scroll",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "1 lb.",
+  "desc": "A waterproof leather tube holding up to ten rolled sheets of paper or five sheets of parchment."
+ },
+ {
+  "name": "Chain (10 feet)",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "10 lb.",
+  "desc": "Has 10 hit points. Can be burst with a successful DC 20 Strength check."
+ },
+ {
+  "name": "Chalk (1 piece)",
+  "cat": "gear",
+  "cost": "1 cp",
+  "weight": "—",
+  "desc": "For marking passages, doors, and dungeon walls so you can find your way back."
+ },
+ {
+  "name": "Chest",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "25 lb.",
+  "desc": "A sturdy wooden strongbox holding 12 cubic feet or 300 pounds of gear."
+ },
+ {
+  "name": "Climber’s Kit",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "12 lb.",
+  "desc": "Includes pitons, boot tips, gloves, and a harness. As an action, anchor yourself so you can’t fall more than 25 feet from the anchor point."
+ },
+ {
+  "name": "Clothes, Common",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "3 lb.",
+  "desc": "Sturdy everyday wear for labourers and townsfolk."
+ },
+ {
+  "name": "Clothes, Fine",
+  "cat": "gear",
+  "cost": "15 gp",
+  "weight": "6 lb.",
+  "desc": "Expensive garments suited to nobility and high society."
+ },
+ {
+  "name": "Clothes, Traveler’s",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "4 lb.",
+  "desc": "Boots, breeches, shirt, and cloak made for life on the road."
+ },
+ {
+  "name": "Component Pouch",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "2 lb.",
+  "desc": "A small watertight pouch holding all the material components needed for your spells (except those with a listed cost)."
+ },
+ {
+  "name": "Crowbar",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "5 lb.",
+  "desc": "Using a crowbar grants advantage on Strength checks where its leverage can be applied."
+ },
+ {
+  "name": "Fishing Tackle",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "4 lb.",
+  "desc": "A wooden rod, silken line, corkwood bobbers, steel hooks, lead sinkers, velvet lures, and netting."
+ },
+ {
+  "name": "Flask or Tankard",
+  "cat": "gear",
+  "cost": "2 cp",
+  "weight": "1 lb.",
+  "desc": "Holds 1 pint of liquid."
+ },
+ {
+  "name": "Grappling Hook",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "4 lb.",
+  "desc": "A steel hook for catching ledges and battlements; attach a rope to scale walls."
+ },
+ {
+  "name": "Hammer",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "3 lb.",
+  "desc": "For driving pitons, nails, and tent stakes."
+ },
+ {
+  "name": "Hammer, Sledge",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "10 lb.",
+  "desc": "A heavy two-handed hammer for breaking stone and demolition."
+ },
+ {
+  "name": "Healer’s Kit",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "3 lb.",
+  "desc": "Bandages, salves, and splints; ten uses. As an action, expend one use to stabilize a creature at 0 hit points without a Wisdom (Medicine) check."
+ },
+ {
+  "name": "Holy Symbol (amulet)",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "1 lb.",
+  "desc": "An amulet depicting a deity’s symbol. A cleric or paladin can use it as a spellcasting focus."
+ },
+ {
+  "name": "Holy Water (flask)",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "1 lb.",
+  "desc": "As an action, splash or throw up to 20 feet. On a hit, a fiend or undead takes 2d6 radiant damage."
+ },
+ {
+  "name": "Hourglass",
+  "cat": "gear",
+  "cost": "25 gp",
+  "weight": "1 lb.",
+  "desc": "Measures the passage of one hour of sand."
+ },
+ {
+  "name": "Hunting Trap",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "25 lb.",
+  "desc": "A saw-toothed steel ring that snaps shut on a DC 13 Dexterity save failure, dealing 1d4 piercing damage and stopping movement. Escape requires a DC 13 Strength check."
+ },
+ {
+  "name": "Ink (1-ounce bottle)",
+  "cat": "gear",
+  "cost": "10 gp",
+  "weight": "—",
+  "desc": "Black ink for writing. Enough for a great deal of correspondence."
+ },
+ {
+  "name": "Ink Pen",
+  "cat": "gear",
+  "cost": "2 cp",
+  "weight": "—",
+  "desc": "A wooden stick with a metal nib, dipped in ink to write."
+ },
+ {
+  "name": "Ladder (10-foot)",
+  "cat": "gear",
+  "cost": "1 sp",
+  "weight": "25 lb.",
+  "desc": "A simple wooden ladder. Awkward to carry, invaluable in a pit."
+ },
+ {
+  "name": "Lamp",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "1 lb.",
+  "desc": "Casts bright light in a 15-foot radius and dim light for an additional 30 feet. Burns 6 hours on a flask of oil."
+ },
+ {
+  "name": "Lantern, Bullseye",
+  "cat": "gear",
+  "cost": "10 gp",
+  "weight": "2 lb.",
+  "desc": "Casts bright light in a 60-foot cone and dim light for an additional 60 feet. Burns 6 hours on a flask of oil."
+ },
+ {
+  "name": "Lantern, Hooded",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "2 lb.",
+  "desc": "Casts bright light in a 30-foot radius and dim light for an additional 30 feet. Burns 6 hours per flask of oil. As an action, lower the hood to reduce it to dim light in a 5-foot radius."
+ },
+ {
+  "name": "Lock",
+  "cat": "gear",
+  "cost": "10 gp",
+  "weight": "1 lb.",
+  "desc": "Comes with a key. Without the key, a creature proficient with thieves’ tools can pick it with a successful DC 15 Dexterity check."
+ },
+ {
+  "name": "Magnifying Glass",
+  "cat": "gear",
+  "cost": "100 gp",
+  "weight": "—",
+  "desc": "Grants advantage on ability checks made to appraise or inspect small, highly detailed items. Can light a fire with sunlight, tinder, and 5 minutes."
+ },
+ {
+  "name": "Manacles",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "6 lb.",
+  "desc": "Restrain a Small or Medium creature. Escaping requires a DC 20 Dexterity check; breaking them requires a DC 20 Strength check. 15 hit points; comes with one key."
+ },
+ {
+  "name": "Mess Kit",
+  "cat": "gear",
+  "cost": "2 sp",
+  "weight": "1 lb.",
+  "desc": "A tin box containing a cup and simple cutlery; clamps together as a cooking pan and shallow plate."
+ },
+ {
+  "name": "Mirror, Steel",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "1/2 lb.",
+  "desc": "A polished steel hand mirror. Useful for peering around corners — or facing things best not looked at directly."
+ },
+ {
+  "name": "Oil (flask)",
+  "cat": "gear",
+  "cost": "1 sp",
+  "weight": "1 lb.",
+  "desc": "Thrown as a splash weapon (5 fire damage if lit within 1 minute of hitting), or poured to cover a 5-foot-square area (5 fire damage for entering the burning area). Also fuels lamps and lanterns for 6 hours."
+ },
+ {
+  "name": "Paper (one sheet)",
+  "cat": "gear",
+  "cost": "2 sp",
+  "weight": "—",
+  "desc": "A sheet of fine paper for letters and maps."
+ },
+ {
+  "name": "Parchment (one sheet)",
+  "cat": "gear",
+  "cost": "1 sp",
+  "weight": "—",
+  "desc": "Treated hide for documents and spell scrolls."
+ },
+ {
+  "name": "Perfume (vial)",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "—",
+  "desc": "A fragrant vial — useful for impressing nobles or masking less pleasant smells."
+ },
+ {
+  "name": "Pick, Miner’s",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "10 lb.",
+  "desc": "A heavy pick for breaking rock and digging through rubble."
+ },
+ {
+  "name": "Piton",
+  "cat": "gear",
+  "cost": "5 cp",
+  "weight": "1/4 lb.",
+  "desc": "An iron spike hammered into rock or wood to anchor a rope."
+ },
+ {
+  "name": "Poison, Basic (vial)",
+  "cat": "gear",
+  "cost": "100 gp",
+  "weight": "—",
+  "desc": "Coats one slashing or piercing weapon or up to three pieces of ammunition. A creature hit must succeed on a DC 10 Constitution save or take 1d4 poison damage. Dries after 1 minute."
+ },
+ {
+  "name": "Pole (10-foot)",
+  "cat": "gear",
+  "cost": "5 cp",
+  "weight": "7 lb.",
+  "desc": "The classic dungeon-delver’s tool for prodding suspicious floors and triggering traps from a distance."
+ },
+ {
+  "name": "Pot, Iron",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "10 lb.",
+  "desc": "Holds 1 gallon of liquid. For stews, soups, and improvised helmets."
+ },
+ {
+  "name": "Potion of Healing",
+  "cat": "gear",
+  "cost": "50 gp",
+  "weight": "1/2 lb.",
+  "desc": "A vial of glimmering red liquid. A character who drinks it regains 2d4 + 2 hit points. Drinking or administering a potion takes an action."
+ },
+ {
+  "name": "Pouch",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "1 lb.",
+  "desc": "A cloth or leather pouch holding up to 1/5 cubic foot or 6 pounds of gear."
+ },
+ {
+  "name": "Quiver",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "1 lb.",
+  "desc": "Holds up to 20 arrows."
+ },
+ {
+  "name": "Ram, Portable",
+  "cat": "gear",
+  "cost": "4 gp",
+  "weight": "35 lb.",
+  "desc": "Grants a +4 bonus on Strength checks to break down doors. Another character helping gives you advantage as well."
+ },
+ {
+  "name": "Rations (1 day)",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "2 lb.",
+  "desc": "Dry travel food: jerky, hardtack, dried fruit, and nuts. One day’s sustenance."
+ },
+ {
+  "name": "Robes",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "4 lb.",
+  "desc": "Loose, flowing garments favoured by wizards, priests, and the dramatically inclined."
+ },
+ {
+  "name": "Rope, Hempen (50 feet)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "10 lb.",
+  "desc": "Has 2 hit points and can be burst with a DC 17 Strength check."
+ },
+ {
+  "name": "Rope, Silk (50 feet)",
+  "cat": "gear",
+  "cost": "10 gp",
+  "weight": "5 lb.",
+  "desc": "Lighter and stronger than hemp. Has 2 hit points and can be burst with a DC 17 Strength check."
+ },
+ {
+  "name": "Sack",
+  "cat": "gear",
+  "cost": "1 cp",
+  "weight": "1/2 lb.",
+  "desc": "A cloth sack holding up to 1 cubic foot or 30 pounds of gear."
+ },
+ {
+  "name": "Shovel",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "5 lb.",
+  "desc": "For digging camps, latrines, and the occasional shallow grave."
+ },
+ {
+  "name": "Signal Whistle",
+  "cat": "gear",
+  "cost": "5 cp",
+  "weight": "—",
+  "desc": "A shrill whistle audible from a long way off — perfect for alarms and signals."
+ },
+ {
+  "name": "Signet Ring",
+  "cat": "gear",
+  "cost": "5 gp",
+  "weight": "—",
+  "desc": "A ring engraved with a personal seal, pressed into wax to mark documents."
+ },
+ {
+  "name": "Soap",
+  "cat": "gear",
+  "cost": "2 cp",
+  "weight": "—",
+  "desc": "For the rare adventurer who values hygiene."
+ },
+ {
+  "name": "Spellbook",
+  "cat": "gear",
+  "cost": "50 gp",
+  "weight": "3 lb.",
+  "desc": "A leather-bound tome with 100 blank vellum pages, essential for wizards recording their spells."
+ },
+ {
+  "name": "Spikes, Iron (10)",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "5 lb.",
+  "desc": "Heavy spikes for wedging doors shut (or open) and anchoring ropes."
+ },
+ {
+  "name": "Spyglass",
+  "cat": "gear",
+  "cost": "1,000 gp",
+  "weight": "1 lb.",
+  "desc": "Objects viewed through a spyglass are magnified to twice their size."
+ },
+ {
+  "name": "Tent, Two-Person",
+  "cat": "gear",
+  "cost": "2 gp",
+  "weight": "20 lb.",
+  "desc": "A simple portable canvas shelter that sleeps two."
+ },
+ {
+  "name": "Tinderbox",
+  "cat": "gear",
+  "cost": "5 sp",
+  "weight": "1 lb.",
+  "desc": "Flint, fire steel, and tinder. Lighting a torch or exposed fuel takes an action; anything else takes 1 minute."
+ },
+ {
+  "name": "Torch",
+  "cat": "gear",
+  "cost": "1 cp",
+  "weight": "1 lb.",
+  "desc": "Burns for 1 hour, casting bright light in a 20-foot radius and dim light for an additional 20 feet. As an improvised melee weapon it deals 1 fire damage on a hit."
+ },
+ {
+  "name": "Vial",
+  "cat": "gear",
+  "cost": "1 gp",
+  "weight": "—",
+  "desc": "Holds 4 ounces of liquid."
+ },
+ {
+  "name": "Waterskin",
+  "cat": "gear",
+  "cost": "2 sp",
+  "weight": "5 lb. (full)",
+  "desc": "Holds 4 pints of liquid. A day’s water for one traveller in temperate climes."
+ },
+ {
+  "name": "Whetstone",
+  "cat": "gear",
+  "cost": "1 cp",
+  "weight": "1 lb.",
+  "desc": "For keeping blades keen around the campfire."
+ },
+ {
+  "name": "Alchemist’s Supplies",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "50 gp",
+  "weight": "8 lb.",
+  "desc": "Glass beakers, a metal frame, a glass stirring rod, mortar and pestle, and common alchemical ingredients. Proficiency lets you add your bonus to checks made to craft alchemical substances or identify them."
+ },
+ {
+  "name": "Brewer’s Supplies",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "20 gp",
+  "weight": "9 lb.",
+  "desc": "A large glass jug, hops, a siphon, and tubing for brewing ale and detecting spoiled drink."
+ },
+ {
+  "name": "Calligrapher’s Supplies",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "10 gp",
+  "weight": "5 lb.",
+  "desc": "Ink, a dozen sheets of parchment, and three quills for fine penmanship and identifying forgeries."
+ },
+ {
+  "name": "Carpenter’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "8 gp",
+  "weight": "6 lb.",
+  "desc": "A saw, hammer, nails, hatchet, square, ruler, adze, plane, and chisel for working wood."
+ },
+ {
+  "name": "Cartographer’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "15 gp",
+  "weight": "6 lb.",
+  "desc": "A quill, ink, parchment, compass, calipers, and ruler for making accurate maps."
+ },
+ {
+  "name": "Cobbler’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "5 gp",
+  "weight": "5 lb.",
+  "desc": "A hammer, awl, knife, lasting stand, cutter, spare leather, and thread for making and repairing footwear."
+ },
+ {
+  "name": "Cook’s Utensils",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "1 gp",
+  "weight": "8 lb.",
+  "desc": "A metal pot, knives, forks, stirring spoon, and ladle for preparing memorable meals."
+ },
+ {
+  "name": "Glassblower’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "30 gp",
+  "weight": "5 lb.",
+  "desc": "A blowpipe, small marver, blocks, and tweezers for shaping molten glass."
+ },
+ {
+  "name": "Jeweler’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "25 gp",
+  "weight": "2 lb.",
+  "desc": "A small saw, hammer, files, pliers, and tweezers for cutting gems and appraising jewellery."
+ },
+ {
+  "name": "Leatherworker’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "5 gp",
+  "weight": "5 lb.",
+  "desc": "A knife, small mallet, edger, hole punch, thread, and leather scraps for crafting leather goods."
+ },
+ {
+  "name": "Mason’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "10 gp",
+  "weight": "8 lb.",
+  "desc": "A trowel, hammer, chisel, brushes, and square for working stone."
+ },
+ {
+  "name": "Painter’s Supplies",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "10 gp",
+  "weight": "5 lb.",
+  "desc": "An easel, canvas, paints, brushes, charcoal sticks, and a palette for painting and drawing."
+ },
+ {
+  "name": "Potter’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "10 gp",
+  "weight": "3 lb.",
+  "desc": "Potter’s needles, ribs, scrapers, a knife, and calipers for shaping clay."
+ },
+ {
+  "name": "Smith’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "20 gp",
+  "weight": "8 lb.",
+  "desc": "Hammers, tongs, charcoal, rags, and a whetstone for forging and repairing metal gear."
+ },
+ {
+  "name": "Tinker’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "50 gp",
+  "weight": "10 lb.",
+  "desc": "A variety of hand tools, thread, needles, whetstone, leather scraps, and metal fittings for mending mundane objects."
+ },
+ {
+  "name": "Weaver’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "1 gp",
+  "weight": "5 lb.",
+  "desc": "Thread, needles, and scraps of cloth for weaving and repairing textiles."
+ },
+ {
+  "name": "Woodcarver’s Tools",
+  "cat": "tools",
+  "sub": "artisan’s tools",
+  "cost": "1 gp",
+  "weight": "5 lb.",
+  "desc": "A knife, gouge, and small saw for carving wood into useful or beautiful shapes."
+ },
+ {
+  "name": "Disguise Kit",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "25 gp",
+  "weight": "3 lb.",
+  "desc": "Cosmetics, hair dye, and small props. Proficiency lets you add your bonus to checks made to create a visual disguise."
+ },
+ {
+  "name": "Forgery Kit",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "15 gp",
+  "weight": "5 lb.",
+  "desc": "Papers, parchments, pens, inks, seals, sealing wax, gold and silver leaf. Proficiency lets you add your bonus to checks made to create physical forgeries."
+ },
+ {
+  "name": "Herbalism Kit",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "5 gp",
+  "weight": "3 lb.",
+  "desc": "Clippers, mortar and pestle, pouches, and vials. Proficiency lets you identify or apply herbs, and create antitoxin and potions of healing."
+ },
+ {
+  "name": "Navigator’s Tools",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "25 gp",
+  "weight": "2 lb.",
+  "desc": "A sextant, compass, calipers, ruler, parchment, ink, and quill. Proficiency lets you chart a ship’s course and avoid becoming lost at sea."
+ },
+ {
+  "name": "Poisoner’s Kit",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "50 gp",
+  "weight": "2 lb.",
+  "desc": "Vials, chemicals, and other equipment. Proficiency lets you add your bonus to checks made to craft or handle poisons."
+ },
+ {
+  "name": "Thieves’ Tools",
+  "cat": "tools",
+  "sub": "kit",
+  "cost": "25 gp",
+  "weight": "1 lb.",
+  "desc": "A small file, lock picks, a small mirror on a handle, narrow-bladed scissors, and pliers. Proficiency lets you add your bonus to checks made to disarm traps or open locks."
+ },
+ {
+  "name": "Dice Set",
+  "cat": "tools",
+  "sub": "gaming set",
+  "cost": "1 sp",
+  "weight": "—",
+  "desc": "A set of gaming dice. Proficiency lets you add your bonus to checks made to play games with them."
+ },
+ {
+  "name": "Playing Card Set",
+  "cat": "tools",
+  "sub": "gaming set",
+  "cost": "5 sp",
+  "weight": "—",
+  "desc": "A deck of playing cards. Proficiency lets you add your bonus to checks made to play games with them."
+ },
+ {
+  "name": "Bagpipes",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "30 gp",
+  "weight": "6 lb.",
+  "desc": "A reeded windbag instrument. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Drum",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "6 gp",
+  "weight": "3 lb.",
+  "desc": "A hand drum. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Flute",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "2 gp",
+  "weight": "1 lb.",
+  "desc": "A simple woodwind. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Horn",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "3 gp",
+  "weight": "2 lb.",
+  "desc": "A brass or animal horn. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Lute",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "35 gp",
+  "weight": "2 lb.",
+  "desc": "The classic bard’s stringed instrument. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Lyre",
+  "cat": "tools",
+  "sub": "musical instrument",
+  "cost": "30 gp",
+  "weight": "2 lb.",
+  "desc": "A small stringed harp. Proficiency lets you add your bonus to checks made to play music with it; bards can use it as a spellcasting focus."
+ },
+ {
+  "name": "Burglar’s Pack",
+  "cat": "packs",
+  "cost": "16 gp",
+  "weight": "44½ lb.",
+  "desc": "Everything the discerning second-storey specialist needs for a night’s work.",
+  "contents": [
+   "Backpack",
+   "Bag of 1,000 ball bearings",
+   "10 feet of string",
+   "Bell",
+   "5 candles",
+   "Crowbar",
+   "Hammer",
+   "10 pitons",
+   "Hooded lantern",
+   "2 flasks of oil",
+   "5 days of rations",
+   "Tinderbox",
+   "Waterskin",
+   "50 feet of hempen rope"
+  ]
+ },
+ {
+  "name": "Dungeoneer’s Pack",
+  "cat": "packs",
+  "cost": "12 gp",
+  "weight": "61½ lb.",
+  "desc": "Provisions and hardware for delving deep below the surface.",
+  "contents": [
+   "Backpack",
+   "Crowbar",
+   "Hammer",
+   "10 pitons",
+   "10 torches",
+   "Tinderbox",
+   "10 days of rations",
+   "Waterskin",
+   "50 feet of hempen rope"
+  ]
+ },
+ {
+  "name": "Explorer’s Pack",
+  "cat": "packs",
+  "cost": "10 gp",
+  "weight": "59 lb.",
+  "desc": "The standard kit for long overland journeys — the most popular starting pack.",
+  "contents": [
+   "Backpack",
+   "Bedroll",
+   "Mess kit",
+   "Tinderbox",
+   "10 torches",
+   "10 days of rations",
+   "Waterskin",
+   "50 feet of hempen rope"
+  ]
+ },
+ {
+  "name": "Priest’s Pack",
+  "cat": "packs",
+  "cost": "19 gp",
+  "weight": "24 lb.",
+  "desc": "Ritual supplies and travel gear for the devoted servant of a deity.",
+  "contents": [
+   "Backpack",
+   "Blanket",
+   "10 candles",
+   "Tinderbox",
+   "Alms box",
+   "2 blocks of incense",
+   "Censer",
+   "Vestments",
+   "2 days of rations",
+   "Waterskin"
+  ]
+ },
+ {
+  "name": "Scholar’s Pack",
+  "cat": "packs",
+  "cost": "40 gp",
+  "weight": "10 lb.",
+  "desc": "Writing implements and reference material for the academically inclined.",
+  "contents": [
+   "Backpack",
+   "Book of lore",
+   "Bottle of ink",
+   "Ink pen",
+   "10 sheets of parchment",
+   "Little bag of sand",
+   "Small knife"
+  ]
+ }
+]

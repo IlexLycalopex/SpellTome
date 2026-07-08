@@ -1,0 +1,788 @@
+[
+ {
+  "name": "Potion of Healing",
+  "icon": "🧪",
+  "rarity": "Common",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "You regain 2d4+2 hit points when you drink this potion. The potion's red liquid glimmers when agitated.",
+  "note": "The most universally useful item in D&D. Always worth carrying."
+ },
+ {
+  "name": "Potion of Greater Healing",
+  "icon": "🧪",
+  "rarity": "Uncommon",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "You regain 4d4+4 hit points when you drink this potion.",
+  "note": "Effective from mid-tier onward. Average 14 HP. Good to stockpile in dungeon crawls."
+ },
+ {
+  "name": "Potion of Superior Healing",
+  "icon": "🧪",
+  "rarity": "Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "You regain 8d4+8 hit points when you drink this potion.",
+  "note": "Average 28 HP — a significant mid-combat save at higher tiers."
+ },
+ {
+  "name": "Potion of Supreme Healing",
+  "icon": "🧪",
+  "rarity": "Very Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "You regain 10d4+20 hit points when you drink this potion.",
+  "note": "Average 45 HP. Worth every gold piece in high-tier play."
+ },
+ {
+  "name": "Potion of Flying",
+  "icon": "🧪",
+  "rarity": "Very Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "When you drink this potion, you gain a flying speed equal to your walking speed for 1 hour and can hover. If the effect ends while you are still in the air, you fall unless you have another means of flight.",
+  "note": "One hour is generous. Can be lifesaving or gamebreaking depending on the encounter."
+ },
+ {
+  "name": "Potion of Heroism",
+  "icon": "🧪",
+  "rarity": "Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "For 1 hour after drinking it, you gain 10 temporary hit points that last for 1 hour. For the same duration, you are under the effect of the Bless spell (no concentration required).",
+  "note": "One of the best potions — 10 temp HP plus Bless without concentration."
+ },
+ {
+  "name": "Potion of Invisibility",
+  "icon": "🧪",
+  "rarity": "Very Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "When you drink it, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell.",
+  "note": "One of the most powerful single-use items in the game. One hour of full invisibility."
+ },
+ {
+  "name": "Potion of Speed",
+  "icon": "🧪",
+  "rarity": "Very Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "When you drink this potion, you gain the effect of the Haste spell for 1 minute (no concentration required). The yellow fluid moves and swirls like something alive.",
+  "note": "One minute of Haste without concentration. Exceptional in decisive combat."
+ },
+ {
+  "name": "Potion of Clairvoyance",
+  "icon": "🧪",
+  "rarity": "Rare",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "When you drink this potion, you gain the effect of the Clairvoyance spell. An eyeball bobs in this yellow liquid but vanishes when the potion is opened.",
+  "note": "Recon utility in a bottle. Useful for scouting ahead of the party."
+ },
+ {
+  "name": "Potion of Giant Strength",
+  "icon": "🧪",
+  "rarity": "Varies",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "When you drink this potion, your Strength score changes for 1 hour. The giant type determines the score: Hill (21), Stone/Frost (23), Fire (25), Cloud (27), Storm (29).",
+  "note": "Useful for non-Strength characters needing to grapple or break through obstacles. Storm variant sets Str to 29."
+ },
+ {
+  "name": "Potion of Waterbreathing",
+  "icon": "🧪",
+  "rarity": "Uncommon",
+  "type": "Potion",
+  "attune": false,
+  "consumable": true,
+  "desc": "You can breathe underwater for 1 hour after drinking this potion. Its cloudy green fluid smells of the sea.",
+  "note": "Cheap insurance for aquatic encounters. Consider buying several before a seafloor dungeon."
+ },
+ {
+  "name": "Spell Scroll",
+  "icon": "📜",
+  "rarity": "Varies",
+  "type": "Scroll",
+  "attune": false,
+  "consumable": true,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class's spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell's normal casting time. Once the spell is cast, the words on the scroll fade and it crumbles to dust. If the spell is of a higher level than you can normally cast, you must make a spellcasting ability check using your spellcasting ability with a DC equal to 10 + the spell's level. On a failed check, the spell disappears from the scroll with no other effect.",
+  "note": "Rarity scales with spell level. Cantrip/1st: Common; 2nd-3rd: Uncommon; 4th-5th: Rare; 6th-8th: Very Rare; 9th: Legendary. Failed ability check destroys the scroll."
+ },
+ {
+  "name": "+1 Weapon",
+  "icon": "⚔️",
+  "rarity": "Uncommon",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+  "note": "No attunement required. A straightforward and reliable upgrade for any martial character."
+ },
+ {
+  "name": "+2 Weapon",
+  "icon": "⚔️",
+  "rarity": "Rare",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "You have a +2 bonus to attack and damage rolls made with this magic weapon.",
+  "note": "No attunement. Also bypasses magical weapon resistance, which is critical in many encounters."
+ },
+ {
+  "name": "+3 Weapon",
+  "icon": "⚔️",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "You have a +3 bonus to attack and damage rolls made with this magic weapon.",
+  "note": "No attunement. A +3 bonus at high levels is a meaningful difference in hit rate."
+ },
+ {
+  "name": "Flame Tongue",
+  "icon": "🔥",
+  "rarity": "Rare",
+  "type": "Weapon",
+  "attune": true,
+  "charges": false,
+  "desc": "Use a bonus action to speak the command word — flames erupt from the blade, shedding bright light 40 ft and dim light 40 ft further. The sword deals an extra 2d6 fire damage to any target it hits while ablaze.",
+  "note": "Attunement. +2d6 fire on demand. Highly effective against trolls, undead, and vegetation."
+ },
+ {
+  "name": "Frost Brand",
+  "icon": "❄️",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": true,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "When you hit with an attack using this magic sword, the target takes an extra 1d6 cold damage. In addition, while you hold the sword, you have resistance to fire damage. When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of you. This property can be used no more than once per hour. In freezing temperatures, the blade sheds bright light in a 10-foot radius and dim light for an additional 10 feet.",
+  "note": "Attunement. Fire resistance is exceptionally valuable. +1d6 cold damage is reliable bonus damage. The flame-extinguish feature is excellent for ambushes and stealth."
+ },
+ {
+  "name": "Sword of Sharpness",
+  "icon": "⚔️",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": true,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "When you attack an object with this magic sword and hit, maximize your weapon damage dice against the object. When you attack a creature with this weapon and roll a 20 on the attack roll, that target takes an extra 4d6 slashing damage. Then roll another d20. On a 19 or 20, you lop off one of the target's limbs, with the effect of such loss determined by the DM.",
+  "note": "Attunement. The dismemberment effect is iconic. Object-destroying capability makes it versatile. Note: the sever trigger is a 19–20 on the SECOND d20 roll, not the first."
+ },
+ {
+  "name": "Sword of Life Stealing",
+  "icon": "⚔️",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": true,
+  "saveDC": 15,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "When you attack a creature with this weapon and roll a 20 on the attack roll, that creature must succeed on a DC 15 Constitution saving throw or its hit point maximum is reduced by 10 and you gain 10 temporary hit points. This reduction lasts until the creature finishes a long rest. A creature dies if its hit point maximum is reduced to 0.",
+  "note": "Attunement. HP maximum reduction persists until long rest (not permanent — Greater Restoration not required). Excellent against solo bosses."
+ },
+ {
+  "name": "Nine Lives Stealer",
+  "icon": "⚔️",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": true,
+  "charges": "1d8+1",
+  "saveDC": 15,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "destruction": "Becomes nonmagical when the last charge is expended",
+  "desc": "The sword has 1d8+1 charges. You can expend 1 charge when you hit a creature with this weapon if it has fewer than 100 hit points. The creature must succeed on a DC 15 Constitution saving throw or be slain instantly. The sword doesn't expend a charge if the target is immune to the effect. Creatures that are immune to being killed instantly, or that do not have a fixed number of hit points, are immune to this effect. When all charges are expended, the sword becomes a nonmagical weapon.",
+  "note": "Attunement. Instant death mechanic against creatures under 100 HP. Potent against humanoid enemies and minions. Becomes mundane once all charges are used."
+ },
+ {
+  "name": "Dragon Slayer",
+  "icon": "🐉",
+  "rarity": "Rare",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "You gain a +1 bonus to attack and damage rolls. When you use this weapon to attack a dragon, you deal an extra 3d6 damage of the weapon's type.",
+  "note": "No attunement. +3d6 specifically vs dragons. Worth keeping available when draconic encounters are expected."
+ },
+ {
+  "name": "Giant Slayer",
+  "icon": "🗿",
+  "rarity": "Rare",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "You gain a +1 bonus to attack and damage rolls. When you hit a giant with it, the giant takes an extra 2d6 damage of the weapon's type and must make a DC 15 Strength save or fall prone.",
+  "note": "No attunement. +2d6 plus prone effect vs giants. Excellent for giant-heavy campaigns."
+ },
+ {
+  "name": "Javelin of Lightning",
+  "icon": "🌩",
+  "rarity": "Uncommon",
+  "type": "Weapon",
+  "attune": false,
+  "desc": "When you hurl it and speak its command word, it transforms into a bolt of lightning — a 5-ft-wide line 120 ft long. Each creature in the line (except you and the target) makes a DC 13 Dex save, taking 4d6 lightning on a failure. The lightning turns back into a javelin when it reaches the target. On a hit, the target takes weapon damage plus 4d6 lightning damage. The property can't be used again until the next dawn.",
+  "note": "Once per day AoE + single-target lightning damage. Excellent value at Uncommon rarity."
+ },
+ {
+  "name": "Arrow of Slaying",
+  "icon": "🏹",
+  "rarity": "Very Rare",
+  "type": "Weapon",
+  "attune": false,
+  "consumable": true,
+  "desc": "An arrow of slaying is a magic weapon meant to kill a particular kind of creature. When you hit a creature of that kind with this arrow and the creature has fewer than 100 HP, it must succeed on a DC 17 Constitution saving throw or be slain instantly.",
+  "note": "Consumable. Single-use instant death vs a specific creature type under 100 HP. Great for anticipated boss fights."
+ },
+ {
+  "name": "Defender",
+  "icon": "🛡",
+  "rarity": "Legendary",
+  "type": "Weapon",
+  "attune": true,
+  "desc": "The first time you attack with the sword on each of your turns, you can transfer some or all of the sword's +3 bonus to your Armor Class instead of using it for attacks. The adjusted bonuses remain until the start of your next turn.",
+  "note": "Attunement. A +3 weapon that can flex into AC. Exceptional defensive option — effectively combines offense and defense."
+ },
+ {
+  "name": "Holy Avenger",
+  "icon": "✝️",
+  "rarity": "Legendary",
+  "type": "Weapon",
+  "attune": true,
+  "attuneClass": "Paladin",
+  "desc": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a fiend or an undead with it, that creature takes an extra 2d10 radiant damage. While you hold the drawn sword, it creates an aura in a 10-foot radius around you. You and all creatures friendly to you in the aura have advantage on saving throws against spells and other magical effects.",
+  "note": "Paladin attunement only. +3, radiant damage vs fiends/undead, and a party-wide magic resistance aura. The definitive paladin weapon."
+ },
+ {
+  "name": "Vorpal Sword",
+  "icon": "⚔️",
+  "rarity": "Legendary",
+  "type": "Weapon",
+  "attune": true,
+  "desc": "You gain a +3 bonus to attack and damage rolls. The weapon ignores resistance to slashing damage. When you attack a creature that has at least one head with this weapon and roll a 20, you cut off one of its heads. The creature dies if it can't survive without the lost head.",
+  "note": "Attunement. Decapitation on a natural 20 — even the Tarrasque can be beheaded. Ignores slashing resistance as standard."
+ },
+ {
+  "name": "+1 Armor",
+  "icon": "🛡",
+  "rarity": "Rare",
+  "type": "Armor",
+  "attune": false,
+  "desc": "You have a +1 bonus to AC while you wear this armor.",
+  "note": "No attunement. A reliable AC improvement that stacks with all other bonuses."
+ },
+ {
+  "name": "+2 Armor",
+  "icon": "🛡",
+  "rarity": "Very Rare",
+  "type": "Armor",
+  "attune": false,
+  "desc": "You have a +2 bonus to AC while you wear this armor.",
+  "note": "No attunement. +2 AC is significant at higher levels where each point changes saving throw odds."
+ },
+ {
+  "name": "+3 Armor",
+  "icon": "🛡",
+  "rarity": "Legendary",
+  "type": "Armor",
+  "attune": false,
+  "desc": "You have a +3 bonus to AC while you wear this armor.",
+  "note": "No attunement. The pinnacle of armor bonuses. Exceptionally rare and coveted."
+ },
+ {
+  "name": "Adamantine Armor",
+  "icon": "🛡",
+  "rarity": "Uncommon",
+  "type": "Armor",
+  "attune": false,
+  "desc": "While you're wearing it, any critical hit against you becomes a normal hit.",
+  "note": "No attunement. Negates all critical hits — exceptionally powerful since crits deal double dice. Works on any non-natural armor."
+ },
+ {
+  "name": "Mithral Armor",
+  "icon": "🛡",
+  "rarity": "Uncommon",
+  "type": "Armor",
+  "attune": false,
+  "desc": "Mithral is a light, flexible metal. A mithral chain shirt or breastplate can be worn under normal clothes. The mithral version of the armor has no Stealth disadvantage or Strength requirement.",
+  "note": "No attunement. Removes Stealth disadvantage and Strength requirement. Excellent for multiclass and hybrid builds."
+ },
+ {
+  "name": "Armor of Resistance",
+  "icon": "🛡",
+  "rarity": "Rare",
+  "type": "Armor",
+  "attune": true,
+  "desc": "You have resistance to one type of damage while you wear this armor. The DM chooses the type or determines it randomly.",
+  "note": "Attunement. Resistance effectively halves all damage of that type — transformative against specific enemies."
+ },
+ {
+  "name": "Armor of Invulnerability",
+  "icon": "🛡",
+  "rarity": "Legendary",
+  "type": "Armor",
+  "attune": true,
+  "desc": "You have resistance to nonmagical damage while you wear this armor. Additionally, you can use an action to make yourself immune to nonmagical damage for 10 minutes. Once used, this property can't be used again until the next dawn.",
+  "note": "Attunement. Permanent nonmagical damage resistance plus daily immunity. The ultimate tank armour item."
+ },
+ {
+  "name": "Demon Armor",
+  "icon": "😈",
+  "rarity": "Very Rare",
+  "type": "Armor",
+  "attune": true,
+  "cursed": true,
+  "desc": "While wearing this armor, you understand and can speak Abyssal. The clawed gauntlets turn unarmed strikes into magic weapons that deal slashing damage, with a +1 bonus to attack rolls and damage rolls and a damage die of 1d8. This armor is cursed — once donned, you can't doff it unless targeted by Remove Curse or similar magic.",
+  "note": "Attunement. CURSED — cannot be removed without Remove Curse. The clawed attacks and Abyssal language are real benefits, but exercise caution."
+ },
+ {
+  "name": "Ring of Protection",
+  "icon": "💍",
+  "rarity": "Rare",
+  "type": "Ring",
+  "attune": true,
+  "desc": "You gain a +1 bonus to AC and saving throws while wearing this ring.",
+  "note": "Attunement. +1 to both AC and all saves from a single item. Exceptional versatility for one attunement slot."
+ },
+ {
+  "name": "Ring of Spell Storing",
+  "icon": "💍",
+  "rarity": "Rare",
+  "type": "Ring",
+  "attune": true,
+  "desc": "This ring stores spells cast into it, holding them until the attuned wearer uses them. The ring can store up to 5 levels worth of spells at a time. Any creature can cast a spell of 1st through 5th level into the ring.",
+  "note": "Attunement. The most flexible ring — any creature can load it with spells that the attuned wearer can then cast on demand."
+ },
+ {
+  "name": "Ring of Evasion",
+  "icon": "💍",
+  "rarity": "Rare",
+  "type": "Ring",
+  "attune": true,
+  "charges": "3",
+  "recharge": "1d3 daily at dawn",
+  "source": "SRD 5.1",
+  "activation": "reaction",
+  "desc": "This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. When you fail a Dexterity saving throw while wearing it, you can use your reaction to expend 1 charge to succeed on that saving throw instead.",
+  "note": "Attunement. Reaction success on a failed Dex save — invaluable against AoE spells like Fireball that could knock out the party."
+ },
+ {
+  "name": "Ring of Resistance",
+  "icon": "💍",
+  "rarity": "Rare",
+  "type": "Ring",
+  "attune": true,
+  "source": "SRD 5.1",
+  "desc": "You have resistance to one damage type while wearing this ring, determined by the gem set into it: Pearl (acid), Tourmaline (cold), Garnet (fire), Sapphire (lightning), Jet (necrotic), Moonstone (poison), Amber (radiant), Spinel (thunder).",
+  "note": "Attunement. Resistance from a ring slot — excellent if your armour slot is already dedicated elsewhere."
+ },
+ {
+  "name": "Ring of Regeneration",
+  "icon": "💍",
+  "rarity": "Very Rare",
+  "type": "Ring",
+  "attune": true,
+  "desc": "While wearing this ring, you regain 1d6 hit points every 10 minutes, provided that you have at least 1 hit point. If you lose a body part, the ring causes the missing part to regrow and return to full functionality after 1d6+1 days if you have at least 1 hit point throughout.",
+  "note": "Attunement. Passive regeneration ensures you recover between encounters. Limb regrowth removes one of the game's rare permanent penalties."
+ },
+ {
+  "name": "Ring of Telekinesis",
+  "icon": "💍",
+  "rarity": "Very Rare",
+  "type": "Ring",
+  "attune": true,
+  "desc": "While wearing this ring, you can cast the Telekinesis spell at will, but you can target only objects that aren't being worn or carried.",
+  "note": "Attunement. At-will Telekinesis on objects. Exceptional utility for puzzles, environmental control, and moving heavy obstacles."
+ },
+ {
+  "name": "Ring of Spell Turning",
+  "icon": "💍",
+  "rarity": "Legendary",
+  "type": "Ring",
+  "attune": true,
+  "desc": "While wearing this ring, you have advantage on saving throws against any spell that targets only you. In addition, if you roll a 20 on the save and the spell is 7th level or lower, the spell is reflected back onto the caster.",
+  "note": "Attunement. Advantage on single-target spells plus the chance to reflect them — exceptional defensive item for any concentration-dependent target."
+ },
+ {
+  "name": "Ring of Three Wishes",
+  "icon": "💍",
+  "rarity": "Legendary",
+  "type": "Ring",
+  "attune": false,
+  "charges": "3",
+  "destruction": "Becomes nonmagical when the last charge is expended",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the Wish spell from it. The ring becomes nonmagical when you use the last wish.",
+  "note": "No attunement. Three Wish spells. The most powerful item in the game. Use with extreme deliberation."
+ },
+ {
+  "name": "Bag of Holding",
+  "icon": "👜",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "This bag has an interior space considerably larger than its outside dimensions — roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet. The bag weighs 15 pounds regardless of its contents.",
+  "note": "No attunement. The quintessential utility item. Overloading or piercing it causes an implosion. Placing a bag of holding inside another extradimensional space tears a hole to the Astral Plane."
+ },
+ {
+  "name": "Cloak of Elvenkind",
+  "icon": "🧥",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage, and you have advantage on Dexterity (Stealth) checks made to hide, as the cloak's colour shifts to camouflage you.",
+  "note": "Attunement. Advantage on Stealth AND disadvantage on enemy Perception. The premier stealth item at Uncommon."
+ },
+ {
+  "name": "Cloak of Protection",
+  "icon": "🧥",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "You gain a +1 bonus to AC and saving throws while you wear this cloak.",
+  "note": "Attunement. +1 AC and +1 to all saves. Excellent for any character at any tier."
+ },
+ {
+  "name": "Cloak of Displacement",
+  "icon": "🧥",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While you wear this cloak, it projects an illusion that makes you appear to be standing in a place near your actual location, causing any creature to have disadvantage on attack rolls against you. If you take damage, the property ceases to function until the start of your next turn.",
+  "note": "Attunement. Effectively gives permanent disadvantage on attacks — one of the strongest defensive items in the game."
+ },
+ {
+  "name": "Boots of Speed",
+  "icon": "👢",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "charges": "10",
+  "recharge": "1d10 daily at dawn",
+  "depletionEffect": "Unusable at 0 charges until at least 1 charge is regained",
+  "source": "SRD 5.1",
+  "activation": "bonus action",
+  "desc": "While you wear these boots, you can use a bonus action and click the boots' heels together to double your walking speed and allow you to move up to 10 feet as a reaction when a creature ends its turn within 5 feet of you. The effect lasts until you use a bonus action to click your heels together again. The boots expend 1 charge per minute of use. The boots have 10 charges and regain 1d10 expended charges daily at dawn. If the boots have 0 charges, they cease to function until at least 1 charge is restored.",
+  "note": "Attunement. Doubling movement speed is extremely strong for positioning, kiting, and escape. Effective for 10 minutes total per full recharge."
+ },
+ {
+  "name": "Boots of Elvenkind",
+  "icon": "👢",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "While you wear these boots, your steps make no sound regardless of the surface you are moving across. You also have advantage on Dexterity (Stealth) checks that involve moving quietly.",
+  "note": "No attunement. Advantage on Stealth for movement and silence. Excellent for rogues, rangers, and scout characters."
+ },
+ {
+  "name": "Gauntlets of Ogre Power",
+  "icon": "🧤",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "Your Strength score is 19 while you wear these gauntlets. They have no effect on you if your Strength is already 19 or higher.",
+  "note": "Attunement. Sets Strength to 19 — transformative for low-Str characters needing to grapple, carry, or break things."
+ },
+ {
+  "name": "Headband of Intellect",
+  "icon": "👑",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "Your Intelligence score is 19 while you wear this headband. It has no effect on you if your Intelligence is already 19 or higher.",
+  "note": "Attunement. Sets Int to 19. Transformative for non-Wizard Intelligence builds and Int-skill-heavy characters."
+ },
+ {
+  "name": "Amulet of Health",
+  "icon": "📿",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "Your Constitution score is 19 while you wear this amulet. It has no effect on you if your Constitution is already 19 or higher.",
+  "note": "Attunement. Sets Con to 19 — significantly boosts HP, concentration checks, and Con saves at lower Constitutions."
+ },
+ {
+  "name": "Amulet of Proof against Detection",
+  "icon": "📿",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While wearing this amulet, you are hidden from divination magic. You can't be targeted by such magic or perceived through magical scrying sensors.",
+  "note": "Attunement. Complete immunity to scrying and divination targeting. Excellent for characters hiding from powerful enemies."
+ },
+ {
+  "name": "Decanter of Endless Water",
+  "icon": "🏺",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "You can use an action to say one of three command words to pour out fresh or salt water: Stream (1 gallon/round), Fountain (5 gallons/round), or Geyser (30 gallons/round — a 30-ft long, 1-ft wide line dealing 1d4 bludgeoning damage, DC 13 Strength save or knocked prone).",
+  "note": "No attunement. Geyser can push and prone creatures. Also genuinely useful for survival and environmental puzzles."
+ },
+ {
+  "name": "Eversmoking Bottle",
+  "icon": "🏺",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "When you use an action to remove the stopper, a cloud of thick smoke pours out in a 60-foot radius from the bottle. The cloud's area is heavily obscured. The cloud persists as long as the bottle is open. If the stopper is replaced, the cloud disperses after 10 minutes.",
+  "note": "No attunement. 60 ft radius of heavy obscurement on demand. Powerful area denial that affects all creatures equally."
+ },
+ {
+  "name": "Eyes of Minute Seeing",
+  "icon": "👁",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "These crystal lenses fit over the eyes. While wearing them, you can see much better than normal out to a range of 1 foot. You have advantage on Intelligence (Investigation) checks that rely on sight while searching an area or studying an object within that range.",
+  "note": "No attunement. Advantage on Investigation within 1 ft — useful for trap detection and document analysis."
+ },
+ {
+  "name": "Eyes of the Eagle",
+  "icon": "🦅",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "These crystal lenses fit over the eyes. While wearing them, you have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, you can make out details of even extremely distant creatures and objects as small as 2 feet across.",
+  "note": "Attunement. Advantage on sight-based Perception at any range. The best item for lookout and scout characters."
+ },
+ {
+  "name": "Goggles of Night",
+  "icon": "🥽",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "While wearing these dark lenses, you have darkvision out to a range of 60 feet. If you already have darkvision, wearing the goggles increases its range by 60 feet.",
+  "note": "No attunement. Grants or extends darkvision by 60 ft. Excellent for human and any other non-darkvision races."
+ },
+ {
+  "name": "Helm of Telepathy",
+  "icon": "⛑",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While wearing this helm, you can use an action to cast the Detect Thoughts spell (save DC 13) from it. As long as you concentrate on the spell, you can use a bonus action to send a telepathic message to a creature you are focused on. It can reply with a bonus action.",
+  "note": "Attunement. At-will Detect Thoughts plus telepathic communication. Exceptional for social encounters and interrogation."
+ },
+ {
+  "name": "Helm of Brilliance",
+  "icon": "✨",
+  "rarity": "Very Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "charges": "gems",
+  "desc": "This dazzling helm is set with diamonds, rubies, fire opals, and opals. You can use an action to cast a spell by expending a gem (the gem is destroyed): Diamond (Daylight), Ruby (Fireball, 10d6), Fire Opal (Prismatic Spray), Opal (Wall of Fire). The helm also sheds bright light 30 ft when adjacent to undead, and undead must save DC 15 or become blinded.",
+  "note": "Attunement. A hoard of spell gems. Multiple casting options, light effects, and undead repelling. Exceptional value."
+ },
+ {
+  "name": "Ioun Stone of Awareness",
+  "icon": "🔮",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While this pale lavender ellipsoid is orbiting your head, you have advantage on Wisdom (Perception) checks and can't be surprised.",
+  "note": "Attunement. Cannot be surprised plus Perception advantage — especially potent in ambush-heavy campaigns."
+ },
+ {
+  "name": "Ioun Stone of Reserve",
+  "icon": "🔮",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "This vibrant purple prism stores spells cast into it. While orbiting your head, it stores up to 3 levels of spells. Any creature can cast a 1st-, 2nd-, or 3rd-level spell into the stone by touching it, and you can cast that spell from the stone as a bonus action.",
+  "note": "Attunement. Stores spells as bonus-action casting. The bonus action cast element makes this extremely flexible."
+ },
+ {
+  "name": "Necklace of Adaptation",
+  "icon": "📿",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "desc": "While wearing this necklace, you can breathe normally in any environment, and you have advantage on saving throws made against harmful gases and vapors (such as Cloudkill and Stinking Cloud effects).",
+  "note": "Attunement. Breathe anywhere — underwater, in vacuum, through Cloudkill. Essential insurance for environmental hazard campaigns."
+ },
+ {
+  "name": "Pearl of Power",
+  "icon": "🔮",
+  "rarity": "Uncommon",
+  "type": "Wondrous",
+  "attune": true,
+  "attuneClass": "Spellcaster",
+  "desc": "While this pearl is on your person, you can use an action to speak its command word and regain one expended spell slot of 3rd level or lower. The pearl can't be used again until the next dawn.",
+  "note": "Attunement (spellcaster). Daily regain of a spell slot up to 3rd level. Excellent value for concentration-intensive spellcasters."
+ },
+ {
+  "name": "Portable Hole",
+  "icon": "⚫",
+  "rarity": "Rare",
+  "type": "Wondrous",
+  "attune": false,
+  "desc": "This fine black cloth, soft as silk, folds into a small package. When unfolded and spread on a solid surface, it creates a circular hole 6 feet in diameter and 10 feet deep. The cloth cannot be folded while the hole is in use. Creatures and objects can be placed inside; the interior has air for 10 minutes.",
+  "note": "No attunement. A 6-ft wide, 10-ft deep extradimensional space. If placed inside a Bag of Holding, it tears a rift to the Astral Plane."
+ },
+ {
+  "name": "Ring of Invisibility",
+  "icon": "💍",
+  "rarity": "Legendary",
+  "type": "Ring",
+  "attune": true,
+  "desc": "While wearing this ring, you can turn invisible as an action. Anything you wear or carry is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a bonus action to become visible again.",
+  "note": "Attunement. At-will invisibility without the one-hour limit of the potion. The premier stealth ring."
+ },
+ {
+  "name": "Rod of Lordly Might",
+  "icon": "🪄",
+  "rarity": "Legendary",
+  "type": "Rod",
+  "attune": true,
+  "charges": "6 buttons",
+  "saveDC": 17,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This rod has a flanged head and six buttons down one side. The rod can be wielded as a magic mace that grants a +3 bonus to attack and damage rolls. The rod has the following properties, each button activating a different function (one function active at a time): Button 1 – Flame Blade: A fiery blade springs from the flanged head. The rod deals an extra 2d6 fire damage on a hit. Button 2 – Drain Life: When you hit a creature, expend a charge to deal an extra 4d6 necrotic damage; you regain hit points equal to the necrotic damage dealt (DC 17 Constitution saving throw to negate). Button 3 – Paralyse: A creature you hit must succeed on a DC 17 Strength saving throw or be paralysed for 1 minute. The creature repeats the save at the end of each of its turns. Button 4 – Terrify: Each creature of your choice within 30 feet must make a DC 17 Wisdom saving throw or be frightened of you for 1 minute, repeating the save at the end of each of its turns. Button 5 – Extendable Ladder: The rod elongates into a 50-foot ladder (bonus action to retract). Button 6 – Siege Weapon: The rod becomes a +3 battering ram, granting +10 to Strength checks made to break down doors and similar barriers.",
+  "note": "Attunement. A multi-function legendary rod. Six distinct modes plus +3 weapon baseline. Fear and drain features are the combat highlights; ladder and siege mode provide exceptional utility."
+ },
+ {
+  "name": "Rod of Security",
+  "icon": "🪄",
+  "rarity": "Very Rare",
+  "type": "Rod",
+  "attune": false,
+  "desc": "While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures you can see to a paradise that exists in an extradimensional space. You choose the form of the paradise: it can resemble any terrain you've seen. While in the paradise, creatures don't age, eat, or sleep. This rod can't be used again until 10 days have passed.",
+  "note": "No attunement. Up to 200 creatures in an extradimensional paradise for up to 200 days. Exceptional for long rests and refuge."
+ },
+ {
+  "name": "Staff of Fire",
+  "icon": "🔥",
+  "rarity": "Very Rare",
+  "type": "Staff",
+  "attune": true,
+  "attuneClass": "Druid/Sorcerer/Warlock/Wizard",
+  "charges": "10",
+  "recharge": "1d6+4 daily at dawn",
+  "destruction": "Roll d20 when last charge expended — on a 1, staff is destroyed",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This staff has 10 charges. While holding it, you have resistance to fire damage. You can use an action to expend charges to cast: Burning Hands (1 charge), Fireball (3 charges), or Wall of Fire (4 charges). The staff regains 1d6+4 expended charges daily at dawn. If you expend the last charge, roll a d20; on a 1, the staff blackens, crumbles into cinders, and is destroyed.",
+  "note": "Attunement (druid/sorcerer/warlock/wizard). Fire resistance plus fire spell charges. Reliable AoE damage item."
+ },
+ {
+  "name": "Staff of Healing",
+  "icon": "🌿",
+  "rarity": "Rare",
+  "type": "Staff",
+  "attune": true,
+  "attuneClass": "Bard/Cleric/Druid",
+  "charges": "10",
+  "recharge": "1d6+4 daily at dawn",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This staff has 10 charges. While holding it, you can use an action to expend charges to cast: Cure Wounds (1 charge per spell level, up to 4th), Lesser Restoration (2 charges), or Mass Cure Wounds (5 charges). The staff regains 1d6+4 expended charges daily at dawn.",
+  "note": "Attunement (bard/cleric/druid). Healing action economy from a staff. Mass Cure Wounds for 5 charges is excellent."
+ },
+ {
+  "name": "Staff of Power",
+  "icon": "⚡",
+  "rarity": "Very Rare",
+  "type": "Staff",
+  "attune": true,
+  "attuneClass": "Sorcerer/Warlock/Wizard",
+  "charges": "20",
+  "recharge": "2d8+4 daily at dawn",
+  "destruction": "Can be broken for Retributive Strike (expends all charges; 16×charges force damage in 30-ft radius, DC 17 Dex save for half); roll d20 on last charge — on 1, staff is destroyed",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This staff has 20 charges and can be used as a +2 quarterstaff. Holding it, you gain +2 to AC, saving throws, and spell attack rolls. It holds numerous powerful spells (Cone of Cold, Fireball, Globe of Invulnerability, Hold Monster, Lightning Bolt, Magic Missile, Ray of Enfeeblement, Wall of Force) costing 1-5 charges. It can also be broken for a Retributive Strike.",
+  "note": "Attunement. One of the most powerful staves. +2 to AC/saves/attacks plus a huge repertoire of high-level spells."
+ },
+ {
+  "name": "Staff of the Magi",
+  "icon": "⚡",
+  "rarity": "Legendary",
+  "type": "Staff",
+  "attune": true,
+  "attuneClass": "Sorcerer/Warlock/Wizard",
+  "charges": "50",
+  "desc": "This staff has 50 charges and can be used as a +2 quarterstaff. While holding it, you gain +2 to AC, saving throws, and spell attack rolls. It can absorb spells targeted at you (gaining charges equal to the absorbed spell's level). You can use charges to cast dozens of spells including Arcane Lock, Conjure Elemental, Dispel Magic, Fireball, Flaming Sphere, Fly, Ice Storm, Invisibility, Knock, Lightning Bolt, Passwall, Plane Shift, Telekinesis, Wall of Fire, and Web. You can also use an action to break it for a Retributive Strike.",
+  "note": "Attunement. 50 charges, spell absorption, +2 to three statistics, and the most complete spell list of any staff. The legendary spellcaster staff."
+ },
+ {
+  "name": "Wand of Fireballs",
+  "icon": "🪄",
+  "rarity": "Rare",
+  "type": "Wand",
+  "attune": true,
+  "attuneClass": "Spellcaster",
+  "charges": "7",
+  "recharge": "1d6+1 daily at dawn",
+  "saveDC": 15,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This wand has 7 charges. While holding it, you can use an action to expend charges to cast Fireball (save DC 15) from it. For 1 charge, Fireball deals 8d6 fire damage. For each additional charge, the damage increases by 1d6. The wand regains 1d6+1 expended charges daily at dawn.",
+  "note": "Attunement (spellcaster). Reliable Fireball from a wand — up to 13d6 at max charge. Excellent action economy for non-evocation wizards."
+ },
+ {
+  "name": "Wand of Magic Detection",
+  "icon": "🪄",
+  "rarity": "Uncommon",
+  "type": "Wand",
+  "attune": false,
+  "charges": "3",
+  "recharge": "1d3 daily at dawn",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This wand has 3 charges. While holding it, you can expend 1 charge as an action to cast the Detect Magic spell from it. The wand regains 1d3 expended charges daily at dawn.",
+  "note": "No attunement. At-will Detect Magic effectively. Excellent for item identification and trap detection."
+ },
+ {
+  "name": "Wand of Magic Missiles",
+  "icon": "🪄",
+  "rarity": "Uncommon",
+  "type": "Wand",
+  "attune": false,
+  "charges": "7",
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast Magic Missile from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.",
+  "note": "No attunement. Auto-hit Magic Missile from any character. Up to 7th-level slots for maximum bolts."
+ },
+ {
+  "name": "Wand of Paralysis",
+  "icon": "🪄",
+  "rarity": "Rare",
+  "type": "Wand",
+  "attune": true,
+  "attuneClass": "Spellcaster",
+  "charges": "7",
+  "saveDC": 15,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cause a thin blue ray to streak from the tip toward a creature you can see within 60 feet of you. The target must succeed on a DC 15 Constitution saving throw or be paralyzed for 1 minute. At the end of each of the target's turns, it can repeat the saving throw. On a success, the effect ends.",
+  "note": "Attunement (spellcaster). 7 charges of Paralysis — the melee auto-crit condition. Exceptional in high-priority target encounters."
+ },
+ {
+  "name": "Wand of Polymorph",
+  "icon": "🪄",
+  "rarity": "Very Rare",
+  "type": "Wand",
+  "attune": true,
+  "attuneClass": "Spellcaster",
+  "charges": "7",
+  "recharge": "1d6+1 daily at dawn",
+  "saveDC": 15,
+  "source": "SRD 5.1",
+  "activation": "action",
+  "desc": "This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the Polymorph spell (save DC 15) from it. The wand regains 1d6+1 expended charges daily at dawn.",
+  "note": "Attunement (spellcaster). 7 uses of Polymorph per dawn cycle. Exceptional utility — combat removal, transformation, and creative problem solving."
+ }
+]

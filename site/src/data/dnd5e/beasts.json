@@ -1,0 +1,2731 @@
+[
+ {
+  "name": "Baboon",
+  "cr": 0,
+  "size": "Small",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill"
+  ],
+  "ac": 12,
+  "hp": 3,
+  "speed": "30 ft, climb 30 ft",
+  "str": 8,
+  "dex": 14,
+  "con": 11,
+  "int": 4,
+  "wis": 12,
+  "cha": 6,
+  "passive": 11,
+  "climb": true,
+  "abilities": [
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent to target."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+1 to hit, 1d4-1 piercing."
+   }
+  ],
+  "note": "Pack Tactics on a CR 0 creature is surprisingly useful in swarms. Climb 30 ft for arboreal scouting."
+ },
+ {
+  "name": "Cat",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "any"
+  ],
+  "ac": 12,
+  "hp": 2,
+  "speed": "40 ft, climb 30 ft",
+  "str": 3,
+  "dex": 15,
+  "con": 10,
+  "int": 3,
+  "wis": 12,
+  "cha": 7,
+  "darkvision": 30,
+  "passive": 13,
+  "climb": true,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Claws",
+    "t": "+0 to hit, 1 slashing."
+   }
+  ],
+  "note": "Tiny size, climb 30 ft, darkvision 30 ft. Excellent for urban infiltration and scouting."
+ },
+ {
+  "name": "Crab",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "coast",
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 11,
+  "hp": 2,
+  "speed": "20 ft, swim 20 ft",
+  "str": 2,
+  "dex": 11,
+  "con": 10,
+  "int": 1,
+  "wis": 8,
+  "cha": 2,
+  "blindsight": 30,
+  "passive": 9,
+  "abilities": [
+   {
+    "n": "Amphibious",
+    "t": "Can breathe air and water."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Claw",
+    "t": "+0 to hit, 1 bludgeoning."
+   }
+  ],
+  "note": "Blindsight 30 ft. Amphibious. Tiny size for coastal infiltration."
+ },
+ {
+  "name": "Deer",
+  "cr": 0,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland"
+  ],
+  "ac": 13,
+  "hp": 4,
+  "speed": "50 ft",
+  "str": 11,
+  "dex": 16,
+  "con": 11,
+  "int": 2,
+  "wis": 14,
+  "cha": 5,
+  "passive": 12,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+2 to hit, 1d4 piercing."
+   }
+  ],
+  "note": "50 ft speed is highest of any CR 0 form. Passive Perception 12. Useful for rapid scouting or escape."
+ },
+ {
+  "name": "Eagle",
+  "cr": 0,
+  "size": "Small",
+  "terrain": [
+   "grassland",
+   "mountain",
+   "coast"
+  ],
+  "fly": true,
+  "ac": 12,
+  "hp": 3,
+  "speed": "10 ft, fly 60 ft",
+  "str": 6,
+  "dex": 15,
+  "con": 10,
+  "int": 2,
+  "wis": 14,
+  "cha": 7,
+  "passive": 14,
+  "abilities": [
+   {
+    "n": "Keen Sight",
+    "t": "Advantage on Perception checks relying on sight."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Talons",
+    "t": "+4 to hit, 1d4+2 slashing."
+   }
+  ],
+  "note": "Passive Perception 14 — tied for highest of any CR 0 beast. Fly 60 ft. Requires level 8+."
+ },
+ {
+  "name": "Frog",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "swamp",
+   "coast",
+   "aquatic"
+  ],
+  "swim": true,
+  "ac": 11,
+  "hp": 1,
+  "speed": "20 ft, swim 20 ft",
+  "str": 1,
+  "dex": 13,
+  "con": 8,
+  "int": 1,
+  "wis": 8,
+  "cha": 3,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Amphibious",
+    "t": "Can breathe air and water."
+   },
+   {
+    "n": "Standing Leap",
+    "t": "Long jump up to 10 ft, high jump up to 5 ft with or without a running start."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+1 to hit, 1 piercing."
+   }
+  ],
+  "note": "Amphibious. Tiny size ideal for infiltration. Standing Leap useful for navigating terrain."
+ },
+ {
+  "name": "Giant Fire Beetle",
+  "cr": 0,
+  "size": "Small",
+  "terrain": [
+   "underdark",
+   "forest"
+  ],
+  "burrow": true,
+  "ac": 13,
+  "hp": 4,
+  "speed": "30 ft",
+  "str": 8,
+  "dex": 10,
+  "con": 12,
+  "int": 1,
+  "wis": 7,
+  "cha": 3,
+  "passive": 8,
+  "abilities": [
+   {
+    "n": "Illumination",
+    "t": "Sheds bright light in a 10 ft radius and dim light for another 10 ft."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+1 to hit, 1d6-1 fire."
+   }
+  ],
+  "note": "The Illumination trait is the reason to use this form — provides 10 ft bright light without using an action or item. Useful for Underdark exploration."
+ },
+ {
+  "name": "Goat",
+  "cr": 0,
+  "size": "Medium",
+  "terrain": [
+   "mountain",
+   "hill",
+   "grassland"
+  ],
+  "ac": 10,
+  "hp": 4,
+  "speed": "40 ft",
+  "str": 12,
+  "dex": 10,
+  "con": 11,
+  "int": 2,
+  "wis": 10,
+  "cha": 5,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Ram, target DC 10 Str or knocked prone."
+   },
+   {
+    "n": "Sure-Footed",
+    "t": "Advantage on Str and Dex saves against being knocked prone."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Ram",
+    "t": "+3 to hit, 1d4+1 bludgeoning."
+   }
+  ],
+  "note": "Charge prone at CR 0. Sure-Footed excellent for mountain terrain. Underrated utility form."
+ },
+ {
+  "name": "Hawk",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "grassland",
+   "forest",
+   "hill",
+   "coast"
+  ],
+  "fly": true,
+  "ac": 13,
+  "hp": 1,
+  "speed": "10 ft, fly 60 ft",
+  "str": 5,
+  "dex": 16,
+  "con": 8,
+  "int": 2,
+  "wis": 14,
+  "cha": 6,
+  "passive": 14,
+  "abilities": [
+   {
+    "n": "Keen Sight",
+    "t": "Advantage on Perception checks relying on sight."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Talons",
+    "t": "+5 to hit, 1 slashing."
+   }
+  ],
+  "note": "Passive Perception 14 — tied for highest of any CR 0 form. Best Tiny aerial scout. Requires level 8+."
+ },
+ {
+  "name": "Hyena",
+  "cr": 0,
+  "size": "Medium",
+  "terrain": [
+   "desert",
+   "grassland"
+  ],
+  "ac": 11,
+  "hp": 5,
+  "speed": "50 ft",
+  "str": 11,
+  "dex": 13,
+  "con": 12,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent to target."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+2 to hit, 1d6 piercing."
+   }
+  ],
+  "note": "50 ft speed and Pack Tactics at CR 0 make this a standout early scout form."
+ },
+ {
+  "name": "Jackal",
+  "cr": 0,
+  "size": "Small",
+  "terrain": [
+   "desert",
+   "grassland"
+  ],
+  "ac": 12,
+  "hp": 3,
+  "speed": "40 ft",
+  "str": 8,
+  "dex": 15,
+  "con": 11,
+  "int": 3,
+  "wis": 12,
+  "cha": 6,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+1 to hit, 1d4-1 piercing."
+   }
+  ],
+  "note": "Pack Tactics plus Keen Hearing and Smell. Small size, desert/grassland. Useful for group scouting."
+ },
+ {
+  "name": "Lizard",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "desert",
+   "swamp"
+  ],
+  "climb": true,
+  "ac": 10,
+  "hp": 2,
+  "speed": "20 ft, climb 20 ft",
+  "str": 2,
+  "dex": 11,
+  "con": 10,
+  "int": 1,
+  "wis": 8,
+  "cha": 3,
+  "darkvision": 30,
+  "passive": 9,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+0 to hit, 1 piercing."
+   }
+  ],
+  "note": "Darkvision 30 ft, climb 20 ft. Tiny size for ceiling/wall traversal. Very low profile for indoor infiltration."
+ },
+ {
+  "name": "Octopus",
+  "cr": 0,
+  "size": "Small",
+  "terrain": [
+   "aquatic",
+   "underwater",
+   "coast"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 3,
+  "speed": "5 ft, swim 30 ft",
+  "str": 4,
+  "dex": 15,
+  "con": 11,
+  "int": 3,
+  "wis": 10,
+  "cha": 4,
+  "darkvision": 30,
+  "passive": 12,
+  "abilities": [
+   {
+    "n": "Hold Breath",
+    "t": "Out of water for up to 30 minutes."
+   },
+   {
+    "n": "Underwater Camouflage",
+    "t": "Advantage on Stealth in water."
+   },
+   {
+    "n": "Water Breathing",
+    "t": "Breathes only underwater."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Tentacles",
+    "t": "+4 to hit, 1 bludgeoning. Grappled (DC 10)."
+   },
+   {
+    "n": "Ink Cloud (Recharge 6)",
+    "t": "5 ft radius heavily obscured for 1 min."
+   }
+  ],
+  "note": "Darkvision 30 ft, Ink Cloud, underwater camouflage. Best Tiny aquatic scouting form."
+ },
+ {
+  "name": "Owl",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill"
+  ],
+  "fly": true,
+  "ac": 11,
+  "hp": 1,
+  "speed": "5 ft, fly 60 ft",
+  "str": 3,
+  "dex": 13,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 7,
+  "darkvision": 120,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Flyby",
+    "t": "No opportunity attacks when flying out of reach."
+   },
+   {
+    "n": "Keen Hearing and Sight",
+    "t": "Advantage on Perception checks."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Talons",
+    "t": "+3 to hit, 1 slashing."
+   }
+  ],
+  "note": "Darkvision 120 ft. Flyby prevents opportunity attacks. Excellent night scout at level 8+."
+ },
+ {
+  "name": "Quipper",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 13,
+  "hp": 1,
+  "speed": "0 ft, swim 40 ft",
+  "darkvision": 60,
+  "passive": 13,
+  "str": 2,
+  "dex": 16,
+  "con": 9,
+  "int": 1,
+  "wis": 7,
+  "cha": 2,
+  "abilities": [
+   {
+    "n": "Blood Frenzy",
+    "t": "Advantage on attack rolls against creatures that have taken damage."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1 piercing."
+   }
+  ],
+  "note": "Darkvision 60 ft, swim 40 ft. Blood Frenzy advantage vs injured creatures. Tiny aquatic."
+ },
+ {
+  "name": "Rat",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "any"
+  ],
+  "ac": 10,
+  "hp": 1,
+  "speed": "20 ft",
+  "str": 2,
+  "dex": 11,
+  "con": 9,
+  "int": 2,
+  "wis": 10,
+  "cha": 4,
+  "darkvision": 30,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+0 to hit, 1 piercing."
+   }
+  ],
+  "note": "Tiny, any terrain, darkvision 30 ft. Low-profile city infiltration form. Easily overlooked."
+ },
+ {
+  "name": "Raven",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill",
+   "any"
+  ],
+  "fly": true,
+  "ac": 12,
+  "hp": 1,
+  "speed": "10 ft, fly 50 ft",
+  "str": 2,
+  "dex": 14,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 6,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Mimicry",
+    "t": "Can mimic simple sounds it has heard. DC 10 Insight to recognise as imitation."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Beak",
+    "t": "+4 to hit, 1 piercing."
+   }
+  ],
+  "note": "Mimicry trait provides unique utility for communication. Fly 50 ft. Popular familiar choice."
+ },
+ {
+  "name": "Scorpion",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "desert",
+   "underdark"
+  ],
+  "ac": 11,
+  "hp": 1,
+  "speed": "10 ft",
+  "str": 2,
+  "dex": 11,
+  "con": 8,
+  "int": 1,
+  "wis": 8,
+  "cha": 2,
+  "blindsight": 10,
+  "passive": 9,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Sting",
+    "t": "+2 to hit, 1 piercing + 1d4 poison. DC 9 Con or poisoned for 1 min."
+   }
+  ],
+  "note": "Blindsight 10 ft. Tiny for desert/underdark infiltration. Poison sting is niche but unique at CR 0."
+ },
+ {
+  "name": "Sea Horse",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 11,
+  "hp": 1,
+  "speed": "0 ft, swim 20 ft",
+  "str": 1,
+  "dex": 12,
+  "con": 8,
+  "int": 1,
+  "wis": 10,
+  "cha": 2,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Water Breathing",
+    "t": "Breathes only underwater."
+   }
+  ],
+  "actions": [],
+  "note": "Aquatic-only. No attacks. Purely a scouting/infiltration form in fully underwater environments."
+ },
+ {
+  "name": "Spider",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "underdark",
+   "any"
+  ],
+  "climb": true,
+  "ac": 12,
+  "hp": 1,
+  "speed": "20 ft, climb 20 ft",
+  "str": 2,
+  "dex": 14,
+  "con": 8,
+  "int": 1,
+  "wis": 10,
+  "cha": 2,
+  "darkvision": 30,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Spider Climb",
+    "t": "Can climb difficult surfaces including ceilings without checks."
+   },
+   {
+    "n": "Web Sense",
+    "t": "While in contact with a web, knows location of any creature touching the web."
+   },
+   {
+    "n": "Web Walker",
+    "t": "Movement unaffected by webs."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1 piercing + 1d4 poison. DC 9 Con or poisoned for 1 min."
+   }
+  ],
+  "note": "Spider Climb (ceilings, walls with no check), Web Sense, darkvision 30 ft. Best ceiling traversal form."
+ },
+ {
+  "name": "Vulture",
+  "cr": 0,
+  "size": "Medium",
+  "terrain": [
+   "desert",
+   "grassland",
+   "mountain"
+  ],
+  "fly": true,
+  "ac": 10,
+  "hp": 5,
+  "speed": "10 ft, fly 50 ft",
+  "str": 7,
+  "dex": 10,
+  "con": 13,
+  "int": 2,
+  "wis": 12,
+  "cha": 4,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Sight and Smell",
+    "t": "Advantage on Perception checks."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Beak",
+    "t": "+2 to hit, 1d6+2 piercing."
+   }
+  ],
+  "note": "Pack Tactics plus Keen Sight and Smell. Fly 50 ft. Desert/grassland scout at level 8+."
+ },
+ {
+  "name": "Weasel",
+  "cr": 0,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill"
+  ],
+  "ac": 13,
+  "hp": 1,
+  "speed": "30 ft",
+  "str": 3,
+  "dex": 16,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 3,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1 piercing."
+   }
+  ],
+  "note": "AC 13 — highest of any Tiny beast. Passive Perception 13. Excellent light stealth scouting form."
+ },
+ {
+  "name": "Blood Hawk",
+  "cr": 0.125,
+  "size": "Small",
+  "terrain": [
+   "mountain",
+   "grassland",
+   "hill"
+  ],
+  "fly": true,
+  "ac": 12,
+  "hp": 7,
+  "speed": "10 ft, fly 60 ft",
+  "str": 6,
+  "dex": 14,
+  "con": 10,
+  "int": 3,
+  "wis": 14,
+  "cha": 5,
+  "passive": 14,
+  "abilities": [
+   {
+    "n": "Keen Sight",
+    "t": "Advantage on Perception checks relying on sight."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Beak",
+    "t": "+4 to hit, 1d4+2 piercing."
+   }
+  ],
+  "note": "Pack Tactics plus Keen Sight. Passive Perception 14. Flying form requiring level 8+. Useful in groups."
+ },
+ {
+  "name": "Camel",
+  "cr": 0.125,
+  "size": "Large",
+  "terrain": [
+   "desert"
+  ],
+  "ac": 9,
+  "hp": 15,
+  "speed": "50 ft",
+  "str": 16,
+  "dex": 8,
+  "con": 14,
+  "int": 2,
+  "wis": 8,
+  "cha": 5,
+  "passive": 9,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1d4+3 piercing."
+   }
+  ],
+  "note": "Str 16 and 15 HP at CR 1/8. Large size. Rapid desert traversal with 50 ft speed. Surprisingly beefy for its CR."
+ },
+ {
+  "name": "Flying Snake",
+  "cr": 0.125,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "desert",
+   "swamp",
+   "coast"
+  ],
+  "fly": true,
+  "swim": true,
+  "ac": 14,
+  "hp": 5,
+  "speed": "30 ft, fly 60 ft, swim 30 ft",
+  "str": 4,
+  "dex": 18,
+  "con": 11,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "blindsight": 10,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Flyby",
+    "t": "No opportunity attacks when flying out of reach."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 1 piercing + 3d4 poison. DC 11 Con or poisoned for 1 hr."
+   }
+  ],
+  "note": "AC 14 and Dex 18 at CR 1/8 make this a surprisingly capable form. Flyby plus fly/swim. Poison bite. Requires level 8+ for flight."
+ },
+ {
+  "name": "Giant Crab",
+  "cr": 0.125,
+  "size": "Medium",
+  "terrain": [
+   "coast",
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 15,
+  "hp": 13,
+  "speed": "30 ft, swim 30 ft",
+  "str": 13,
+  "dex": 15,
+  "con": 11,
+  "int": 1,
+  "wis": 9,
+  "cha": 3,
+  "blindsight": 30,
+  "passive": 9,
+  "abilities": [
+   {
+    "n": "Amphibious",
+    "t": "Can breathe air and water."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Claw",
+    "t": "+3 to hit, 1d6+1 bludgeoning. Grappled (DC 11)."
+   }
+  ],
+  "note": "AC 15 — tied for highest AC wildshape form. Blindsight 30 ft. Grapple claw. Excellent coastal tank."
+ },
+ {
+  "name": "Giant Rat",
+  "cr": 0.125,
+  "size": "Small",
+  "terrain": [
+   "any"
+  ],
+  "ac": 12,
+  "hp": 7,
+  "speed": "30 ft",
+  "str": 7,
+  "dex": 15,
+  "con": 11,
+  "int": 2,
+  "wis": 10,
+  "cha": 4,
+  "darkvision": 60,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d4+2 piercing."
+   }
+  ],
+  "note": "Darkvision 60 ft. Pack Tactics. Small size for infiltration. Better senses than the standard Rat."
+ },
+ {
+  "name": "Giant Weasel",
+  "cr": 0.125,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill"
+  ],
+  "ac": 13,
+  "hp": 9,
+  "speed": "40 ft",
+  "str": 11,
+  "dex": 16,
+  "con": 10,
+  "int": 4,
+  "wis": 12,
+  "cha": 5,
+  "darkvision": 60,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1d4+3 piercing."
+   }
+  ],
+  "note": "Darkvision 60 ft, AC 13, Passive Perception 13. Medium-sized high-perception scout."
+ },
+ {
+  "name": "Mastiff",
+  "cr": 0.125,
+  "size": "Medium",
+  "terrain": [
+   "any"
+  ],
+  "ac": 12,
+  "hp": 5,
+  "speed": "40 ft",
+  "str": 13,
+  "dex": 14,
+  "con": 12,
+  "int": 3,
+  "wis": 12,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+3 to hit, 1d6+1 piercing. DC 11 Str or knocked prone."
+   }
+  ],
+  "note": "Prone on bite. Passive Perception 13. Reliable early-game utility form. Medium size."
+ },
+ {
+  "name": "Mule",
+  "cr": 0.125,
+  "size": "Medium",
+  "terrain": [
+   "any"
+  ],
+  "ac": 10,
+  "hp": 11,
+  "speed": "40 ft",
+  "str": 14,
+  "dex": 10,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Beast of Burden",
+    "t": "Counts as Large when determining carrying capacity."
+   },
+   {
+    "n": "Sure-Footed",
+    "t": "Advantage on Str and Dex saves to avoid being knocked prone."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Hooves",
+    "t": "+4 to hit, 1d4+2 bludgeoning."
+   }
+  ],
+  "note": "Beast of Burden: carries as a Large creature. Sure-Footed. Solid pack animal form for overland travel roleplay."
+ },
+ {
+  "name": "Poisonous Snake",
+  "cr": 0.125,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "grassland",
+   "swamp"
+  ],
+  "swim": true,
+  "ac": 13,
+  "hp": 2,
+  "speed": "30 ft, swim 30 ft",
+  "str": 2,
+  "dex": 16,
+  "con": 11,
+  "int": 1,
+  "wis": 10,
+  "cha": 3,
+  "blindsight": 10,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1 piercing + 2d4 poison. DC 10 Con or poisoned for 1 minute."
+   }
+  ],
+  "note": "Blindsight 10 ft. High +5 to hit for CR 1/8. Poison delivery useful in some situations."
+ },
+ {
+  "name": "Stirge",
+  "cr": 0.125,
+  "size": "Tiny",
+  "terrain": [
+   "forest",
+   "swamp",
+   "underdark"
+  ],
+  "fly": true,
+  "ac": 14,
+  "hp": 2,
+  "speed": "10 ft, fly 40 ft",
+  "str": 4,
+  "dex": 16,
+  "con": 11,
+  "int": 2,
+  "wis": 8,
+  "cha": 6,
+  "darkvision": 60,
+  "passive": 9,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Blood Drain",
+    "t": "+5 to hit, 1d4+3 piercing. Attaches to target; end of each turn deals 1d4+3 piercing."
+   }
+  ],
+  "note": "AC 14 — among the highest for CR 1/8. Darkvision 60 ft. Blood Drain attachment is tactically unique. Requires level 8+ for flight."
+ },
+ {
+  "name": "Axe Beak",
+  "cr": 0.25,
+  "size": "Large",
+  "terrain": [
+   "grassland"
+  ],
+  "ac": 11,
+  "hp": 19,
+  "speed": "50 ft",
+  "str": 14,
+  "dex": 12,
+  "con": 12,
+  "int": 2,
+  "wis": 10,
+  "cha": 5,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Beak",
+    "t": "+4 to hit, 1d8+2 slashing."
+   }
+  ],
+  "note": "50 ft speed — fast for a CR 1/4 Large form. Simple but effective for terrain coverage."
+ },
+ {
+  "name": "Boar",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland",
+   "swamp"
+  ],
+  "ac": 11,
+  "hp": 11,
+  "speed": "40 ft",
+  "str": 13,
+  "dex": 11,
+  "con": 12,
+  "int": 2,
+  "wis": 9,
+  "cha": 5,
+  "passive": 9,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Tusks, target DC 11 Str or knocked prone."
+   },
+   {
+    "n": "Relentless (Recharge 5-6)",
+    "t": "Drops to 1 HP instead of 0 HP (once per recharge)."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Tusks",
+    "t": "+3 to hit, 1d6+1 slashing."
+   }
+  ],
+  "note": "Relentless: once per recharge, survives a killing blow at 1 HP. Charge prone. Surprisingly tough early form."
+ },
+ {
+  "name": "Constrictor Snake",
+  "cr": 0.25,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "swamp",
+   "coast",
+   "aquatic"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 13,
+  "speed": "30 ft, swim 30 ft",
+  "str": 15,
+  "dex": 14,
+  "con": 12,
+  "int": 1,
+  "wis": 10,
+  "cha": 3,
+  "blindsight": 10,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d6+2 piercing."
+   },
+   {
+    "n": "Constrict",
+    "t": "+4 to hit, 1d8+2 bludgeoning. Target grappled (DC 14 Str); restrained while grappled."
+   }
+  ],
+  "note": "Restraining Constrict is excellent utility. Large size. Blindsight 10 ft. Swim 30 ft."
+ },
+ {
+  "name": "Elk",
+  "cr": 0.25,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill"
+  ],
+  "ac": 10,
+  "hp": 13,
+  "speed": "50 ft",
+  "str": 16,
+  "dex": 10,
+  "con": 12,
+  "int": 2,
+  "wis": 10,
+  "cha": 6,
+  "passive": 12,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Ram, target DC 13 Str or knocked prone."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Ram",
+    "t": "+5 to hit, 1d6+3 bludgeoning."
+   },
+   {
+    "n": "Hooves",
+    "t": "+5 to hit, 2d4+3 bludgeoning (prone targets only)."
+   }
+  ],
+  "note": "50 ft speed; Str 16. Charge prone; Hooves bonus vs prone. Effective runner and charger."
+ },
+ {
+  "name": "Giant Badger",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "hill",
+   "grassland"
+  ],
+  "burrow": true,
+  "ac": 10,
+  "hp": 13,
+  "speed": "30 ft, burrow 10 ft",
+  "str": 13,
+  "dex": 10,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "darkvision": 30,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "One Bite and one Claws."
+   },
+   {
+    "n": "Bite",
+    "t": "+3 to hit, 1d6+1 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+3 to hit, 2d4+1 slashing."
+   }
+  ],
+  "note": "Multiattack at CR 1/4 is unusual and valuable. Burrow 10 ft for tunnelling. Darkvision 30 ft."
+ },
+ {
+  "name": "Giant Lizard",
+  "cr": 0.25,
+  "size": "Large",
+  "terrain": [
+   "desert",
+   "forest",
+   "swamp"
+  ],
+  "climb": true,
+  "ac": 12,
+  "hp": 19,
+  "speed": "30 ft, climb 30 ft",
+  "str": 15,
+  "dex": 12,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5,
+  "darkvision": 30,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d8+2 piercing."
+   },
+   {
+    "n": "Tail",
+    "t": "+4 to hit, 1d6+2 bludgeoning."
+   }
+  ],
+  "note": "Darkvision 30 ft, climb 30 ft, Large size. Useful in desert/forest/swamp with vertical terrain."
+ },
+ {
+  "name": "Giant Poisonous Snake",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "swamp",
+   "grassland"
+  ],
+  "swim": true,
+  "ac": 14,
+  "hp": 11,
+  "speed": "30 ft, swim 30 ft",
+  "str": 10,
+  "dex": 18,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 3,
+  "blindsight": 10,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 1d4 piercing + 3d6 poison. DC 11 Con or poisoned for 1 hour."
+   }
+  ],
+  "note": "AC 14 and +6 to hit at CR 1/4 are impressive. 3d6 poison damage. Blindsight 10 ft. Strong early gish form."
+ },
+ {
+  "name": "Giant Wolf Spider",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland",
+   "underdark"
+  ],
+  "climb": true,
+  "ac": 13,
+  "hp": 11,
+  "speed": "40 ft, climb 40 ft",
+  "str": 12,
+  "dex": 16,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 4,
+  "darkvision": 60,
+  "blindsight": 10,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Spider Climb",
+    "t": "Climb difficult surfaces including ceilings."
+   },
+   {
+    "n": "Web Sense",
+    "t": "Knows location of web-touching creatures."
+   },
+   {
+    "n": "Web Walker",
+    "t": "Movement unaffected by webs."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+3 to hit, 1d6+1 piercing + 2d6 poison. DC 11 Con or paralyzed for 1 min."
+   }
+  ],
+  "note": "Spider Climb, darkvision 60 ft, blindsight 10 ft. Paralysis poison is potent. Strong early-game ambush form."
+ },
+ {
+  "name": "Panther",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland"
+  ],
+  "climb": true,
+  "ac": 12,
+  "hp": 13,
+  "speed": "50 ft, climb 40 ft",
+  "str": 14,
+  "dex": 15,
+  "con": 10,
+  "int": 3,
+  "wis": 14,
+  "cha": 7,
+  "passive": 14,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception relying on smell."
+   },
+   {
+    "n": "Pounce",
+    "t": "If moves 20+ ft toward target and hits with Claws, target DC 12 Str or knocked prone; bonus Bite attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d6+2 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+4 to hit, 1d4+2 slashing."
+   }
+  ],
+  "note": "Pounce combo highly effective in early combat. 50 ft speed is excellent. Best mobility of CR 1/4 forms."
+ },
+ {
+  "name": "Pteranodon",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "coast",
+   "mountain",
+   "grassland"
+  ],
+  "fly": true,
+  "ac": 13,
+  "hp": 13,
+  "speed": "10 ft, fly 60 ft",
+  "str": 12,
+  "dex": 15,
+  "con": 10,
+  "int": 2,
+  "wis": 9,
+  "cha": 5,
+  "passive": 9,
+  "abilities": [
+   {
+    "n": "Flyby",
+    "t": "No opportunity attacks when flying out of reach."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+3 to hit, 2d4+1 piercing."
+   }
+  ],
+  "note": "Flyby means no opportunity attacks in flight. Fly 60 ft. Requires Druid level 8+. Useful for dive-bombing."
+ },
+ {
+  "name": "Riding Horse",
+  "cr": 0.25,
+  "size": "Large",
+  "terrain": [
+   "grassland",
+   "any"
+  ],
+  "ac": 10,
+  "hp": 13,
+  "speed": "60 ft",
+  "str": 16,
+  "dex": 10,
+  "con": 12,
+  "int": 2,
+  "wis": 11,
+  "cha": 7,
+  "passive": 11,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Hooves",
+    "t": "+5 to hit, 2d4+3 bludgeoning."
+   }
+  ],
+  "note": "60 ft speed — fastest Large form at CR 1/4. Great for overland scouting or quick battlefield repositioning."
+ },
+ {
+  "name": "Wolf",
+  "cr": 0.25,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland",
+   "hill",
+   "arctic"
+  ],
+  "ac": 13,
+  "hp": 11,
+  "speed": "40 ft",
+  "str": 12,
+  "dex": 15,
+  "con": 12,
+  "int": 3,
+  "wis": 12,
+  "cha": 6,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent to target."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 2d4+2 piercing. DC 11 Str or knocked prone."
+   }
+  ],
+  "note": "Pack Tactics + prone-on-hit. Reliable early game form. Synergises strongly with melee party members."
+ },
+ {
+  "name": "Ape",
+  "cr": 0.5,
+  "size": "Medium",
+  "terrain": [
+   "forest"
+  ],
+  "climb": true,
+  "ac": 12,
+  "hp": 19,
+  "speed": "30 ft, climb 30 ft",
+  "str": 16,
+  "dex": 14,
+  "con": 14,
+  "int": 6,
+  "wis": 12,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two Fist attacks."
+   },
+   {
+    "n": "Fist",
+    "t": "+5 to hit, 1d6+3 bludgeoning."
+   },
+   {
+    "n": "Rock",
+    "t": "+5 to hit (20/60), 1d6+3 bludgeoning."
+   }
+  ],
+  "note": "Str 16. Multiattack plus ranged Rock throw. Climb 30 ft. Underrated combat form for CR 1/2."
+ },
+ {
+  "name": "Black Bear",
+  "cr": 0.5,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "swamp",
+   "hill"
+  ],
+  "climb": true,
+  "ac": 11,
+  "hp": 19,
+  "speed": "40 ft, climb 30 ft",
+  "str": 15,
+  "dex": 10,
+  "con": 14,
+  "int": 2,
+  "wis": 12,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two attacks: one Bite and one Claws."
+   },
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d6+2 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+4 to hit, 2d4+2 slashing."
+   }
+  ],
+  "note": "First form with Multiattack accessible at level 4 (CR 1/2 = max CR at druid level 2; level 4 gives max CR 1). Excellent general-purpose combat form at levels 4–5."
+ },
+ {
+  "name": "Crocodile",
+  "cr": 0.5,
+  "size": "Large",
+  "terrain": [
+   "swamp",
+   "coast",
+   "aquatic"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 19,
+  "speed": "20 ft, swim 30 ft",
+  "str": 15,
+  "dex": 10,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Hold Breath",
+    "t": "Can hold breath for 15 minutes."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d10+2 piercing. Target grappled (DC 12 Str); restrained while grappled."
+   }
+  ],
+  "note": "Aquatic grappler. Restrained-while-grappled via bite. Large size. Useful whenever water is involved."
+ },
+ {
+  "name": "Giant Goat",
+  "cr": 0.5,
+  "size": "Large",
+  "terrain": [
+   "mountain",
+   "hill"
+  ],
+  "ac": 11,
+  "hp": 19,
+  "speed": "40 ft",
+  "str": 17,
+  "dex": 11,
+  "con": 12,
+  "int": 3,
+  "wis": 12,
+  "cha": 6,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Horns, target DC 13 Str or knocked prone."
+   },
+   {
+    "n": "Sure-Footed",
+    "t": "Advantage on Str and Dex saves to avoid being knocked prone."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Ram",
+    "t": "+5 to hit, 2d4+3 bludgeoning."
+   }
+  ],
+  "note": "Str 17. Charge prone. Sure-Footed for mountain terrain. Solid mid-early wildshape."
+ },
+ {
+  "name": "Giant Sea Horse",
+  "cr": 0.5,
+  "size": "Large",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 13,
+  "hp": 16,
+  "speed": "0 ft, swim 40 ft",
+  "str": 12,
+  "dex": 15,
+  "con": 11,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Ram, target DC 11 Str or knocked prone."
+   },
+   {
+    "n": "Water Breathing",
+    "t": "Breathes only underwater."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Ram",
+    "t": "+3 to hit, 2d8+1 bludgeoning."
+   }
+  ],
+  "note": "AC 13. Swim 40 ft. Charge prone in water. Large underwater form with reasonable AC."
+ },
+ {
+  "name": "Giant Wasp",
+  "cr": 0.5,
+  "size": "Medium",
+  "terrain": [
+   "forest",
+   "grassland"
+  ],
+  "fly": true,
+  "ac": 12,
+  "hp": 13,
+  "speed": "10 ft, fly 50 ft",
+  "str": 10,
+  "dex": 14,
+  "con": 10,
+  "int": 1,
+  "wis": 10,
+  "cha": 3,
+  "passive": 10,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Sting",
+    "t": "+4 to hit, 1d6+2 piercing + 2d6 poison. DC 11 Con or poisoned and incapacitated for 1 min."
+   }
+  ],
+  "note": "Fly 50 ft. Poison Sting: DC 11 Con or Poisoned AND Incapacitated — one of the best debuffs at this CR. Requires Druid level 8+."
+ },
+ {
+  "name": "Reef Shark",
+  "cr": 0.5,
+  "size": "Medium",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 22,
+  "speed": "0 ft, swim 40 ft",
+  "str": 14,
+  "dex": 13,
+  "con": 13,
+  "int": 1,
+  "wis": 10,
+  "cha": 4,
+  "blindsight": 30,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent to target."
+   },
+   {
+    "n": "Water Breathing",
+    "t": "Breathes only underwater."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d8+2 piercing."
+   }
+  ],
+  "note": "Pack Tactics. Blindsight 30 ft. Solid aquatic combat form with 22 HP. Good in groups."
+ },
+ {
+  "name": "Warhorse",
+  "cr": 0.5,
+  "size": "Large",
+  "terrain": [
+   "grassland",
+   "any"
+  ],
+  "ac": 11,
+  "hp": 19,
+  "speed": "60 ft",
+  "str": 18,
+  "dex": 12,
+  "con": 13,
+  "int": 2,
+  "wis": 12,
+  "cha": 7,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Trampling Charge",
+    "t": "If moves 20+ ft and hits with Hooves, target DC 14 Str or knocked prone; bonus Hooves attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Hooves",
+    "t": "+6 to hit, 2d6+4 bludgeoning."
+   }
+  ],
+  "note": "Str 18. 60 ft speed — fastest form at CR 1/2. Trampling Charge prone plus bonus Hooves. Excellent cavalry-style form."
+ },
+ {
+  "name": "Brown Bear",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "hill",
+   "arctic"
+  ],
+  "climb": true,
+  "ac": 11,
+  "hp": 34,
+  "speed": "40 ft, climb 30 ft",
+  "str": 19,
+  "dex": 10,
+  "con": 16,
+  "int": 2,
+  "wis": 13,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two attacks: one Bite and one Claws."
+   },
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 1d8+4 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+6 to hit, 2d6+4 slashing."
+   }
+  ],
+  "note": "Str 19, Multiattack. Best all-round combat wildshape for levels 6–8. First form really to threaten frontline enemies."
+ },
+ {
+  "name": "Dire Wolf",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "grassland",
+   "arctic",
+   "hill"
+  ],
+  "ac": 14,
+  "hp": 37,
+  "speed": "50 ft",
+  "str": 17,
+  "dex": 15,
+  "con": 15,
+  "int": 3,
+  "wis": 12,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Hearing and Smell",
+    "t": "Advantage on Perception checks."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 2d6+3 piercing. DC 13 Str or knocked prone."
+   }
+  ],
+  "note": "AC 14 and Speed 50 ft. Pack Tactics plus prone-on-hit. Highly effective in a party — one of the best CR 1 forms."
+ },
+ {
+  "name": "Giant Eagle",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "mountain",
+   "grassland",
+   "hill"
+  ],
+  "fly": true,
+  "ac": 13,
+  "hp": 26,
+  "speed": "10 ft, fly 80 ft",
+  "str": 16,
+  "dex": 17,
+  "con": 13,
+  "int": 8,
+  "wis": 14,
+  "cha": 10,
+  "passive": 14,
+  "abilities": [
+   {
+    "n": "Keen Sight",
+    "t": "Advantage on Perception checks relying on sight."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two attacks: one Beak and one Talons."
+   },
+   {
+    "n": "Beak",
+    "t": "+5 to hit, 1d6+3 piercing."
+   },
+   {
+    "n": "Talons",
+    "t": "+5 to hit, 2d6+3 slashing."
+   }
+  ],
+  "note": "Fly 80 ft — exceptional speed. Multiattack. Requires Druid level 8+. One of the premier flying forms."
+ },
+ {
+  "name": "Giant Hyena",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "desert",
+   "grassland"
+  ],
+  "ac": 12,
+  "hp": 45,
+  "speed": "50 ft",
+  "str": 16,
+  "dex": 14,
+  "con": 14,
+  "int": 2,
+  "wis": 10,
+  "cha": 7,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Rampage",
+    "t": "When reduces a creature to 0 HP with a melee attack on its turn, moves up to half its speed and makes a Bite as a bonus action."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 2d6+3 piercing."
+   }
+  ],
+  "note": "Most HP of any CR 1 beast (45). Rampage bonus Bite — excellent action economy when enemies are dropping."
+ },
+ {
+  "name": "Giant Spider",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "underdark",
+   "swamp"
+  ],
+  "climb": true,
+  "ac": 14,
+  "hp": 26,
+  "speed": "30 ft, climb 30 ft",
+  "str": 14,
+  "dex": 16,
+  "con": 12,
+  "int": 2,
+  "wis": 11,
+  "cha": 4,
+  "darkvision": 60,
+  "blindsight": 10,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Spider Climb",
+    "t": "Climb difficult surfaces including ceilings."
+   },
+   {
+    "n": "Web Sense",
+    "t": "Knows location of web-touching creatures."
+   },
+   {
+    "n": "Web Walker",
+    "t": "Movement unaffected by webs."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1d8+3 piercing + 2d8 poison. DC 11 Con or poisoned for 1 hr and paralyzed while poisoned."
+   },
+   {
+    "n": "Web (Recharge 5-6)",
+    "t": "+5 to hit (30/60 ft), restrained until DC 12 Str check (action)."
+   }
+  ],
+  "note": "AC 14, darkvision 60 ft, blindsight 10 ft, Spider Climb. Paralysis-poison and Web are exceptional utility. Strong choice at Druid level 6+."
+ },
+ {
+  "name": "Giant Toad",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "swamp",
+   "grassland",
+   "coast"
+  ],
+  "swim": true,
+  "ac": 11,
+  "hp": 39,
+  "speed": "20 ft, swim 40 ft",
+  "str": 15,
+  "dex": 13,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 3,
+  "darkvision": 30,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Amphibious",
+    "t": "Can breathe air and water."
+   },
+   {
+    "n": "Standing Leap",
+    "t": "Long jump up to 20 ft, high jump up to 10 ft."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+4 to hit, 1d10+2 piercing + 1d10 poison. Swallowed if Huge or smaller: DC 13 Str or restrained, blinded, 3d6 acid/turn."
+   },
+   {
+    "n": "Swallow",
+    "t": "Used after hitting with Bite on grappled target."
+   }
+  ],
+  "note": "39 HP. Amphibious, swim 40 ft. Swallow (restrain + blinded + acid damage) on grappled creatures is uniquely powerful."
+ },
+ {
+  "name": "Giant Vulture",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "desert",
+   "grassland",
+   "mountain"
+  ],
+  "fly": true,
+  "ac": 10,
+  "hp": 22,
+  "speed": "10 ft, fly 60 ft",
+  "str": 15,
+  "dex": 10,
+  "con": 15,
+  "int": 6,
+  "wis": 12,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Sight and Smell",
+    "t": "Advantage on Perception checks."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two attacks: one Beak and one Talons."
+   },
+   {
+    "n": "Beak",
+    "t": "+4 to hit, 2d6+2 piercing."
+   },
+   {
+    "n": "Talons",
+    "t": "+4 to hit, 2d6+2 slashing."
+   }
+  ],
+  "note": "Fly 60 ft, Multiattack, Pack Tactics. Passive Perception 13. Requires level 8+. Solid aerial attacker in a group."
+ },
+ {
+  "name": "Lion",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "grassland",
+   "desert"
+  ],
+  "ac": 12,
+  "hp": 26,
+  "speed": "50 ft",
+  "str": 17,
+  "dex": 15,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 8,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   },
+   {
+    "n": "Pack Tactics",
+    "t": "Advantage on attacks if ally is adjacent."
+   },
+   {
+    "n": "Pounce",
+    "t": "If moves 20+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack."
+   },
+   {
+    "n": "Running Leap",
+    "t": "Running long jump up to 25 ft."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1d8+3 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+5 to hit, 1d6+3 slashing."
+   }
+  ],
+  "note": "Pack Tactics + Pounce prone + bonus Bite. Str 17, 50 ft speed. One of the best-rounded CR 1 combat forms."
+ },
+ {
+  "name": "Giant Octopus",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "aquatic",
+   "coast",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 11,
+  "hp": 52,
+  "speed": "10 ft, swim 60 ft",
+  "str": 17,
+  "dex": 13,
+  "con": 13,
+  "int": 4,
+  "wis": 10,
+  "cha": 4,
+  "darkvision": 60,
+  "passive": 12,
+  "abilities": [
+   {
+    "n": "Hold Breath",
+    "t": "Out of water for up to 1 hour."
+   },
+   {
+    "n": "Underwater Camouflage",
+    "t": "Advantage on Stealth checks in water."
+   },
+   {
+    "n": "Water Breathing",
+    "t": "Breathes only underwater."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Tentacles",
+    "t": "+5 to hit, 2d6+3 bludgeoning. Grappled (DC 16) and restrained until grapple ends."
+   },
+   {
+    "n": "Ink Cloud (Recharge 6)",
+    "t": "20 ft radius heavily obscured cloud for 1 minute."
+   }
+  ],
+  "note": "52 HP — highest HP of any CR 1 beast. DC 16 Restrain grapple. Ink Cloud utility. Best overall aquatic form."
+ },
+ {
+  "name": "Tiger",
+  "cr": 1,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "grassland",
+   "swamp"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 37,
+  "speed": "40 ft",
+  "str": 17,
+  "dex": 15,
+  "con": 14,
+  "int": 3,
+  "wis": 12,
+  "cha": 8,
+  "darkvision": 60,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   },
+   {
+    "n": "Pounce",
+    "t": "If moves 20+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+5 to hit, 1d10+3 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+5 to hit, 1d8+3 slashing."
+   }
+  ],
+  "note": "Darkvision 60 ft. Pounce prone + bonus Bite. 37 HP. Str 17. Strong in forest/grassland. Can swim."
+ },
+ {
+  "name": "Allosaurus",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "grassland",
+   "forest"
+  ],
+  "ac": 13,
+  "hp": 51,
+  "speed": "60 ft",
+  "str": 19,
+  "dex": 13,
+  "con": 17,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Pounce",
+    "t": "If moves 30+ ft and hits with Claws, target DC 13 Str or knocked prone; bonus Bite attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 2d8+4 piercing."
+   },
+   {
+    "n": "Claw",
+    "t": "+6 to hit, 1d8+4 slashing."
+   }
+  ],
+  "note": "60 ft speed — fastest Large form. Str 19, Pounce combo. Excellent combat form for level 6+ druids."
+ },
+ {
+  "name": "Aurochs",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "grassland",
+   "hill"
+  ],
+  "ac": 11,
+  "hp": 38,
+  "speed": "50 ft",
+  "str": 20,
+  "dex": 10,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Gore, target DC 14 Str or knocked prone; bonus Gore attack as bonus action."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Gore",
+    "t": "+7 to hit, 2d8+5 piercing."
+   }
+  ],
+  "note": "Str 20. Double Gore potential on charge. 50 ft speed. Excellent striker form for Druid level 6+."
+ },
+ {
+  "name": "Giant Boar",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "forest",
+   "grassland",
+   "swamp"
+  ],
+  "ac": 12,
+  "hp": 42,
+  "speed": "40 ft",
+  "str": 17,
+  "dex": 10,
+  "con": 16,
+  "int": 2,
+  "wis": 7,
+  "cha": 5,
+  "passive": 8,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Tusks, target DC 13 Str or knocked prone."
+   },
+   {
+    "n": "Relentless (Recharge 5-6)",
+    "t": "Drops to 1 HP instead of 0 HP once."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Tusks",
+    "t": "+5 to hit, 2d6+3 slashing."
+   }
+  ],
+  "note": "Relentless: survives a killing blow at 1 HP (once per recharge). Charge prone. Durable frontliner."
+ },
+ {
+  "name": "Giant Constrictor Snake",
+  "cr": 2,
+  "size": "Huge",
+  "terrain": [
+   "forest",
+   "swamp",
+   "aquatic"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 60,
+  "speed": "30 ft, swim 30 ft",
+  "str": 19,
+  "dex": 14,
+  "con": 12,
+  "int": 1,
+  "wis": 10,
+  "cha": 3,
+  "blindsight": 10,
+  "passive": 12,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 2d6+4 piercing."
+   },
+   {
+    "n": "Constrict",
+    "t": "+6 to hit, 2d8+4 bludgeoning. Grappled (DC 16); restrained while grappled."
+   }
+  ],
+  "note": "Huge size. 60 HP. DC 16 Constrict is very hard to escape. Blindsight 10 ft. Significant tactical footprint from Huge size."
+ },
+ {
+  "name": "Plesiosaurus",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 13,
+  "hp": 68,
+  "speed": "20 ft, swim 40 ft",
+  "str": 18,
+  "dex": 15,
+  "con": 16,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Hold Breath",
+    "t": "Can hold breath for 1 hour."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 2d8+4 piercing."
+   }
+  ],
+  "note": "68 HP — most HP of any CR 2 form. Str 18, AC 13. Holds breath for 1 hour. Excellent sustained aquatic tank."
+ },
+ {
+  "name": "Polar Bear",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "arctic",
+   "coast"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 42,
+  "speed": "40 ft, swim 30 ft",
+  "str": 20,
+  "dex": 10,
+  "con": 16,
+  "int": 2,
+  "wis": 13,
+  "cha": 7,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Keen Smell",
+    "t": "Advantage on Perception checks relying on smell."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "One Bite and one Claws."
+   },
+   {
+    "n": "Bite",
+    "t": "+7 to hit, 1d8+5 piercing."
+   },
+   {
+    "n": "Claws",
+    "t": "+7 to hit, 2d6+5 slashing."
+   }
+  ],
+  "note": "Str 20 — highest of any CR 2 beast. Exceptional grappler. Multiattack. Arctic and aquatic versatility."
+ },
+ {
+  "name": "Rhinoceros",
+  "cr": 2,
+  "size": "Large",
+  "terrain": [
+   "grassland"
+  ],
+  "ac": 11,
+  "hp": 45,
+  "speed": "40 ft",
+  "str": 21,
+  "dex": 8,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 6,
+  "passive": 11,
+  "abilities": [
+   {
+    "n": "Charge",
+    "t": "If moves 20+ ft and hits with Gore, target DC 15 Str or knocked prone."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Gore",
+    "t": "+7 to hit, 2d8+5 bludgeoning."
+   }
+  ],
+  "note": "Str 21 — highest Strength of any CR 2 form. DC 15 prone on Charge. 45 HP. Exceptional grappling capability."
+ },
+ {
+  "name": "Ankylosaurus",
+  "cr": 3,
+  "size": "Huge",
+  "terrain": [
+   "grassland",
+   "forest"
+  ],
+  "ac": 15,
+  "hp": 68,
+  "speed": "30 ft",
+  "str": 19,
+  "dex": 11,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 5,
+  "passive": 11,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Tail",
+    "t": "+7 to hit, 4d6+4 bludgeoning. DC 14 Str or knocked prone."
+   }
+  ],
+  "note": "AC 15 — highest AC of any Wildshape form. Huge size, 68 HP. Tail prone DC 14. Available from Druid level 9."
+ },
+ {
+  "name": "Giant Scorpion",
+  "cr": 3,
+  "size": "Large",
+  "terrain": [
+   "desert",
+   "underdark"
+  ],
+  "burrow": true,
+  "ac": 15,
+  "hp": 52,
+  "speed": "40 ft",
+  "str": 15,
+  "dex": 13,
+  "con": 15,
+  "int": 1,
+  "wis": 9,
+  "cha": 3,
+  "blindsight": 60,
+  "passive": 9,
+  "abilities": [],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "Two Claws and one Sting."
+   },
+   {
+    "n": "Claw",
+    "t": "+4 to hit, 1d8+2 bludgeoning. Grappled (DC 12)."
+   },
+   {
+    "n": "Sting",
+    "t": "+4 to hit, 1d10+2 piercing + 4d10 poison. DC 12 Con or poisoned for 1 hour."
+   }
+  ],
+  "note": "AC 15. Blindsight 60 ft. Triple-attack Multiattack. Grapple + Sting combo. Available Druid level 9."
+ },
+ {
+  "name": "Killer Whale",
+  "cr": 3,
+  "size": "Huge",
+  "terrain": [
+   "aquatic",
+   "underwater"
+  ],
+  "swim": true,
+  "ac": 12,
+  "hp": 90,
+  "speed": "0 ft, swim 60 ft",
+  "str": 19,
+  "dex": 10,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 7,
+  "blindsight": 120,
+  "passive": 13,
+  "abilities": [
+   {
+    "n": "Echolocation",
+    "t": "Blindsight only works while not deafened."
+   },
+   {
+    "n": "Hold Breath",
+    "t": "Can hold breath for 30 minutes."
+   },
+   {
+    "n": "Keen Hearing",
+    "t": "Advantage on Perception checks relying on hearing."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Bite",
+    "t": "+6 to hit, 5d6+4 piercing."
+   }
+  ],
+  "note": "90 HP. Blindsight 120 ft. 5d6+4 damage per bite. The definitive Huge aquatic wildshape form."
+ },
+ {
+  "name": "Elephant",
+  "cr": 4,
+  "size": "Huge",
+  "terrain": [
+   "grassland",
+   "desert"
+  ],
+  "ac": 12,
+  "hp": 76,
+  "speed": "40 ft",
+  "str": 22,
+  "dex": 9,
+  "con": 17,
+  "int": 3,
+  "wis": 11,
+  "cha": 6,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Trampling Charge",
+    "t": "If moves 20+ ft and hits with Tusks, target DC 12 Str or knocked prone; bonus Stomp attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Tusks",
+    "t": "+8 to hit, 3d6+6 piercing."
+   },
+   {
+    "n": "Stomp",
+    "t": "+8 to hit, 3d10+6 bludgeoning (prone targets only)."
+   }
+  ],
+  "note": "Str 22. Stomp deals 3d10+6 vs prone targets. Huge size. Moon Druid level 12+ required."
+ },
+ {
+  "name": "Giant Crocodile",
+  "cr": 5,
+  "size": "Huge",
+  "terrain": [
+   "swamp",
+   "coast",
+   "aquatic"
+  ],
+  "swim": true,
+  "ac": 14,
+  "hp": 114,
+  "speed": "30 ft, swim 50 ft",
+  "str": 21,
+  "dex": 9,
+  "con": 17,
+  "int": 2,
+  "wis": 10,
+  "cha": 7,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Hold Breath",
+    "t": "Can hold breath for 30 minutes."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Multiattack",
+    "t": "One Bite and one Tail."
+   },
+   {
+    "n": "Bite",
+    "t": "+8 to hit, 3d10+5 piercing. Grappled (DC 16); restrained while grappled."
+   },
+   {
+    "n": "Tail",
+    "t": "+8 to hit, 2d8+5 bludgeoning. DC 16 Str or knocked prone. Only vs non-grappled targets."
+   }
+  ],
+  "note": "Huge size, AC 14, 114 HP. DC 16 Restrain grapple plus Tail prone. Moon Druid level 15+. Exceptional aquatic tank and controller."
+ },
+ {
+  "name": "Triceratops",
+  "cr": 5,
+  "size": "Huge",
+  "terrain": [
+   "grassland"
+  ],
+  "ac": 13,
+  "hp": 114,
+  "speed": "50 ft",
+  "str": 22,
+  "dex": 9,
+  "con": 17,
+  "int": 2,
+  "wis": 11,
+  "cha": 5,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Trampling Charge",
+    "t": "If moves 20+ ft and hits with Gore, DC 13 Str or knocked prone; bonus Stomp attack."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Gore",
+    "t": "+9 to hit, 4d8+6 piercing."
+   },
+   {
+    "n": "Stomp",
+    "t": "+9 to hit, 3d10+6 bludgeoning (prone targets only)."
+   }
+  ],
+  "note": "114 HP, Str 22. Trampling Charge prone + bonus Stomp. Moon Druid level 15+. Exceptional tank and damage form."
+ },
+ {
+  "name": "Mammoth",
+  "cr": 6,
+  "size": "Huge",
+  "terrain": [
+   "arctic",
+   "grassland"
+  ],
+  "ac": 13,
+  "hp": 126,
+  "speed": "40 ft",
+  "str": 24,
+  "dex": 9,
+  "con": 21,
+  "int": 3,
+  "wis": 11,
+  "cha": 6,
+  "passive": 10,
+  "abilities": [
+   {
+    "n": "Trampling Charge",
+    "t": "If moves 20+ ft and hits with Gore, DC 18 Str or knocked prone; bonus Stomp."
+   }
+  ],
+  "actions": [
+   {
+    "n": "Gore",
+    "t": "+10 to hit, 4d10+7 piercing."
+   },
+   {
+    "n": "Stomp",
+    "t": "+10 to hit, 4d10+7 bludgeoning (prone targets only)."
+   }
+  ],
+  "note": "Str 24, 126 HP — highest HP Wildshape form. DC 18 prone on Charge. Moon Druid level 18+. The pinnacle of combat wildshape."
+ }
+]
