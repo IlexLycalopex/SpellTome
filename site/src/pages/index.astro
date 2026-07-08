@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthWidget from '@islands/AuthWidget.svelte';
 import { href } from '@lib/paths';
 
 const tools = [
@@ -53,6 +54,10 @@ const systems = [
         <p>{t.desc}</p>
       </a>
     ))}
+  </div>
+
+  <div style="margin-top: 2rem;">
+    <AuthWidget client:idle />
   </div>
 </BaseLayout>
 
