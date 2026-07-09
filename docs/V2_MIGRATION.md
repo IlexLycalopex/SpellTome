@@ -32,19 +32,25 @@ conditions, sheet schema (zod), log template, compendium types and a skin
 - The Sword Coast map jpg moves to the private `campaign-media` bucket at
   cutover.
 
-## Pending user actions (before or at cutover)
+## Live-project status (2026-07-09)
 
-1. **Apply migrations 0005–0011 to the live project** (`edmeogmkquhslpvjelyq`):
-   via the Supabase MCP in an authorized session, the dashboard SQL editor, or
-   `supabase db push`. They are additive; the RLS suite that validates them
-   runs locally: `PGHOST=... supabase/tests/run-local.sh` (needs Postgres 16).
-2. **Switch GitHub Pages to "GitHub Actions"** in repo settings (it currently
+- ✅ Migrations 0005–0012 applied to `edmeogmkquhslpvjelyq` via MCP.
+- ✅ "Storm King's Thunder" campaign row created
+  (`4d01492d-1535-4293-9eab-8feff459ad62`, site owner as GM) and all 17
+  playlog sessions imported as published — verified readable as `anon`.
+- ✅ Security advisors run; `touch_updated_at` search_path pinned (0012).
+  The `chronicle_campaigns` SECURITY DEFINER lint is intentional (narrow
+  3-column public view). `scripts/import-playlogs.mjs` remains for re-runs.
+- ⚠️ Two duplicate "Vault — …" rows exist in `campaigns` (same owner, same
+  day). The one with more data is `b936667e-e18c-40fe-b7c2-36743fa0b4ee`;
+  `815c4868-…` holds only an identical mapMarkers blob. Candidate for
+  deletion after confirming which vault the owner's devices are pinned to.
+
+## Pending user actions
+
+1. **Switch GitHub Pages to "GitHub Actions"** in repo settings (it currently
    builds via the branch/Jekyll path) so `deploy.yml` takes over. The workflow
    preserves the CNAME custom domain.
-3. **Import the play logs** once 0006 is applied:
-   `node scripts/import-playlogs.mjs --dry-run` to preview, then with
-   `SUPABASE_SERVICE_ROLE_KEY` and `--campaign-id <SKT campaign uuid>`.
-   Idempotent (upsert on campaign_id+session_number).
 
 ## Remaining work (v2 follow-ups)
 
