@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CombatTracker from '@islands/CombatTracker.svelte';
+---
+
+<BaseLayout title="Combat Tracker" skin="auto" current="/tools/combat">
+  <h1 class="page-title">Combat Tracker</h1>
+  <p class="page-sub">
+    Initiative, hit points and conditions for any of the five systems — shared live with everyone
+    signed into the group's vault.
+  </p>
+  <CombatTracker client:load />
+</BaseLayout>
