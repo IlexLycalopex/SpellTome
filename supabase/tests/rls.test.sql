@@ -246,4 +246,32 @@ begin
 end $$;
 rollback;
 
+-- ============================================================
+-- chronicle_campaigns view: anon sees campaigns with published logs only
+-- ============================================================
+begin;
+call test_as(null, null);
+do $$
+declare n int;
+begin
+  select count(*) into n from chronicle_campaigns where name = 'SKT Test';
+  if n <> 1 then raise exception 'anon cannot see chronicle campaign (saw %)', n; end if;
+end $$;
+rollback;
+
+begin;
+call test_as('00000000-0000-0000-0000-00000000000a', 'gm@example.com');
+insert into campaigns (name, ruleset_id) values ('No Published Logs', 'vaesen');
+commit;
+
+begin;
+call test_as(null, null);
+do $$
+declare n int;
+begin
+  select count(*) into n from chronicle_campaigns where name = 'No Published Logs';
+  if n <> 0 then raise exception 'campaign without published logs leaked to anon'; end if;
+end $$;
+rollback;
+
 select 'ALL RLS TESTS PASSED' as result;

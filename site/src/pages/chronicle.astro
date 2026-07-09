@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChronicleReader from '@islands/ChronicleReader.svelte';
+import { href } from '@lib/paths';
+---
+
+<BaseLayout title="Chronicle" skin="auto" current="/chronicle">
+  <h1 class="page-title">Campaign Chronicle</h1>
+  <p class="page-sub">
+    The table's session logs, published for everyone to read.
+    GMs can <a href={href('/campaigns/logs')}>write and edit sessions</a> after signing in.
+  </p>
+  <ChronicleReader client:load />
+</BaseLayout>
