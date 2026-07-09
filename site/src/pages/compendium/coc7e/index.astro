@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GatedCompendium from '@islands/GatedCompendium.svelte';
+---
+
+<BaseLayout title="Call of Cthulhu Compendium" skin="coc7e" current="/compendium/coc7e">
+  <h1 class="page-title">Call of Cthulhu Compendium</h1>
+  <p class="page-sub">Entities, tomes, spells and persons of interest.</p>
+  <GatedCompendium client:load rulesetId="coc7e" />
+</BaseLayout>

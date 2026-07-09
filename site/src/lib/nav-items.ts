@@ -33,6 +33,15 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    label: 'Compendium — Other Systems',
+    items: [
+      { label: 'Daggerheart', path: '/compendium/daggerheart' },
+      { label: 'Vaesen', path: '/compendium/vaesen' },
+      { label: 'Tales from the Loop', path: '/compendium/tftl' },
+      { label: 'Call of Cthulhu', path: '/compendium/coc7e' },
+    ],
+  },
+  {
     label: 'Table Tools',
     items: [
       { label: 'Dice Roller', path: '/tools/dice' },
@@ -46,8 +55,10 @@ export const NAV_SECTIONS: NavSection[] = [
     label: 'Campaigns',
     items: [
       { label: 'Campaigns', path: '/campaigns' },
+      { label: 'Session Log Editor', path: '/campaigns/logs' },
       { label: 'Party & Characters', path: '/party' },
       { label: 'Campaign Map', path: '/map' },
+      { label: 'Content Admin', path: '/admin/content' },
     ],
   },
 ];

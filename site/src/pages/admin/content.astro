@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminContentEditor from '@islands/AdminContentEditor.svelte';
+---
+
+<BaseLayout title="Content Admin" skin="auto" current="/admin/content">
+  <h1 class="page-title">Content Admin</h1>
+  <p class="page-sub">
+    Curate the gated compendium: pick a system and entry type, add entries one at a time or bulk-import
+    JSON from your own notes. Gated content is only ever served to signed-in members — never bundled
+    into the public site.
+  </p>
+  <AdminContentEditor client:load />
+</BaseLayout>

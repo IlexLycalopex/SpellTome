@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GatedCompendium from '@islands/GatedCompendium.svelte';
+---
+
+<BaseLayout title="Daggerheart Compendium" skin="daggerheart" current="/compendium/daggerheart">
+  <h1 class="page-title">Daggerheart Compendium</h1>
+  <p class="page-sub">Domain cards, adversaries, equipment and environments.</p>
+  <GatedCompendium client:load rulesetId="daggerheart" />
+</BaseLayout>
