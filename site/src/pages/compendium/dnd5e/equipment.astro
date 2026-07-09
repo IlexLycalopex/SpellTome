@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardSearch from '@components/CardSearch.astro';
+
+const equipment = await getCollection('equipment');
+const CATS = ['weapons', 'armor', 'gear', 'tools', 'packs'];
+const label = (c: string) => c.charAt(0).toUpperCase() + c.slice(1);
+---
+
+<BaseLayout title="Equipment — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/equipment">
+  <h1 class="page-title">Equipment &amp; Gear</h1>
+  <p class="page-sub">{equipment.length} entries of mundane kit — weapons, armor, gear, tools and packs.</p>
+
+  <CardSearch target="equipment" placeholder="Search equipment…" facets={CATS.map(label)} />
+
+  <div class="bento" id="equipment">
+    {equipment.map(({ data: e }) => (
+      <article class="card eq" data-name={e.name} data-facet={label(e.cat)}>
+        <h3>{e.name}</h3>
+        <p class="muted line">
+          <span class="chip">{label(e.cat)}</span>
+          {'sub' in e && typeof e.sub === 'string' && <span>{e.sub}</span>}
+          {'cost' in e && typeof e.cost === 'string' && <span class="num">{e.cost}</span>}
+          {'weight' in e && (typeof e.weight === 'string' || typeof e.weight === 'number') && <span class="num">{e.weight} lb</span>}
+        </p>
+        {'dmg' in e && typeof e.dmg === 'string' && <p class="stat"><b>Damage.</b> {e.dmg}</p>}
+        {'props' in e && Array.isArray(e.props) && e.props.length > 0 && <p class="stat"><b>Properties.</b> {(e.props as string[]).join(', ')}</p>}
+        {'ac' in e && (typeof e.ac === 'string' || typeof e.ac === 'number') && <p class="stat"><b>AC.</b> {e.ac}</p>}
+        {'desc' in e && typeof e.desc === 'string' && <p class="stat">{e.desc}</p>}
+        {'contents' in e && Array.isArray(e.contents) && <p class="stat muted">{(e.contents as string[]).join(', ')}</p>}
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .line { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; font-size: .8rem; }
+  .stat { font-size: .83rem; margin: 0; }
+</style>

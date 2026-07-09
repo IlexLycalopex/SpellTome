@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MonsterBrowser from '@islands/MonsterBrowser.svelte';
+---
+
+<BaseLayout title="Monsters — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/monsters">
+  <h1 class="page-title">Monster Codex</h1>
+  <p class="page-sub">251 stat blocks — filter by type, cap by challenge rating, expand for the full block.</p>
+  <MonsterBrowser client:load />
+</BaseLayout>

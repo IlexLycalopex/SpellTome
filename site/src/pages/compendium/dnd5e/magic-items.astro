@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardSearch from '@components/CardSearch.astro';
+
+const items = await getCollection('magicItems');
+const RARITY_ORDER = ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Varies'];
+const RARITY_COLORS: Record<string, string> = {
+  Common: '#8a8f9a', Uncommon: '#57ab5a', Rare: '#539bf5',
+  'Very Rare': '#8a5ee0', Legendary: '#d9a13b', Varies: '#9aa0ad',
+};
+const sorted = items.toSorted(
+  (a, b) => RARITY_ORDER.indexOf(a.data.rarity) - RARITY_ORDER.indexOf(b.data.rarity) || a.data.name.localeCompare(b.data.name),
+);
+---
+
+<BaseLayout title="Magic Items — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/magic-items">
+  <h1 class="page-title">Magic Item Compendium</h1>
+  <p class="page-sub">{items.length} items — filter by rarity, search by name.</p>
+
+  <CardSearch target="items" placeholder="Search items…" facets={RARITY_ORDER} />
+
+  <div class="bento" id="items">
+    {sorted.map(({ data: it }) => (
+      <article class="card item" data-name={it.name} data-facet={it.rarity} style={`--rarity:${RARITY_COLORS[it.rarity] ?? 'var(--accent)'}`}>
+        <h3>{it.name}</h3>
+        <p class="muted line">
+          <span class="chip" style="border-color:var(--rarity);color:var(--rarity)">{it.rarity}</span>
+          {it.type}
+          {it.attune && <span class="chip">Attunement{typeof it.attune === 'string' ? ` — ${it.attune}` : ''}</span>}
+        </p>
+        <p class="desc">{it.desc}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .item { border-top: 3px solid var(--rarity); }
+  .line { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; font-size: .8rem; }
+  .desc { font-size: .85rem; }
+</style>

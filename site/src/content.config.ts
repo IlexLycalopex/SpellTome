@@ -46,7 +46,7 @@ const monsterSchema = z.object({
   actions: z.array(z.object({ n: z.string(), t: z.string() })).optional(),
 });
 
-const named = (shape: z.ZodRawShape) => z.object({ name: z.string(), ...shape }).passthrough();
+const named = <T extends z.ZodRawShape>(shape: T) => z.object({ name: z.string(), ...shape }).passthrough();
 
 export const collections = {
   spells2014: defineCollection({

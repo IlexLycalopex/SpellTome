@@ -1,0 +1,63 @@
+---
+/**
+ * Lightweight client-side search + facet filtering over statically rendered
+ * cards. Cards must carry data-name (search text) and optionally data-facet;
+ * facet chips carry data-facet-value. Scoped by container id so multiple
+ * decks can coexist on one page.
+ */
+interface Props {
+  target: string; // id of the card container
+  placeholder?: string;
+  facets?: string[];
+}
+const { target, placeholder = 'Search…', facets = [] } = Astro.props;
+---
+
+<div class="card deck-filters" data-target={target}>
+  <input type="search" placeholder={placeholder} aria-label={placeholder} data-role="search" />
+  {facets.length > 0 && (
+    <div class="chip-row">
+      {facets.map((f) => (
+        <button class="chip" data-facet-value={f}>
+          {f}
+        </button>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .deck-filters { gap: .6rem; margin-bottom: 1.2rem; }
+  .chip { cursor: pointer; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.deck-filters').forEach((bar) => {
+    const container = document.getElementById(bar.dataset.target!);
+    if (!container) return;
+    const cards = [...container.querySelectorAll<HTMLElement>('[data-name]')];
+    const input = bar.querySelector<HTMLInputElement>('[data-role="search"]')!;
+    const chips = [...bar.querySelectorAll<HTMLButtonElement>('[data-facet-value]')];
+    const active = new Set<string>();
+
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      for (const card of cards) {
+        const nameHit = !q || card.dataset.name!.toLowerCase().includes(q);
+        const facetHit = !active.size || (card.dataset.facet !== undefined && active.has(card.dataset.facet));
+        card.style.display = nameHit && facetHit ? '' : 'none';
+      }
+    };
+
+    input.addEventListener('input', apply);
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        const v = chip.dataset.facetValue!;
+        if (active.has(v)) active.delete(v);
+        else active.add(v);
+        chip.classList.toggle('on', active.has(v));
+        apply();
+      });
+    }
+  });
+</script>

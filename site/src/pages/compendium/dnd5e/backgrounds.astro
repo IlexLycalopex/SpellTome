@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardSearch from '@components/CardSearch.astro';
+
+const backgrounds = await getCollection('backgrounds');
+const races = await getCollection('races');
+---
+
+<BaseLayout title="Backgrounds & Races — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/backgrounds">
+  <h1 class="page-title">Backgrounds &amp; Races</h1>
+  <p class="page-sub">{backgrounds.length} backgrounds and {races.length} race variants from the Player's Handbook.</p>
+
+  <h2>Backgrounds</h2>
+  <CardSearch target="backgrounds" placeholder="Search backgrounds…" />
+  <div class="bento" id="backgrounds">
+    {backgrounds.map(({ data: b }) => (
+      <article class="card" data-name={b.name}>
+        <h3>{b.name}</h3>
+        <p class="line muted">
+          Skills: {Array.isArray(b.skills) ? b.skills.join(', ') : b.skills}
+        </p>
+        {'tools' in b && Array.isArray(b.tools) && b.tools.length > 0 && (
+          <p class="line muted">Tools: {(b.tools as string[]).join(', ')}</p>
+        )}
+        {'languages' in b && typeof b.languages === 'string' && b.languages && (
+          <p class="line muted">Languages: {b.languages}</p>
+        )}
+        {typeof b.feature === 'object' && b.feature !== null ? (
+          <p><b>{(b.feature as { name: string }).name}.</b> {(b.feature as { desc: string }).desc}</p>
+        ) : (
+          <p>{String(b.feature)}</p>
+        )}
+        {'equipment' in b && typeof b.equipment === 'string' && <p class="muted eqp">{b.equipment}</p>}
+      </article>
+    ))}
+  </div>
+
+  <h2 style="margin-top:2rem;">Races</h2>
+  <CardSearch target="races" placeholder="Search races…" />
+  <div class="bento" id="races">
+    {races.map(({ data: r }) => (
+      <article class="card" data-name={r.name}>
+        <h3>{r.name}</h3>
+        <p class="line muted">
+          {'asi' in r && typeof r.asi === 'string' ? r.asi : ''} · {r.size} · {r.speed}
+          {'darkvision' in r && typeof r.darkvision === 'string' && r.darkvision ? ` · Darkvision ${r.darkvision}` : ''}
+        </p>
+        {'traits' in r && Array.isArray(r.traits) &&
+          (r.traits as { n: string; d: string }[]).map((t) => (
+            <p class="trait"><b>{t.n}.</b> {t.d}</p>
+          ))}
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h2 { font-size: 1.15rem; margin-bottom: .8rem; }
+  .line { font-size: .8rem; margin: 0; }
+  .trait { font-size: .83rem; margin: 0; }
+  .eqp { font-size: .78rem; }
+</style>
