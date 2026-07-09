@@ -16,5 +16,15 @@
  "tables/npc-traits.json": 30,
  "tables/loot-individual.json": 4,
  "tables/loot-hoard.json": 4,
+ "tables/loot-gems.json": 6,
+ "tables/loot-art.json": 5,
+ "tables/loot-magic-rarity.json": 9,
+ "tables/npc-mannerisms.json": 25,
+ "tables/npc-bonds.json": 20,
+ "tables/npc-flaws.json": 20,
+ "tables/npc-voices.json": 15,
+ "tables/npc-hooks.json": 20,
+ "tables/npc-appearance-build.json": 12,
+ "tables/npc-appearance-detail.json": 18,
  "level-guide.json": 12
 }

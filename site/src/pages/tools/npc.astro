@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NpcGenerator from '@islands/NpcGenerator.svelte';
+---
+
+<BaseLayout title="NPC Generator" skin="dnd5e" current="/tools/npc">
+  <h1 class="page-title">NPC Generator</h1>
+  <p class="page-sub">A whole person in one click — name, look, voice, bond, flaw and a plot hook.</p>
+  <NpcGenerator client:load />
+</BaseLayout>

@@ -43,6 +43,16 @@ const TARGETS = [
   ['npc-generator.html', 'TRAITS', 'tables/npc-traits.json'],
   ['loot-generator.html', 'INDIVIDUAL_TABLES', 'tables/loot-individual.json'],
   ['loot-generator.html', 'HOARD_TABLES', 'tables/loot-hoard.json'],
+  ['loot-generator.html', 'GEMS', 'tables/loot-gems.json'],
+  ['loot-generator.html', 'ART', 'tables/loot-art.json'],
+  ['loot-generator.html', 'TABLE_RARITY', 'tables/loot-magic-rarity.json'],
+  ['npc-generator.html', 'MANNERISMS', 'tables/npc-mannerisms.json'],
+  ['npc-generator.html', 'BONDS', 'tables/npc-bonds.json'],
+  ['npc-generator.html', 'FLAWS', 'tables/npc-flaws.json'],
+  ['npc-generator.html', 'VOICES', 'tables/npc-voices.json'],
+  ['npc-generator.html', 'HOOKS', 'tables/npc-hooks.json'],
+  ['npc-generator.html', 'APPEARANCE_BUILD', 'tables/npc-appearance-build.json'],
+  ['npc-generator.html', 'APPEARANCE_DETAIL', 'tables/npc-appearance-detail.json'],
   ['level-up-guide.html', 'LEVEL_GUIDE', 'level-guide.json'],
 ];
 
