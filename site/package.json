@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/svelte": "^7.0.0",
+    "@supabase/supabase-js": "^2.110.2",
     "astro": "^5.0.0",
     "dompurify": "^3.4.11",
     "marked": "^18.0.5",
