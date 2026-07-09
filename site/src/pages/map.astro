@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CampaignMap from '@islands/CampaignMap.svelte';
+---
+
+<BaseLayout title="Campaign Map" skin="auto" current="/map">
+  <h1 class="page-title">Campaign Map</h1>
+  <p class="page-sub">Pan, zoom and pin the places your campaign has touched — markers sync per campaign.</p>
+  <CampaignMap client:load />
+</BaseLayout>
