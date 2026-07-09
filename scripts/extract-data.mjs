@@ -43,6 +43,7 @@ const TARGETS = [
   ['npc-generator.html', 'TRAITS', 'tables/npc-traits.json'],
   ['loot-generator.html', 'INDIVIDUAL_TABLES', 'tables/loot-individual.json'],
   ['loot-generator.html', 'HOARD_TABLES', 'tables/loot-hoard.json'],
+  ['level-up-guide.html', 'LEVEL_GUIDE', 'level-guide.json'],
 ];
 
 /**
