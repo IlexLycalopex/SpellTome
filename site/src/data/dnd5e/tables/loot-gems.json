@@ -1,0 +1,58 @@
+{
+ "10": [
+  "Azurite",
+  "Banded agate",
+  "Blue quartz",
+  "Eye agate",
+  "Hematite",
+  "Lapis lazuli",
+  "Obsidian",
+  "Tiger eye"
+ ],
+ "50": [
+  "Bloodstone",
+  "Carnelian",
+  "Chalcedony",
+  "Citrine",
+  "Jasper",
+  "Moonstone",
+  "Onyx",
+  "Star rose quartz"
+ ],
+ "100": [
+  "Amber",
+  "Amethyst",
+  "Chrysoberyl",
+  "Coral",
+  "Garnet",
+  "Jade",
+  "Pearl",
+  "Tourmaline"
+ ],
+ "500": [
+  "Alexandrite",
+  "Aquamarine",
+  "Black pearl",
+  "Blue spinel",
+  "Peridot",
+  "Topaz"
+ ],
+ "1000": [
+  "Black opal",
+  "Blue sapphire",
+  "Emerald",
+  "Fire opal",
+  "Opal",
+  "Star ruby",
+  "Star sapphire",
+  "Yellow sapphire"
+ ],
+ "5000": [
+  "Black sapphire",
+  "Diamond",
+  "Jacinth",
+  "Ruby",
+  "Flawless emerald",
+  "Imperial jade"
+ ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "spelltome-site",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/svelte": "^7.0.0",
+    "astro": "^5.0.0",
+    "dompurify": "^3.4.11",
+    "marked": "^18.0.5",
+    "svelte": "^5.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

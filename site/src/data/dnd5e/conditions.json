@@ -1,0 +1,236 @@
+[
+ {
+  "id": "blinded",
+  "name": "Blinded",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94\"/><path d=\"M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19\"/><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"/></svg>",
+  "type": "condition",
+  "color": "#5a5a7a",
+  "effects": [
+   "A blinded creature cannot see and automatically fails any ability check that requires sight.",
+   "Attack rolls against the creature have advantage.",
+   "The creature's attack rolls have disadvantage."
+  ],
+  "notes": "Common sources: Darkness spell, Blindness/Deafness, certain traps, and the Blinded condition from some monster abilities. Darkvision does not help in magical darkness.",
+  "flavor": "Sight stolen away — the world collapses to sound and touch."
+ },
+ {
+  "id": "charmed",
+  "name": "Charmed",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"/></svg>",
+  "type": "condition",
+  "color": "#c4306a",
+  "effects": [
+   "A charmed creature cannot attack the charmer or target them with harmful abilities or magical effects.",
+   "The charmer has advantage on any ability check to interact socially with the creature."
+  ],
+  "notes": "The condition ends if the charmer or their companions do anything harmful to the charmed creature. Many charm effects also allow a Wisdom saving throw at the end of each turn to end it early.",
+  "flavor": "The mind bends toward another will — not compelled, but deeply persuaded."
+ },
+ {
+  "id": "deafened",
+  "name": "Deafened",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M11 5a4 4 0 0 1 4 4c0 2.21-1.79 4-4 4H9\"/><path d=\"M9 13v2a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3v-2\"/><line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"/></svg>",
+  "type": "condition",
+  "color": "#7a5a2a",
+  "effects": [
+   "A deafened creature cannot hear and automatically fails any ability check that requires hearing."
+  ],
+  "notes": "Rarely debilitating alone, but combined with Blinded it severely isolates the creature. Deafened creatures can still cast spells with a Verbal (V) component — the V component is the act of speaking the words, not a requirement to hear them.",
+  "flavor": "Silence falls — not peace, but isolation from the world's warnings."
+ },
+ {
+  "id": "exhaustion",
+  "name": "Exhaustion",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z\"/><path d=\"M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z\"/><path d=\"M9 18h6\"/></svg>",
+  "type": "special",
+  "color": "#8a2a2a",
+  "isExhaustion": true,
+  "levels": [
+   {
+    "level": 1,
+    "effect": "Disadvantage on Ability Checks"
+   },
+   {
+    "level": 2,
+    "effect": "Speed halved"
+   },
+   {
+    "level": 3,
+    "effect": "Disadvantage on Attack Rolls and Saving Throws"
+   },
+   {
+    "level": 4,
+    "effect": "Hit point maximum halved"
+   },
+   {
+    "level": 5,
+    "effect": "Speed reduced to 0"
+   },
+   {
+    "level": 6,
+    "effect": "Death"
+   }
+  ],
+  "notes": "Effects are cumulative — a level 3 creature suffers all effects of levels 1, 2, and 3 simultaneously. Finishing a long rest reduces exhaustion by 1 level, provided the creature has eaten and drunk. Certain spells (Greater Restoration) can remove a level. This is the 2014/SRD rule set.",
+  "flavor": "The body fails by degrees — each level brings the grave one step closer."
+ },
+ {
+  "id": "frightened",
+  "name": "Frightened",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>",
+  "type": "condition",
+  "color": "#6a2a8a",
+  "effects": [
+   "A frightened creature has disadvantage on Ability Checks and Attack Rolls while the source of its fear is within line of sight.",
+   "The creature cannot willingly move closer to the source of its fear."
+  ],
+  "notes": "The creature can still act, cast spells, and use abilities. Moving away or using cover to break line of sight removes the disadvantage penalties, but does not end the Frightened condition itself unless the ability says otherwise.",
+  "flavor": "Fear roots the feet and clouds the mind — the prey instinct overrides all reason."
+ },
+ {
+  "id": "grappled",
+  "name": "Grappled",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M18 11V8a2 2 0 0 0-4 0v3\"/><path d=\"M14 10V7a2 2 0 0 0-4 0v4\"/><path d=\"M10 10.5V6a2 2 0 0 0-4 0v8\"/><path d=\"M6 14c0 0-1 0-1 2.5C5 19 7 21 10 21h3c3.5 0 5-2 5-5v-3a2 2 0 0 0-4 0v1\"/></svg>",
+  "type": "condition",
+  "color": "#4a6a2a",
+  "effects": [
+   "A grappled creature's speed becomes 0, and it can't benefit from any bonus to its speed.",
+   "The condition ends if the grappler is Incapacitated.",
+   "The condition also ends if an effect removes the grappled creature from the reach of the grappler or the grapple is broken."
+  ],
+  "notes": "Escaping a grapple requires an action and a successful Athletics or Acrobatics check contested by the grappler's Athletics. The grappler can drag or carry the grappled creature at half their own speed. Grappling does not prevent the grappled creature from attacking or casting spells.",
+  "flavor": "Held fast — strength against strength, will against will."
+ },
+ {
+  "id": "incapacitated",
+  "name": "Incapacitated",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><circle cx=\"12\" cy=\"5\" r=\"2\"/><path d=\"M12 7v5\"/><path d=\"M9 12l-3 6\"/><path d=\"M15 12l3 6\"/><path d=\"M9 14h6\"/></svg>",
+  "type": "condition",
+  "color": "#3a6a8a",
+  "effects": [
+   "An incapacitated creature cannot take Actions or Reactions."
+  ],
+  "notes": "Movement and free object interactions are still possible unless another condition removes them. Incapacitated is the base layer shared by Paralyzed, Petrified, Stunned, and Unconscious — those conditions each impose Incapacitated as part of their effect.",
+  "flavor": "Action stripped away — a body present, a will absent."
+ },
+ {
+  "id": "invisible",
+  "name": "Invisible",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx=\"12\" cy=\"12\" r=\"3\" stroke-dasharray=\"2 2\"/></svg>",
+  "type": "condition",
+  "color": "#2a7a6a",
+  "effects": [
+   "An invisible creature is impossible to see without the aid of magic or a special sense.",
+   "For the purpose of hiding, the creature is heavily obscured.",
+   "The creature's location can be detected by noise it makes or tracks it leaves.",
+   "Attack rolls against the creature have disadvantage.",
+   "The creature's attack rolls have advantage."
+  ],
+  "notes": "Unlike Blinded, Invisible does not impose automatic ability check failure — it only affects sight-based detection. A creature can still be located by sound. The See Invisibility spell and Truesight negate all Invisible benefits. Attacking or casting a harmful spell ends Invisible if the source was a spell like Greater Invisibility does not apply this rule.",
+  "flavor": "Present but unseen — the greatest of tactical advantages."
+ },
+ {
+  "id": "paralyzed",
+  "name": "Paralyzed",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M13 10V3L4 14h7v7l9-11h-7z\"/></svg>",
+  "type": "condition",
+  "color": "#7a4a2a",
+  "effects": [
+   "A paralyzed creature is Incapacitated and cannot move or speak.",
+   "The creature automatically fails Strength and Dexterity saving throws.",
+   "Attack rolls against the creature have advantage.",
+   "Any attack that hits the creature is a critical hit if the attacker is within 5 feet of it."
+  ],
+  "notes": "One of the most debilitating conditions in the game. The within-5-feet auto-crit rule makes melee devastating against paralyzed creatures. Most common sources: Hold Person, Hold Monster, and certain monster abilities like a Mind Flayer's Mind Blast.",
+  "flavor": "The body becomes a prison — the mind screams but the flesh will not answer."
+ },
+ {
+  "id": "petrified",
+  "name": "Petrified",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><polygon points=\"12 2 19 21 12 17 5 21 12 2\"/><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"13\"/></svg>",
+  "type": "condition",
+  "color": "#5a6a4a",
+  "effects": [
+   "A petrified creature is transformed, along with any nonmagical objects it is wearing or carrying, into a solid inanimate substance (usually stone).",
+   "Its weight increases by a factor of ten, and it ceases aging.",
+   "The creature is Incapacitated, cannot move or speak, and is unaware of its surroundings.",
+   "Attack rolls against the creature have advantage.",
+   "The creature automatically fails Strength and Dexterity saving throws.",
+   "The creature has resistance to all damage.",
+   "The creature is immune to poison and disease, though a petrified creature's existing poisons or diseases are suspended, not neutralised."
+  ],
+  "notes": "One of the most comprehensive conditions. The damage resistance makes a petrified creature paradoxically harder to destroy with direct attacks. Sources: Medusa's Petrifying Gaze, Basilisk, Flesh to Stone spell. Removed by Greater Restoration or the Stone to Flesh spell.",
+  "flavor": "Flesh becomes stone — time itself stops for the creature within."
+ },
+ {
+  "id": "poisoned",
+  "name": "Poisoned",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M9 3h6l1 6H8L9 3z\"/><path d=\"M8 9c0 0-3 2-3 6a7 7 0 0 0 14 0c0-4-3-6-3-6\"/></svg>",
+  "type": "condition",
+  "color": "#3a7a3a",
+  "effects": [
+   "A poisoned creature has disadvantage on Attack Rolls and Ability Checks."
+  ],
+  "notes": "Simple but effective — disadvantage on attacks is significant in combat. The Poisoned condition is separate from poison damage; a creature can take poison damage without being Poisoned. Creatures with poison immunity are also immune to the Poisoned condition. Most common save: Constitution.",
+  "flavor": "The venom works its way through blood and bone — clarity dissolves into fog."
+ },
+ {
+  "id": "prone",
+  "name": "Prone",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\"/><path d=\"M6 18V9l6-6 6 6v9\"/><line x1=\"6\" y1=\"12\" x2=\"18\" y2=\"12\"/></svg>",
+  "type": "condition",
+  "color": "#8a6a2a",
+  "effects": [
+   "A prone creature's only movement option is to crawl, unless it stands up and spends half its movement to do so.",
+   "The creature has disadvantage on Attack Rolls.",
+   "An attack roll against the creature has advantage if the attacker is within 5 feet; otherwise, the attack roll has disadvantage."
+  ],
+  "notes": "Standing up does not provoke opportunity attacks. Prone is uniquely double-edged: melee attackers gain advantage but ranged attackers suffer disadvantage. Common sources: failed saves against certain spells (Earthquake, Thunderous Smite), being knocked back, and some monster slam attacks.",
+  "flavor": "Laid low — the ground becomes both sanctuary and trap."
+ },
+ {
+  "id": "restrained",
+  "name": "Restrained",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"/><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"/></svg>",
+  "type": "condition",
+  "color": "#6a4a8a",
+  "effects": [
+   "A restrained creature's speed becomes 0, and it can't benefit from any bonus to its speed.",
+   "Attack rolls against the creature have advantage.",
+   "The creature's attack rolls have disadvantage.",
+   "The creature has disadvantage on Dexterity saving throws."
+  ],
+  "notes": "More punishing than Grappled — the Dexterity save disadvantage stacks badly in most combat situations. Common sources: Web spell, Entangle, Evard's Black Tentacles, and certain monster grapple abilities (e.g. Constrictor Snake, Giant Crab). Restrained creatures can still speak and cast spells.",
+  "flavor": "Bound in place — neither fight nor flight remains."
+ },
+ {
+  "id": "stunned",
+  "name": "Stunned",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"13\" stroke-dasharray=\"1.5 1.5\"/></svg>",
+  "type": "condition",
+  "color": "#3a5a8a",
+  "effects": [
+   "A stunned creature is Incapacitated, cannot move, and can speak only falteringly.",
+   "The creature automatically fails Strength and Dexterity saving throws.",
+   "Attack rolls against the creature have advantage."
+  ],
+  "notes": "Extremely powerful but typically brief (usually one round). The Monk's Stunning Strike is the most common source for players. Unlike Paralyzed, attacks against a stunned creature are not auto-crits at 5 feet. Stunned does not cause the creature to drop concentration automatically — but failing a Con save to maintain it is near-certain.",
+  "flavor": "Overwhelmed — the senses short-circuit and leave only confusion."
+ },
+ {
+  "id": "unconscious",
+  "name": "Unconscious",
+  "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"26\" height=\"26\"><path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\"/></svg>",
+  "type": "condition",
+  "color": "#2a2a5a",
+  "effects": [
+   "An unconscious creature is Incapacitated, cannot move or speak, and is unaware of its surroundings.",
+   "The creature drops whatever it is holding and falls Prone.",
+   "The creature automatically fails Strength and Dexterity saving throws.",
+   "Attack rolls against the creature have advantage.",
+   "Any attack that hits the creature is a critical hit if the attacker is within 5 feet."
+  ],
+  "notes": "A creature at 0 HP that is unconscious makes Death Saving Throws each turn. Any damage taken while at 0 HP causes 1 failed Death Save; a critical hit causes 2 failed saves. Three failures means death. A DC 10 Medicine check or any magical healing stabilises the creature. The creature regains consciousness with 1 or more HP.",
+  "flavor": "Gone from the world — the body remains, the person has left."
+ }
+]

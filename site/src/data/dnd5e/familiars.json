@@ -1,0 +1,318 @@
+[
+ {
+  "name": "Bat",
+  "ac": 12,
+  "hp": 1,
+  "speed": "5 ft, fly 30 ft",
+  "blindsight": 60,
+  "passive": 11,
+  "note": "Blindsight 60 ft lets it perceive in total darkness without light. Cannot use sight, so immune to darkness and invisible creature complications in its range.",
+  "str": 2,
+  "dex": 15,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 4,
+  "traits": [
+   "Blindsight 60 ft",
+   "Echolocation",
+   "Fly 30 ft",
+   "Keen Hearing"
+  ],
+  "use": "Scouting in total or magical darkness. 60 ft blindsight extends your senses into areas you cannot see."
+ },
+ {
+  "name": "Cat",
+  "ac": 12,
+  "hp": 2,
+  "speed": "40 ft, climb 30 ft",
+  "darkvision": 30,
+  "passive": 13,
+  "note": "40 ft movement and Climb 30 ft. Keen Smell advantage. Common and mundane in appearance — ideal for city missions.",
+  "str": 3,
+  "dex": 15,
+  "con": 10,
+  "int": 3,
+  "wis": 12,
+  "cha": 7,
+  "traits": [
+   "Darkvision 30 ft",
+   "Keen Smell",
+   "Climb 30 ft"
+  ],
+  "use": "Urban scouting and infiltration. Easily overlooked. Good Passive Perception (13)."
+ },
+ {
+  "name": "Crab",
+  "ac": 11,
+  "hp": 2,
+  "speed": "20 ft, swim 20 ft",
+  "blindsight": 30,
+  "passive": 9,
+  "note": "Blindsight 30 ft. Amphibious — survives on land and underwater. Niche but effective for coastal and underwater tasks.",
+  "str": 2,
+  "dex": 11,
+  "con": 10,
+  "int": 1,
+  "wis": 8,
+  "cha": 2,
+  "traits": [
+   "Blindsight 30 ft",
+   "Amphibious",
+   "Tiny"
+  ],
+  "use": "Coastal and underwater scouting. Blindsight compensates for murky or dark water."
+ },
+ {
+  "name": "Frog",
+  "ac": 11,
+  "hp": 1,
+  "speed": "20 ft, swim 20 ft",
+  "passive": 10,
+  "note": "Amphibious. Tiny size. Standing Leap: long jump 10 ft, high jump 5 ft without a running start. Mostly a scouting form for swamp and coastal settings.",
+  "str": 1,
+  "dex": 13,
+  "con": 8,
+  "int": 1,
+  "wis": 8,
+  "cha": 3,
+  "traits": [
+   "Amphibious",
+   "Standing Leap",
+   "Tiny"
+  ],
+  "use": "Aquatic and swamp infiltration. Tiny size makes it easy to hide and navigate tight spaces."
+ },
+ {
+  "name": "Hawk",
+  "ac": 13,
+  "hp": 1,
+  "speed": "10 ft, fly 60 ft",
+  "passive": 14,
+  "note": "Passive Perception 14 — highest of any standard familiar option. Fly 60 ft. Keen Sight: advantage on sight-based Perception.",
+  "str": 5,
+  "dex": 16,
+  "con": 8,
+  "int": 2,
+  "wis": 14,
+  "cha": 6,
+  "traits": [
+   "Fly 60 ft",
+   "Keen Sight",
+   "Passive Perception 14"
+  ],
+  "use": "Daytime aerial scouting. Best raw Perception of any familiar. Delivers touch spells with ease from altitude."
+ },
+ {
+  "name": "Lizard",
+  "ac": 10,
+  "hp": 2,
+  "speed": "20 ft, climb 20 ft",
+  "darkvision": 30,
+  "passive": 9,
+  "note": "Darkvision 30 ft, Climb 20 ft. Tiny and easily disguised as an ordinary lizard. Very low profile for indoor and dungeon infiltration.",
+  "str": 2,
+  "dex": 11,
+  "con": 10,
+  "int": 1,
+  "wis": 8,
+  "cha": 3,
+  "traits": [
+   "Darkvision 30 ft",
+   "Climb 20 ft",
+   "Tiny"
+  ],
+  "use": "Wall and ceiling traversal. Low-profile infiltration in natural or dungeon environments."
+ },
+ {
+  "name": "Octopus",
+  "ac": 12,
+  "hp": 3,
+  "speed": "5 ft, swim 30 ft",
+  "darkvision": 30,
+  "passive": 12,
+  "note": "Darkvision 30 ft. Underwater Camouflage (advantage on Stealth in water). Ink Cloud (Recharge 6) creates a 5 ft obscurement sphere. Hold Breath 30 min.",
+  "str": 4,
+  "dex": 15,
+  "con": 11,
+  "int": 3,
+  "wis": 10,
+  "cha": 4,
+  "traits": [
+   "Darkvision 30 ft",
+   "Underwater Camouflage",
+   "Ink Cloud (Recharge 6)",
+   "Swim 30 ft"
+  ],
+  "use": "Best standard aquatic familiar. Ink Cloud obscures pursuit. Camouflage for aquatic ambush reconnaissance."
+ },
+ {
+  "name": "Owl",
+  "ac": 11,
+  "hp": 1,
+  "speed": "5 ft, fly 60 ft",
+  "darkvision": 120,
+  "passive": 13,
+  "note": "Darkvision 120 ft — far superior to any other familiar. Flyby: no opportunity attacks when it flies out of enemy reach. Ideal for safely delivering touch spells.",
+  "str": 3,
+  "dex": 13,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 7,
+  "traits": [
+   "Darkvision 120 ft",
+   "Flyby",
+   "Fly 60 ft",
+   "Keen Hearing & Sight"
+  ],
+  "use": "The gold standard familiar. Night scouting with 120 ft darkvision. Flyby enables safe touch spell delivery with zero risk."
+ },
+ {
+  "name": "Poisonous Snake",
+  "ac": 13,
+  "hp": 2,
+  "speed": "30 ft, swim 30 ft",
+  "blindsight": 10,
+  "passive": 10,
+  "note": "AC 13 — highest AC of any standard familiar. Blindsight 10 ft. Swim 30 ft. Poison bite (DC 10 Con) deals 2d4 extra damage.",
+  "str": 2,
+  "dex": 16,
+  "con": 11,
+  "int": 1,
+  "wis": 10,
+  "cha": 3,
+  "traits": [
+   "Blindsight 10 ft",
+   "AC 13",
+   "Swim 30 ft",
+   "Poison Bite"
+  ],
+  "use": "Tankiest standard familiar by AC. Can deliver touch spells at melee range. Poison bite adds minor but real offensive threat."
+ },
+ {
+  "name": "Quipper",
+  "ac": 13,
+  "hp": 1,
+  "speed": "0 ft, swim 40 ft",
+  "darkvision": 60,
+  "passive": 13,
+  "note": "Darkvision 60 ft. Swim 40 ft. Blood Frenzy: advantage on attacks against creatures that have taken damage this combat. Entirely aquatic.",
+  "str": 2,
+  "dex": 16,
+  "con": 9,
+  "int": 1,
+  "wis": 7,
+  "cha": 2,
+  "traits": [
+   "Darkvision 60 ft",
+   "Swim 40 ft",
+   "Blood Frenzy",
+   "Tiny"
+  ],
+  "use": "Underwater scouting with good darkvision and speed. Blood Frenzy is situationally useful in aquatic combat."
+ },
+ {
+  "name": "Rat",
+  "ac": 10,
+  "hp": 1,
+  "speed": "20 ft",
+  "darkvision": 30,
+  "passive": 10,
+  "note": "Darkvision 30 ft. Keen Smell advantage. Tiny size. The most overlooked and most disguisable familiar — ignored in almost any city or dungeon.",
+  "str": 2,
+  "dex": 11,
+  "con": 9,
+  "int": 2,
+  "wis": 10,
+  "cha": 4,
+  "traits": [
+   "Darkvision 30 ft",
+   "Keen Smell",
+   "Tiny"
+  ],
+  "use": "Urban infiltration and passive observation. Rats are ignored almost everywhere — ideal for long-term placement."
+ },
+ {
+  "name": "Raven",
+  "ac": 12,
+  "hp": 1,
+  "speed": "10 ft, fly 50 ft",
+  "passive": 13,
+  "note": "Mimicry: can reproduce simple sounds or up to a few words heard recently. DC 10 Insight to identify as imitation. Fly 50 ft. Popular for message relay.",
+  "str": 2,
+  "dex": 14,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 6,
+  "traits": [
+   "Fly 50 ft",
+   "Mimicry",
+   "Tiny"
+  ],
+  "use": "Communication familiar. Mimicry lets it audibly relay short messages. Social encounters and messaging across the 100 ft telepathic link."
+ },
+ {
+  "name": "Sea Horse",
+  "ac": 11,
+  "hp": 1,
+  "speed": "0 ft, swim 20 ft",
+  "passive": 10,
+  "note": "Entirely aquatic. No land speed at all. Water Breathing only. Very niche — only useful in fully underwater campaigns or encounters.",
+  "str": 1,
+  "dex": 12,
+  "con": 8,
+  "int": 1,
+  "wis": 10,
+  "cha": 2,
+  "traits": [
+   "Swim 20 ft",
+   "Water Breathing only",
+   "Tiny"
+  ],
+  "use": "Aquatic-only environments. Niche utility for underwater campaigns."
+ },
+ {
+  "name": "Spider",
+  "ac": 12,
+  "hp": 1,
+  "speed": "20 ft, climb 20 ft",
+  "darkvision": 30,
+  "passive": 10,
+  "note": "Spider Climb: climbs walls and ceilings with no check required. Web Sense: knows the exact location of any creature touching the same web. Web Walker: unimpeded by webs.",
+  "str": 2,
+  "dex": 14,
+  "con": 8,
+  "int": 1,
+  "wis": 10,
+  "cha": 2,
+  "traits": [
+   "Spider Climb",
+   "Darkvision 30 ft",
+   "Web Sense",
+   "Web Walker"
+  ],
+  "use": "Ceiling and wall traversal. Web Sense is uniquely useful in dungeon environments where webs are present."
+ },
+ {
+  "name": "Weasel",
+  "ac": 13,
+  "hp": 1,
+  "speed": "30 ft",
+  "passive": 13,
+  "note": "AC 13 — tied for highest AC of any standard familiar. Keen Hearing and Smell: advantage on Perception. Passive Perception 13. No darkvision.",
+  "str": 3,
+  "dex": 16,
+  "con": 8,
+  "int": 2,
+  "wis": 12,
+  "cha": 3,
+  "traits": [
+   "AC 13",
+   "Keen Hearing & Smell",
+   "Passive Perception 13"
+  ],
+  "use": "Alert and detection familiar. Best AC means it survives opportunistic swipes. Good Passive Perception for a terrestrial option."
+ }
+]

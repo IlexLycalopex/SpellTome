@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LootGenerator from '@islands/LootGenerator.svelte';
+---
+
+<BaseLayout title="Loot Generator" skin="dnd5e" current="/tools/loot">
+  <h1 class="page-title">Loot Generator</h1>
+  <p class="page-sub">DMG treasure by challenge tier — individual pockets or the full hoard.</p>
+  <LootGenerator client:load />
+</BaseLayout>

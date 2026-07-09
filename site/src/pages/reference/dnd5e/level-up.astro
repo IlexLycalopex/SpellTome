@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LevelUpGuide from '@islands/LevelUpGuide.svelte';
+---
+
+<BaseLayout title="Level Up Guide — D&D 5e" skin="dnd5e" current="/reference/dnd5e/level-up">
+  <h1 class="page-title">Level Up Guide</h1>
+  <p class="page-sub">Pick your class and new level — hit points, features and housekeeping in one place.</p>
+  <LevelUpGuide client:load />
+</BaseLayout>

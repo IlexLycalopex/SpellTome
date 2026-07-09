@@ -1,0 +1,395 @@
+[
+ {
+  "name": "Dwarf — Hill Dwarf",
+  "type": "race",
+  "asi": "+2 Constitution, +1 Wisdom",
+  "size": "Medium",
+  "speed": "25 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Dwarvish",
+  "traits": [
+   {
+    "n": "Dwarven Resilience",
+    "d": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+   },
+   {
+    "n": "Dwarven Combat Training",
+    "d": "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer."
+   },
+   {
+    "n": "Tool Proficiency",
+    "d": "You gain proficiency with the artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools."
+   },
+   {
+    "n": "Stonecunning",
+    "d": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check."
+   },
+   {
+    "n": "Speed",
+    "d": "Your speed is not reduced by wearing heavy armor."
+   },
+   {
+    "n": "Dwarven Toughness",
+    "d": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."
+   }
+  ]
+ },
+ {
+  "name": "Dwarf — Mountain Dwarf",
+  "type": "race",
+  "asi": "+2 Constitution, +2 Strength",
+  "size": "Medium",
+  "speed": "25 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Dwarvish",
+  "traits": [
+   {
+    "n": "Dwarven Resilience",
+    "d": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+   },
+   {
+    "n": "Dwarven Combat Training",
+    "d": "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer."
+   },
+   {
+    "n": "Tool Proficiency",
+    "d": "You gain proficiency with the artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools."
+   },
+   {
+    "n": "Stonecunning",
+    "d": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check."
+   },
+   {
+    "n": "Speed",
+    "d": "Your speed is not reduced by wearing heavy armor."
+   },
+   {
+    "n": "Dwarven Armor Training",
+    "d": "You have proficiency with light and medium armor."
+   }
+  ]
+ },
+ {
+  "name": "Elf — High Elf",
+  "type": "race",
+  "asi": "+2 Dexterity, +1 Intelligence",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Elvish, plus one extra language of your choice",
+  "traits": [
+   {
+    "n": "Keen Senses",
+    "d": "You have proficiency in the Perception skill."
+   },
+   {
+    "n": "Fey Ancestry",
+    "d": "You have advantage on saving throws against being charmed, and magic can’t put you to sleep."
+   },
+   {
+    "n": "Trance",
+    "d": "Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day, gaining the same benefit a human does from 8 hours of sleep."
+   },
+   {
+    "n": "Elf Weapon Training",
+    "d": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+   },
+   {
+    "n": "Cantrip",
+    "d": "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it."
+   }
+  ]
+ },
+ {
+  "name": "Elf — Wood Elf",
+  "type": "race",
+  "asi": "+2 Dexterity, +1 Wisdom",
+  "size": "Medium",
+  "speed": "35 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Elvish",
+  "traits": [
+   {
+    "n": "Keen Senses",
+    "d": "You have proficiency in the Perception skill."
+   },
+   {
+    "n": "Fey Ancestry",
+    "d": "You have advantage on saving throws against being charmed, and magic can’t put you to sleep."
+   },
+   {
+    "n": "Trance",
+    "d": "Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day, gaining the same benefit a human does from 8 hours of sleep."
+   },
+   {
+    "n": "Elf Weapon Training",
+    "d": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+   },
+   {
+    "n": "Fleet of Foot",
+    "d": "Your base walking speed increases to 35 feet."
+   },
+   {
+    "n": "Mask of the Wild",
+    "d": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+   }
+  ]
+ },
+ {
+  "name": "Elf — Drow (Dark Elf)",
+  "type": "race",
+  "asi": "+2 Dexterity, +1 Charisma",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "120 ft. (Superior Darkvision)",
+  "languages": "Common, Elvish",
+  "traits": [
+   {
+    "n": "Keen Senses",
+    "d": "You have proficiency in the Perception skill."
+   },
+   {
+    "n": "Fey Ancestry",
+    "d": "You have advantage on saving throws against being charmed, and magic can’t put you to sleep."
+   },
+   {
+    "n": "Trance",
+    "d": "Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day, gaining the same benefit a human does from 8 hours of sleep."
+   },
+   {
+    "n": "Superior Darkvision",
+    "d": "Your darkvision has a radius of 120 feet."
+   },
+   {
+    "n": "Sunlight Sensitivity",
+    "d": "You have disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight."
+   },
+   {
+    "n": "Drow Magic",
+    "d": "You know the dancing lights cantrip. At 3rd level, you can cast faerie fire once per long rest; at 5th level, darkness once per long rest. Charisma is your spellcasting ability for these spells."
+   },
+   {
+    "n": "Drow Weapon Training",
+    "d": "You have proficiency with rapiers, shortswords, and hand crossbows."
+   }
+  ]
+ },
+ {
+  "name": "Halfling — Lightfoot",
+  "type": "race",
+  "asi": "+2 Dexterity, +1 Charisma",
+  "size": "Small",
+  "speed": "25 ft.",
+  "darkvision": "None",
+  "languages": "Common, Halfling",
+  "traits": [
+   {
+    "n": "Lucky",
+    "d": "When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll."
+   },
+   {
+    "n": "Brave",
+    "d": "You have advantage on saving throws against being frightened."
+   },
+   {
+    "n": "Halfling Nimbleness",
+    "d": "You can move through the space of any creature that is of a size larger than yours."
+   },
+   {
+    "n": "Naturally Stealthy",
+    "d": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
+   }
+  ]
+ },
+ {
+  "name": "Halfling — Stout",
+  "type": "race",
+  "asi": "+2 Dexterity, +1 Constitution",
+  "size": "Small",
+  "speed": "25 ft.",
+  "darkvision": "None",
+  "languages": "Common, Halfling",
+  "traits": [
+   {
+    "n": "Lucky",
+    "d": "When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll."
+   },
+   {
+    "n": "Brave",
+    "d": "You have advantage on saving throws against being frightened."
+   },
+   {
+    "n": "Halfling Nimbleness",
+    "d": "You can move through the space of any creature that is of a size larger than yours."
+   },
+   {
+    "n": "Stout Resilience",
+    "d": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+   }
+  ]
+ },
+ {
+  "name": "Human",
+  "type": "race",
+  "asi": "+1 to all six ability scores",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "None",
+  "languages": "Common, plus one extra language of your choice",
+  "traits": [
+   {
+    "n": "Versatile",
+    "d": "Humans gain +1 to every ability score, reflecting their broad adaptability and ambition."
+   }
+  ]
+ },
+ {
+  "name": "Human — Variant",
+  "type": "race",
+  "asi": "+1 to two different ability scores of your choice",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "None",
+  "languages": "Common, plus one extra language of your choice",
+  "traits": [
+   {
+    "n": "Skills",
+    "d": "You gain proficiency in one skill of your choice."
+   },
+   {
+    "n": "Feat",
+    "d": "You gain one feat of your choice. (Optional rule; requires DM approval.)"
+   }
+  ]
+ },
+ {
+  "name": "Dragonborn",
+  "type": "race",
+  "asi": "+2 Strength, +1 Charisma",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "None",
+  "languages": "Common, Draconic",
+  "traits": [
+   {
+    "n": "Draconic Ancestry",
+    "d": "You have draconic ancestry. Choose one type of dragon; your breath weapon and damage resistance are determined by it: Black (acid), Blue (lightning), Brass (fire), Bronze (lightning), Copper (acid), Gold (fire), Green (poison), Red (fire), Silver (cold), White (cold)."
+   },
+   {
+    "n": "Breath Weapon",
+    "d": "As an action, you exhale destructive energy; the shape and save depend on your ancestry. Black (acid), Blue (lightning), Brass (fire), Bronze (lightning), and Copper (acid) breathe a 5 by 30 ft. line (Dexterity save). Gold (fire) and Red (fire) breathe a 15 ft. cone (Dexterity save). Green (poison), Silver (cold), and White (cold) breathe a 15 ft. cone (Constitution save). Each creature in the area makes the listed saving throw (DC 8 + your Constitution modifier + your proficiency bonus), taking 2d6 damage on a failed save, half as much on a success. The damage increases to 3d6 at 6th level, 4d6 at 11th, and 5d6 at 16th. After you use your breath weapon, you can’t use it again until you complete a short or long rest."
+   },
+   {
+    "n": "Damage Resistance",
+    "d": "You have resistance to the damage type associated with your draconic ancestry."
+   }
+  ]
+ },
+ {
+  "name": "Gnome — Forest Gnome",
+  "type": "race",
+  "asi": "+2 Intelligence, +1 Dexterity",
+  "size": "Small",
+  "speed": "25 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Gnomish",
+  "traits": [
+   {
+    "n": "Gnome Cunning",
+    "d": "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
+   },
+   {
+    "n": "Natural Illusionist",
+    "d": "You know the minor illusion cantrip. Intelligence is your spellcasting ability for it."
+   },
+   {
+    "n": "Speak with Small Beasts",
+    "d": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts."
+   }
+  ]
+ },
+ {
+  "name": "Gnome — Rock Gnome",
+  "type": "race",
+  "asi": "+2 Intelligence, +1 Constitution",
+  "size": "Small",
+  "speed": "25 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Gnomish",
+  "traits": [
+   {
+    "n": "Gnome Cunning",
+    "d": "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
+   },
+   {
+    "n": "Artificer’s Lore",
+    "d": "Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus."
+   },
+   {
+    "n": "Tinker",
+    "d": "You have proficiency with artisan’s tools (tinker’s tools). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a Tiny clockwork device (a clockwork toy, fire starter, or music box)."
+   }
+  ]
+ },
+ {
+  "name": "Half-Elf",
+  "type": "race",
+  "asi": "+2 Charisma, +1 to two other ability scores of your choice",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Elvish, plus one extra language of your choice",
+  "traits": [
+   {
+    "n": "Fey Ancestry",
+    "d": "You have advantage on saving throws against being charmed, and magic can’t put you to sleep."
+   },
+   {
+    "n": "Skill Versatility",
+    "d": "You gain proficiency in two skills of your choice."
+   }
+  ]
+ },
+ {
+  "name": "Half-Orc",
+  "type": "race",
+  "asi": "+2 Strength, +1 Constitution",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Orc",
+  "traits": [
+   {
+    "n": "Menacing",
+    "d": "You gain proficiency in the Intimidation skill."
+   },
+   {
+    "n": "Relentless Endurance",
+    "d": "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can’t use this feature again until you finish a long rest."
+   },
+   {
+    "n": "Savage Attacks",
+    "d": "When you score a critical hit with a melee weapon attack, you can roll one of the weapon’s damage dice one additional time and add it to the extra damage of the critical hit."
+   }
+  ]
+ },
+ {
+  "name": "Tiefling",
+  "type": "race",
+  "asi": "+2 Charisma, +1 Intelligence",
+  "size": "Medium",
+  "speed": "30 ft.",
+  "darkvision": "60 ft.",
+  "languages": "Common, Infernal",
+  "traits": [
+   {
+    "n": "Hellish Resistance",
+    "d": "You have resistance to fire damage."
+   },
+   {
+    "n": "Infernal Legacy",
+    "d": "You know the thaumaturgy cantrip. At 3rd level, you can cast hellish rebuke as a 2nd-level spell once per long rest; at 5th level, darkness once per long rest. Charisma is your spellcasting ability for these spells."
+   }
+  ]
+ }
+]

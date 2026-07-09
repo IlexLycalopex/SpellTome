@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GatedCompendium from '@islands/GatedCompendium.svelte';
+---
+
+<BaseLayout title="Tales from the Loop Compendium" skin="tftl" current="/compendium/tftl">
+  <h1 class="page-title">Tales from the Loop Compendium</h1>
+  <p class="page-sub">Mysteries, machines and the strange 80s that never were.</p>
+  <GatedCompendium client:load rulesetId="tftl" />
+</BaseLayout>

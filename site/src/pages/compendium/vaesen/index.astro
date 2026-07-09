@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GatedCompendium from '@islands/GatedCompendium.svelte';
+---
+
+<BaseLayout title="Vaesen Compendium" skin="vaesen" current="/compendium/vaesen">
+  <h1 class="page-title">Vaesen Compendium</h1>
+  <p class="page-sub">Creatures of Nordic folklore, mysteries and headquarters upgrades.</p>
+  <GatedCompendium client:load rulesetId="vaesen" />
+</BaseLayout>

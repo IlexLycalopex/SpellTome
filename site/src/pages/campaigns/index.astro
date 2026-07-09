@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CampaignList from '@islands/CampaignList.svelte';
+---
+
+<BaseLayout title="Campaigns" skin="auto" current="/campaigns">
+  <h1 class="page-title">Campaigns</h1>
+  <p class="page-sub">
+    The group's campaign registry — setting a campaign active tunes the whole site to its system,
+    and published sessions feed the stats below automatically.
+  </p>
+  <CampaignList client:load />
+</BaseLayout>

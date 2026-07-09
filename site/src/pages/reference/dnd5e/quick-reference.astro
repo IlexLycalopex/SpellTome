@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Quick Reference — D&D 5e" skin="dnd5e" current="/reference/dnd5e/quick-reference">
+  <h1 class="page-title">Quick Reference</h1>
+  <p class="page-sub">The rules you reach for mid-session — checks, combat actions, cover, conditions and rests.</p>
+
+  <div class="bento ref">
+<h1>Quick Reference Tables</h1>
+    <p class="subtitle">Essential DM and player reference tables at a glance.</p>
+
+    <!-- ABILITY MODIFIERS -->
+    <section class="ref-section">
+      <h2>Ability Score Modifiers</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Score</th><th>Mod</th><th>Score</th><th>Mod</th><th>Score</th><th>Mod</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>−5</td><td>9–10</td><td>0</td><td>19–20</td><td>+5</td></tr>
+          <tr><td>2–3</td><td>−4</td><td>11–12</td><td>+1</td><td>21–22</td><td>+6</td></tr>
+          <tr><td>4–5</td><td>−3</td><td>13–14</td><td>+2</td><td>23–24</td><td>+7</td></tr>
+          <tr><td>6–7</td><td>−2</td><td>15–16</td><td>+3</td><td>25–26</td><td>+8</td></tr>
+          <tr><td>8</td><td>−1</td><td>17–18</td><td>+4</td><td>27–28</td><td>+9</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PROFICIENCY BONUS -->
+    <section class="ref-section">
+      <h2>Proficiency Bonus by Level</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Level</th><th>Bonus</th><th>Level</th><th>Bonus</th><th>Level</th><th>Bonus</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1–4</td><td>+2</td><td>9–12</td><td>+3</td><td>17–20</td><td>+6</td></tr>
+          <tr><td>5–8</td><td>+3</td><td>13–16</td><td>+4</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- DIFFICULTY CLASS -->
+    <section class="ref-section">
+      <h2>Difficulty Classes</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Task Difficulty</th><th>DC</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Very Easy</td><td>5</td></tr>
+          <tr><td>Easy</td><td>10</td></tr>
+          <tr><td>Medium</td><td>15</td></tr>
+          <tr><td>Hard</td><td>20</td></tr>
+          <tr><td>Very Hard</td><td>25</td></tr>
+          <tr><td>Nearly Impossible</td><td>30</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- EXHAUSTION -->
+    <section class="ref-section">
+      <h2>Exhaustion Levels</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Level</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Disadvantage on ability checks</td></tr>
+          <tr><td>2</td><td>Speed halved</td></tr>
+          <tr><td>3</td><td>Disadvantage on attack rolls and saving throws</td></tr>
+          <tr><td>4</td><td>Hit point maximum halved</td></tr>
+          <tr><td>5</td><td>Speed reduced to 0</td></tr>
+          <tr><td>6</td><td>Death</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ARMOR CLASS -->
+    <section class="ref-section">
+      <h2>Common AC Values</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Situation</th><th>AC</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Leather armor</td><td>11 + DEX</td></tr>
+          <tr><td>Chainmail</td><td>16</td></tr>
+          <tr><td>Plate armor</td><td>18</td></tr>
+          <tr><td>Shield</td><td>+2</td></tr>
+          <tr><td>Mage Armor spell</td><td>13 + DEX</td></tr>
+          <tr><td>Unarmored Defense (monk/barbarian)</td><td>10 + DEX + WIS/CON</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- DAMAGE TYPES -->
+    <section class="ref-section">
+      <h2>Damage Types & Common Resistances</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Type</th><th>Common Resistance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Acid</td><td>Oozes, rust monsters</td></tr>
+          <tr><td>Bludgeoning</td><td>Stone golems, some constructs</td></tr>
+          <tr><td>Cold</td><td>Ice mephits, white dragons</td></tr>
+          <tr><td>Fire</td><td>Fire elementals, efreeti, red dragons</td></tr>
+          <tr><td>Force</td><td>Very rare; magic-heavy creatures</td></tr>
+          <tr><td>Lightning</td><td>Air elementals, blue dragons</td></tr>
+          <tr><td>Necrotic</td><td>Undead</td></tr>
+          <tr><td>Piercing</td><td>Some constructs</td></tr>
+          <tr><td>Poison</td><td>Undead, constructs</td></tr>
+          <tr><td>Psychic</td><td>Undead, constructs</td></tr>
+          <tr><td>Radiant</td><td>Undead, fiends</td></tr>
+          <tr><td>Slashing</td><td>Plants, some constructs</td></tr>
+          <tr><td>Thunder</td><td>Rare; some flying creatures</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SPELL ATTACK BONUS -->
+    <section class="ref-section">
+      <h2>Spell Save DC & Attack Bonus</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Spellcasting Ability</th><th>Spell Save DC</th><th>Spell Attack Bonus</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" style="text-align:left;font-weight:600;">For each spellcasting class:<br/>DC = 8 + proficiency + ability modifier<br/>Attack = proficiency + ability modifier</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CONDITIONS AT A GLANCE -->
+    <section class="ref-section">
+      <h2>Conditions (Abbreviated)</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Condition</th><th>Effect Summary</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Blinded</strong></td><td>Can't see; disadvantage on attacks; attacks against have advantage</td></tr>
+          <tr><td><strong>Charmed</strong></td><td>Can't attack charmer; charmer has advantage on CHA checks</td></tr>
+          <tr><td><strong>Deafened</strong></td><td>Can't hear; automatic failure on ability checks requiring hearing</td></tr>
+          <tr><td><strong>Frightened</strong></td><td>Disadvantage on attacks/ability checks while source is visible; can't willingly move closer</td></tr>
+          <tr><td><strong>Grappled</strong></td><td>Speed 0; ends if grappler is incapacitated</td></tr>
+          <tr><td><strong>Incapacitated</strong></td><td>Can't take actions or reactions</td></tr>
+          <tr><td><strong>Invisible</strong></td><td>Can't be seen; attacks have advantage; attacks against have disadvantage</td></tr>
+          <tr><td><strong>Paralyzed</strong></td><td>Incapacitated; fails STR/DEX saves; attacks have advantage</td></tr>
+          <tr><td><strong>Petrified</strong></td><td>Incapacitated; immune to poison/disease; resistant to all damage; death only if reduced to 0 HP</td></tr>
+          <tr><td><strong>Poisoned</strong></td><td>Disadvantage on attack rolls and ability checks</td></tr>
+          <tr><td><strong>Prone</strong></td><td>Melee attacks within 5ft have advantage; ranged attacks have disadvantage</td></tr>
+          <tr><td><strong>Restrained</strong></td><td>Speed 0; disadvantage on DEX saves and attacks; attacks against have advantage</td></tr>
+          <tr><td><strong>Stunned</strong></td><td>Incapacitated; unable to move; can speak only falteringly; fails STR/DEX saves; attacks have advantage</td></tr>
+          <tr><td><strong>Unconscious</strong></td><td>Incapacitated; can't move or speak; unaware of surroundings; drops held items; attacks have advantage; any attack from 5ft is critical on hit</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- RESTING & RECOVERY -->
+    <section class="ref-section">
+      <h2>Resting & Recovery</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Type</th><th>Duration</th><th>Recovery</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Short Rest</td><td>1 hour minimum</td><td>Spend Hit Dice; regain 1/2 max HP with features</td></tr>
+          <tr><td>Long Rest</td><td>8 hours</td><td>All HP; Hit Dice restore (max 1/2 level); spellcasters recover spells</td></tr>
+          <tr><td>Short Rest Feature</td><td>Action</td><td>Second Wind (fighter); Channel Divinity reset</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- WEAPON PROPERTIES -->
+    <section class="ref-section">
+      <h2>Weapon Properties</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Property</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ammunition</td><td>Required to make ranged attacks; you can recover used ammunition</td></tr>
+          <tr><td>Finesse</td><td>Can use STR or DEX for attacks</td></tr>
+          <tr><td>Heavy</td><td>Creatures smaller than Medium disadvantage on attack rolls</td></tr>
+          <tr><td>Light</td><td>Can wield two light weapons in two hands</td></tr>
+          <tr><td>Loading</td><td>Can fire once per turn, regardless of action/bonus action</td></tr>
+          <tr><td>Range</td><td>Weapon has short and long range; disadvantage beyond normal range</td></tr>
+          <tr><td>Reach</td><td>Adds 5 feet to your reach with attack</td></tr>
+          <tr><td>Thrown</td><td>Can throw weapon; uses same modifier as melee attack</td></tr>
+          <tr><td>Two-Handed</td><td>Requires both hands; cannot be used with shield</td></tr>
+          <tr><td>Versatile</td><td>Can use one or two hands; damage changes based on hands</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ENCOUNTER DIFFICULTY -->
+    <section class="ref-section">
+      <h2>Encounter Difficulty (Adjusted XP)</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Difficulty</th><th>Total XP</th><th>Per Character</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Easy</td><td>Creature XP × 1</td><td>Encounter XP ÷ party</td></tr>
+          <tr><td>Medium</td><td>Creature XP × 1.5</td><td>Encounter XP ÷ party</td></tr>
+          <tr><td>Hard</td><td>Creature XP × 2</td><td>Encounter XP ÷ party</td></tr>
+          <tr><td>Deadly</td><td>Creature XP × 2.5</td><td>Encounter XP ÷ party</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TRAVEL PACE -->
+    <section class="ref-section">
+      <h2>Travel Pace</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Pace</th><th>Minute Distance</th><th>Hour Distance</th><th>Day Distance</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Slow</td><td>200 ft</td><td>2 miles</td><td>18 miles</td><td>Stealth possible</td></tr>
+          <tr><td>Normal</td><td>300 ft</td><td>3 miles</td><td>24 miles</td><td>Default pace</td></tr>
+          <tr><td>Fast</td><td>400 ft</td><td>4 miles</td><td>30 miles</td><td>−5 Perception</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- OBJECT DAMAGE THRESHOLDS -->
+    <section class="ref-section">
+      <h2>Object Damage Thresholds & AC</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Example</th><th>AC</th><th>HP</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Wooden door</td><td>15</td><td>18</td></tr>
+          <tr><td>Iron door</td><td>19</td><td>27</td></tr>
+          <tr><td>Stone wall</td><td>17</td><td>30 per 10ft</td></tr>
+          <tr><td>Rope</td><td>15</td><td>2</td></tr>
+          <tr><td>Chain</td><td>20</td><td>10</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CLIMBING & SWIMMING -->
+    <section class="ref-section">
+      <h2>Climbing, Swimming & Special Movement</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Activity</th><th>Speed</th><th>DC Difficulty</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Climbing (easy terrain)</td><td>½ walking speed</td><td>10</td></tr>
+          <tr><td>Climbing (difficult terrain)</td><td>¼ walking speed</td><td>15</td></tr>
+          <tr><td>Swimming (normal)</td><td>Walking speed</td><td>10 or Special</td></tr>
+          <tr><td>Flying (with wings)</td><td>Walking speed (varies)</td><td>Class feature</td></tr>
+          <tr><td>Crawling (prone)</td><td>½ walking speed</td><td>None (automatic)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- COVER -->
+    <section class="ref-section">
+      <h2>Cover & Concealment</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Type</th><th>AC Bonus</th><th>Save Bonus</th><th>Condition</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Half Cover</td><td>+2</td><td>+2</td><td>½ body blocked (table, wall)</td></tr>
+          <tr><td>Three-Quarters Cover</td><td>+5</td><td>+5</td><td>¾ body blocked (arrow slit)</td></tr>
+          <tr><td>Total Cover</td><td>None</td><td>Immune</td><td>Completely blocked</td></tr>
+          <tr><td>Half Concealment</td><td>+2 (ranged only)</td><td>+2</td><td>Lightly obscured</td></tr>
+          <tr><td>Total Concealment</td><td>Can't see target</td><td>Advantage</td><td>Heavily obscured</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VISIBILITY & LIGHT -->
+    <section class="ref-section">
+      <h2>Visibility & Light</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Obscurement</th><th>Description</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bright Light</td><td>Sunlight, torches, lanterns (120 ft)</td><td>Normal vision</td></tr>
+          <tr><td>Dim Light</td><td>Twilight, shadows, candlelight (60 ft)</td><td>Lightly obscured</td></tr>
+          <tr><td>Darkness</td><td>No visible light source</td><td>Heavily obscured</td></tr>
+          <tr><td>Darkvision</td><td>60 ft (most races) to 120 ft (dwarves)</td><td>Perceive dim light as bright</td></tr>
+          <tr><td>Blindsight</td><td>Sense within specified range</td><td>See without eyes (through obstacles)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SURPRISE & INITIATIVE -->
+    <section class="ref-section">
+      <h2>Surprise & Initiative</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Mechanic</th><th>Roll/DC</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Initiative</td><td>d20 + DEX mod</td><td>Determines combat turn order</td></tr>
+          <tr><td>Surprise Check</td><td>Stealth vs. Perception</td><td>Surprised creatures lose turn 1</td></tr>
+          <tr><td>Stealth DC</td><td>Passive Perception +/−</td><td>Hide action (must be obscured)</td></tr>
+          <tr><td>Detect Hidden</td><td>Perception check DC 15+</td><td>Spot hiding creature</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .ref :global(.ref-section) {
+    background: var(--surface-1); border: 1px solid var(--edge);
+    border-radius: var(--radius); padding: var(--sp-4); box-shadow: var(--shadow-1);
+  }
+  .ref :global(h2) { font-size: 1rem; margin: 0 0 .6rem; }
+  .ref :global(table) { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  .ref :global(th) {
+    text-align: left; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-faint); padding: .3rem .5rem; border-bottom: 1px solid var(--edge-strong);
+  }
+  .ref :global(td) { padding: .3rem .5rem; border-bottom: 1px solid var(--edge); font-variant-numeric: tabular-nums; }
+  .ref :global(tr:last-child td) { border-bottom: 0; }
+  .ref :global(ul) { margin: 0; padding-left: 1.1rem; font-size: .85rem; display: flex; flex-direction: column; gap: .3rem; }
+  .ref :global(p) { font-size: .85rem; color: var(--ink-muted); }
+</style>

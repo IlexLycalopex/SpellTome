@@ -1,0 +1,75 @@
+/* ============================================================
+   The Tome v2 — base design tokens
+   Modern neutral app shell. Every component consumes ONLY these
+   semantic tokens; per-ruleset skins (styles/skins/*.css) override
+   them under html[data-skin="..."] and the theme toggle swaps
+   dark/light via html[data-theme="..."].
+   ============================================================ */
+
+:root {
+  /* surfaces */
+  --surface-0: #131417;   /* page ground */
+  --surface-1: #1b1c21;   /* cards, panels */
+  --surface-2: #22242b;   /* raised: headers, inputs, chips */
+  --surface-3: #2a2d36;   /* hover / active raised */
+
+  /* ink */
+  --ink: #e8e9ee;
+  --ink-muted: #9aa0ad;
+  --ink-faint: #6b7180;
+
+  /* accent (skins override) */
+  --accent: #c9a84c;
+  --accent-ink: #171204;      /* text on accent */
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+
+  /* semantic status (independent of accent) */
+  --ok: #57ab5a;
+  --warn: #d9a13b;
+  --danger: #e5534b;
+  --info: #539bf5;
+
+  /* edges & focus */
+  --edge: #2e3038;
+  --edge-strong: #3c3f4a;
+  --focus-ring: color-mix(in oklab, var(--accent) 70%, white 10%);
+
+  /* type */
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* shape & depth */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / .25);
+  --shadow-2: 0 6px 24px rgb(0 0 0 / .28);
+
+  /* spacing scale */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem;
+
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  --surface-0: #f4f4f2;
+  --surface-1: #ffffff;
+  --surface-2: #ececea;
+  --surface-3: #e2e2df;
+
+  --ink: #1e2025;
+  --ink-muted: #5b616d;
+  --ink-faint: #8a8f9a;
+
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
+
+  --edge: #dcdcd8;
+  --edge-strong: #c6c6c1;
+
+  --shadow-1: 0 1px 2px rgb(20 20 30 / .08);
+  --shadow-2: 0 6px 24px rgb(20 20 30 / .10);
+
+  color-scheme: light;
+}

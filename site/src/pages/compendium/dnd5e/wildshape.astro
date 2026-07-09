@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardSearch from '@components/CardSearch.astro';
+
+interface Trait {
+  n: string;
+  t: string;
+}
+interface BeastData {
+  name: string;
+  cr: number | string;
+  size?: string;
+  speed?: string;
+  ac?: number | string;
+  hp?: number | string;
+  terrain?: string[];
+  str?: number; dex?: number; con?: number; int?: number; wis?: number; cha?: number;
+  abilities?: Trait[];
+  actions?: Trait[];
+  note?: string;
+}
+interface FamiliarData {
+  name: string;
+  ac?: number | string;
+  hp?: number | string;
+  speed?: string;
+  use?: string;
+  note?: string;
+}
+
+const beasts = (await getCollection('beasts')).map((e) => e.data as BeastData);
+const familiars = (await getCollection('familiars')).map((e) => e.data as FamiliarData);
+
+const crLabel = (cr: number | string) =>
+  typeof cr === 'number' && cr > 0 && cr < 1 ? ({ 0.125: '1/8', 0.25: '1/4', 0.5: '1/2' }[cr] ?? String(cr)) : String(cr);
+const crFacet = (cr: number | string) => `CR ${crLabel(cr)}`;
+const crNum = (f: string) =>
+  parseFloat(f.replace('CR ', '').replace('1/8', '0.125').replace('1/4', '0.25').replace('1/2', '0.5'));
+const facets = [...new Set(beasts.map((b) => crFacet(b.cr)))].sort((a, b) => crNum(a) - crNum(b));
+
+const mod = (s: number) => {
+  const m = Math.floor((s - 10) / 2);
+  return m >= 0 ? `+${m}` : String(m);
+};
+const STATS = ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const;
+function statLine(b: BeastData): string | null {
+  if (!STATS.every((k) => typeof b[k] === 'number')) return null;
+  return STATS.map((k) => `${k.toUpperCase()} ${mod(b[k]!)}`).join(' · ');
+}
+---
+
+<BaseLayout title="Wildshape & Familiars — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/wildshape">
+  <h1 class="page-title">Wildshape &amp; Familiars</h1>
+  <p class="page-sub">{beasts.length} wildshape-legal beasts and {familiars.length} familiar forms.</p>
+
+  <h2>Beasts</h2>
+  <CardSearch target="beasts" placeholder="Search beasts…" facets={facets} />
+  <div class="bento" id="beasts">
+    {beasts.map((b) => (
+      <article class="card" data-name={b.name} data-facet={crFacet(b.cr)}>
+        <h3>{b.name} <span class="chip">CR {crLabel(b.cr)}</span></h3>
+        <p class="line muted">
+          {b.size}{b.speed ? ` · ${b.speed}` : ''}{b.ac !== undefined ? ` · AC ${b.ac}` : ''}{b.hp !== undefined ? ` · HP ${b.hp}` : ''}
+        </p>
+        {b.terrain && <p class="line muted">Terrain: {b.terrain.join(', ')}</p>}
+        {statLine(b) && <p class="abilities num">{statLine(b)}</p>}
+        {(b.abilities ?? []).map((a) => (
+          <p class="trait"><b>{a.n}.</b> {a.t}</p>
+        ))}
+        {(b.actions ?? []).map((a) => (
+          <p class="trait"><b>{a.n}.</b> {a.t}</p>
+        ))}
+        {b.note && <p class="muted trait">{b.note}</p>}
+      </article>
+    ))}
+  </div>
+
+  <h2 style="margin-top:2rem;">Familiars</h2>
+  <CardSearch target="familiars" placeholder="Search familiars…" />
+  <div class="bento" id="familiars">
+    {familiars.map((f) => (
+      <article class="card" data-name={f.name}>
+        <h3>{f.name}</h3>
+        <p class="line muted">
+          {f.ac !== undefined ? `AC ${f.ac}` : ''}{f.hp !== undefined ? ` · HP ${f.hp}` : ''}{f.speed ? ` · ${f.speed}` : ''}
+        </p>
+        {f.use && <p class="trait"><b>Best for.</b> {f.use}</p>}
+        {f.note && <p class="muted trait">{f.note}</p>}
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h2 { font-size: 1.15rem; margin-bottom: .8rem; }
+  .line { font-size: .8rem; margin: 0; }
+  .trait { font-size: .82rem; margin: 0; }
+  .abilities { font-size: .78rem; background: var(--surface-2); border-radius: var(--radius-sm); padding: .3rem .5rem; margin: 0; }
+</style>

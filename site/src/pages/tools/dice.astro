@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DiceRoller from '@islands/DiceRoller.svelte';
+---
+
+<BaseLayout title="Dice Roller" skin="auto" current="/tools/dice">
+  <h1 class="page-title">Dice Roller</h1>
+  <p class="page-sub">
+    Every table's dice: d20 expressions with advantage, Year Zero d6 pools with pushes,
+    Call of Cthulhu percentile rolls, and Daggerheart duality dice.
+  </p>
+  <DiceRoller client:load />
+</BaseLayout>

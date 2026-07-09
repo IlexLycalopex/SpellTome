@@ -1,0 +1,25 @@
+/* Call of Cthulhu 7e skin — oxblood and ink on aged paper (light-first) */
+html[data-skin='coc7e'] {
+  --surface-0: #1c1915;
+  --surface-1: #242019;
+  --surface-2: #2d2820;
+  --surface-3: #363027;
+  --edge: #3a332a;
+  --edge-strong: #4c4437;
+  --accent: #b0492f;
+  --accent-ink: #f7efe0;
+  --font-display: 'Sora', Georgia, 'Times New Roman', serif;
+}
+html[data-skin='coc7e'][data-theme='light'] {
+  --surface-0: #efe6d2;
+  --surface-1: #f7f0de;
+  --surface-2: #e7dcc2;
+  --surface-3: #dccfb2;
+  --ink: #241f18;
+  --ink-muted: #6d6350;
+  --ink-faint: #93876f;
+  --edge: #d3c5a3;
+  --edge-strong: #bcab85;
+  --accent: #6e1f1f;
+  --accent-ink: #f5ecd8;
+}

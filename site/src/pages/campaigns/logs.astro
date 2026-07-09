@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LogEditor from '@islands/LogEditor.svelte';
+---
+
+<BaseLayout title="Session Log Editor" skin="auto" current="/campaigns">
+  <h1 class="page-title">Session Log Editor</h1>
+  <p class="page-sub">
+    Write the night up while it's fresh. Drafts stay private to the group; publishing puts a session in
+    the public chronicle. Every session can be exported back to markdown for backup.
+  </p>
+  <LogEditor client:load />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SpellBrowser from '@islands/SpellBrowser.svelte';
+---
+
+<BaseLayout title="Spells — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/spells">
+  <h1 class="page-title">Spell Compendium</h1>
+  <p class="page-sub">
+    Every spell from the 2014 and 2024 rules — filter by class, level, school and source, or search by name.
+  </p>
+  <SpellBrowser client:load />
+</BaseLayout>

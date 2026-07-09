@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardSearch from '@components/CardSearch.astro';
+
+const skills = await getCollection('skills');
+const feats = await getCollection('feats');
+---
+
+<BaseLayout title="Skills & Feats — D&D 5e" skin="dnd5e" current="/compendium/dnd5e/feats">
+  <h1 class="page-title">Skills &amp; Feats</h1>
+  <p class="page-sub">The 18 skills and all {feats.length} PHB feats.</p>
+
+  <h2>Skills</h2>
+  <div class="bento" id="skills">
+    {skills.map(({ data: s }) => (
+      <article class="card" data-name={s.name}>
+        <h3>{s.name} <span class="chip">{s.ability}</span></h3>
+        <p>{s.description}</p>
+      </article>
+    ))}
+  </div>
+
+  <h2 style="margin-top:2rem;">Feats</h2>
+  <CardSearch target="feats" placeholder="Search feats…" />
+  <div class="bento" id="feats">
+    {feats.map(({ data: f }) => (
+      <article class="card" data-name={f.name}>
+        <h3>{f.name}</h3>
+        {f.prereq && f.prereq !== 'None' && <p class="muted prereq">Prerequisite: {f.prereq}</p>}
+        <p>{f.benefit}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h2 { font-size: 1.15rem; margin-bottom: .8rem; }
+  .prereq { font-size: .78rem; }
+</style>

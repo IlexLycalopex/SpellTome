@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EncounterBuilder from '@islands/EncounterBuilder.svelte';
+---
+
+<BaseLayout title="Encounter Builder" skin="dnd5e" current="/tools/encounter-builder">
+  <h1 class="page-title">Encounter Builder</h1>
+  <p class="page-sub">Balance a fight against the DMG XP budget — live difficulty as you add monsters.</p>
+  <EncounterBuilder client:load />
+</BaseLayout>

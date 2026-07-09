@@ -1,0 +1,22 @@
+/* Vaesen skin — cold Nordic blue-grey, pale birch-green accent */
+html[data-skin='vaesen'] {
+  --surface-0: #171c1f;
+  --surface-1: #1e2529;
+  --surface-2: #253034;
+  --surface-3: #2d3a40;
+  --edge: #2b363c;
+  --edge-strong: #3d4c53;
+  --accent: #8fb5a8;
+  --accent-ink: #0e1a16;
+  --font-display: 'Sora', 'Palatino Linotype', Georgia, serif;
+}
+html[data-skin='vaesen'][data-theme='light'] {
+  --surface-0: #eef1f0;
+  --surface-1: #fbfcfc;
+  --surface-2: #e2e8e6;
+  --surface-3: #d5dedb;
+  --edge: #d3dcd9;
+  --edge-strong: #b8c6c2;
+  --accent: #3f6b5d;
+  --accent-ink: #f2f7f5;
+}

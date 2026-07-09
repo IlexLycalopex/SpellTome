@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PartyManager from '@islands/PartyManager.svelte';
+---
+
+<BaseLayout title="Party & Characters" skin="auto" current="/party">
+  <h1 class="page-title">Party &amp; Characters</h1>
+  <p class="page-sub">The roster across your campaigns — synced to the group's vault when signed in.</p>
+  <PartyManager client:load />
+</BaseLayout>

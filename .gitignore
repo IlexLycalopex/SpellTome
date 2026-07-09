@@ -1,0 +1,8 @@
+node_modules/
+site/dist/
+site/.astro/
+site/test-results/
+site/playwright-report/
+_pages/
+.env
+.env.*
